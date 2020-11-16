@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 
 
 namespace BESM3CA
 {
-    class AttributeData :  NodeData
+    class AttributeData : NodeData
     {
         int _Level;
         int _Points;
         bool _HasLevel;
-        int _Variant=0;
+        int _Variant = 0;
         int _PointAdj = 0;
 
         public int Variant
@@ -28,9 +25,9 @@ namespace BESM3CA
 
         public bool raiseLevel()
         {
-            
+
             //need to check maxlevel
-            if(_HasLevel==true)
+            if (_HasLevel == true)
             {
                 _Level++;
             }
@@ -39,7 +36,7 @@ namespace BESM3CA
 
         public bool lowerLevel()
         {
-            if (_Level > 0 )
+            if (_Level > 0)
             {
                 if (_HasLevel == true)
                 {
@@ -57,9 +54,9 @@ namespace BESM3CA
                 }
                 return _HasLevel;
             }
-            else 
-            { 
-                return false; 
+            else
+            {
+                return false;
             }
         }
 
@@ -107,15 +104,15 @@ namespace BESM3CA
         {
             get
             {
-                return (PointsPerLevel * Level)+_PointAdj;
+                return (PointsPerLevel * Level) + _PointAdj;
             }
         }
 
 
 
         public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
-        {              
-            
+        {
+
             _Level = Level;
             _Points = Points;
             _HasLevel = true;
@@ -151,7 +148,7 @@ namespace BESM3CA
 
         public AttributeData() : base()
         {
-            
+
         }
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
@@ -173,8 +170,8 @@ namespace BESM3CA
                             {
                                 reader.MoveToAttribute(i);
                                 switch (reader.Name)
-                                {                                
-                                case "HasLevel":
+                                {
+                                    case "HasLevel":
                                         _HasLevel = bool.Parse(reader.Value);
                                         break;
                                     case "Level":
@@ -183,10 +180,10 @@ namespace BESM3CA
                                     case "Variant":
                                         _Variant = int.Parse(reader.Value);
                                         break;
-                                case "Points":
+                                    case "Points":
                                         _Points = int.Parse(reader.Value);
                                         break;
-                                case "PointAdj":
+                                    case "PointAdj":
                                         _PointAdj = int.Parse(reader.Value);
                                         break;
                                     default:

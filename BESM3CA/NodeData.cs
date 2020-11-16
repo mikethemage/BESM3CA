@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 
 
 namespace BESM3CA
 {
-    
+
     class NodeData
     {
         public int NodeOrder;
@@ -23,12 +20,12 @@ namespace BESM3CA
             }
             set
             {
-                
+
                 _Notes = value;
             }
         }
 
-        
+
         public int ID
         {
             get
@@ -60,17 +57,17 @@ namespace BESM3CA
         public void SaveXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement(this.GetType().ToString());
-                textWriter.WriteAttributeString("Name", _name);
-                textWriter.WriteAttributeString("ID", _ID.ToString());
-                textWriter.WriteStartElement("AdditionalData");
-                textWriter.WriteAttributeString("Type", this.GetType().ToString());
-                    SaveAdditionalXML(textWriter);
-                textWriter.WriteEndElement();
-                textWriter.WriteStartElement("Notes");
-                    textWriter.WriteString(_Notes);
-                textWriter.WriteEndElement();
+            textWriter.WriteAttributeString("Name", _name);
+            textWriter.WriteAttributeString("ID", _ID.ToString());
+            textWriter.WriteStartElement("AdditionalData");
+            textWriter.WriteAttributeString("Type", this.GetType().ToString());
+            SaveAdditionalXML(textWriter);
             textWriter.WriteEndElement();
-            
+            textWriter.WriteStartElement("Notes");
+            textWriter.WriteString(_Notes);
+            textWriter.WriteEndElement();
+            textWriter.WriteEndElement();
+
         }
 
         public virtual void SaveAdditionalXML(XmlTextWriter textWriter)
@@ -113,10 +110,10 @@ namespace BESM3CA
                 {
                     if (reader.Name == "Notes")
                     {
-                     
 
-                       _Notes= reader.ReadString();
-                   
+
+                        _Notes = reader.ReadString();
+
                     }
 
                     if (reader.Name == "AdditionalData")
@@ -125,7 +122,7 @@ namespace BESM3CA
                     }
                     else
                     {
-                       // loading node attributes
+                        // loading node attributes
                         attributeCount = reader.AttributeCount;
                         if (attributeCount > 0)
                         {
@@ -146,7 +143,7 @@ namespace BESM3CA
                             }
                         }
                     }
-                    
+
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Windows.Forms;
 using System.Xml;
-using System.Windows.Forms;
 
 namespace BESM3CA
 {
@@ -16,8 +13,8 @@ namespace BESM3CA
         // imageindex="1"></node>
 
         private const string XmlNodeTextAtt = "text";
-      //  private const string XmlNodeTagAtt = "tag";
-      
+        //  private const string XmlNodeTagAtt = "tag";
+
         private void SetAttributeValue(TreeNode node,
                     string propertyName, string value)
         {
@@ -25,13 +22,13 @@ namespace BESM3CA
             {
                 node.Text = value;
             }
-            
-           /* else if (propertyName == XmlNodeTagAtt)
-            {
-                node.Tag = value;
-            }*/
+
+            /* else if (propertyName == XmlNodeTagAtt)
+             {
+                 node.Tag = value;
+             }*/
         }
-        
+
         public void DeserializeTreeView(TreeView treeView, string fileName)
         {
             XmlTextReader reader = null;
@@ -42,7 +39,7 @@ namespace BESM3CA
                 treeView.BeginUpdate();
                 reader = new XmlTextReader(fileName);
                 TreeNode parentNode = null;
-                TreeNode newNode=null;
+                TreeNode newNode = null;
                 while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element)
@@ -71,7 +68,7 @@ namespace BESM3CA
                             else
                                 treeView.Nodes.Add(newNode);
 
-                            
+
                             // making current node 'ParentNode' if its not empty
 
                             if (!isEmptyElement)
@@ -91,12 +88,12 @@ namespace BESM3CA
                                 newNode.Tag = new AttributeData();
                                 ((AttributeData)newNode.Tag).LoadXML(reader);
                             }
-                            else 
+                            else
                             {
                             }
 
                         }
-                        
+
                     }
                     // moving up to in TreeView if end tag is encountered
 
@@ -140,7 +137,7 @@ namespace BESM3CA
             // writing the xml declaration tag
             textWriter.WriteStartDocument();
             //textWriter.WriteRaw("\r\n");
-            
+
             // writing the main tag that encloses all node tags
             textWriter.WriteStartElement("TreeView");
 
@@ -151,7 +148,7 @@ namespace BESM3CA
             textWriter.Close();
         }
 
-        private void SaveNodes(TreeNodeCollection nodesCollection,  XmlTextWriter textWriter)
+        private void SaveNodes(TreeNodeCollection nodesCollection, XmlTextWriter textWriter)
         {
             for (int i = 0; i < nodesCollection.Count; i++)
             {
@@ -179,5 +176,5 @@ namespace BESM3CA
         }
     }
 
-    
+
 }

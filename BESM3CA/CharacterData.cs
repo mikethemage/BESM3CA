@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 
 namespace BESM3CA
 {
@@ -16,7 +13,7 @@ namespace BESM3CA
         {
             get
             {
-                return (_body+_mind+_soul)*10;
+                return (_body + _mind + _soul) * 10;
             }
         }
 
@@ -43,7 +40,7 @@ namespace BESM3CA
                 return (_body + _mind + _soul) / 3;
             }
         }
-        
+
         public int Body
         {
             get
@@ -58,7 +55,7 @@ namespace BESM3CA
                 }
             }
         }
-        
+
         public int Mind
         {
             get
@@ -91,7 +88,7 @@ namespace BESM3CA
 
 
 
-        public CharacterData(string Notes) : base("Character",0,Notes)
+        public CharacterData(string Notes) : base("Character", 0, Notes)
         {
             _body = 1;
             _mind = 1;
@@ -101,14 +98,14 @@ namespace BESM3CA
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("CharacterStats");
-                textWriter.WriteAttributeString("Mind",_mind.ToString() );
-                textWriter.WriteAttributeString("Body", _body.ToString());
-                textWriter.WriteAttributeString("Soul", _soul.ToString());
+            textWriter.WriteAttributeString("Mind", _mind.ToString());
+            textWriter.WriteAttributeString("Body", _body.ToString());
+            textWriter.WriteAttributeString("Soul", _soul.ToString());
             textWriter.WriteEndElement();
 
         }
 
-        public CharacterData():base()
+        public CharacterData() : base()
         {
 
         }

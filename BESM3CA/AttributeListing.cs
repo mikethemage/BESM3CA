@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BESM3CA
 {
@@ -10,9 +8,9 @@ namespace BESM3CA
         {
             get
             {
-                return _id; 
+                return _id;
             }
-            set 
+            set
             {
                 _id = value;
             }
@@ -53,7 +51,7 @@ namespace BESM3CA
                 _costperlevel = value;
             }
         }
-        
+
         private int _costperlevel;
 
         public bool RequiresVariant;
@@ -63,14 +61,14 @@ namespace BESM3CA
 
         SortedList<string, AttributeListing> Children;
 
-        
+
         List<VariantListing> Variants;
 
         public AttributeListing()
         {
-            CostperLevelDesc="";
+            CostperLevelDesc = "";
             Progression = "";
-            
+
             Children = new SortedList<string, AttributeListing>();
             Variants = new List<VariantListing>();
         }

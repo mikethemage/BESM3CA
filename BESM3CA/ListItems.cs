@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BESM3CA
+﻿namespace BESM3CA
 {
     class ListItems
     {
