@@ -8,8 +8,14 @@ using System.Linq;
 
 namespace BESM3CA
 {
+
     public partial class MainForm : Form
-    {
+    { 
+        const int HeightAdjust1 = 125;
+        const int HeightAdjust2 = 27;
+        const int HeightAdjust3 = 101;
+        const int HeightAdjust4 = 3;
+
         private string FileName;
         private bool checkMaxLevel;
 
@@ -97,13 +103,13 @@ namespace BESM3CA
                 {
                     listBox2.Visible = true;
                     label4.Visible = true;
-                    comboBox1.Top = 77;
-
-                    if (listBox1.Top == 26)
+                    comboBox1.Top = HeightAdjust3;
+                    
+                    if (listBox1.Top == HeightAdjust2)
                     {
-                        listBox1.Height -= 104 - 26;
+                        listBox1.Height -= (HeightAdjust1 - HeightAdjust2) - 7;
                     }
-                    listBox1.Top = 104;
+                    listBox1.Top = HeightAdjust1;
 
                     foreach (var item in FilteredVarList)
                     {
@@ -112,13 +118,13 @@ namespace BESM3CA
                 }
                 else
                 {
-                    comboBox1.Top = 3;
+                    comboBox1.Top = HeightAdjust4;
 
-                    if (listBox1.Top == 104)
+                    if (listBox1.Top == HeightAdjust1)
                     {
-                        listBox1.Height += 104 - 26;
+                        listBox1.Height += (HeightAdjust1 - HeightAdjust2) + 9;
                     }
-                    listBox1.Top = 26;
+                    listBox1.Top = HeightAdjust2;
                     listBox2.Visible = false;
                     label4.Visible = false;
                 }
@@ -128,12 +134,12 @@ namespace BESM3CA
             }
             else
             {
-                comboBox1.Top = 3;
-                if (listBox1.Top == 104)
+                comboBox1.Top = HeightAdjust4;
+                if (listBox1.Top == HeightAdjust1)
                 {
-                    listBox1.Height += 104 - 26;
+                    listBox1.Height += (HeightAdjust1 - HeightAdjust2) + 9 ;
                 }
-                listBox1.Top = 26;
+                listBox1.Top = HeightAdjust2;
 
                 listBox2.Items.Clear();
                 listBox2.Visible = false;

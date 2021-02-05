@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+//using System.Text.Json;
+//using System.Text.Json.Serialization;
 using System.Linq;
 
 namespace BESM3CA
@@ -10,20 +12,20 @@ namespace BESM3CA
 
         public string Name { get; set; }
 
-        public string CostperLevelDesc;
-        public string Progression;
-        public int MaxLevel;
-        public string Stat;
-        public string Page;
-        public bool Human;
-        public string Type;
-        public bool Container;
+        public string CostperLevelDesc { get; set; }
+        public string Progression { get; set; }
+        public int MaxLevel { get; set; }
+        public string Stat { get; set; }
+        public string Page { get; set; }
+        public bool Human { get; set; }
+        public string Type { get; set; }
+        public bool Container { get; set; }
         public int CostperLevel { get; set; }
 
-        public bool RequiresVariant;
-        public int SpecialPointsPerLevel;
-        public bool SpecialContainer;
-        public bool EnforceMaxLevel;
+        public bool RequiresVariant { get; set; }
+        public int SpecialPointsPerLevel { get; set; }
+        public bool SpecialContainer { get; set; }
+        public bool EnforceMaxLevel { get; set; }
 
         public string Description { get; set; }
 
@@ -43,7 +45,7 @@ namespace BESM3CA
         }
         private SortedList<string, AttributeListing> _children;
 
-        [JsonIgnore]
+        [JsonIgnore]//(Condition = JsonIgnoreCondition.Always)]
         public SortedList<string, AttributeListing> Children
         {
             get
