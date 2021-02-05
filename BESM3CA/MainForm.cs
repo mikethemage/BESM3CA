@@ -107,7 +107,7 @@ namespace BESM3CA
                     
                     if (listBox1.Top == HeightAdjust2)
                     {
-                        listBox1.Height -= (HeightAdjust1 - HeightAdjust2) - 7;
+                        listBox1.Height -= (HeightAdjust1 - HeightAdjust2) ;
                     }
                     listBox1.Top = HeightAdjust1;
 
@@ -122,7 +122,7 @@ namespace BESM3CA
 
                     if (listBox1.Top == HeightAdjust1)
                     {
-                        listBox1.Height += (HeightAdjust1 - HeightAdjust2) + 9;
+                        listBox1.Height += (HeightAdjust1 - HeightAdjust2) ;
                     }
                     listBox1.Top = HeightAdjust2;
                     listBox2.Visible = false;
@@ -137,7 +137,7 @@ namespace BESM3CA
                 comboBox1.Top = HeightAdjust4;
                 if (listBox1.Top == HeightAdjust1)
                 {
-                    listBox1.Height += (HeightAdjust1 - HeightAdjust2) + 9 ;
+                    listBox1.Height += (HeightAdjust1 - HeightAdjust2)  ;
                 }
                 listBox1.Top = HeightAdjust2;
 

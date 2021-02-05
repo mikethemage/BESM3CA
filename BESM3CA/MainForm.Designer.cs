@@ -291,11 +291,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.IntegralHeight = false;
             this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(4, 20);
+            this.listBox1.Location = new System.Drawing.Point(4, 32);
             this.listBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(257, 289);
+            this.listBox1.Size = new System.Drawing.Size(257, 318);
             this.listBox1.TabIndex = 2;
             this.listBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox1_KeyPress);
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
@@ -303,7 +304,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(4, 367);
+            this.button1.Location = new System.Drawing.Point(4, 362);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(122, 27);
@@ -315,7 +316,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(382, 238);
+            this.button2.Location = new System.Drawing.Point(377, 238);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(35, 27);
@@ -337,7 +338,7 @@
             treeNode1.Text = "Character";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            this.treeView1.Size = new System.Drawing.Size(359, 403);
+            this.treeView1.Size = new System.Drawing.Size(354, 398);
             this.treeView1.TabIndex = 5;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -386,7 +387,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2MinSize = 80;
             this.splitContainer1.Size = new System.Drawing.Size(767, 587);
-            this.splitContainer1.SplitterDistance = 414;
+            this.splitContainer1.SplitterDistance = 409;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -417,8 +418,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Panel2.Controls.Add(this.listBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(763, 410);
-            this.splitContainer2.SplitterDistance = 444;
+            this.splitContainer2.Size = new System.Drawing.Size(763, 405);
+            this.splitContainer2.SplitterDistance = 439;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -426,7 +427,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(370, 69);
+            this.label14.Location = new System.Drawing.Point(365, 69);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(50, 15);
@@ -437,7 +438,7 @@
             // 
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(379, 219);
+            this.label13.Location = new System.Drawing.Point(374, 219);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(34, 15);
@@ -447,7 +448,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(371, 141);
+            this.button6.Location = new System.Drawing.Point(366, 141);
             this.button6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(59, 46);
@@ -459,7 +460,7 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(371, 88);
+            this.button5.Location = new System.Drawing.Point(366, 88);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(59, 46);
@@ -471,7 +472,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(382, 271);
+            this.button3.Location = new System.Drawing.Point(377, 271);
             this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(35, 27);
@@ -495,6 +496,7 @@
             this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
+            this.listBox2.IntegralHeight = false;
             this.listBox2.ItemHeight = 15;
             this.listBox2.Location = new System.Drawing.Point(4, 20);
             this.listBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -506,7 +508,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(139, 367);
+            this.button4.Location = new System.Drawing.Point(139, 362);
             this.button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(122, 27);
