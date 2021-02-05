@@ -37,8 +37,8 @@ namespace BESM3CA
             DatabaseLoader.LoadDatabase(AttributeList, VariantList, TypeList);
             JSONyStuff.createJSON(AttributeList);
 
-            //AttributeList = new List<AttributeListing>();
-            //JSONyStuff.JSONLoader(AttributeList, VariantList, TypeList);
+            AttributeList = new List<AttributeListing>();
+            JSONyStuff.JSONLoader(out AttributeList, VariantList, TypeList);
 
             ResetAll();
         }
