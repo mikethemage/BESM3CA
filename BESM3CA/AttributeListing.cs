@@ -1,36 +1,14 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace BESM3CA
 {
     class AttributeListing
     {
-        public int ID
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
+        public int ID { get; set; }
 
-        private int _id;
-
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
-
-        private string _name;
+        public string Name { get; set; }
 
         public string CostperLevelDesc;
         public string Progression;
@@ -40,44 +18,54 @@ namespace BESM3CA
         public bool Human;
         public string Type;
         public bool Container;
-        public int CostperLevel
-        {
-            get
-            {
-                return _costperlevel;
-            }
-            set
-            {
-                _costperlevel = value;
-            }
-        }
-
-        private int _costperlevel;
+        public int CostperLevel { get; set; }
 
         public bool RequiresVariant;
         public int SpecialPointsPerLevel;
         public bool SpecialContainer;
         public bool EnforceMaxLevel;
 
-        SortedList<string, AttributeListing> Children;
+        public string Description { get; set; }
 
+        public string ChildrenList
+        {
+            get
+            {
+                string temp = "";
 
-        List<VariantListing> Variants;
+                var ChildIDs = from child in _children.Values
+                               select child.ID;
+
+                temp = string.Join(",", ChildIDs);
+
+                return temp;
+            }
+        }
+        private SortedList<string, AttributeListing> _children;
+
+        [JsonIgnore]
+        public SortedList<string, AttributeListing> Children
+        {
+            get
+            {
+                return _children;
+            }
+        }
 
         public AttributeListing()
         {
             CostperLevelDesc = "";
             Progression = "";
 
-            Children = new SortedList<string, AttributeListing>();
-            Variants = new List<VariantListing>();
+            _children = new SortedList<string, AttributeListing>();
+
         }
 
         public void AddChild(AttributeListing Child)
         {
             if (Child != null)
             {
-                Children.Add(Child.Name, Child);
+                _children.Add(Child.Name, Child);
             }
         }
     }

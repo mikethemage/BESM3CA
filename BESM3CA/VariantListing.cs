@@ -2,12 +2,17 @@
 {
     class VariantListing
     {
-        public int ID;
-        public string Name;
-        public int CostperLevel;
-        public string Desc;
-        public bool DefaultVariant;
+        public int ID { get; set; }
 
+        public string Name { get; set; }
+
+        public int CostperLevel { get; set; }
+
+        public int AttributeID { get; set; }
+
+        public string Desc { get; set; }
+
+        public bool DefaultVariant { get; set; }
 
     }
 }
