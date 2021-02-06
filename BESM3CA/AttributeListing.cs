@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-//using System.Text.Json;
-//using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Linq;
 
 namespace BESM3CA
@@ -45,7 +44,7 @@ namespace BESM3CA
         }
         private SortedList<string, AttributeListing> _children;
 
-        [JsonIgnore]//(Condition = JsonIgnoreCondition.Always)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public SortedList<string, AttributeListing> Children
         {
             get
