@@ -15,7 +15,7 @@ namespace BESM3CA
         {
             string input = System.IO.File.ReadAllText(@"C:\Users\Mike\Documents\TestBESM.json");
                         
-            //Use system.JSON instead of Newtonsoft?:
+            //Use system.JSON instead of Newtonsoft:
             AttributeList = System.Text.Json.JsonSerializer.Deserialize<List<AttributeListing>>(input);
 
             using (JsonDocument document = JsonDocument.Parse(input))
@@ -43,14 +43,33 @@ namespace BESM3CA
 
             }
 
+            
+            input = System.IO.File.ReadAllText(@"C:\Users\Mike\Documents\TestBESM2.json");
+
+            //Use system.JSON instead of Newtonsoft:
+            VariantList = System.Text.Json.JsonSerializer.Deserialize<List<VariantListing>>(input);
+
+
+            input = System.IO.File.ReadAllText(@"C:\Users\Mike\Documents\TestBESM3.json");
+
+            //Use system.JSON instead of Newtonsoft:
+            TypeList = System.Text.Json.JsonSerializer.Deserialize<List<TypeListing>>(input);
         }
 
 
-        public static void createJSON(List<AttributeListing> AttributeList)
+        public static void createJSON(List<AttributeListing> AttributeList, List<VariantListing> VariantList, List<TypeListing> TypeList)
         {
             string output = System.Text.Json.JsonSerializer.Serialize<List<AttributeListing>>(AttributeList);
 
             System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM.json", output);
+
+            output = System.Text.Json.JsonSerializer.Serialize<List<VariantListing>>(VariantList);
+
+            System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM2.json", output);
+
+            output = System.Text.Json.JsonSerializer.Serialize<List<TypeListing>>(TypeList);
+
+            System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM3.json", output);
 
         }
 
