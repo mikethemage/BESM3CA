@@ -36,8 +36,9 @@ namespace BESM3CA
             VariantList = new List<VariantListing>();
             TypeList = new List<TypeListing>();
 
-            //Removed: loading from database:
-            //DatabaseLoader.LoadDatabase(AttributeList, VariantList, TypeList);
+            //Removed: loading from database.
+            
+            //Create new JSON file - debugging only:
             //JSONyStuff.createJSON(AttributeList, VariantList, TypeList);
                       
             //Now loads from JSON files:
