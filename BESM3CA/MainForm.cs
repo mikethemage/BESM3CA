@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace BESM3CA
 {
-
     public partial class MainForm : Form
     { 
         const int HeightAdjust1 = 125;
@@ -33,17 +32,15 @@ namespace BESM3CA
         {
             checkMaxLevel = false;
 
-
-
-
             AttributeList = new List<AttributeListing>();
             VariantList = new List<VariantListing>();
             TypeList = new List<TypeListing>();
 
-            DatabaseLoader.LoadDatabase(AttributeList, VariantList, TypeList);
-            JSONyStuff.createJSON(AttributeList);
-
-            AttributeList = new List<AttributeListing>();
+            //Removed: loading from database:
+            //DatabaseLoader.LoadDatabase(AttributeList, VariantList, TypeList);
+            //JSONyStuff.createJSON(AttributeList, VariantList, TypeList);
+                      
+            //Now loads from JSON files:
             JSONyStuff.JSONLoader(out AttributeList, VariantList, TypeList);
 
             ResetAll();
@@ -151,14 +148,11 @@ namespace BESM3CA
         {
             RefreshVariants();
 
-
             List<AttributeListing> SelectedAttributeChildren;
 
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
                 SelectedAttributeChildren = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
-                
-
             }
             else
             {
@@ -178,18 +172,8 @@ namespace BESM3CA
                                   Att.ID==Children.ID
                                   orderby Att.Type, Att.Name
                                   select (Att.ID, Att.Name, Att.Type);
-
-           
-
-
-            /* "Select Attribute.AttributeID, Attribute.AttributeName, Type from "
-             + "Attribute, AttChildren,Types Where Attribute.Type=Types.TypeName " + FilterAtts + " and AttributeName<>'Character' and ChildID=Attribute.AttributeID and ParentID=" 
-             + ((AttributeData)treeView1.SelectedNode.Tag).AttributeID + " Order By Types.TypeOrder, AttributeName;"
-              */
-
-                //**
-
-                listBox1.Items.Clear();
+                       
+            listBox1.Items.Clear();
             string Type = "";
 
             foreach (var item in FilteredAttList)
@@ -258,7 +242,6 @@ namespace BESM3CA
                 }
                 else
                 {
-                    //int pointsPerLevel = (int)cmd.ExecuteScalar();
                     NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, CostPerLevel.First());
                 }
 
@@ -438,7 +421,6 @@ namespace BESM3CA
 
                 }
                 refreshTree(treeView1.Nodes);
-
             }
         }
 
@@ -446,7 +428,6 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-
                 AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
 
                 if (((AttributeData)treeView1.SelectedNode.Tag).Level > 1 || (((AttributeData)treeView1.SelectedNode.Tag).Level > 0 && SelectedAttribute.Name == "Weapon"))
@@ -455,7 +436,6 @@ namespace BESM3CA
 
                 }
                 refreshTree(treeView1.Nodes);
-
             }
         }
 
@@ -505,9 +485,7 @@ namespace BESM3CA
                 {
                     treeView1.SelectedNode = treeView1.Nodes[0];
                 }
-
             }
-
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -533,7 +511,6 @@ namespace BESM3CA
             bool isAlternateForm = false;
             int PointAdj = 0;
 
-
             if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
                 basepoints = ((AttributeData)Node.Tag).PointsPerLevel;
@@ -558,7 +535,6 @@ namespace BESM3CA
                 {
                     basepoints = 0;
                     level = 0;
-
                 }
                 PointAdj = ((AttributeData)Node.Tag).PointAdj;
             }
@@ -566,7 +542,6 @@ namespace BESM3CA
             {
                 basepoints = ((CharacterData)Node.Tag).basecost;
                 level = 1;
-
             }
 
             int Extra = 0;
@@ -913,7 +888,6 @@ namespace BESM3CA
                     tw.WriteLine(tabstring + current.Text);
 
                     nexttabstring = tabstring + "\t";
-
 
                     tw.WriteLine(nexttabstring + "Mind: " + ((CharacterData)current.Tag).Mind);
 
