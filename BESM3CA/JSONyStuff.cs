@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace BESM3CA
 {
-    class JSONyStuff
+    static class JSONyStuff
     {
         public static void JSONLoader(out List<AttributeListing> AttributeList, List<VariantListing> VariantList, List<TypeListing> TypeList)
         {
