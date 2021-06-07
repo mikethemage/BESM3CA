@@ -24,6 +24,10 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <StartupObject>BESM3CA.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>

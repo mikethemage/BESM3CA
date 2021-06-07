@@ -7,7 +7,7 @@ namespace BESM3CA
 {
     static class JSONyStuff
     {
-        public static void JSONLoader(out List<AttributeListing> AttributeList, List<VariantListing> VariantList, List<TypeListing> TypeList)
+        public static void JSONLoader(out List<AttributeListing> AttributeList, out List<VariantListing> VariantList, out List<TypeListing> TypeList)
         {
             string input = System.IO.File.ReadAllText(@"Datafiles\Attributes.json");
                        

@@ -42,7 +42,7 @@ namespace BESM3CA
             //JSONyStuff.createJSON(AttributeList, VariantList, TypeList);
                       
             //Now loads from JSON files:
-            JSONyStuff.JSONLoader(out AttributeList, VariantList, TypeList);
+            JSONyStuff.JSONLoader(out AttributeList, out VariantList, out TypeList);
 
             ResetAll();
         }
@@ -68,6 +68,7 @@ namespace BESM3CA
 
         private void RefreshFilter()
         {
+            comboBox1.Items.Clear();
             comboBox1.Items.Add("All");
             comboBox1.SelectedIndex = 0;
 

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BESM3CA", "BESM3CA\BESM3CA.csproj", "{A34DD826-41B6-4871-9300-C8D08AAA3BF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CA", "BESM3CA\BESM3CA.csproj", "{A34DD826-41B6-4871-9300-C8D08AAA3BF4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BESM3CA.Setup", "BESM3CA.Setup\BESM3CA.Setup.vdproj", "{22C4AFC2-A9A6-4BAC-A3F3-1DF87638EFFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{A34DD826-41B6-4871-9300-C8D08AAA3BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A34DD826-41B6-4871-9300-C8D08AAA3BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A34DD826-41B6-4871-9300-C8D08AAA3BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22C4AFC2-A9A6-4BAC-A3F3-1DF87638EFFE}.Debug|Any CPU.ActiveCfg = Debug
+		{22C4AFC2-A9A6-4BAC-A3F3-1DF87638EFFE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
