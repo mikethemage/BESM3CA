@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
 
-
 namespace BESM3CA
 {
     static class JSONyStuff
@@ -37,7 +36,6 @@ namespace BESM3CA
                 }
 
             }
-
             
             input = System.IO.File.ReadAllText(@"Datafiles\Variants.json");
             VariantList = System.Text.Json.JsonSerializer.Deserialize<List<VariantListing>>(input);
@@ -51,7 +49,6 @@ namespace BESM3CA
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-
             string output = System.Text.Json.JsonSerializer.Serialize<List<AttributeListing>>(AttributeList);
 
             System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM.json", output);

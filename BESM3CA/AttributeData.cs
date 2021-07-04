@@ -1,6 +1,5 @@
 ﻿using System.Xml;
 
-
 namespace BESM3CA
 {
     class AttributeData : NodeData
@@ -108,8 +107,6 @@ namespace BESM3CA
             }
         }
 
-
-
         public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
         {
 
@@ -139,7 +136,6 @@ namespace BESM3CA
             textWriter.WriteStartElement("AttributeStats");
             textWriter.WriteAttributeString("Level", _Level.ToString());
             textWriter.WriteAttributeString("Variant", _Variant.ToString());
-
             textWriter.WriteAttributeString("HasLevel", _HasLevel.ToString());
             textWriter.WriteAttributeString("Points", _Points.ToString());
             textWriter.WriteAttributeString("PointAdj", _PointAdj.ToString());
@@ -150,6 +146,7 @@ namespace BESM3CA
         {
 
         }
+
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
             while (reader.NodeType != XmlNodeType.None)
@@ -161,7 +158,6 @@ namespace BESM3CA
 
                     if (reader.Name == "AttributeStats")
                     {
-
                         // loading node attributes
                         int attributeCount = reader.AttributeCount;
                         if (attributeCount > 0)

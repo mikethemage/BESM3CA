@@ -8,7 +8,6 @@ namespace BESM3CA
         int _mind;
         int _soul;
 
-
         public int basecost
         {
             get
@@ -85,8 +84,6 @@ namespace BESM3CA
                 }
             }
         }
-
-
 
         public CharacterData(string Notes) : base("Character", 0, Notes)
         {
