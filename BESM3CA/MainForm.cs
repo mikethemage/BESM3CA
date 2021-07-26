@@ -52,18 +52,26 @@ namespace BESM3CA
             FileName = "";
             this.Text = "BESM3CA";
             listBox1.DataSource = null;
+
+            //Todo: decouple creation of initial node:
             treeView1.Nodes.Clear();
             TreeNode Root;
             Root = treeView1.Nodes.Add("Character");
             Root.Tag = new CharacterData("");
             ((NodeData)Root.Tag).NodeOrder = 1;
             treeView1.SelectedNode = Root;
+            //***
+
             RefreshFilter();
             RefreshList();
+
+            //Todo: update refresh data code:
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
             treeView1.TreeViewNodeSorter = new NodeSorter();
             treeView1.SelectedNode = Root;
+            //***
+
         }
 
         private void RefreshFilter()
@@ -272,11 +280,6 @@ namespace BESM3CA
             }
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             add_attr();
@@ -288,7 +291,6 @@ namespace BESM3CA
         {
             RefreshList();
             RefreshTextBoxes();
-
         }
 
         private void RefreshTextBoxes()
@@ -699,7 +701,21 @@ namespace BESM3CA
 
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
-            
+            e.Cancel = false;
+            if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            {
+                int temp = 0;
+
+                if (int.TryParse(tbBody.Text, out temp) && temp > 0)
+                {
+                    ((CharacterData)treeView1.SelectedNode.Tag).Body = temp;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+
+            }
         }
 
         private void tbMind_Validating(object sender, CancelEventArgs e)
@@ -742,7 +758,8 @@ namespace BESM3CA
 
         private void tbBody_Validated(object sender, EventArgs e)
         {
-            
+            refreshTree(treeView1.Nodes);
+            RefreshTextBoxes();
         }
 
         private void tbMind_Validated(object sender, EventArgs e)
@@ -775,11 +792,7 @@ namespace BESM3CA
 
             }
         }
-
-        private void tbSoul_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+              
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -1084,11 +1097,6 @@ namespace BESM3CA
             }
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
         }
     }
 
