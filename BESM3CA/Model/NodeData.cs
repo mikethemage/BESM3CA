@@ -1,16 +1,39 @@
 ﻿using System.Xml;
-
+using System.Collections.Generic;
 
 namespace BESM3CA
 {
-
     class NodeData
     {
-        public int NodeOrder;
+        //Members:
+        protected string _name;
+        protected int _ID;
+        protected string _Notes;
+        protected List<NodeData> _Children;
+        protected NodeData _Parent;
+        private int _LastChildOrder;
 
-        string _name;
-        int _ID;
-        string _Notes;
+        //Properties:
+        public int NodeOrder { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+        public int ID
+        {
+            get
+            {
+                return _ID;
+            }
+        }
 
         public string Notes
         {
@@ -25,35 +48,60 @@ namespace BESM3CA
             }
         }
 
-
-        public int ID
+        public List<NodeData> Children
         {
             get
             {
-                return _ID;
+                return _Children;
             }
         }
 
-        public string Name
+        public NodeData Parent
         {
             get
             {
-                return _name;
-            }
-            set
-            {
-                _name = value;
+                return _Parent;
             }
         }
 
+        //Member Functions:
+        public void addChild(NodeData Child)
+        {
+            _Children.Add(Child);
+            Child._Parent = this;
+            _LastChildOrder++;
+            Child.NodeOrder= _LastChildOrder;
+            return;
+        }
+
+        public void Delete()
+        {
+            _Parent._Children.Remove(this);
+            _Parent = null;
+            return;
+        }
+
+        //Constructors:
         public NodeData(string AttributeName, int AttributeID, string Notes)
         {
             _name = AttributeName;
             _ID = AttributeID;
             _Notes = Notes;
             NodeOrder = 1;
+            _Children = new List<NodeData>();
+            _Parent = null;
+            _LastChildOrder = 0;
+        }  
+        
+        public NodeData()
+        {
+            NodeOrder = 1;
+            _Children = new List<NodeData>();
+            _Parent = null;
+            _LastChildOrder = 0;
         }
 
+        //XML:
         public void SaveXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement(this.GetType().ToString());
@@ -67,17 +115,12 @@ namespace BESM3CA
             textWriter.WriteString(_Notes);
             textWriter.WriteEndElement();
             textWriter.WriteEndElement();
-
         }
 
         public virtual void SaveAdditionalXML(XmlTextWriter textWriter)
         {
-        }
-
-        public NodeData()
-        {
-            NodeOrder = 1;
-        }
+            //Virtual for derived classes
+        }      
 
         public void LoadXML(XmlTextReader reader)
         {
@@ -110,10 +153,7 @@ namespace BESM3CA
                 {
                     if (reader.Name == "Notes")
                     {
-
-
                         _Notes = reader.ReadString();
-
                     }
 
                     if (reader.Name == "AdditionalData")
@@ -143,7 +183,6 @@ namespace BESM3CA
                             }
                         }
                     }
-
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {
@@ -151,14 +190,13 @@ namespace BESM3CA
                     {
                         break;
                     }
-
                 }
             }
-
         }
 
         public virtual void LoadAdditionalXML(XmlTextReader reader)
         {
+            //Virtual for derived classes
         }
     }
 }

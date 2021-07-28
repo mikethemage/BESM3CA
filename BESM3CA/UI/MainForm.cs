@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
+using BESM3CA.Model;
+using BESM3CA.UI;
 
 namespace BESM3CA
 {
@@ -22,11 +23,12 @@ namespace BESM3CA
         private List<VariantListing> VariantList;
         private List<TypeListing> TypeList;
 
+        private CharacterData RootCharacter;
+
         public MainForm()
         {
             InitializeComponent();
         }
-
 
         private void BESM3CA_Load(object sender, EventArgs e)
         {
@@ -37,10 +39,10 @@ namespace BESM3CA
             TypeList = new List<TypeListing>();
 
             //Removed: loading from database.
-            
+
             //Create new JSON file - debugging only:
             //JSONyStuff.createJSON(AttributeList, VariantList, TypeList);
-                      
+
             //Now loads from JSON files:
             JSONyStuff.JSONLoader(out AttributeList, out VariantList, out TypeList);
 
@@ -57,8 +59,10 @@ namespace BESM3CA
             treeView1.Nodes.Clear();
             TreeNode Root;
             Root = treeView1.Nodes.Add("Character");
-            Root.Tag = new CharacterData("");
-            ((NodeData)Root.Tag).NodeOrder = 1;
+            RootCharacter = new CharacterData("");
+            RootCharacter.NodeOrder = 1;  //shouldn't be needed, set as default in constructor
+            Root.Tag = RootCharacter;
+            
             treeView1.SelectedNode = Root;
             //***
 
@@ -111,13 +115,13 @@ namespace BESM3CA
                     listBox2.Visible = true;
                     label4.Visible = true;
                     comboBox1.Top = HeightAdjust3;
-                    
+
                     if (listBox1.Top == HeightAdjust2)
                     {
-                        listBox1.Height -= (HeightAdjust1 - HeightAdjust2) ;
+                        listBox1.Height -= (HeightAdjust1 - HeightAdjust2);
                     }
                     listBox1.Top = HeightAdjust1;
-                    
+
                     foreach (var item in FilteredVarList)
                     {
                         listBox2.Items.Add(new ListItems(item.AttributeName + " [" + item.VariantName + "]", item.VariantID));
@@ -129,7 +133,7 @@ namespace BESM3CA
 
                     if (listBox1.Top == HeightAdjust1)
                     {
-                        listBox1.Height += (HeightAdjust1 - HeightAdjust2) ;
+                        listBox1.Height += (HeightAdjust1 - HeightAdjust2);
                     }
                     listBox1.Top = HeightAdjust2;
                     listBox2.Visible = false;
@@ -144,10 +148,10 @@ namespace BESM3CA
                 comboBox1.Top = HeightAdjust4;
                 if (listBox1.Top == HeightAdjust1)
                 {
-                    listBox1.Height += (HeightAdjust1 - HeightAdjust2)  ;
+                    listBox1.Height += (HeightAdjust1 - HeightAdjust2);
                 }
                 listBox1.Top = HeightAdjust2;
-                
+
                 listBox2.Items.Clear();
                 listBox2.Visible = false;
                 label4.Visible = false;
@@ -173,16 +177,16 @@ namespace BESM3CA
             var FilteredAttList = from Att in AttributeList
                                   where
                                   (comboBox1.SelectedIndex == -1 || comboBox1.Items[comboBox1.SelectedIndex].ToString() == "All" || comboBox1.Items[comboBox1.SelectedIndex].ToString() == "" || Att.Type == comboBox1.Items[comboBox1.SelectedIndex].ToString())
-                                  && 
+                                  &&
                                   (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData) || Att.Type == "Attribute" || Att.Type == "Defect" || Att.Type == "Skill")
                                   &&
-                                  Att.Name!="Character"
+                                  Att.Name != "Character"
                                   from Children in SelectedAttributeChildren
                                   where
-                                  Att.ID==Children.ID
+                                  Att.ID == Children.ID
                                   orderby Att.Type, Att.Name
                                   select (Att.ID, Att.Name, Att.Type);
-                       
+
             listBox1.Items.Clear();
             string Type = "";
 
@@ -204,11 +208,6 @@ namespace BESM3CA
             listBox1.DisplayMember = "DisplayMember";
             listBox1.ValueMember = "ValueMember";
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            add_attr();
         }
 
         private void add_attr()
@@ -255,7 +254,7 @@ namespace BESM3CA
                     NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, CostPerLevel.First());
                 }
 
-                                    ((NodeData)NewNode.Tag).NodeOrder = NewNode.Parent.Nodes.Count;
+                //((NodeData)NewNode.Tag).NodeOrder = NewNode.Parent.Nodes.Count;
 
                 if (((ListItems)listBox1.SelectedItem).DisplayMember == "Companion")
                 {
@@ -271,6 +270,11 @@ namespace BESM3CA
                     NewSubNode.Tag = new AttributeData(NewSubNode.Text, 167, "", 3, 1, -3);
                     NewSubNode.Parent.Expand();
                 }
+
+
+                //Temp code for subbing in decoupler:
+                ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
+                //***
 
                 refreshTree(treeView1.Nodes);
 
@@ -305,18 +309,18 @@ namespace BESM3CA
                 tbBody.Visible = true;
                 tbMind.Visible = true;
                 tbSoul.Visible = true;
-                label1.Visible = true;
-                label2.Visible = true;
-                label3.Visible = true;
+                lbBody.Visible = true;
+                lbMind.Visible = true;
+                lbSoul.Visible = true;
                 tbLevel.Text = "";
                 tbDesc.Text = "";
                 tbLevel.Visible = false;
                 tbDesc.Visible = false;
-                label5.Visible = false;
-                label6.Visible = true;
-                label7.Visible = true;
-                label10.Visible = false;
-                label11.Visible = false;
+                lbLevel.Visible = false;
+                lbHealth.Visible = true;
+                lbEnergy.Visible = true;
+                lbPointsPerLevel.Visible = false;
+                lbPointCost.Visible = false;
 
                 CalcStats stats = GetStats(treeView1.SelectedNode);
                 tbHealth.Visible = true;
@@ -324,14 +328,14 @@ namespace BESM3CA
                 tbHealth.Text = stats.Health.ToString();
                 tbEnergy.Text = stats.Energy.ToString();
 
-                label9.Visible = true;
-                label8.Visible = true;
+                lbACV.Visible = true;
+                lbDCV.Visible = true;
                 tbACV.Visible = true;
                 tbDCV.Visible = true;
                 tbACV.Text = stats.ACV.ToString();
                 tbDCV.Text = stats.DCV.ToString();
 
-                label15.Visible = false;
+                lbDescription.Visible = false;
                 tbPPL.Visible = false;
                 tbPoints.Visible = false;
 
@@ -344,17 +348,17 @@ namespace BESM3CA
                 tbBody.Visible = false;
                 tbMind.Visible = false;
                 tbSoul.Visible = false;
-                label1.Visible = false;
-                label2.Visible = false;
-                label3.Visible = false;
+                lbBody.Visible = false;
+                lbMind.Visible = false;
+                lbSoul.Visible = false;
 
-                label6.Visible = false;
-                label7.Visible = false;
+                lbHealth.Visible = false;
+                lbEnergy.Visible = false;
                 tbHealth.Visible = false;
                 tbEnergy.Visible = false;
 
-                label9.Visible = false;
-                label8.Visible = false;
+                lbACV.Visible = false;
+                lbDCV.Visible = false;
                 tbACV.Visible = false;
                 tbDCV.Visible = false;
 
@@ -363,7 +367,7 @@ namespace BESM3CA
                     tbLevel.Text = ((AttributeData)treeView1.SelectedNode.Tag).Level.ToString();
                     tbLevel.Visible = true;
                     tbDesc.Visible = true;
-                    label15.Visible = true;
+                    lbDescription.Visible = true;
 
                     var Description = from Att in AttributeList
                                       where Att.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID
@@ -371,7 +375,7 @@ namespace BESM3CA
 
                     tbDesc.Text = Description.First();
 
-                    label5.Visible = true;
+                    lbLevel.Visible = true;
                     if (((AttributeData)treeView1.SelectedNode.Tag).Name != "Companion")
                     {
                         tbPPL.Visible = true;
@@ -379,28 +383,26 @@ namespace BESM3CA
                         tbPPL.Text = ((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel.ToString();
                         tbPoints.Text = ((((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel * ((AttributeData)treeView1.SelectedNode.Tag).Level) + ((AttributeData)treeView1.SelectedNode.Tag).PointAdj).ToString();
                         tbPoints.Visible = true;
-                        label10.Visible = true;
-                        label11.Visible = true;
+                        lbPointsPerLevel.Visible = true;
+                        lbPointCost.Visible = true;
                     }
                     else
                     {
                         tbPPL.Visible = false;
-
                         tbPoints.Visible = false;
-                        label10.Visible = false;
-                        label11.Visible = false;
+                        lbPointsPerLevel.Visible = false;
+                        lbPointCost.Visible = false;
                     }
                 }
                 else
                 {
-
                     tbLevel.Visible = false;
-                    label5.Visible = false;
+                    lbLevel.Visible = false;
                     tbPPL.Visible = false;
 
                     tbPoints.Visible = false;
-                    label10.Visible = false;
-                    label11.Visible = false;
+                    lbPointsPerLevel.Visible = false;
+                    lbPointCost.Visible = false;
                 }
 
             }
@@ -679,24 +681,7 @@ namespace BESM3CA
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (treeView1.SelectedNode.Tag.GetType() != typeof(BESM3CA.CharacterData))
-            {
-                if (((BESM3CA.AttributeData)treeView1.SelectedNode.Tag).PointAdj >= 0)
-                {
 
-                    TreeNode tempNode = treeView1.SelectedNode.NextNode;
-                    treeView1.SelectedNode.Remove();
-
-                    while (tempNode != null)
-                    {
-                        ((NodeData)tempNode.Tag).NodeOrder -= 1;
-                        tempNode = tempNode.NextNode;
-                    }
-
-                    refreshTree(treeView1.Nodes);
-                }
-
-            }
         }
 
         private void tbBody_Validating(object sender, CancelEventArgs e)
@@ -792,7 +777,7 @@ namespace BESM3CA
 
             }
         }
-              
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -804,11 +789,12 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode != treeView1.Nodes[0] && treeView1.SelectedNode.Parent.Nodes.Count > 1 && treeView1.SelectedNode.PrevNode != null)
             {
+                
                 TreeNode tempnode = treeView1.SelectedNode;
-                int temp = ((NodeData)treeView1.SelectedNode.Tag).NodeOrder;
-                int temp2 = ((NodeData)treeView1.SelectedNode.PrevNode.Tag).NodeOrder;
-                ((NodeData)treeView1.SelectedNode.Tag).NodeOrder = temp2;
-                ((NodeData)treeView1.SelectedNode.PrevNode.Tag).NodeOrder = temp;
+                int temp = ((NodeData)tempnode.Tag).NodeOrder;
+                int temp2 = ((NodeData)tempnode.PrevNode.Tag).NodeOrder;
+                ((NodeData)tempnode.Tag).NodeOrder = temp2;
+                ((NodeData)tempnode.PrevNode.Tag).NodeOrder = temp;
                 treeView1.Sort();
                 treeView1.SelectedNode = tempnode;
 
@@ -1067,11 +1053,11 @@ namespace BESM3CA
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
-            
+
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
             {
                 ((CharacterData)treeView1.SelectedNode.Tag).Body = (int)tbBody.Value;
-                
+
             }
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
@@ -1098,51 +1084,36 @@ namespace BESM3CA
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
         }
-    }
 
-
-    // Create a node sorter that implements the IComparer interface.
-    public class NodeSorter : IComparer
-    {
-        // Compare the length of the strings, or the strings
-        // themselves, if they are the same length.
-        public int Compare(object x, object y)
+        private void bnAdd_Click(object sender, EventArgs e)
         {
-            TreeNode tx = x as TreeNode;
-            TreeNode ty = y as TreeNode;
+            add_attr();
+        }
 
-            if (tx.Tag == null && ty.Tag == null)
-                return string.Compare(tx.Text, ty.Text);
+        private void bnDelete_Click(object sender, EventArgs e)
+        {
+            del_attr();
+        }
 
-            if (tx.Tag == null)
-                return int.MaxValue;
+        private void del_attr()
+        {
+            if (treeView1.SelectedNode.Tag.GetType() != typeof(BESM3CA.CharacterData))
+            {
+                if (((BESM3CA.AttributeData)treeView1.SelectedNode.Tag).PointAdj >= 0)
+                {
 
-            if (ty.Tag == null)
-                return int.MinValue;
+                    TreeNode tempNode = treeView1.SelectedNode.NextNode;
+                    treeView1.SelectedNode.Remove();
 
-            // Compare the length of the strings, returning the difference.
-            if (((NodeData)tx.Tag).NodeOrder != ((NodeData)ty.Tag).NodeOrder)
-                return (((NodeData)tx.Tag).NodeOrder - ((NodeData)ty.Tag).NodeOrder);
+                    while (tempNode != null)
+                    {
+                        ((NodeData)tempNode.Tag).NodeOrder -= 1;
+                        tempNode = tempNode.NextNode;
+                    }
 
-            // If they are the same length, call Compare.
-            return string.Compare(tx.Text, ty.Text);
+                    refreshTree(treeView1.Nodes);
+                }
+            }
         }
     }
-
-    public class CalcStats
-    {
-        public int Health;
-        public int Energy;
-        public int ACV;
-        public int DCV;
-
-        public CalcStats(int h, int e, int a, int d)
-        {
-            Health = h;
-            Energy = e;
-            ACV = a;
-            DCV = d;
-        }
-    }
-
 }
