@@ -9,12 +9,14 @@ namespace BESM3CA
         protected string _name;
         protected int _ID;
         protected string _Notes;
-        protected List<NodeData> _Children;
+        protected NodeData _FirstChild;
         protected NodeData _Parent;
         private int _LastChildOrder;
 
         //Properties:
         public int NodeOrder { get; set; }
+        public NodeData Next { get; set; }
+        public NodeData Prev{ get; set; }
 
         public string Name
         {
@@ -48,11 +50,11 @@ namespace BESM3CA
             }
         }
 
-        public List<NodeData> Children
+        public NodeData Children
         {
             get
             {
-                return _Children;
+                return _FirstChild;
             }
         }
 
@@ -67,18 +69,108 @@ namespace BESM3CA
         //Member Functions:
         public void addChild(NodeData Child)
         {
-            _Children.Add(Child);
+            if (_FirstChild == null)
+            {
+                _FirstChild = Child;                
+            }
+            else
+            {
+                NodeData temp = _FirstChild;
+                while (temp.Next!=null)
+                {
+                    temp = temp.Next;
+                }
+                temp.Next = Child;
+                Child.Prev = temp;
+            }
+            
             Child._Parent = this;
             _LastChildOrder++;
             Child.NodeOrder= _LastChildOrder;
-            return;
+            
         }
 
         public void Delete()
         {
-            _Parent._Children.Remove(this);
-            _Parent = null;
-            return;
+            if(Parent!=null)
+            {
+                if(Parent._FirstChild==this)
+                {
+                    Parent._FirstChild = this.Next;                    
+                }
+                if (this.Next != null)
+                {
+                    this.Next.Prev = null;
+                }
+                if (this.Prev != null)
+                {
+                    this.Prev.Next = null;
+                }
+                _Parent = null;
+            }
+            
+            
+        }
+
+        public void MoveUp()
+        {
+            if(Prev!=null)
+            {
+                NodeData temp = Prev;
+
+                if (temp.Parent._FirstChild == temp)
+                {
+                    temp.Parent._FirstChild = this;
+                }
+
+                if (this.Next != null)
+                {
+                    this.Next.Prev = temp;
+                }
+                if (temp.Prev != null)
+                {
+                    temp.Prev.Next = this;
+                }
+
+                this.Prev = temp.Prev;
+                temp.Next = this.Next;
+                this.Next = temp;
+                temp.Prev = this;
+                int tempNodeOrder = this.NodeOrder;
+                this.NodeOrder = temp.NodeOrder;
+                temp.NodeOrder = tempNodeOrder;
+
+            }
+        }
+
+        public void MoveDown()
+        {
+            if (Next != null)
+            {
+                NodeData temp = Next;
+
+                if(this.Parent._FirstChild==this)
+                {
+                    this.Parent._FirstChild = temp;
+                }
+
+                if(this.Prev!=null)
+                {
+                    this.Prev.Next = temp;
+                }
+                if(temp.Next!=null)
+                {
+                    temp.Next.Prev = this;
+                }
+                
+                this.Next = temp.Next;
+                temp.Prev = this.Prev;
+                this.Prev = temp;
+                temp.Next = this;
+                int tempNodeOrder = this.NodeOrder;
+                this.NodeOrder = temp.NodeOrder;
+                temp.NodeOrder = tempNodeOrder;
+            }
         }
 
         //Constructors:
@@ -88,17 +180,21 @@ namespace BESM3CA
             _ID = AttributeID;
             _Notes = Notes;
             NodeOrder = 1;
-            _Children = new List<NodeData>();
+            _FirstChild = null;
             _Parent = null;
             _LastChildOrder = 0;
+            Next = null;
+            Prev = null;
         }  
         
         public NodeData()
         {
             NodeOrder = 1;
-            _Children = new List<NodeData>();
+            _FirstChild = null;
             _Parent = null;
             _LastChildOrder = 0;
+            Next = null;
+            Prev = null;
         }
 
         //XML:

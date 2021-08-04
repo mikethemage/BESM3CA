@@ -60,7 +60,7 @@ namespace BESM3CA
             TreeNode Root;
             Root = treeView1.Nodes.Add("Character");
             RootCharacter = new CharacterData("");
-            RootCharacter.NodeOrder = 1;  //shouldn't be needed, set as default in constructor
+            
             Root.Tag = RootCharacter;
             
             treeView1.SelectedNode = Root;
@@ -254,20 +254,22 @@ namespace BESM3CA
                     NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, CostPerLevel.First());
                 }
 
-                //((NodeData)NewNode.Tag).NodeOrder = NewNode.Parent.Nodes.Count;
-
+                TreeNode NewSubNode;
                 if (((ListItems)listBox1.SelectedItem).DisplayMember == "Companion")
                 {
-                    NewNode = NewNode.Nodes.Add("Character");
-                    NewNode.Tag = new CharacterData("");
-                    NewNode.Parent.Expand();
+                    
+                    NewSubNode = NewNode.Nodes.Add("Character");
+                    NewSubNode.Tag = new CharacterData("");
+                    ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
+                    NewSubNode.Parent.Expand();
                 }
 
                 if (((ListItems)listBox1.SelectedItem).DisplayMember == "Mind Control")
                 {
-                    TreeNode NewSubNode;
+                    //TreeNode NewSubNode;
                     NewSubNode = NewNode.Nodes.Add("Range");
                     NewSubNode.Tag = new AttributeData(NewSubNode.Text, 167, "", 3, 1, -3);
+                    ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
                     NewSubNode.Parent.Expand();
                 }
 
@@ -676,14 +678,11 @@ namespace BESM3CA
                     Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
                 }
 
+                
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
@@ -791,12 +790,13 @@ namespace BESM3CA
             {
                 
                 TreeNode tempnode = treeView1.SelectedNode;
-                int temp = ((NodeData)tempnode.Tag).NodeOrder;
-                int temp2 = ((NodeData)tempnode.PrevNode.Tag).NodeOrder;
-                ((NodeData)tempnode.Tag).NodeOrder = temp2;
-                ((NodeData)tempnode.PrevNode.Tag).NodeOrder = temp;
+
+                ((NodeData)tempnode.Tag).MoveUp();
+                
                 treeView1.Sort();
                 treeView1.SelectedNode = tempnode;
+
+                refreshTree(tempnode.Parent.Nodes);
 
             }
 
@@ -807,12 +807,12 @@ namespace BESM3CA
             if (treeView1.SelectedNode != treeView1.Nodes[0] && treeView1.SelectedNode.Parent.Nodes.Count > 1 && treeView1.SelectedNode.NextNode != null)
             {
                 TreeNode tempnode = treeView1.SelectedNode;
-                int temp = ((NodeData)treeView1.SelectedNode.Tag).NodeOrder;
-                int temp2 = ((NodeData)treeView1.SelectedNode.NextNode.Tag).NodeOrder;
-                ((NodeData)treeView1.SelectedNode.Tag).NodeOrder = temp2;
-                ((NodeData)treeView1.SelectedNode.NextNode.Tag).NodeOrder = temp;
+                ((NodeData)tempnode.Tag).MoveDown();                
+               
                 treeView1.Sort();
                 treeView1.SelectedNode = tempnode;
+
+                refreshTree(tempnode.Parent.Nodes);
 
             }
         }
@@ -1103,17 +1103,17 @@ namespace BESM3CA
                 {
 
                     TreeNode tempNode = treeView1.SelectedNode.NextNode;
-                    treeView1.SelectedNode.Remove();
-
-                    while (tempNode != null)
-                    {
-                        ((NodeData)tempNode.Tag).NodeOrder -= 1;
-                        tempNode = tempNode.NextNode;
-                    }
+                    ((NodeData)treeView1.SelectedNode.Tag).Delete();
+                    treeView1.SelectedNode.Remove();                    
 
                     refreshTree(treeView1.Nodes);
                 }
             }
+        }
+
+        private void tbMind_Validated_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
