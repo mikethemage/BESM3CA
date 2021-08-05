@@ -681,7 +681,6 @@ namespace BESM3CA
                 
             }
         }
-
        
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
@@ -701,7 +700,6 @@ namespace BESM3CA
 
             }
         }
-
         private void tbMind_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
@@ -720,7 +718,6 @@ namespace BESM3CA
 
             }
         }
-
         private void tbSoul_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
@@ -739,13 +736,12 @@ namespace BESM3CA
 
             }
         }
-
+        
         private void tbBody_Validated(object sender, EventArgs e)
         {
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
         }
-
         private void tbMind_Validated(object sender, EventArgs e)
         {
             refreshTree(treeView1.Nodes);
@@ -757,7 +753,6 @@ namespace BESM3CA
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
         }
-
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1110,10 +1105,6 @@ namespace BESM3CA
                 }
             }
         }
-
-        private void tbMind_Validated_1(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

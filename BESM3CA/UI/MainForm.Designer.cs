@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Character");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Character");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -299,7 +299,7 @@
             this.listBox1.Location = new System.Drawing.Point(6, 5);
             this.listBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(366, 706);
+            this.listBox1.Size = new System.Drawing.Size(366, 698);
             this.listBox1.TabIndex = 2;
             this.listBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox1_KeyPress);
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
@@ -307,7 +307,7 @@
             // bnAdd
             // 
             this.bnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnAdd.Location = new System.Drawing.Point(6, 783);
+            this.bnAdd.Location = new System.Drawing.Point(6, 775);
             this.bnAdd.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnAdd.Name = "bnAdd";
             this.bnAdd.Size = new System.Drawing.Size(159, 45);
@@ -319,7 +319,7 @@
             // bnIncreaseLevel
             // 
             this.bnIncreaseLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnIncreaseLevel.Location = new System.Drawing.Point(854, 397);
+            this.bnIncreaseLevel.Location = new System.Drawing.Point(848, 397);
             this.bnIncreaseLevel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnIncreaseLevel.Name = "bnIncreaseLevel";
             this.bnIncreaseLevel.Size = new System.Drawing.Size(50, 45);
@@ -337,11 +337,11 @@
             this.treeView1.Location = new System.Drawing.Point(6, 5);
             this.treeView1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "root";
-            treeNode1.Text = "Character";
+            treeNode4.Name = "root";
+            treeNode4.Text = "Character";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeView1.Size = new System.Drawing.Size(802, 841);
+            treeNode4});
+            this.treeView1.Size = new System.Drawing.Size(796, 833);
             this.treeView1.TabIndex = 5;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -392,7 +392,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2MinSize = 0;
             this.splitContainer1.Size = new System.Drawing.Size(1416, 1043);
-            this.splitContainer1.SplitterDistance = 857;
+            this.splitContainer1.SplitterDistance = 849;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -424,8 +424,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer2.Panel2.Controls.Add(this.bnAdd);
             this.splitContainer2.Panel2.Controls.Add(this.listBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(1412, 853);
-            this.splitContainer2.SplitterDistance = 942;
+            this.splitContainer2.Size = new System.Drawing.Size(1412, 845);
+            this.splitContainer2.SplitterDistance = 936;
             this.splitContainer2.SplitterWidth = 7;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -433,7 +433,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(836, 115);
+            this.label14.Location = new System.Drawing.Point(830, 115);
             this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(75, 25);
@@ -444,7 +444,7 @@
             // 
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(849, 365);
+            this.label13.Location = new System.Drawing.Point(843, 365);
             this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 25);
@@ -454,7 +454,7 @@
             // bnMoveDown
             // 
             this.bnMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnMoveDown.Location = new System.Drawing.Point(836, 233);
+            this.bnMoveDown.Location = new System.Drawing.Point(830, 233);
             this.bnMoveDown.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnMoveDown.Name = "bnMoveDown";
             this.bnMoveDown.Size = new System.Drawing.Size(84, 77);
@@ -466,7 +466,7 @@
             // bnMoveUp
             // 
             this.bnMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnMoveUp.Location = new System.Drawing.Point(836, 147);
+            this.bnMoveUp.Location = new System.Drawing.Point(830, 147);
             this.bnMoveUp.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnMoveUp.Name = "bnMoveUp";
             this.bnMoveUp.Size = new System.Drawing.Size(84, 77);
@@ -478,7 +478,7 @@
             // bnDecreaseLevel
             // 
             this.bnDecreaseLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnDecreaseLevel.Location = new System.Drawing.Point(854, 452);
+            this.bnDecreaseLevel.Location = new System.Drawing.Point(848, 452);
             this.bnDecreaseLevel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnDecreaseLevel.Name = "bnDecreaseLevel";
             this.bnDecreaseLevel.Size = new System.Drawing.Size(50, 45);
@@ -514,7 +514,7 @@
             // bnDelete
             // 
             this.bnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnDelete.Location = new System.Drawing.Point(216, 783);
+            this.bnDelete.Location = new System.Drawing.Point(216, 775);
             this.bnDelete.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnDelete.Name = "bnDelete";
             this.bnDelete.Size = new System.Drawing.Size(156, 45);
@@ -559,11 +559,13 @@
             0,
             0});
             this.tbSoul.ValueChanged += new System.EventHandler(this.tbSoul_ValueChanged);
+            this.tbSoul.Validating += new System.ComponentModel.CancelEventHandler(this.tbSoul_Validating);
+            this.tbSoul.Validated += new System.EventHandler(this.tbSoul_Validated);
             // 
             // tbMind
             // 
             this.tbMind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMind.Location = new System.Drawing.Point(1134, 40);
+            this.tbMind.Location = new System.Drawing.Point(1128, 40);
             this.tbMind.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tbMind.Maximum = new decimal(new int[] {
             1024,
@@ -584,7 +586,8 @@
             0,
             0});
             this.tbMind.ValueChanged += new System.EventHandler(this.tbMind_ValueChanged);
-            this.tbMind.Validated += new System.EventHandler(this.tbMind_Validated_1);
+            this.tbMind.Validating += new System.ComponentModel.CancelEventHandler(this.tbMind_Validating);
+            this.tbMind.Validated += new System.EventHandler(this.tbMind_Validated);
             // 
             // tbBody
             // 
