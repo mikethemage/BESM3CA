@@ -1,5 +1,4 @@
-﻿
-namespace BESM3CA.Model
+﻿namespace BESM3CA.Model
 {
     public class CalcStats
     {
