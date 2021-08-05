@@ -109,7 +109,6 @@ namespace BESM3CA
 
         public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
         {
-
             _Level = Level;
             _Points = Points;
             _HasLevel = true;
@@ -126,9 +125,26 @@ namespace BESM3CA
 
         public AttributeData(string AttributeName, int AttributeID, string Notes, int Points) : base(AttributeName, AttributeID, Notes)
         {
-            _Level = 1;
+            if (AttributeName == "Item")
+            {
+                _HasLevel = false;
+                _Level = 0;
+            }
+            else
+            {
+                _HasLevel = true;
+                if(AttributeName=="Weapon")
+                {
+                    _Level = 0;
+                }
+                else
+                {
+                    _Level = 1;
+                }
+            }
+
             _Points = Points;
-            _HasLevel = false;
+            
         }
 
         public override void SaveAdditionalXML(XmlTextWriter textWriter)

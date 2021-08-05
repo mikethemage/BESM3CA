@@ -220,44 +220,13 @@ namespace BESM3CA
 
                 var CostPerLevel = from Att in AttributeList
                                    where Att.ID == ((ListItems)listBox1.SelectedItem).ValueMember
-                                   select Att.CostperLevel;
-
-                int baselevel = 0;
-                if (NewNode.Text == "Weapon")
-                {
-                    baselevel = 0;
-
-                }
-                else
-                {
-                    baselevel = 1;
-                }
-
-                if (CostPerLevel.First() == 0)
-                {
-                    var RequiresVariant = from Att in AttributeList
-                                          where Att.ID == ((ListItems)listBox1.SelectedItem).ValueMember
-                                          select Att.RequiresVariant;
-
-                    if (RequiresVariant.First() == true)
-                    {
-                        NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, 0);
-
-                    }
-                    else
-                    {
-                        NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", 0);
-                    }
-                }
-                else
-                {
-                    NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, CostPerLevel.First());
-                }
+                                   select Att.CostperLevel;                
+                                   
+                NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", CostPerLevel.First());
 
                 TreeNode NewSubNode;
                 if (((ListItems)listBox1.SelectedItem).DisplayMember == "Companion")
-                {
-                    
+                {                    
                     NewSubNode = NewNode.Nodes.Add("Character");
                     NewSubNode.Tag = new CharacterData("");
                     ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
@@ -265,14 +234,12 @@ namespace BESM3CA
                 }
 
                 if (((ListItems)listBox1.SelectedItem).DisplayMember == "Mind Control")
-                {
-                    //TreeNode NewSubNode;
+                {                   
                     NewSubNode = NewNode.Nodes.Add("Range");
                     NewSubNode.Tag = new AttributeData(NewSubNode.Text, 167, "", 3, 1, -3);
                     ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
                     NewSubNode.Parent.Expand();
                 }
-
 
                 //Temp code for subbing in decoupler:
                 ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
@@ -280,8 +247,7 @@ namespace BESM3CA
 
                 refreshTree(treeView1.Nodes);
 
-                treeView1.SelectedNode.Expand();
-                //treeView1.Focus();
+                treeView1.SelectedNode.Expand();              
 
             }
         }
@@ -300,8 +266,7 @@ namespace BESM3CA
         }
 
         private void RefreshTextBoxes()
-        {
-            // textBox1.Text = ((NodeData)treeView1.SelectedNode.Tag).Name + " " + GetPoints(treeView1.SelectedNode).ToString();
+        {            
             textBox1.Text = ((NodeData)treeView1.SelectedNode.Tag).Notes;
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
             {
@@ -772,7 +737,6 @@ namespace BESM3CA
             }
         }
 
-
         private void button3_Click(object sender, EventArgs e)
         {
             LowerLevel();
@@ -794,7 +758,6 @@ namespace BESM3CA
                 refreshTree(tempnode.Parent.Nodes);
 
             }
-
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -808,7 +771,6 @@ namespace BESM3CA
                 treeView1.SelectedNode = tempnode;
 
                 refreshTree(tempnode.Parent.Nodes);
-
             }
         }
 
@@ -832,7 +794,6 @@ namespace BESM3CA
 
         private void exportToTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             saveFileDialog1.Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*";
@@ -855,13 +816,11 @@ namespace BESM3CA
 
                 //close file
                 tw.Close();
-
             }
             else
             {
                 return; //User Pressed Cancel
             }
-
         }
 
         private void exportNode(TreeNodeCollection nodes, int tabdepth, TextWriter tw)
@@ -902,7 +861,6 @@ namespace BESM3CA
                     tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
 
                     tw.WriteLine();
-
                 }
                 else
                 {
@@ -937,7 +895,6 @@ namespace BESM3CA
                         tw.WriteLine(tabstring + current.Text + " Level " + ((AttributeData)current.Tag).Level);
 
                         nexttabstring = tabstring + "\t";
-
                     }
 
                 }
@@ -958,7 +915,6 @@ namespace BESM3CA
 
                     tw.WriteLine();
                 }
-
             }
         }
 
@@ -982,7 +938,6 @@ namespace BESM3CA
             CalcStats temp;
             foreach (TreeNode current in Node.Nodes)
             {
-
                 if (current.Tag.GetType() == typeof(BESM3CA.AttributeData))
                 {
                     if (((AttributeData)current.Tag).Name == "Tough")
@@ -1027,24 +982,16 @@ namespace BESM3CA
                         stats.Energy += temp.Energy;
                         stats.ACV += temp.ACV;
                         stats.DCV += temp.DCV;
-
                     }
                 }
-
             }
             return stats;
         }
 
-
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {
             ((NodeData)treeView1.SelectedNode.Tag).Notes = textBox1.Text;
-        }
-
-        private void tbPoints_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }       
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
@@ -1052,7 +999,6 @@ namespace BESM3CA
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
             {
                 ((CharacterData)treeView1.SelectedNode.Tag).Body = (int)tbBody.Value;
-
             }
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
@@ -1063,7 +1009,6 @@ namespace BESM3CA
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
             {
                 ((CharacterData)treeView1.SelectedNode.Tag).Mind = (int)tbMind.Value;
-
             }
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
@@ -1074,7 +1019,6 @@ namespace BESM3CA
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
             {
                 ((CharacterData)treeView1.SelectedNode.Tag).Soul = (int)tbSoul.Value;
-
             }
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
@@ -1096,7 +1040,6 @@ namespace BESM3CA
             {
                 if (((BESM3CA.AttributeData)treeView1.SelectedNode.Tag).PointAdj >= 0)
                 {
-
                     TreeNode tempNode = treeView1.SelectedNode.NextNode;
                     ((NodeData)treeView1.SelectedNode.Tag).Delete();
                     treeView1.SelectedNode.Remove();                    
@@ -1104,7 +1047,6 @@ namespace BESM3CA
                     refreshTree(treeView1.Nodes);
                 }
             }
-        }
-        
+        }        
     }
 }

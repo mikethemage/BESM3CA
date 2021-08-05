@@ -8,6 +8,8 @@ namespace BESM3CA
         int _mind;
         int _soul;
 
+        public string CharacterName {get; set;}
+     
         public int basecost
         {
             get
@@ -104,7 +106,7 @@ namespace BESM3CA
 
         public CharacterData() : base()
         {
-
+            //Default Constructor
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
