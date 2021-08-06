@@ -212,8 +212,9 @@ namespace BESM3CA
                                    select Att.CostperLevel;                
                                    
                 NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)lbAttributeList.SelectedItem).ValueMember, "", CostPerLevel.First());
-
-
+                //Temp code for subbing in decoupler:
+                ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
+                //***
 
                 TreeNode NewSubNode;
                 if (((NodeData)NewNode.Tag).Children !=null)
@@ -229,9 +230,7 @@ namespace BESM3CA
                     }                    
                 }
 
-                //Temp code for subbing in decoupler:
-                ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
-                //***
+                
 
                 refreshTree(tvCharacterTree.Nodes);
                 tvCharacterTree.SelectedNode.Expand();              

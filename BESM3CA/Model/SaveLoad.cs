@@ -69,12 +69,12 @@ namespace BESM3CA.Model
                         }
                         else
                         {
-                            if (reader.Name == "BESM3CA.CharacterData" && newNode != null)
+                            if (reader.Name.EndsWith(".CharacterData") && newNode != null)
                             {
                                 newNode.Tag = new CharacterData();
                                 ((CharacterData)newNode.Tag).LoadXML(reader);
                             }
-                            else if (reader.Name == "BESM3CA.AttributeData" && newNode != null)
+                            else if (reader.Name.EndsWith(".AttributeData") && newNode != null)
                             {
                                 newNode.Tag = new AttributeData();
                                 ((AttributeData)newNode.Tag).LoadXML(reader);
