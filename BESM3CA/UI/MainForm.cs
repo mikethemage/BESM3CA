@@ -6,25 +6,25 @@ using System.Windows.Forms;
 using System.Linq;
 using BESM3CA.Model;
 using BESM3CA.UI;
+using BESM3CA.Templates;
 
 namespace BESM3CA
 {
     public partial class MainForm : Form
     {
+        //Constants for adjusting right hand list and combo boxes:
         const int HeightAdjust1 = 125;
         const int HeightAdjust2 = 27;
         const int HeightAdjust3 = 101;
         const int HeightAdjust4 = 3;
+        //****
+
+        private TemplateData BESM3E;
+        private CharacterData RootCharacter;
 
         private string FileName;
         private bool checkMaxLevel;
-
-        private List<AttributeListing> AttributeList;
-        private List<VariantListing> VariantList;
-        private List<TypeListing> TypeList;
-
-        private CharacterData RootCharacter;
-
+        
         public MainForm()
         {
             InitializeComponent();
@@ -33,19 +33,7 @@ namespace BESM3CA
         private void BESM3CA_Load(object sender, EventArgs e)
         {
             checkMaxLevel = false;
-
-            AttributeList = new List<AttributeListing>();
-            VariantList = new List<VariantListing>();
-            TypeList = new List<TypeListing>();
-
-            //Removed: loading from database.
-
-            //Create new JSON file - debugging only:
-            //JSONyStuff.createJSON(AttributeList, VariantList, TypeList);
-
-            //Now loads from JSON files:
-            JSONyStuff.JSONLoader(out AttributeList, out VariantList, out TypeList);
-
+            BESM3E = new TemplateData();
             ResetAll();
         }
 
@@ -55,17 +43,18 @@ namespace BESM3CA
             this.Text = "BESM3CA";
             listBox1.DataSource = null;
 
-            //Todo: decouple creation of initial node:
+            //Reset root character:
+            RootCharacter = new CharacterData("");
+
+            //reset Treeview and link to root:
             treeView1.Nodes.Clear();
             TreeNode Root;
             Root = treeView1.Nodes.Add("Character");
-            RootCharacter = new CharacterData("");
-            
-            Root.Tag = RootCharacter;
-            
+            Root.Tag = RootCharacter;            
             treeView1.SelectedNode = Root;
             //***
 
+            //Refresh right hand boxes:
             RefreshFilter();
             RefreshList();
 
@@ -85,7 +74,7 @@ namespace BESM3CA
             comboBox1.SelectedIndex = 0;
 
             //LINQ Version:
-            var FilteredTypeList = from AttType in TypeList
+            var FilteredTypeList = from AttType in BESM3E.TypeList
                                    orderby AttType.Name
                                    select AttType.Name;
 
@@ -101,9 +90,9 @@ namespace BESM3CA
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
                 //LINQ Version:
-                var FilteredVarList = from Att in AttributeList
+                var FilteredVarList = from Att in BESM3E.AttributeList
                                       where Att.ID == ((AttributeData)treeView1.SelectedNode.Tag).AttributeID
-                                      from Vari in VariantList
+                                      from Vari in BESM3E.VariantList
                                       where Att.ID == Vari.AttributeID
                                       orderby Vari.DefaultVariant descending, Vari.Name
                                       select (Att.ID, AttributeName: Att.Name, VariantID: Vari.ID, VariantName: Vari.Name, Vari.CostperLevel, Vari.Desc, Vari.DefaultVariant);
@@ -166,15 +155,15 @@ namespace BESM3CA
 
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                SelectedAttributeChildren = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
+                SelectedAttributeChildren = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
             }
             else
             {
-                SelectedAttributeChildren = AttributeList;
+                SelectedAttributeChildren = BESM3E.AttributeList;
             }
 
             //LINQ Version:
-            var FilteredAttList = from Att in AttributeList
+            var FilteredAttList = from Att in BESM3E.AttributeList
                                   where
                                   (comboBox1.SelectedIndex == -1 || comboBox1.Items[comboBox1.SelectedIndex].ToString() == "All" || comboBox1.Items[comboBox1.SelectedIndex].ToString() == "" || Att.Type == comboBox1.Items[comboBox1.SelectedIndex].ToString())
                                   &&
@@ -214,41 +203,31 @@ namespace BESM3CA
         {
             if (listBox1.SelectedIndex >= 0 && ((ListItems)listBox1.SelectedItem).ValueMember > 0)
             {
-
                 TreeNode NewNode;
                 NewNode = treeView1.SelectedNode.Nodes.Add(((ListItems)listBox1.SelectedItem).DisplayMember.ToString());
 
-                var CostPerLevel = from Att in AttributeList
+                var CostPerLevel = from Att in BESM3E.AttributeList
                                    where Att.ID == ((ListItems)listBox1.SelectedItem).ValueMember
                                    select Att.CostperLevel;                
                                    
                 NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", CostPerLevel.First());
 
                 TreeNode NewSubNode;
-                if (((ListItems)listBox1.SelectedItem).DisplayMember == "Companion")
-                {                    
-                    NewSubNode = NewNode.Nodes.Add("Character");
-                    NewSubNode.Tag = new CharacterData("");
-                    ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
-                    NewSubNode.Parent.Expand();
-                }
-
-                if (((ListItems)listBox1.SelectedItem).DisplayMember == "Mind Control")
-                {                   
-                    NewSubNode = NewNode.Nodes.Add("Range");
-                    NewSubNode.Tag = new AttributeData(NewSubNode.Text, 167, "", 3, 1, -3);
-                    ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
-                    NewSubNode.Parent.Expand();
-                }
-
-                //Temp code for subbing in decoupler:
-                ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
-                //***
+                if (((NodeData)NewNode.Tag).Children !=null)
+                {
+                    //Required children now created in class, just need to check for them and update treeview accordingly:
+                    NodeData RequiredChildren = ((NodeData)NewNode.Tag).Children;
+                    while(RequiredChildren!=null)
+                    {
+                        NewSubNode = NewNode.Nodes.Add(((NodeData)NewNode.Tag).Children.Name);
+                        NewSubNode.Tag = ((NodeData)NewNode.Tag).Children;
+                        NewSubNode.Parent.Expand();
+                        RequiredChildren = RequiredChildren.Next;
+                    }                    
+                }                
 
                 refreshTree(treeView1.Nodes);
-
                 treeView1.SelectedNode.Expand();              
-
             }
         }
 
@@ -329,40 +308,9 @@ namespace BESM3CA
                 tbACV.Visible = false;
                 tbDCV.Visible = false;
 
-                if (((AttributeData)treeView1.SelectedNode.Tag).Name != "Item")
+                if (((AttributeData)treeView1.SelectedNode.Tag).Name == "Item")                
                 {
-                    tbLevel.Text = ((AttributeData)treeView1.SelectedNode.Tag).Level.ToString();
-                    tbLevel.Visible = true;
-                    tbDesc.Visible = true;
-                    lbDescription.Visible = true;
-
-                    var Description = from Att in AttributeList
-                                      where Att.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID
-                                      select Att.Description;
-
-                    tbDesc.Text = Description.First();
-
-                    lbLevel.Visible = true;
-                    if (((AttributeData)treeView1.SelectedNode.Tag).Name != "Companion")
-                    {
-                        tbPPL.Visible = true;
-
-                        tbPPL.Text = ((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel.ToString();
-                        tbPoints.Text = ((((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel * ((AttributeData)treeView1.SelectedNode.Tag).Level) + ((AttributeData)treeView1.SelectedNode.Tag).PointAdj).ToString();
-                        tbPoints.Visible = true;
-                        lbPointsPerLevel.Visible = true;
-                        lbPointCost.Visible = true;
-                    }
-                    else
-                    {
-                        tbPPL.Visible = false;
-                        tbPoints.Visible = false;
-                        lbPointsPerLevel.Visible = false;
-                        lbPointCost.Visible = false;
-                    }
-                }
-                else
-                {
+                    //Is Item:
                     tbLevel.Visible = false;
                     lbLevel.Visible = false;
                     tbPPL.Visible = false;
@@ -371,6 +319,44 @@ namespace BESM3CA
                     lbPointsPerLevel.Visible = false;
                     lbPointCost.Visible = false;
                 }
+                else
+                {
+                    //Not Item
+                    tbLevel.Text = ((AttributeData)treeView1.SelectedNode.Tag).Level.ToString();
+                    tbLevel.Visible = true;
+                    tbDesc.Visible = true;
+                    lbDescription.Visible = true;
+
+                    var Description = from Att in BESM3E.AttributeList
+                                      where Att.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID
+                                      select Att.Description;
+
+                    tbDesc.Text = Description.First();
+
+                    lbLevel.Visible = true;
+                    if (((AttributeData)treeView1.SelectedNode.Tag).Name == "Companion")                    
+                    {
+                        //is companion
+                        tbPPL.Visible = false;
+                        tbPoints.Visible = false;
+                        lbPointsPerLevel.Visible = false;
+                        lbPointCost.Visible = false;
+                        //End is companion
+                    }
+                    else
+                    {
+                        //Not companion
+                        tbPPL.Visible = true;
+                        tbPPL.Text = ((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel.ToString();
+                        tbPoints.Text = ((((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel * ((AttributeData)treeView1.SelectedNode.Tag).Level) + ((AttributeData)treeView1.SelectedNode.Tag).PointAdj).ToString();
+                        tbPoints.Visible = true;
+                        lbPointsPerLevel.Visible = true;
+                        lbPointCost.Visible = true;
+                        //end not companion
+                    }
+                    
+                }
+                
 
             }
         }
@@ -385,7 +371,7 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
+                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
 
                 if ((checkMaxLevel == false && SelectedAttribute.EnforceMaxLevel == false) ||
                    (SelectedAttribute.MaxLevel != int.MaxValue && SelectedAttribute.MaxLevel > ((AttributeData)treeView1.SelectedNode.Tag).Level))
@@ -401,7 +387,7 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
+                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
 
                 if (((AttributeData)treeView1.SelectedNode.Tag).Level > 1 || (((AttributeData)treeView1.SelectedNode.Tag).Level > 0 && SelectedAttribute.Name == "Weapon"))
                 {
@@ -494,7 +480,7 @@ namespace BESM3CA
 
                 if (((AttributeData)Node.Tag).Variant > 0)
                 {
-                    VariantListing SelectedVariant = VariantList.Where(n => n.ID == ((AttributeData)Node.Tag).Variant).First();
+                    VariantListing SelectedVariant = BESM3E.VariantList.Where(n => n.ID == ((AttributeData)Node.Tag).Variant).First();
 
                     if (SelectedVariant.Name == "Alternate Attack")
                     {
@@ -502,7 +488,7 @@ namespace BESM3CA
                     }
                 }
 
-                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
                 if (SelectedAttribute.Type == "Special")
                 {
@@ -527,7 +513,7 @@ namespace BESM3CA
                 }
                 else if (isCompanion == true && Child.Tag.GetType() == typeof(BESM3CA.AttributeData))
                 {
-                    AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
+                    AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
 
                     if (SelectedAttribute.Type == "Restriction")
                     {
@@ -569,8 +555,7 @@ namespace BESM3CA
                     basepoints += itempoints / 2;
                 }
             }
-            //MessageBox.Show(((NodeData)Node.Tag).Name + " " + basepoints.ToString() + " " + Extra.ToString());
-
+            
             //***
             //if alternate weapon attack half points
             if (isAlternateAttack)
@@ -585,7 +570,6 @@ namespace BESM3CA
 
         private void refreshTree(TreeNodeCollection Nodes)
         {
-
             foreach (TreeNode Node in Nodes)
             {
                 refreshTree(Node.Nodes);
@@ -598,14 +582,14 @@ namespace BESM3CA
                         altform = true;
                     }
 
-                    AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+                    AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
                     if (SelectedAttribute.SpecialContainer || altform)
                     {
                         int LevelsUsed = 0;
                         foreach (TreeNode child in Node.Nodes)
                         {
-                            SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
+                            SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
 
                             if (SelectedAttribute.Type == "Special" || altform)
                             {
@@ -625,7 +609,7 @@ namespace BESM3CA
                     }
                     else
                     {
-                        SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+                        SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
                         if (SelectedAttribute.Type == "Special")
                         {
@@ -641,9 +625,7 @@ namespace BESM3CA
                 else
                 {
                     Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
-                }
-
-                
+                }                
             }
         }
        
@@ -662,7 +644,6 @@ namespace BESM3CA
                 {
                     e.Cancel = true;
                 }
-
             }
         }
         private void tbMind_Validating(object sender, CancelEventArgs e)
@@ -680,7 +661,6 @@ namespace BESM3CA
                 {
                     e.Cancel = true;
                 }
-
             }
         }
         private void tbSoul_Validating(object sender, CancelEventArgs e)
@@ -698,7 +678,6 @@ namespace BESM3CA
                 {
                     e.Cancel = true;
                 }
-
             }
         }
         
@@ -728,12 +707,11 @@ namespace BESM3CA
                     ((AttributeData)treeView1.SelectedNode.Tag).Variant = ((ListItems)listBox2.SelectedItem).ValueMember;
                     ((AttributeData)treeView1.SelectedNode.Tag).Name = ((ListItems)listBox2.SelectedItem).DisplayMember;
 
-                    VariantListing SelectedVariant = VariantList.Where(n => n.ID == ((ListItems)listBox2.SelectedItem).ValueMember).First();
+                    VariantListing SelectedVariant = BESM3E.VariantList.Where(n => n.ID == ((ListItems)listBox2.SelectedItem).ValueMember).First();
 
                     ((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
                     refreshTree(treeView1.SelectedNode.Parent.Nodes);
                 }
-
             }
         }
 
@@ -746,17 +724,12 @@ namespace BESM3CA
         private void button5_Click(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode != treeView1.Nodes[0] && treeView1.SelectedNode.Parent.Nodes.Count > 1 && treeView1.SelectedNode.PrevNode != null)
-            {
-                
+            {                
                 TreeNode tempnode = treeView1.SelectedNode;
-
-                ((NodeData)tempnode.Tag).MoveUp();
-                
+                ((NodeData)tempnode.Tag).MoveUp();                
                 treeView1.Sort();
                 treeView1.SelectedNode = tempnode;
-
                 refreshTree(tempnode.Parent.Nodes);
-
             }
         }
 
@@ -837,7 +810,6 @@ namespace BESM3CA
 
                 if (current.Tag.GetType() == typeof(CharacterData))
                 {
-
                     //write stuff
                     // write a line of text to the file
                     tw.WriteLine(tabstring + current.Text);
@@ -864,7 +836,7 @@ namespace BESM3CA
                 }
                 else
                 {
-                    AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)current.Tag).ID).First();
+                    AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)current.Tag).ID).First();
 
                     if (SelectedAttribute.Type == "Attribute")
                     {
@@ -925,7 +897,6 @@ namespace BESM3CA
             if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
                 stats = new CalcStats(0, 0, 0, 0);
-
             }
             else
             {
@@ -967,8 +938,7 @@ namespace BESM3CA
                         {
                             if (child.Tag.GetType() == typeof(BESM3CA.AttributeData))
                             {
-                                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
-
+                                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
 
                                 if (SelectedAttribute.Type == "Restriction")
                                 {
@@ -995,7 +965,6 @@ namespace BESM3CA
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
-
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
             {
                 ((CharacterData)treeView1.SelectedNode.Tag).Body = (int)tbBody.Value;

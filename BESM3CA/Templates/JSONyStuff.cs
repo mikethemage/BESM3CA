@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace BESM3CA
+namespace BESM3CA.Templates
 {
     static class JSONyStuff
     {
