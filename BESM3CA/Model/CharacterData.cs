@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace BESM3CA
+namespace BESM3CA.Model
 {
     class CharacterData : NodeData
     {

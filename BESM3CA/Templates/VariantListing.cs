@@ -1,4 +1,4 @@
-﻿namespace BESM3CA
+﻿namespace BESM3CA.Templates
 {
     class VariantListing
     {

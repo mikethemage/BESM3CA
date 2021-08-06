@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Windows.Forms;
+using BESM3CA.Model;
 
 namespace BESM3CA.UI
 {

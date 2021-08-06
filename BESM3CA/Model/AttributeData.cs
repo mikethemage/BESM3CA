@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace BESM3CA
+namespace BESM3CA.Model
 {
     class AttributeData : NodeData
     {
@@ -145,7 +145,6 @@ namespace BESM3CA
 
             _Points = Points;
 
-
             if (AttributeName == "Companion")
             {
                 addChild(new CharacterData(""));
@@ -154,26 +153,6 @@ namespace BESM3CA
             {
                 addChild(new AttributeData("Range", 167, "", 3, 1, -3));
             }
-
-
-            /*
-             if (((ListItems)listBox1.SelectedItem).DisplayMember == "Companion")
-                {                    
-                    NewSubNode = NewNode.Nodes.Add("Character");
-                    NewSubNode.Tag = new CharacterData("");
-                    ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
-                    NewSubNode.Parent.Expand();
-                }
-
-                if (((ListItems)listBox1.SelectedItem).DisplayMember == "Mind Control")
-                {                   
-                    NewSubNode = NewNode.Nodes.Add("Range");
-                    NewSubNode.Tag = new AttributeData(NewSubNode.Text, 167, "", 3, 1, -3);
-                    ((NodeData)NewNode.Tag).addChild((NodeData)NewSubNode.Tag);
-                    NewSubNode.Parent.Expand();
-                }
-              */
-
         }
 
         public override void SaveAdditionalXML(XmlTextWriter textWriter)

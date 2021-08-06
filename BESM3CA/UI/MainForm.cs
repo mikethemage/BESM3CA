@@ -74,20 +74,19 @@ namespace BESM3CA
             cbFilter.SelectedIndex = 0;
 
             //LINQ Version:
-            var FilteredTypeList = from AttType in BESM3E.TypeList
+            IEnumerable<string> FilteredTypeList = from AttType in BESM3E.TypeList
                                    orderby AttType.Name
                                    select AttType.Name;
 
-            foreach (var item in FilteredTypeList)
+            foreach (string item in FilteredTypeList)
             {
                 cbFilter.Items.Add(item);
             }
-
         }
 
         private void RefreshVariants()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
                 //LINQ Version:
                 var FilteredVarList = from Att in BESM3E.AttributeList
@@ -153,7 +152,7 @@ namespace BESM3CA
 
             List<AttributeListing> SelectedAttributeChildren;
 
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
                 SelectedAttributeChildren = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
             }
@@ -167,14 +166,16 @@ namespace BESM3CA
                                   where
                                   (cbFilter.SelectedIndex == -1 || cbFilter.Items[cbFilter.SelectedIndex].ToString() == "All" || cbFilter.Items[cbFilter.SelectedIndex].ToString() == "" || Att.Type == cbFilter.Items[cbFilter.SelectedIndex].ToString())
                                   &&
-                                  (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData) || Att.Type == "Attribute" || Att.Type == "Defect" || Att.Type == "Skill")
+                                  (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) || Att.Type == "Attribute" || Att.Type == "Defect" || Att.Type == "Skill")
                                   &&
                                   Att.Name != "Character"
+                                  
                                   from Children in SelectedAttributeChildren
                                   where
                                   Att.ID == Children.ID
                                   orderby Att.Type, Att.Name
                                   select (Att.ID, Att.Name, Att.Type);
+
 
             lbAttributeList.Items.Clear();
             string Type = "";
@@ -206,11 +207,13 @@ namespace BESM3CA
                 TreeNode NewNode;
                 NewNode = tvCharacterTree.SelectedNode.Nodes.Add(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString());
 
-                var CostPerLevel = from Att in BESM3E.AttributeList
+                IEnumerable<int> CostPerLevel = from Att in BESM3E.AttributeList
                                    where Att.ID == ((ListItems)lbAttributeList.SelectedItem).ValueMember
                                    select Att.CostperLevel;                
                                    
                 NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)lbAttributeList.SelectedItem).ValueMember, "", CostPerLevel.First());
+
+
 
                 TreeNode NewSubNode;
                 if (((NodeData)NewNode.Tag).Children !=null)
@@ -224,7 +227,11 @@ namespace BESM3CA
                         NewSubNode.Parent.Expand();
                         RequiredChildren = RequiredChildren.Next;
                     }                    
-                }                
+                }
+
+                //Temp code for subbing in decoupler:
+                ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
+                //***
 
                 refreshTree(tvCharacterTree.Nodes);
                 tvCharacterTree.SelectedNode.Expand();              
@@ -247,7 +254,7 @@ namespace BESM3CA
         private void RefreshTextBoxes()
         {            
             tbNotes.Text = ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 tbBody.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body.ToString();
                 tbMind.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind.ToString();
@@ -327,7 +334,7 @@ namespace BESM3CA
                     tbDesc.Visible = true;
                     lbDescription.Visible = true;
 
-                    var Description = from Att in BESM3E.AttributeList
+                    IEnumerable<string> Description = from Att in BESM3E.AttributeList
                                       where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID
                                       select Att.Description;
 
@@ -363,7 +370,7 @@ namespace BESM3CA
 
         private void RaiseLevel()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
                 AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
@@ -379,7 +386,7 @@ namespace BESM3CA
 
         private void LowerLevel()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
                 AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
@@ -464,7 +471,7 @@ namespace BESM3CA
             bool isAlternateForm = false;
             int PointAdj = 0;
 
-            if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
+            if (Node.Tag.GetType() == typeof(AttributeData))
             {
                 basepoints = ((AttributeData)Node.Tag).PointsPerLevel;
                 level = ((AttributeData)Node.Tag).Level;
@@ -505,7 +512,7 @@ namespace BESM3CA
                 {
                     Extra += GetPoints(Child);
                 }
-                else if (isCompanion == true && Child.Tag.GetType() == typeof(BESM3CA.AttributeData))
+                else if (isCompanion == true && Child.Tag.GetType() == typeof(AttributeData))
                 {
                     AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
 
@@ -520,7 +527,7 @@ namespace BESM3CA
                 }
                 else if (isCompanion == true)
                 {
-                    if (Child.Tag.GetType() == typeof(BESM3CA.CharacterData))
+                    if (Child.Tag.GetType() == typeof(CharacterData))
                     {
                         int temp = GetPoints(Child);
                         if (temp > 120)
@@ -568,7 +575,7 @@ namespace BESM3CA
             {
                 refreshTree(Node.Nodes);
 
-                if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
+                if (Node.Tag.GetType() == typeof(AttributeData))
                 {
                     bool altform = false;
                     if (((AttributeData)Node.Tag).Name == "Alternate Form")
@@ -626,7 +633,7 @@ namespace BESM3CA
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 int temp = 0;
 
@@ -643,7 +650,7 @@ namespace BESM3CA
         private void tbMind_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 int temp = 0;
 
@@ -660,7 +667,7 @@ namespace BESM3CA
         private void tbSoul_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 int temp = 0;
 
@@ -856,7 +863,7 @@ namespace BESM3CA
         {
             CalcStats stats;
 
-            if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
+            if (Node.Tag.GetType() == typeof(AttributeData))
             {
                 stats = new CalcStats(0, 0, 0, 0);
             }
@@ -871,7 +878,7 @@ namespace BESM3CA
             CalcStats temp;
             foreach (TreeNode current in Node.Nodes)
             {
-                if (current.Tag.GetType() == typeof(BESM3CA.AttributeData))
+                if (current.Tag.GetType() == typeof(AttributeData))
                 {
                     if (((AttributeData)current.Tag).Name == "Tough")
                     {
@@ -898,7 +905,7 @@ namespace BESM3CA
                     {
                         foreach (TreeNode child in current.Nodes)
                         {
-                            if (child.Tag.GetType() == typeof(BESM3CA.AttributeData))
+                            if (child.Tag.GetType() == typeof(AttributeData))
                             {
                                 AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
 
@@ -927,7 +934,7 @@ namespace BESM3CA
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body = (int)tbBody.Value;
             }
@@ -937,7 +944,7 @@ namespace BESM3CA
 
         private void tbMind_ValueChanged(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind = (int)tbMind.Value;
             }
@@ -947,7 +954,7 @@ namespace BESM3CA
 
         private void tbSoul_ValueChanged(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul = (int)tbSoul.Value;
             }
@@ -967,9 +974,9 @@ namespace BESM3CA
 
         private void del_attr()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() != typeof(BESM3CA.CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() != typeof(CharacterData))
             {
-                if (((BESM3CA.AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj >= 0)
+                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj >= 0)
                 {
                     TreeNode tempNode = tvCharacterTree.SelectedNode.NextNode;
                     ((NodeData)tvCharacterTree.SelectedNode.Tag).Delete();

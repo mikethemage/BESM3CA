@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using System.Linq;
 
-namespace BESM3CA
+namespace BESM3CA.Templates
 {
     class AttributeListing
     {

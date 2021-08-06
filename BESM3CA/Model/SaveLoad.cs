@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Xml;
 
-namespace BESM3CA
+namespace BESM3CA.Model
 {
     class SaveLoad
     {
