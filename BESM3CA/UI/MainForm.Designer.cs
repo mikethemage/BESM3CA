@@ -53,21 +53,21 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbAttributeList = new System.Windows.Forms.ListBox();
             this.bnAdd = new System.Windows.Forms.Button();
             this.bnIncreaseLevel = new System.Windows.Forms.Button();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.tvCharacterTree = new System.Windows.Forms.TreeView();
+            this.splitTopBottom = new System.Windows.Forms.SplitContainer();
+            this.splitLeftRight = new System.Windows.Forms.SplitContainer();
+            this.lbPositionAdj = new System.Windows.Forms.Label();
+            this.lbLevelAdj = new System.Windows.Forms.Label();
             this.bnMoveDown = new System.Windows.Forms.Button();
             this.bnMoveUp = new System.Windows.Forms.Button();
             this.bnDecreaseLevel = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lbVariant = new System.Windows.Forms.Label();
+            this.lbVariantList = new System.Windows.Forms.ListBox();
             this.bnDelete = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbFilter = new System.Windows.Forms.ComboBox();
             this.tbSoul = new System.Windows.Forms.NumericUpDown();
             this.tbMind = new System.Windows.Forms.NumericUpDown();
             this.tbBody = new System.Windows.Forms.NumericUpDown();
@@ -91,17 +91,17 @@
             this.lbSoul = new System.Windows.Forms.Label();
             this.lbMind = new System.Windows.Forms.Label();
             this.lbBody = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tbNotes = new System.Windows.Forms.TextBox();
+            this.toolTipCheckThis = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitTopBottom)).BeginInit();
+            this.splitTopBottom.Panel1.SuspendLayout();
+            this.splitTopBottom.Panel2.SuspendLayout();
+            this.splitTopBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitLeftRight)).BeginInit();
+            this.splitLeftRight.Panel1.SuspendLayout();
+            this.splitLeftRight.Panel2.SuspendLayout();
+            this.splitLeftRight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbSoul)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbMind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbBody)).BeginInit();
@@ -122,7 +122,7 @@
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(197, 33);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Text = "mnMainMenuBar";
             // 
             // fileToolStripMenuItem
             // 
@@ -288,26 +288,26 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // listBox1
+            // lbAttributeList
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lbAttributeList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.IntegralHeight = false;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(6, 5);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(366, 698);
-            this.listBox1.TabIndex = 2;
-            this.listBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox1_KeyPress);
-            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
+            this.lbAttributeList.FormattingEnabled = true;
+            this.lbAttributeList.IntegralHeight = false;
+            this.lbAttributeList.ItemHeight = 25;
+            this.lbAttributeList.Location = new System.Drawing.Point(6, 5);
+            this.lbAttributeList.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.lbAttributeList.Name = "lbAttributeList";
+            this.lbAttributeList.Size = new System.Drawing.Size(366, 690);
+            this.lbAttributeList.TabIndex = 2;
+            this.lbAttributeList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox1_KeyPress);
+            this.lbAttributeList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // bnAdd
             // 
             this.bnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnAdd.Location = new System.Drawing.Point(6, 775);
+            this.bnAdd.Location = new System.Drawing.Point(6, 767);
             this.bnAdd.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnAdd.Name = "bnAdd";
             this.bnAdd.Size = new System.Drawing.Size(159, 45);
@@ -319,202 +319,202 @@
             // bnIncreaseLevel
             // 
             this.bnIncreaseLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnIncreaseLevel.Location = new System.Drawing.Point(848, 397);
+            this.bnIncreaseLevel.Location = new System.Drawing.Point(842, 397);
             this.bnIncreaseLevel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnIncreaseLevel.Name = "bnIncreaseLevel";
             this.bnIncreaseLevel.Size = new System.Drawing.Size(50, 45);
             this.bnIncreaseLevel.TabIndex = 4;
             this.bnIncreaseLevel.Text = "^";
             this.bnIncreaseLevel.UseVisualStyleBackColor = true;
-            this.bnIncreaseLevel.Click += new System.EventHandler(this.button2_Click);
+            this.bnIncreaseLevel.Click += new System.EventHandler(this.bnIncreaseLevel_Click);
             // 
-            // treeView1
+            // tvCharacterTree
             // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tvCharacterTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(6, 5);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.treeView1.Name = "treeView1";
+            this.tvCharacterTree.HideSelection = false;
+            this.tvCharacterTree.Location = new System.Drawing.Point(6, 5);
+            this.tvCharacterTree.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tvCharacterTree.Name = "tvCharacterTree";
             treeNode4.Name = "root";
             treeNode4.Text = "Character";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            this.tvCharacterTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode4});
-            this.treeView1.Size = new System.Drawing.Size(796, 833);
-            this.treeView1.TabIndex = 5;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.tvCharacterTree.Size = new System.Drawing.Size(790, 825);
+            this.tvCharacterTree.TabIndex = 5;
+            this.tvCharacterTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
-            // splitContainer1
+            // splitTopBottom
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitTopBottom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 38);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitTopBottom.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitTopBottom.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.splitTopBottom.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitTopBottom.IsSplitterFixed = true;
+            this.splitTopBottom.Location = new System.Drawing.Point(0, 38);
+            this.splitTopBottom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.splitTopBottom.Name = "splitTopBottom";
+            this.splitTopBottom.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // splitTopBottom.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Panel1MinSize = 0;
+            this.splitTopBottom.Panel1.Controls.Add(this.splitLeftRight);
+            this.splitTopBottom.Panel1MinSize = 0;
             // 
-            // splitContainer1.Panel2
+            // splitTopBottom.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tbSoul);
-            this.splitContainer1.Panel2.Controls.Add(this.tbMind);
-            this.splitContainer1.Panel2.Controls.Add(this.tbBody);
-            this.splitContainer1.Panel2.Controls.Add(this.lbDescription);
-            this.splitContainer1.Panel2.Controls.Add(this.tbDesc);
-            this.splitContainer1.Panel2.Controls.Add(this.lbNotes);
-            this.splitContainer1.Panel2.Controls.Add(this.lbPointCost);
-            this.splitContainer1.Panel2.Controls.Add(this.tbPoints);
-            this.splitContainer1.Panel2.Controls.Add(this.lbPointsPerLevel);
-            this.splitContainer1.Panel2.Controls.Add(this.tbPPL);
-            this.splitContainer1.Panel2.Controls.Add(this.lbDCV);
-            this.splitContainer1.Panel2.Controls.Add(this.tbDCV);
-            this.splitContainer1.Panel2.Controls.Add(this.tbACV);
-            this.splitContainer1.Panel2.Controls.Add(this.lbACV);
-            this.splitContainer1.Panel2.Controls.Add(this.lbEnergy);
-            this.splitContainer1.Panel2.Controls.Add(this.tbEnergy);
-            this.splitContainer1.Panel2.Controls.Add(this.tbHealth);
-            this.splitContainer1.Panel2.Controls.Add(this.lbHealth);
-            this.splitContainer1.Panel2.Controls.Add(this.lbLevel);
-            this.splitContainer1.Panel2.Controls.Add(this.tbLevel);
-            this.splitContainer1.Panel2.Controls.Add(this.lbSoul);
-            this.splitContainer1.Panel2.Controls.Add(this.lbMind);
-            this.splitContainer1.Panel2.Controls.Add(this.lbBody);
-            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
-            this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(1416, 1043);
-            this.splitContainer1.SplitterDistance = 849;
-            this.splitContainer1.SplitterWidth = 8;
-            this.splitContainer1.TabIndex = 6;
+            this.splitTopBottom.Panel2.Controls.Add(this.tbSoul);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbMind);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbBody);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbDescription);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbDesc);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbNotes);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbPointCost);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbPoints);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbPointsPerLevel);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbPPL);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbDCV);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbDCV);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbACV);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbACV);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbEnergy);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbEnergy);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbHealth);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbHealth);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbLevel);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbLevel);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbSoul);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbMind);
+            this.splitTopBottom.Panel2.Controls.Add(this.lbBody);
+            this.splitTopBottom.Panel2.Controls.Add(this.tbNotes);
+            this.splitTopBottom.Panel2MinSize = 0;
+            this.splitTopBottom.Size = new System.Drawing.Size(1416, 1043);
+            this.splitTopBottom.SplitterDistance = 841;
+            this.splitTopBottom.SplitterWidth = 8;
+            this.splitTopBottom.TabIndex = 6;
             // 
-            // splitContainer2
+            // splitLeftRight
             // 
-            this.splitContainer2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer2.IsSplitterFixed = true;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.splitContainer2.Name = "splitContainer2";
+            this.splitLeftRight.Cursor = System.Windows.Forms.Cursors.Default;
+            this.splitLeftRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitLeftRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitLeftRight.IsSplitterFixed = true;
+            this.splitLeftRight.Location = new System.Drawing.Point(0, 0);
+            this.splitLeftRight.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.splitLeftRight.Name = "splitLeftRight";
             // 
-            // splitContainer2.Panel1
+            // splitLeftRight.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.label14);
-            this.splitContainer2.Panel1.Controls.Add(this.label13);
-            this.splitContainer2.Panel1.Controls.Add(this.bnMoveDown);
-            this.splitContainer2.Panel1.Controls.Add(this.bnMoveUp);
-            this.splitContainer2.Panel1.Controls.Add(this.treeView1);
-            this.splitContainer2.Panel1.Controls.Add(this.bnDecreaseLevel);
-            this.splitContainer2.Panel1.Controls.Add(this.bnIncreaseLevel);
+            this.splitLeftRight.Panel1.Controls.Add(this.lbPositionAdj);
+            this.splitLeftRight.Panel1.Controls.Add(this.lbLevelAdj);
+            this.splitLeftRight.Panel1.Controls.Add(this.bnMoveDown);
+            this.splitLeftRight.Panel1.Controls.Add(this.bnMoveUp);
+            this.splitLeftRight.Panel1.Controls.Add(this.tvCharacterTree);
+            this.splitLeftRight.Panel1.Controls.Add(this.bnDecreaseLevel);
+            this.splitLeftRight.Panel1.Controls.Add(this.bnIncreaseLevel);
             // 
-            // splitContainer2.Panel2
+            // splitLeftRight.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.label4);
-            this.splitContainer2.Panel2.Controls.Add(this.listBox2);
-            this.splitContainer2.Panel2.Controls.Add(this.bnDelete);
-            this.splitContainer2.Panel2.Controls.Add(this.comboBox1);
-            this.splitContainer2.Panel2.Controls.Add(this.bnAdd);
-            this.splitContainer2.Panel2.Controls.Add(this.listBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(1412, 845);
-            this.splitContainer2.SplitterDistance = 936;
-            this.splitContainer2.SplitterWidth = 7;
-            this.splitContainer2.TabIndex = 0;
+            this.splitLeftRight.Panel2.Controls.Add(this.lbVariant);
+            this.splitLeftRight.Panel2.Controls.Add(this.lbVariantList);
+            this.splitLeftRight.Panel2.Controls.Add(this.bnDelete);
+            this.splitLeftRight.Panel2.Controls.Add(this.cbFilter);
+            this.splitLeftRight.Panel2.Controls.Add(this.bnAdd);
+            this.splitLeftRight.Panel2.Controls.Add(this.lbAttributeList);
+            this.splitLeftRight.Size = new System.Drawing.Size(1412, 837);
+            this.splitLeftRight.SplitterDistance = 930;
+            this.splitLeftRight.SplitterWidth = 7;
+            this.splitLeftRight.TabIndex = 0;
             // 
-            // label14
+            // lbPositionAdj
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(830, 115);
-            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 25);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Position";
+            this.lbPositionAdj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbPositionAdj.AutoSize = true;
+            this.lbPositionAdj.Location = new System.Drawing.Point(824, 115);
+            this.lbPositionAdj.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbPositionAdj.Name = "lbPositionAdj";
+            this.lbPositionAdj.Size = new System.Drawing.Size(75, 25);
+            this.lbPositionAdj.TabIndex = 8;
+            this.lbPositionAdj.Text = "Position";
             // 
-            // label13
+            // lbLevelAdj
             // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(843, 365);
-            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(51, 25);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "Level";
+            this.lbLevelAdj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbLevelAdj.AutoSize = true;
+            this.lbLevelAdj.Location = new System.Drawing.Point(837, 365);
+            this.lbLevelAdj.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbLevelAdj.Name = "lbLevelAdj";
+            this.lbLevelAdj.Size = new System.Drawing.Size(51, 25);
+            this.lbLevelAdj.TabIndex = 7;
+            this.lbLevelAdj.Text = "Level";
             // 
             // bnMoveDown
             // 
             this.bnMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnMoveDown.Location = new System.Drawing.Point(830, 233);
+            this.bnMoveDown.Location = new System.Drawing.Point(824, 233);
             this.bnMoveDown.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnMoveDown.Name = "bnMoveDown";
             this.bnMoveDown.Size = new System.Drawing.Size(84, 77);
             this.bnMoveDown.TabIndex = 6;
             this.bnMoveDown.Text = "Move Down";
             this.bnMoveDown.UseVisualStyleBackColor = true;
-            this.bnMoveDown.Click += new System.EventHandler(this.button6_Click);
+            this.bnMoveDown.Click += new System.EventHandler(this.bnMoveDown_Click);
             // 
             // bnMoveUp
             // 
             this.bnMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnMoveUp.Location = new System.Drawing.Point(830, 147);
+            this.bnMoveUp.Location = new System.Drawing.Point(824, 147);
             this.bnMoveUp.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnMoveUp.Name = "bnMoveUp";
             this.bnMoveUp.Size = new System.Drawing.Size(84, 77);
             this.bnMoveUp.TabIndex = 6;
             this.bnMoveUp.Text = "Move up";
             this.bnMoveUp.UseVisualStyleBackColor = true;
-            this.bnMoveUp.Click += new System.EventHandler(this.button5_Click);
+            this.bnMoveUp.Click += new System.EventHandler(this.bnMoveUp_Click);
             // 
             // bnDecreaseLevel
             // 
             this.bnDecreaseLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnDecreaseLevel.Location = new System.Drawing.Point(848, 452);
+            this.bnDecreaseLevel.Location = new System.Drawing.Point(842, 452);
             this.bnDecreaseLevel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnDecreaseLevel.Name = "bnDecreaseLevel";
             this.bnDecreaseLevel.Size = new System.Drawing.Size(50, 45);
             this.bnDecreaseLevel.TabIndex = 6;
             this.bnDecreaseLevel.Text = "v";
             this.bnDecreaseLevel.UseVisualStyleBackColor = true;
-            this.bnDecreaseLevel.Click += new System.EventHandler(this.button3_Click);
+            this.bnDecreaseLevel.Click += new System.EventHandler(this.bnDecreaseLevel_Click);
             // 
-            // label4
+            // lbVariant
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 3);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 25);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Variant:";
+            this.lbVariant.AutoSize = true;
+            this.lbVariant.Location = new System.Drawing.Point(6, 3);
+            this.lbVariant.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbVariant.Name = "lbVariant";
+            this.lbVariant.Size = new System.Drawing.Size(70, 25);
+            this.lbVariant.TabIndex = 9;
+            this.lbVariant.Text = "Variant:";
             // 
-            // listBox2
+            // lbVariantList
             // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbVariantList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.IntegralHeight = false;
-            this.listBox2.ItemHeight = 25;
-            this.listBox2.Location = new System.Drawing.Point(6, 33);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(366, 104);
-            this.listBox2.TabIndex = 8;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            this.lbVariantList.FormattingEnabled = true;
+            this.lbVariantList.IntegralHeight = false;
+            this.lbVariantList.ItemHeight = 25;
+            this.lbVariantList.Location = new System.Drawing.Point(6, 33);
+            this.lbVariantList.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.lbVariantList.Name = "lbVariantList";
+            this.lbVariantList.Size = new System.Drawing.Size(366, 104);
+            this.lbVariantList.TabIndex = 8;
+            this.lbVariantList.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // bnDelete
             // 
             this.bnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnDelete.Location = new System.Drawing.Point(216, 775);
+            this.bnDelete.Location = new System.Drawing.Point(216, 767);
             this.bnDelete.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnDelete.Name = "bnDelete";
             this.bnDelete.Size = new System.Drawing.Size(156, 45);
@@ -523,17 +523,17 @@
             this.bnDelete.UseVisualStyleBackColor = true;
             this.bnDelete.Click += new System.EventHandler(this.bnDelete_Click);
             // 
-            // comboBox1
+            // cbFilter
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 33);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(366, 33);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Location = new System.Drawing.Point(6, 33);
+            this.cbFilter.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(366, 33);
+            this.cbFilter.TabIndex = 5;
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // tbSoul
             // 
@@ -827,24 +827,24 @@
             this.lbBody.TabIndex = 4;
             this.lbBody.Text = "Body";
             // 
-            // textBox1
+            // tbNotes
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(6, 42);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(580, 109);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
+            this.tbNotes.Location = new System.Drawing.Point(6, 42);
+            this.tbNotes.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tbNotes.Multiline = true;
+            this.tbNotes.Name = "tbNotes";
+            this.tbNotes.Size = new System.Drawing.Size(580, 109);
+            this.tbNotes.TabIndex = 0;
+            this.tbNotes.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1416, 1081);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitTopBottom);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -854,17 +854,17 @@
             this.Load += new System.EventHandler(this.BESM3CA_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.splitTopBottom.Panel1.ResumeLayout(false);
+            this.splitTopBottom.Panel2.ResumeLayout(false);
+            this.splitTopBottom.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitTopBottom)).EndInit();
+            this.splitTopBottom.ResumeLayout(false);
+            this.splitLeftRight.Panel1.ResumeLayout(false);
+            this.splitLeftRight.Panel1.PerformLayout();
+            this.splitLeftRight.Panel2.ResumeLayout(false);
+            this.splitLeftRight.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitLeftRight)).EndInit();
+            this.splitLeftRight.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbSoul)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbMind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbBody)).EndInit();
@@ -896,21 +896,21 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbAttributeList;
         private System.Windows.Forms.Button bnAdd;
         private System.Windows.Forms.Button bnIncreaseLevel;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TreeView tvCharacterTree;
+        private System.Windows.Forms.SplitContainer splitTopBottom;
+        private System.Windows.Forms.SplitContainer splitLeftRight;
+        private System.Windows.Forms.TextBox tbNotes;
+        private System.Windows.Forms.ComboBox cbFilter;
         private System.Windows.Forms.Button bnDelete;
         private System.Windows.Forms.Button bnDecreaseLevel;
         private System.Windows.Forms.Label lbBody;
         private System.Windows.Forms.Label lbSoul;
         private System.Windows.Forms.Label lbMind;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox lbVariantList;
+        private System.Windows.Forms.Label lbVariant;
         private System.Windows.Forms.Label lbLevel;
         private System.Windows.Forms.TextBox tbLevel;
         private System.Windows.Forms.Button bnMoveDown;
@@ -929,9 +929,9 @@
         private System.Windows.Forms.Label lbPointCost;
         private System.Windows.Forms.TextBox tbPoints;
         private System.Windows.Forms.Label lbNotes;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lbPositionAdj;
+        private System.Windows.Forms.Label lbLevelAdj;
+        private System.Windows.Forms.ToolTip toolTipCheckThis;
         private System.Windows.Forms.TextBox tbDesc;
         private System.Windows.Forms.Label lbDescription;
         private System.Windows.Forms.NumericUpDown tbBody;
