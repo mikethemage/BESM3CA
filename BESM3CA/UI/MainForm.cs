@@ -315,6 +315,7 @@ namespace BESM3CA
                     tbPoints.Visible = false;
                     lbPointsPerLevel.Visible = false;
                     lbPointCost.Visible = false;
+                    //End is Item
                 }
                 else
                 {
@@ -329,8 +330,8 @@ namespace BESM3CA
                                       select Att.Description;
 
                     tbDesc.Text = Description.First();
-
                     lbLevel.Visible = true;
+
                     if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Companion")                    
                     {
                         //is companion
@@ -351,6 +352,7 @@ namespace BESM3CA
                         lbPointCost.Visible = true;
                         //end not companion
                     }                    
+                    //End not Item
                 }
             }
         }
