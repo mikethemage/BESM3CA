@@ -19,7 +19,7 @@ namespace BESM3CA
         const int HeightAdjust4 = 3;
         //****
 
-        private TemplateData BESM3E;
+        private TemplateData templateData;
         private CharacterData RootCharacter;
 
         private string FileName;
@@ -33,15 +33,15 @@ namespace BESM3CA
         private void BESM3CA_Load(object sender, EventArgs e)
         {
             checkMaxLevel = false;
-            BESM3E = new TemplateData();
+            templateData = new TemplateData();
             ResetAll();
         }
 
         private void ResetAll()
         {
             FileName = "";
-            this.Text = "BESM3CA";
-            lbAttributeList.DataSource = null;
+            Text = "BESM3CA";
+            //lbAttributeList.DataSource = null;  //don't think this is needed - remove???
 
             //Reset root character:
             RootCharacter = new CharacterData("");
@@ -73,12 +73,7 @@ namespace BESM3CA
             cbFilter.Items.Add("All");
             cbFilter.SelectedIndex = 0;
 
-            //LINQ Version:
-            IEnumerable<string> FilteredTypeList = from AttType in BESM3E.TypeList
-                                   orderby AttType.Name
-                                   select AttType.Name;
-
-            foreach (string item in FilteredTypeList)
+            foreach (string item in templateData.GetTypesForFilter())
             {
                 cbFilter.Items.Add(item);
             }
@@ -89,9 +84,9 @@ namespace BESM3CA
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
                 //LINQ Version:
-                var FilteredVarList = from Att in BESM3E.AttributeList
+                var FilteredVarList = from Att in templateData.AttributeList
                                       where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeID
-                                      from Vari in BESM3E.VariantList
+                                      from Vari in templateData.VariantList
                                       where Att.ID == Vari.AttributeID
                                       orderby Vari.DefaultVariant descending, Vari.Name
                                       select (Att.ID, AttributeName: Att.Name, VariantID: Vari.ID, VariantName: Vari.Name, Vari.CostperLevel, Vari.Desc, Vari.DefaultVariant);
@@ -154,15 +149,15 @@ namespace BESM3CA
 
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                SelectedAttributeChildren = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
+                SelectedAttributeChildren = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
             }
             else
             {
-                SelectedAttributeChildren = BESM3E.AttributeList;
+                SelectedAttributeChildren = templateData.AttributeList;
             }
 
             //LINQ Version:
-            var FilteredAttList = from Att in BESM3E.AttributeList
+            var FilteredAttList = from Att in templateData.AttributeList
                                   where
                                   (cbFilter.SelectedIndex == -1 || cbFilter.Items[cbFilter.SelectedIndex].ToString() == "All" || cbFilter.Items[cbFilter.SelectedIndex].ToString() == "" || Att.Type == cbFilter.Items[cbFilter.SelectedIndex].ToString())
                                   &&
@@ -207,11 +202,9 @@ namespace BESM3CA
                 TreeNode NewNode;
                 NewNode = tvCharacterTree.SelectedNode.Nodes.Add(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString());
 
-                IEnumerable<int> CostPerLevel = from Att in BESM3E.AttributeList
-                                   where Att.ID == ((ListItems)lbAttributeList.SelectedItem).ValueMember
-                                   select Att.CostperLevel;                
+                AttributeListing Att = templateData.AttributeList.FirstOrDefault(n => n.ID==((ListItems)lbAttributeList.SelectedItem).ValueMember);                                                             
                                    
-                NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)lbAttributeList.SelectedItem).ValueMember, "", CostPerLevel.First());
+                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel);
                 //Temp code for subbing in decoupler:
                 ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
                 //***
@@ -228,9 +221,7 @@ namespace BESM3CA
                         NewSubNode.Parent.Expand();
                         RequiredChildren = RequiredChildren.Next;
                     }                    
-                }
-
-                
+                }                
 
                 refreshTree(tvCharacterTree.Nodes);
                 tvCharacterTree.SelectedNode.Expand();              
@@ -274,7 +265,7 @@ namespace BESM3CA
                 lbPointsPerLevel.Visible = false;
                 lbPointCost.Visible = false;
 
-                CalcStats stats = GetStats(tvCharacterTree.SelectedNode);
+                CalcStats stats = CalcStats.GetStats((NodeData)tvCharacterTree.SelectedNode.Tag, templateData);
                 tbHealth.Visible = true;
                 tbEnergy.Visible = true;
                 tbHealth.Text = stats.Health.ToString();
@@ -333,7 +324,7 @@ namespace BESM3CA
                     tbDesc.Visible = true;
                     lbDescription.Visible = true;
 
-                    IEnumerable<string> Description = from Att in BESM3E.AttributeList
+                    IEnumerable<string> Description = from Att in templateData.AttributeList
                                       where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID
                                       select Att.Description;
 
@@ -359,11 +350,8 @@ namespace BESM3CA
                         lbPointsPerLevel.Visible = true;
                         lbPointCost.Visible = true;
                         //end not companion
-                    }
-                    
+                    }                    
                 }
-                
-
             }
         }
 
@@ -371,13 +359,12 @@ namespace BESM3CA
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
+                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
                 if ((checkMaxLevel == false && SelectedAttribute.EnforceMaxLevel == false) ||
                    (SelectedAttribute.MaxLevel != int.MaxValue && SelectedAttribute.MaxLevel > ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level))
                 {
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).raiseLevel();
-
                 }
                 refreshTree(tvCharacterTree.Nodes);
             }
@@ -387,12 +374,11 @@ namespace BESM3CA
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
+                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
                 if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Level > 1 || (((AttributeData)tvCharacterTree.SelectedNode.Tag).Level > 0 && SelectedAttribute.Name == "Weapon"))
                 {
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).lowerLevel();
-
                 }
                 refreshTree(tvCharacterTree.Nodes);
             }
@@ -415,7 +401,7 @@ namespace BESM3CA
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     FileName = saveFileDialog1.FileName;
-                    this.Text = "BESM3CA - " + FileName;
+                    Text = "BESM3CA - " + FileName;
                 }
                 else
                 {
@@ -439,7 +425,7 @@ namespace BESM3CA
                 SaveLoad Loader = new SaveLoad();
                 Loader.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName);
                 FileName = openFileDialog1.FileName;
-                this.Text = "BESM3CA - " + FileName;
+                Text = "BESM3CA - " + FileName;
                 if (tvCharacterTree.Nodes.Count > 0)
                 {
                     tvCharacterTree.SelectedNode = tvCharacterTree.Nodes[0];
@@ -480,7 +466,7 @@ namespace BESM3CA
 
                 if (((AttributeData)Node.Tag).Variant > 0)
                 {
-                    VariantListing SelectedVariant = BESM3E.VariantList.Where(n => n.ID == ((AttributeData)Node.Tag).Variant).First();
+                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((AttributeData)Node.Tag).Variant).First();
 
                     if (SelectedVariant.Name == "Alternate Attack")
                     {
@@ -488,7 +474,7 @@ namespace BESM3CA
                     }
                 }
 
-                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
                 if (SelectedAttribute.Type == "Special")
                 {
@@ -513,7 +499,7 @@ namespace BESM3CA
                 }
                 else if (isCompanion == true && Child.Tag.GetType() == typeof(AttributeData))
                 {
-                    AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
+                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
 
                     if (SelectedAttribute.Type == "Restriction")
                     {
@@ -565,7 +551,6 @@ namespace BESM3CA
             //***
 
             return (basepoints * level) + Extra + PointAdj;
-
         }
 
         private void refreshTree(TreeNodeCollection Nodes)
@@ -582,14 +567,14 @@ namespace BESM3CA
                         altform = true;
                     }
 
-                    AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
                     if (SelectedAttribute.SpecialContainer || altform)
                     {
                         int LevelsUsed = 0;
                         foreach (TreeNode child in Node.Nodes)
                         {
-                            SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
+                            SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
 
                             if (SelectedAttribute.Type == "Special" || altform)
                             {
@@ -609,7 +594,7 @@ namespace BESM3CA
                     }
                     else
                     {
-                        SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+                        SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
                         if (SelectedAttribute.Type == "Special")
                         {
@@ -707,7 +692,7 @@ namespace BESM3CA
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = ((ListItems)lbVariantList.SelectedItem).ValueMember;
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = ((ListItems)lbVariantList.SelectedItem).DisplayMember;
 
-                    VariantListing SelectedVariant = BESM3E.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
+                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
 
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
                     refreshTree(tvCharacterTree.SelectedNode.Parent.Nodes);
@@ -725,7 +710,7 @@ namespace BESM3CA
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -792,7 +777,7 @@ namespace BESM3CA
 
                     tw.WriteLine();
 
-                    CalcStats stats = GetStats(current);
+                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag, templateData);
                     tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
                     tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
 
@@ -804,7 +789,7 @@ namespace BESM3CA
                 }
                 else
                 {
-                    AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)current.Tag).ID).First();
+                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)current.Tag).ID).First();
 
                     if (SelectedAttribute.Type == "Attribute")
                     {
@@ -858,73 +843,7 @@ namespace BESM3CA
             }
         }
 
-        private CalcStats GetStats(TreeNode Node)
-        {
-            CalcStats stats;
-
-            if (Node.Tag.GetType() == typeof(AttributeData))
-            {
-                stats = new CalcStats(0, 0, 0, 0);
-            }
-            else
-            {
-                stats = new CalcStats(((CharacterData)Node.Tag).basehealth,
-                 ((CharacterData)Node.Tag).baseenergy,
-                ((CharacterData)Node.Tag).baseCV,
-                ((CharacterData)Node.Tag).baseCV);
-            }
-
-            CalcStats temp;
-            foreach (TreeNode current in Node.Nodes)
-            {
-                if (current.Tag.GetType() == typeof(AttributeData))
-                {
-                    if (((AttributeData)current.Tag).Name == "Tough")
-                    {
-                        temp = new CalcStats(((AttributeData)current.Tag).Level * 5, 0, 0, 0);
-                    }
-                    else if (((AttributeData)current.Tag).Name == "Energy Bonus")
-                    {
-                        temp = new CalcStats(0, ((AttributeData)current.Tag).Level * 5, 0, 0);
-                    }
-                    else if (((AttributeData)current.Tag).Name == "Attack Combat Mastery")
-                    {
-                        temp = new CalcStats(0, 0, ((AttributeData)current.Tag).Level, 0);
-                    }
-                    else if (((AttributeData)current.Tag).Name == "Defence Combat Mastery")
-                    {
-                        temp = new CalcStats(0, 0, 0, ((AttributeData)current.Tag).Level);
-                    }
-                    else
-                    {
-                        temp = new CalcStats(0, 0, 0, 0);
-                    }
-
-                    if (temp.ACV > 0 || temp.DCV > 0 || temp.Energy > 0 || temp.Health > 0)
-                    {
-                        foreach (TreeNode child in current.Nodes)
-                        {
-                            if (child.Tag.GetType() == typeof(AttributeData))
-                            {
-                                AttributeListing SelectedAttribute = BESM3E.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
-
-                                if (SelectedAttribute.Type == "Restriction")
-                                {
-                                    temp = new CalcStats(0, 0, 0, 0);
-                                    break;
-                                }
-                            }
-                        }
-
-                        stats.Health += temp.Health;
-                        stats.Energy += temp.Energy;
-                        stats.ACV += temp.ACV;
-                        stats.DCV += temp.DCV;
-                    }
-                }
-            }
-            return stats;
-        }
+        
 
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {

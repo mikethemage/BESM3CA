@@ -2,7 +2,7 @@
 
 namespace BESM3CA.Model
 {
-    class NodeData
+    public class NodeData
     {
         //Members:
         protected string _name;
@@ -95,15 +95,15 @@ namespace BESM3CA.Model
             {
                 if(Parent._FirstChild==this)
                 {
-                    Parent._FirstChild = this.Next;                    
+                    Parent._FirstChild = Next;                    
                 }
-                if (this.Next != null)
+                if (Next != null)
                 {
-                    this.Next.Prev = null;
+                    Next.Prev = null;
                 }
-                if (this.Prev != null)
+                if (Prev != null)
                 {
-                    this.Prev.Next = null;
+                    Prev.Next = null;
                 }
                 _Parent = null;
             }
@@ -122,21 +122,21 @@ namespace BESM3CA.Model
                     temp.Parent._FirstChild = this;
                 }
 
-                if (this.Next != null)
+                if (Next != null)
                 {
-                    this.Next.Prev = temp;
+                    Next.Prev = temp;
                 }
                 if (temp.Prev != null)
                 {
                     temp.Prev.Next = this;
                 }
 
-                this.Prev = temp.Prev;
-                temp.Next = this.Next;
-                this.Next = temp;
+                Prev = temp.Prev;
+                temp.Next = Next;
+                Next = temp;
                 temp.Prev = this;
-                int tempNodeOrder = this.NodeOrder;
-                this.NodeOrder = temp.NodeOrder;
+                int tempNodeOrder = NodeOrder;
+                NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
 
             }
@@ -148,26 +148,26 @@ namespace BESM3CA.Model
             {
                 NodeData temp = Next;
 
-                if(this.Parent._FirstChild==this)
+                if(Parent._FirstChild==this)
                 {
-                    this.Parent._FirstChild = temp;
+                    Parent._FirstChild = temp;
                 }
 
-                if(this.Prev!=null)
+                if(Prev!=null)
                 {
-                    this.Prev.Next = temp;
+                    Prev.Next = temp;
                 }
                 if(temp.Next!=null)
                 {
                     temp.Next.Prev = this;
                 }
                 
-                this.Next = temp.Next;
-                temp.Prev = this.Prev;
-                this.Prev = temp;
+                Next = temp.Next;
+                temp.Prev = Prev;
+                Prev = temp;
                 temp.Next = this;
-                int tempNodeOrder = this.NodeOrder;
-                this.NodeOrder = temp.NodeOrder;
+                int tempNodeOrder = NodeOrder;
+                NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
             }
         }
@@ -199,11 +199,11 @@ namespace BESM3CA.Model
         //XML:
         public void SaveXML(XmlTextWriter textWriter)
         {
-            textWriter.WriteStartElement(this.GetType().ToString());
+            textWriter.WriteStartElement(GetType().ToString());
             textWriter.WriteAttributeString("Name", _name);
             textWriter.WriteAttributeString("ID", _ID.ToString());
             textWriter.WriteStartElement("AdditionalData");
-            textWriter.WriteAttributeString("Type", this.GetType().ToString());
+            textWriter.WriteAttributeString("Type", GetType().ToString());
             SaveAdditionalXML(textWriter);
             textWriter.WriteEndElement();
             textWriter.WriteStartElement("Notes");
@@ -281,7 +281,7 @@ namespace BESM3CA.Model
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {
-                    if (reader.Name == this.GetType().ToString())
+                    if (reader.Name == GetType().ToString())
                     {
                         break;
                     }

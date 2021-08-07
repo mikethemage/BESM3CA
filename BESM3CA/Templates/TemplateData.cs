@@ -21,5 +21,19 @@ namespace BESM3CA.Templates
             //Now loads from JSON files:
             JSONyStuff.JSONLoader(out AttributeList, out VariantList, out TypeList);
         }
+
+
+        public List<String> GetTypesForFilter()
+        {          
+
+            //LINQ Version:
+            IEnumerable<string> FilteredTypeList = from AttType in TypeList
+                                                   orderby AttType.Name
+                                                   select AttType.Name;
+            return FilteredTypeList.ToList();
+            
+        }
+
+
     }
 }
