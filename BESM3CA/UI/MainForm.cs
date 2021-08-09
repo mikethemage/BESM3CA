@@ -226,14 +226,7 @@ namespace BESM3CA
                 refreshTree(tvCharacterTree.Nodes);
                 tvCharacterTree.SelectedNode.Expand();              
             }
-        }
-
-        private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            add_attr();
-            lbAttributeList.Focus();
-        }
-
+        } 
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -433,11 +426,6 @@ namespace BESM3CA
                     tvCharacterTree.SelectedNode = tvCharacterTree.Nodes[0];
                 }
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RefreshList();
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -683,32 +671,7 @@ namespace BESM3CA
         {
             refreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
-        }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lbVariantList.SelectedIndex >= 0)
-            {
-                if (((ListItems)lbVariantList.SelectedItem).ValueMember > 0)
-                {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = ((ListItems)lbVariantList.SelectedItem).ValueMember;
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = ((ListItems)lbVariantList.SelectedItem).DisplayMember;
-
-                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
-
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
-                    refreshTree(tvCharacterTree.SelectedNode.Parent.Nodes);
-                }
-            }
-        }        
-
-        private void listBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Return)
-            {
-                add_attr();
-            }
-        }
+        }  
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -843,9 +806,7 @@ namespace BESM3CA
                     tw.WriteLine();
                 }
             }
-        }
-
-        
+        }        
 
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {
@@ -943,6 +904,42 @@ namespace BESM3CA
         {
             LowerLevel();
             RefreshTextBoxes();
+        }
+
+        private void lbVariantList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbVariantList.SelectedIndex >= 0)
+            {
+                if (((ListItems)lbVariantList.SelectedItem).ValueMember > 0)
+                {
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = ((ListItems)lbVariantList.SelectedItem).ValueMember;
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = ((ListItems)lbVariantList.SelectedItem).DisplayMember;
+
+                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
+
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
+                    refreshTree(tvCharacterTree.SelectedNode.Parent.Nodes);
+                }
+            }
+        }
+
+        private void lbAttributeList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            add_attr();
+            lbAttributeList.Focus();
+        }
+
+        private void lbAttributeList_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                add_attr();
+            }
+        }
+
+        private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshList();
         }
     }
 }

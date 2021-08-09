@@ -299,15 +299,15 @@
             this.lbAttributeList.Location = new System.Drawing.Point(6, 5);
             this.lbAttributeList.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.lbAttributeList.Name = "lbAttributeList";
-            this.lbAttributeList.Size = new System.Drawing.Size(366, 690);
+            this.lbAttributeList.Size = new System.Drawing.Size(366, 686);
             this.lbAttributeList.TabIndex = 2;
-            this.lbAttributeList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox1_KeyPress);
-            this.lbAttributeList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
+            this.lbAttributeList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbAttributeList_KeyPress);
+            this.lbAttributeList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbAttributeList_MouseDoubleClick);
             // 
             // bnAdd
             // 
             this.bnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnAdd.Location = new System.Drawing.Point(6, 767);
+            this.bnAdd.Location = new System.Drawing.Point(6, 763);
             this.bnAdd.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnAdd.Name = "bnAdd";
             this.bnAdd.Size = new System.Drawing.Size(159, 45);
@@ -319,7 +319,7 @@
             // bnIncreaseLevel
             // 
             this.bnIncreaseLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnIncreaseLevel.Location = new System.Drawing.Point(842, 397);
+            this.bnIncreaseLevel.Location = new System.Drawing.Point(839, 397);
             this.bnIncreaseLevel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnIncreaseLevel.Name = "bnIncreaseLevel";
             this.bnIncreaseLevel.Size = new System.Drawing.Size(50, 45);
@@ -341,7 +341,7 @@
             treeNode4.Text = "Character";
             this.tvCharacterTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode4});
-            this.tvCharacterTree.Size = new System.Drawing.Size(790, 825);
+            this.tvCharacterTree.Size = new System.Drawing.Size(787, 821);
             this.tvCharacterTree.TabIndex = 5;
             this.tvCharacterTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -392,7 +392,7 @@
             this.splitTopBottom.Panel2.Controls.Add(this.tbNotes);
             this.splitTopBottom.Panel2MinSize = 0;
             this.splitTopBottom.Size = new System.Drawing.Size(1416, 1043);
-            this.splitTopBottom.SplitterDistance = 841;
+            this.splitTopBottom.SplitterDistance = 837;
             this.splitTopBottom.SplitterWidth = 8;
             this.splitTopBottom.TabIndex = 6;
             // 
@@ -424,8 +424,8 @@
             this.splitLeftRight.Panel2.Controls.Add(this.cbFilter);
             this.splitLeftRight.Panel2.Controls.Add(this.bnAdd);
             this.splitLeftRight.Panel2.Controls.Add(this.lbAttributeList);
-            this.splitLeftRight.Size = new System.Drawing.Size(1412, 837);
-            this.splitLeftRight.SplitterDistance = 930;
+            this.splitLeftRight.Size = new System.Drawing.Size(1412, 833);
+            this.splitLeftRight.SplitterDistance = 927;
             this.splitLeftRight.SplitterWidth = 7;
             this.splitLeftRight.TabIndex = 0;
             // 
@@ -433,7 +433,7 @@
             // 
             this.lbPositionAdj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPositionAdj.AutoSize = true;
-            this.lbPositionAdj.Location = new System.Drawing.Point(824, 115);
+            this.lbPositionAdj.Location = new System.Drawing.Point(821, 115);
             this.lbPositionAdj.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbPositionAdj.Name = "lbPositionAdj";
             this.lbPositionAdj.Size = new System.Drawing.Size(75, 25);
@@ -444,7 +444,7 @@
             // 
             this.lbLevelAdj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbLevelAdj.AutoSize = true;
-            this.lbLevelAdj.Location = new System.Drawing.Point(837, 365);
+            this.lbLevelAdj.Location = new System.Drawing.Point(834, 365);
             this.lbLevelAdj.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbLevelAdj.Name = "lbLevelAdj";
             this.lbLevelAdj.Size = new System.Drawing.Size(51, 25);
@@ -454,7 +454,7 @@
             // bnMoveDown
             // 
             this.bnMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnMoveDown.Location = new System.Drawing.Point(824, 233);
+            this.bnMoveDown.Location = new System.Drawing.Point(821, 233);
             this.bnMoveDown.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnMoveDown.Name = "bnMoveDown";
             this.bnMoveDown.Size = new System.Drawing.Size(84, 77);
@@ -466,7 +466,7 @@
             // bnMoveUp
             // 
             this.bnMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnMoveUp.Location = new System.Drawing.Point(824, 147);
+            this.bnMoveUp.Location = new System.Drawing.Point(821, 147);
             this.bnMoveUp.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnMoveUp.Name = "bnMoveUp";
             this.bnMoveUp.Size = new System.Drawing.Size(84, 77);
@@ -478,7 +478,7 @@
             // bnDecreaseLevel
             // 
             this.bnDecreaseLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnDecreaseLevel.Location = new System.Drawing.Point(842, 452);
+            this.bnDecreaseLevel.Location = new System.Drawing.Point(839, 452);
             this.bnDecreaseLevel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnDecreaseLevel.Name = "bnDecreaseLevel";
             this.bnDecreaseLevel.Size = new System.Drawing.Size(50, 45);
@@ -509,12 +509,12 @@
             this.lbVariantList.Name = "lbVariantList";
             this.lbVariantList.Size = new System.Drawing.Size(366, 104);
             this.lbVariantList.TabIndex = 8;
-            this.lbVariantList.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            this.lbVariantList.SelectedIndexChanged += new System.EventHandler(this.lbVariantList_SelectedIndexChanged);
             // 
             // bnDelete
             // 
             this.bnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnDelete.Location = new System.Drawing.Point(216, 767);
+            this.bnDelete.Location = new System.Drawing.Point(216, 763);
             this.bnDelete.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.bnDelete.Name = "bnDelete";
             this.bnDelete.Size = new System.Drawing.Size(156, 45);
@@ -533,7 +533,7 @@
             this.cbFilter.Name = "cbFilter";
             this.cbFilter.Size = new System.Drawing.Size(366, 33);
             this.cbFilter.TabIndex = 5;
-            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
             // 
             // tbSoul
             // 
