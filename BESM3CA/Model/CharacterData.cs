@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using BESM3CA.Templates;
 
 namespace BESM3CA.Model
 {
@@ -10,7 +11,7 @@ namespace BESM3CA.Model
 
         public string CharacterName {get; set;}
      
-        public int basecost
+        public int BaseCost
         {
             get
             {
@@ -87,6 +88,23 @@ namespace BESM3CA.Model
             }
         }
 
+        public override int GetPoints(TemplateData templateData)
+        {            
+                if (_pointsUpToDate == false || _FirstChild == null)
+                {
+                    _points = BaseCost;
+                    NodeData temp = _FirstChild;
+                    while(temp != null)
+                    {
+                        _points += temp.GetPoints(templateData);
+                        temp = temp.Next;
+                    }
+                    _pointsUpToDate = true;
+                }
+                
+                return _points;            
+        }
+
         public CharacterData(string Notes) : base("Character", 0, Notes)
         {
             _body = 1;
@@ -101,7 +119,6 @@ namespace BESM3CA.Model
             textWriter.WriteAttributeString("Body", _body.ToString());
             textWriter.WriteAttributeString("Soul", _soul.ToString());
             textWriter.WriteEndElement();
-
         }
 
         public CharacterData() : base()
@@ -117,7 +134,6 @@ namespace BESM3CA.Model
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-
                     if (reader.Name == "CharacterStats")
                     {
 

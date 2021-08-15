@@ -232,6 +232,38 @@ namespace BESM3CA
         {
             RefreshList();
             RefreshTextBoxes();
+
+            if(tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            {
+                DisableLevelButtons();
+            }
+            else if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+            {
+                if(((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)
+                {
+                    EnableLevelButtons();
+                }
+                else
+                {
+                    DisableLevelButtons();
+                }
+            }
+            else
+            { 
+              //Error              
+            }
+        }
+
+        private void DisableLevelButtons()
+        {
+            bnDecreaseLevel.Enabled = false;
+            bnIncreaseLevel.Enabled = false;
+        }
+
+        private void EnableLevelButtons()
+        {
+            bnDecreaseLevel.Enabled = true;
+            bnIncreaseLevel.Enabled = true;
         }
 
         private void RefreshTextBoxes()
@@ -475,7 +507,7 @@ namespace BESM3CA
             }
             else
             {
-                basepoints = ((CharacterData)Node.Tag).basecost;
+                basepoints = ((CharacterData)Node.Tag).BaseCost;
                 level = 1;
             }
 
@@ -580,7 +612,7 @@ namespace BESM3CA
                         {
                             specialpoints = ((AttributeData)Node.Tag).Level;
                         }
-                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + (specialpoints - LevelsUsed).ToString() + " Left)" + " (" + GetPoints(Node) + " Points)";
+                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + (specialpoints - LevelsUsed).ToString() + " Left)" + " (" + GetPoints(Node) + " Points)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " NewPoints)";
                     }
                     else
                     {
@@ -593,13 +625,13 @@ namespace BESM3CA
                         }
                         else
                         {
-                            Node.Text = ((AttributeData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
+                            Node.Text = ((AttributeData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " NewPoints)";
                         }
                     }
                 }
                 else
                 {
-                    Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
+                    Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " NewPoints)";
                 }                
             }
         }
@@ -799,7 +831,6 @@ namespace BESM3CA
                 {
                     if (((AttributeData)current.Tag).Name == "Item")
                     {
-
                         tw.WriteLine(tabstring + ") / 2");
                     }
 

@@ -1,8 +1,9 @@
 ﻿using System.Xml;
+using BESM3CA.Templates;
 
 namespace BESM3CA.Model
 {
-    public class NodeData
+    class NodeData
     {
         //Members:
         protected string _name;
@@ -86,7 +87,7 @@ namespace BESM3CA.Model
             Child._Parent = this;
             _LastChildOrder++;
             Child.NodeOrder= _LastChildOrder;
-            
+            _pointsUpToDate = false;
         }
 
         public void Delete()
@@ -184,6 +185,7 @@ namespace BESM3CA.Model
             _LastChildOrder = 0;
             Next = null;
             Prev = null;
+            _pointsUpToDate = false;
         }  
         
         public NodeData()
@@ -194,6 +196,7 @@ namespace BESM3CA.Model
             _LastChildOrder = 0;
             Next = null;
             Prev = null;
+            _pointsUpToDate = false;
         }
 
         //XML:
@@ -293,5 +296,18 @@ namespace BESM3CA.Model
         {
             //Virtual for derived classes
         }
+
+
+
+        protected int _points;
+        protected bool _pointsUpToDate;
+
+        public virtual int GetPoints(TemplateData templateData)
+        {
+            //Virtual for derived classes
+            return 0;            
+        }
+
+        
     }
 }
