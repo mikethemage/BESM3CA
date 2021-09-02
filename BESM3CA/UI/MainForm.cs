@@ -33,7 +33,8 @@ namespace BESM3CA
         private void BESM3CA_Load(object sender, EventArgs e)
         {
             checkMaxLevel = false;
-            templateData = new TemplateData();
+            //templateData = new TemplateData();
+            templateData = TemplateData.JSONLoader();
             ResetAll();
         }
 
@@ -43,7 +44,7 @@ namespace BESM3CA
             Text = "BESM3CA";
             
             //Reset root character:
-            RootCharacter = new CharacterData("");
+            RootCharacter = new CharacterData("", templateData);
 
             //reset Treeview and link to root:
             tvCharacterTree.Nodes.Clear();
@@ -63,7 +64,7 @@ namespace BESM3CA
             tvCharacterTree.TreeViewNodeSorter = new NodeSorter();
             tvCharacterTree.SelectedNode = Root;
             //***
-
+            JSONyStuff.createJSON2(templateData);
         }
 
         private void RefreshFilter()
@@ -203,7 +204,7 @@ namespace BESM3CA
 
                 AttributeListing Att = templateData.AttributeList.FirstOrDefault(n => n.ID==((ListItems)lbAttributeList.SelectedItem).ValueMember);                                                             
                                    
-                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel);
+                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel, templateData);
                 //Temp code for subbing in decoupler:
                 ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
                 //***
@@ -445,7 +446,7 @@ namespace BESM3CA
                 }
             }
             SaveLoad Saver = new SaveLoad();
-            Saver.SerializeTreeView(tvCharacterTree, FileName);
+            Saver.SerializeTreeView(tvCharacterTree, FileName, templateData);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)

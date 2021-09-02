@@ -15,6 +15,8 @@ namespace BESM3CA.Model
         protected int _points;
         private bool _pointsUpToDate;
 
+        protected TemplateData _asscTemplate;
+
 
         //Properties:
         public int NodeOrder { get; set; }
@@ -87,8 +89,9 @@ namespace BESM3CA.Model
 
 
         //Constructors:
-        public NodeData(string AttributeName, int AttributeID, string Notes)
+        public NodeData(string AttributeName, int AttributeID, string Notes, TemplateData useTemplate)
         {
+            _asscTemplate = useTemplate;
             _name = AttributeName;
             _ID = AttributeID;
             _Notes = Notes;
@@ -103,6 +106,7 @@ namespace BESM3CA.Model
 
         public NodeData()
         {
+            
             NodeOrder = 1;
             _FirstChild = null;
             _Parent = null;

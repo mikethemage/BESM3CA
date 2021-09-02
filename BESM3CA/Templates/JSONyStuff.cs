@@ -34,7 +34,6 @@ namespace BESM3CA.Templates
                         }
                     }
                 }
-
             }
             
             input = System.IO.File.ReadAllText(@"Datafiles\Variants.json");
@@ -60,6 +59,18 @@ namespace BESM3CA.Templates
             output = System.Text.Json.JsonSerializer.Serialize<List<TypeListing>>(TypeList);
 
             System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM3.json", output);
+
+        }
+
+        public static void createJSON2(TemplateData templateData)
+        {
+            //Code to write out JSON data files.   
+            //Should not be being called at present - debugging only:
+            string output = System.Text.Json.JsonSerializer.Serialize<TemplateData>(templateData);
+
+            System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM.json", output);
+
+           
 
         }
 

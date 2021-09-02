@@ -95,7 +95,7 @@ namespace BESM3CA.Model
 
 
         //Constructors:
-        public CharacterData(string Notes) : base("Character", 0, Notes)
+        public CharacterData(string Notes, TemplateData useTemplate) : base("Character", 0, Notes, useTemplate)
         {
             _body = 1;
             _mind = 1;
@@ -104,7 +104,8 @@ namespace BESM3CA.Model
 
         public CharacterData() : base()
         {
-            //Default Constructor
+            //Default Constructor - currently needed for loading code
+            //Todo: refactor
         }
 
 

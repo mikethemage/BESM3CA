@@ -113,15 +113,15 @@ namespace BESM3CA.Model
 
 
         //Constructors:
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
+        /*public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
         {
             _Level = Level;
             PointsPerLevel = Points;
             _HasLevel = true;
-        }
+        }*/
 
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points, int PointAdj)
-            : base(AttributeName, AttributeID, Notes)
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points, int PointAdj, TemplateData useTemplate)
+            : base(AttributeName, AttributeID, Notes, useTemplate)
         {
             _PointAdj = PointAdj;
             _Level = Level;
@@ -129,7 +129,7 @@ namespace BESM3CA.Model
             _HasLevel = true;
         }
 
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points) : base(AttributeName, AttributeID, Notes)
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points, TemplateData useTemplate) : base(AttributeName, AttributeID, Notes, useTemplate)
         {
             if (AttributeName == "Item")
             {
@@ -153,17 +153,18 @@ namespace BESM3CA.Model
 
             if (AttributeName == "Companion")
             {
-                addChild(new CharacterData(""));
+                addChild(new CharacterData("",_asscTemplate));
             }
             if (AttributeName == "Mind Control")
             {
-                addChild(new AttributeData("Range", 167, "", 3, 1, -3));
+                addChild(new AttributeData("Range", 167, "", 3, 1, -3,_asscTemplate));
             }
         }
 
         public AttributeData() : base()
         {
-
+            //Default Constructor - currently needed for loading code
+            //Todo: refactor
         }
 
 

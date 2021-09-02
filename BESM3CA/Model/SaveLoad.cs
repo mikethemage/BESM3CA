@@ -1,5 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics;
+using System.Windows.Forms;
 using System.Xml;
+using BESM3CA.Templates;
 
 namespace BESM3CA.Model
 {
@@ -11,6 +13,8 @@ namespace BESM3CA.Model
         // Xml attributes for node e.g. <node text="Asia" tag="" 
         // imageindex="1"></node>
         private const string XmlNodeTextAtt = "text";
+
+        private const string XmlTemplateTag = "template";
 
         private void SetAttributeValue(TreeNode node,
                     string propertyName, string value)
@@ -34,7 +38,17 @@ namespace BESM3CA.Model
                 TreeNode newNode = null;
                 while (reader.Read())
                 {
-                    if (reader.NodeType == XmlNodeType.Element)
+                    if (reader.Name == XmlTemplateTag)
+                    {
+                        reader.Read();
+                        if (reader.NodeType == XmlNodeType.Text)
+                        {
+                            //Read template name
+                            Debug.Assert(reader.Value == "BESM3E");
+                            //todo: load correct template
+                        }                        
+                    }
+                    else if (reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Name == XmlNodeTag)
                         {
@@ -71,12 +85,12 @@ namespace BESM3CA.Model
                         {
                             if (reader.Name.EndsWith(".CharacterData") && newNode != null)
                             {
-                                newNode.Tag = new CharacterData();
+                                newNode.Tag = new CharacterData();//todo: refactor to take reference to template
                                 ((CharacterData)newNode.Tag).LoadXML(reader);
                             }
                             else if (reader.Name.EndsWith(".AttributeData") && newNode != null)
                             {
-                                newNode.Tag = new AttributeData();
+                                newNode.Tag = new AttributeData();//todo: refactor to take reference to template
                                 ((AttributeData)newNode.Tag).LoadXML(reader);
                             }
                             else
@@ -122,12 +136,16 @@ namespace BESM3CA.Model
             }
         }
 
-        public void SerializeTreeView(TreeView treeView, string fileName)
+        public void SerializeTreeView(TreeView treeView, string fileName, TemplateData templateData)
         {
             XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.ASCII);
 
             // writing the xml declaration tag
             textWriter.WriteStartDocument();
+            textWriter.WriteStartElement("root");
+
+            textWriter.WriteElementString(XmlTemplateTag, templateData.TemplateName);
+            
 
             // writing the main tag that encloses all node tags
             textWriter.WriteStartElement("TreeView");
@@ -135,6 +153,7 @@ namespace BESM3CA.Model
             // save the nodes, recursive method
             SaveNodes(treeView.Nodes, textWriter);
 
+            textWriter.WriteEndElement();
             textWriter.WriteEndElement();
             textWriter.Close();
         }
