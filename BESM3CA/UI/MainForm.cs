@@ -468,7 +468,7 @@ namespace BESM3CA
             }
         }
 
-        private int GetPoints(TreeNode Node)
+        /*private int GetPoints(TreeNode Node)
         {
             int basepoints = 0;
             int level = 1;
@@ -573,7 +573,7 @@ namespace BESM3CA
             //***
 
             return (basepoints * level) + Extra + PointAdj;
-        }
+        }*/
 
         private void refreshTree(TreeNodeCollection Nodes)
         {
@@ -612,7 +612,7 @@ namespace BESM3CA
                         {
                             specialpoints = ((AttributeData)Node.Tag).Level;
                         }
-                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + (specialpoints - LevelsUsed).ToString() + " Left)" + " (" + GetPoints(Node) + " Points)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " NewPoints)";
+                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + (specialpoints - LevelsUsed).ToString() + " Left)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
                     }
                     else
                     {
@@ -625,13 +625,13 @@ namespace BESM3CA
                         }
                         else
                         {
-                            Node.Text = ((AttributeData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " NewPoints)";
+                            Node.Text = ((AttributeData)Node.Tag).Name + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
                         }
                     }
                 }
                 else
                 {
-                    Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " NewPoints)";
+                    Node.Text = ((CharacterData)Node.Tag).Name + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
                 }                
             }
         }
