@@ -16,7 +16,7 @@ namespace BESM3CA.Model
 
         private const string XmlTemplateTag = "template";
 
-        private void SetAttributeValue(TreeNode node,
+        private static void SetAttributeValue(TreeNode node,
                     string propertyName, string value)
         {
             if (propertyName == XmlNodeTextAtt)
@@ -26,7 +26,7 @@ namespace BESM3CA.Model
                         
         }
 
-        public void DeserializeTreeView(TreeView treeView, string fileName)
+        public static void DeserializeTreeView(TreeView treeView, string fileName)
         {
             XmlTextReader reader = null;
             try

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 
 namespace BESM3CA.Templates
@@ -66,8 +64,10 @@ namespace BESM3CA.Templates
                                 foreach (string Child in Children)
                                 {
                                     int ChildID;
-                                    Int32.TryParse(Child, out ChildID);
-                                    Parent.AddChild(temp.AttributeList.Find(x => x.ID == ChildID));
+                                    if (Int32.TryParse(Child, out ChildID))
+                                    {
+                                        Parent.AddChild(temp.AttributeList.Find(x => x.ID == ChildID));
+                                    }
                                 }
                             }
                         }

@@ -28,10 +28,10 @@ namespace BESM3CA.Model
             }
             else if (Node.GetType() == typeof(CharacterData))
             {
-                stats = new CalcStats(((CharacterData)Node).basehealth,
-                 ((CharacterData)Node).baseenergy,
-                ((CharacterData)Node).baseCV,
-                ((CharacterData)Node).baseCV);
+                stats = new CalcStats(((CharacterData)Node).BaseHealth,
+                 ((CharacterData)Node).BaseEnergy,
+                ((CharacterData)Node).BaseCV,
+                ((CharacterData)Node).BaseCV);
             }
             else
             {

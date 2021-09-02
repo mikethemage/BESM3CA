@@ -21,7 +21,7 @@ namespace BESM3CA.Model
             }
         }
 
-        public int basehealth
+        public int BaseHealth
         {
             get
             {
@@ -29,7 +29,7 @@ namespace BESM3CA.Model
             }
         }
 
-        public int baseenergy
+        public int BaseEnergy
         {
             get
             {
@@ -37,7 +37,7 @@ namespace BESM3CA.Model
             }
         }
 
-        public int baseCV
+        public int BaseCV
         {
             get
             {

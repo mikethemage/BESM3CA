@@ -153,11 +153,11 @@ namespace BESM3CA.Model
 
             if (AttributeName == "Companion")
             {
-                addChild(new CharacterData("",_asscTemplate));
+                AddChild(new CharacterData("",_asscTemplate));
             }
             if (AttributeName == "Mind Control")
             {
-                addChild(new AttributeData("Range", 167, "", 3, 1, -3,_asscTemplate));
+                AddChild(new AttributeData("Range", 167, "", 3, 1, -3,_asscTemplate));
             }
         }
 
@@ -169,7 +169,7 @@ namespace BESM3CA.Model
 
 
         //Member Functions:
-        public bool raiseLevel()
+        public bool RaiseLevel()
         {
             //need to check maxlevel
             if (_HasLevel == true)
@@ -180,7 +180,7 @@ namespace BESM3CA.Model
             return _HasLevel;
         }
 
-        public bool lowerLevel()
+        public bool LowerLevel()
         {
             if (_Level > 0)
             {

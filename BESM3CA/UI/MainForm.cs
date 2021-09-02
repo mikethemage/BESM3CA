@@ -59,12 +59,11 @@ namespace BESM3CA
             RefreshList();
 
             //Todo: update refresh data code:
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
             tvCharacterTree.TreeViewNodeSorter = new NodeSorter();
             tvCharacterTree.SelectedNode = Root;
-            //***
-            JSONyStuff.createJSON2(templateData);
+            //***            
         }
 
         private void RefreshFilter()
@@ -195,7 +194,7 @@ namespace BESM3CA
 
         }
 
-        private void add_attr()
+        private void AddAttr()
         {
             if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
             {
@@ -206,7 +205,7 @@ namespace BESM3CA
                                    
                 NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel, templateData);
                 //Temp code for subbing in decoupler:
-                ((NodeData)NewNode.Parent.Tag).addChild((NodeData)NewNode.Tag);
+                ((NodeData)NewNode.Parent.Tag).AddChild((NodeData)NewNode.Tag);
                 //***
 
                 TreeNode NewSubNode;
@@ -223,7 +222,7 @@ namespace BESM3CA
                     }                    
                 }                
 
-                refreshTree(tvCharacterTree.Nodes);
+                RefreshTree(tvCharacterTree.Nodes);
                 tvCharacterTree.SelectedNode.Expand();              
             }
         } 
@@ -400,9 +399,9 @@ namespace BESM3CA
                 if ((checkMaxLevel == false && SelectedAttribute.EnforceMaxLevel == false) ||
                    (SelectedAttribute.MaxLevel != int.MaxValue && SelectedAttribute.MaxLevel > ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level))
                 {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).raiseLevel();
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).RaiseLevel();
                 }
-                refreshTree(tvCharacterTree.Nodes);
+                RefreshTree(tvCharacterTree.Nodes);
             }
         }
 
@@ -414,9 +413,9 @@ namespace BESM3CA
 
                 if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Level > 1 || (((AttributeData)tvCharacterTree.SelectedNode.Tag).Level > 0 && SelectedAttribute.Name == "Weapon"))
                 {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).lowerLevel();
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).LowerLevel();
                 }
-                refreshTree(tvCharacterTree.Nodes);
+                RefreshTree(tvCharacterTree.Nodes);
             }
         }
 
@@ -460,8 +459,8 @@ namespace BESM3CA
             {
                 ResetAll();
                 tvCharacterTree.Nodes.Clear();
-                SaveLoad Loader = new SaveLoad();
-                Loader.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName);
+                //SaveLoad Loader = new SaveLoad();
+                SaveLoad.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName);
                 FileName = openFileDialog1.FileName;
                 Text = "BESM3CA - " + FileName;
                 if (tvCharacterTree.Nodes.Count > 0)
@@ -480,11 +479,11 @@ namespace BESM3CA
         }
         
 
-        private void refreshTree(TreeNodeCollection Nodes)
+        private void RefreshTree(TreeNodeCollection Nodes)
         {
             foreach (TreeNode Node in Nodes)
             {
-                refreshTree(Node.Nodes);
+                RefreshTree(Node.Nodes);
 
                 if (Node.Tag.GetType() == typeof(AttributeData))
                 {
@@ -527,7 +526,7 @@ namespace BESM3CA
             e.Cancel = false;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                int temp = 0;
+                int temp;
 
                 if (int.TryParse(tbBody.Text, out temp) && temp > 0)
                 {
@@ -544,7 +543,7 @@ namespace BESM3CA
             e.Cancel = false;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                int temp = 0;
+                int temp;
 
                 if (int.TryParse(tbMind.Text, out temp) && temp > 0)
                 {
@@ -561,7 +560,7 @@ namespace BESM3CA
             e.Cancel = false;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                int temp = 0;
+                int temp;
 
                 if (int.TryParse(tbSoul.Text, out temp) && temp > 0)
                 {
@@ -576,18 +575,18 @@ namespace BESM3CA
         
         private void tbBody_Validated(object sender, EventArgs e)
         {
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
         }
         private void tbMind_Validated(object sender, EventArgs e)
         {
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
         }
 
         private void tbSoul_Validated(object sender, EventArgs e)
         {
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
         }  
 
@@ -616,7 +615,7 @@ namespace BESM3CA
                 try
                 {
                     tw = new StreamWriter(saveFileDialog1.FileName);
-                    exportNode(tvCharacterTree.Nodes, 0, tw);
+                    ExportNode(tvCharacterTree.Nodes, 0, tw);
                 }
                 catch
                 {
@@ -633,7 +632,7 @@ namespace BESM3CA
             }
         }
 
-        private void exportNode(TreeNodeCollection nodes, int tabdepth, TextWriter tw)
+        private void ExportNode(TreeNodeCollection nodes, int tabdepth, TextWriter tw)
         {
             string tabstring = "";
             for (int i = 0; i < tabdepth; i++)
@@ -712,7 +711,7 @@ namespace BESM3CA
                     tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current.Tag).Notes).Replace("\n", "\n" + nexttabstring) + "]");
                 }
 
-                exportNode(current.Nodes, tabdepth + 1, tw);
+                ExportNode(current.Nodes, tabdepth + 1, tw);
 
                 if (isAttrib)
                 {
@@ -724,12 +723,7 @@ namespace BESM3CA
                     tw.WriteLine();
                 }
             }
-        }        
-
-        private void textBox1_Validating(object sender, CancelEventArgs e)
-        {
-            ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes = tbNotes.Text;
-        }       
+        }                        
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
@@ -737,7 +731,7 @@ namespace BESM3CA
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body = (int)tbBody.Value;
             }
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
         }
 
@@ -747,7 +741,7 @@ namespace BESM3CA
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind = (int)tbMind.Value;
             }
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
         }
 
@@ -757,21 +751,21 @@ namespace BESM3CA
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul = (int)tbSoul.Value;
             }
-            refreshTree(tvCharacterTree.Nodes);
+            RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
         }
 
         private void bnAdd_Click(object sender, EventArgs e)
         {
-            add_attr();
+            AddAttr();
         }
 
         private void bnDelete_Click(object sender, EventArgs e)
         {
-            del_attr();
+            DelAttr();
         }
 
-        private void del_attr()
+        private void DelAttr()
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() != typeof(CharacterData))
             {
@@ -779,9 +773,9 @@ namespace BESM3CA
                 {
                     TreeNode tempNode = tvCharacterTree.SelectedNode.NextNode;
                     ((NodeData)tvCharacterTree.SelectedNode.Tag).Delete();
-                    tvCharacterTree.SelectedNode.Remove();                    
-
-                    refreshTree(tvCharacterTree.Nodes);
+                    tvCharacterTree.SelectedNode.Remove();
+                    tvCharacterTree.SelectedNode = tempNode;
+                    RefreshTree(tvCharacterTree.Nodes);
                 }
             }
         }
@@ -794,7 +788,7 @@ namespace BESM3CA
                 ((NodeData)tempnode.Tag).MoveUp();                
                 tvCharacterTree.Sort();
                 tvCharacterTree.SelectedNode = tempnode;
-                refreshTree(tempnode.Parent.Nodes);
+                RefreshTree(tempnode.Parent.Nodes);
             }
         }
 
@@ -808,7 +802,7 @@ namespace BESM3CA
                 tvCharacterTree.Sort();
                 tvCharacterTree.SelectedNode = tempnode;
 
-                refreshTree(tempnode.Parent.Nodes);
+                RefreshTree(tempnode.Parent.Nodes);
             }
         }
 
@@ -836,14 +830,14 @@ namespace BESM3CA
                     VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
 
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
-                    refreshTree(tvCharacterTree.Nodes);
+                    RefreshTree(tvCharacterTree.Nodes);
                 }
             }
         }
 
         private void lbAttributeList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            add_attr();
+            AddAttr();
             lbAttributeList.Focus();
         }
 
@@ -851,13 +845,18 @@ namespace BESM3CA
         {
             if (e.KeyChar == (char)Keys.Return)
             {
-                add_attr();
+                AddAttr();
             }
         }
 
         private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshList();
+        }
+
+        private void tbNotes_Validating(object sender, CancelEventArgs e)
+        {
+            ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes = tbNotes.Text;
         }
     }
 }

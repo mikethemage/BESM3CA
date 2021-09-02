@@ -124,7 +124,7 @@ namespace BESM3CA.Model
             return 0;
         }
 
-        public void addChild(NodeData Child)
+        public void AddChild(NodeData Child)
         {
             if (_FirstChild == null)
             {

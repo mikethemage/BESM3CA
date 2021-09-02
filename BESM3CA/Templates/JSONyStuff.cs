@@ -29,8 +29,10 @@ namespace BESM3CA.Templates
                         foreach (string Child in Children)
                         {
                             int ChildID;
-                            Int32.TryParse(Child, out ChildID);
-                            Parent.AddChild(AttributeList.Find(x => x.ID == ChildID));
+                            if (Int32.TryParse(Child, out ChildID))
+                            { 
+                                Parent.AddChild(AttributeList.Find(x => x.ID == ChildID)); 
+                            }
                         }
                     }
                 }
@@ -44,7 +46,7 @@ namespace BESM3CA.Templates
         }
 
 
-        public static void createJSON(List<AttributeListing> AttributeList, List<VariantListing> VariantList, List<TypeListing> TypeList)
+        public static void CreateJSON(List<AttributeListing> AttributeList, List<VariantListing> VariantList, List<TypeListing> TypeList)
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
@@ -62,15 +64,13 @@ namespace BESM3CA.Templates
 
         }
 
-        public static void createJSON2(TemplateData templateData)
+        public static void CreateJSON2(TemplateData templateData)
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
             string output = System.Text.Json.JsonSerializer.Serialize<TemplateData>(templateData);
 
-            System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM.json", output);
-
-           
+            System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM.json", output);           
 
         }
 
