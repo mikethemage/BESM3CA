@@ -5,7 +5,7 @@ namespace BESM3CA.Model
 {
     class NodeData
     {
-        //Internal Variables:
+        //Fields:
         protected string _name;
         protected int _ID;
         protected string _Notes;

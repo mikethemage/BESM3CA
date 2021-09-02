@@ -6,15 +6,52 @@ namespace BESM3CA.Model
 {
     class AttributeData : NodeData
     {
-        //Internal Variables:
+        //Fields:
         int _Level;
-        int _PointsPerLevel;
         bool _HasLevel;
         int _Variant = 0;
         int _PointAdj = 0;
-
+        int _SpecialPointsUsed = 0;
 
         //Properties:
+
+        public int GetSpecialPoints (TemplateData templateData)
+        {
+            bool altform = false;
+            if (_name == "Alternate Form")
+            {
+                altform = true;
+            }
+
+            AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ID).First();
+            
+            int specialpoints=0;
+
+            if (SelectedAttribute.SpecialContainer || altform)
+            {
+                if(PointsUpToDate==false)
+                {
+                    GetPoints(templateData);
+                }
+                
+                if (altform)
+                {
+                    specialpoints = Level * 10;
+                }
+                else
+                {
+                    specialpoints = Level;
+                }
+
+                specialpoints -= _SpecialPointsUsed;
+            }
+
+
+            return specialpoints;
+
+
+        }
+
         public bool HasLevel
         {
             get
@@ -31,6 +68,7 @@ namespace BESM3CA.Model
             }
             set
             {
+                PointsUpToDate = false;
                 _Variant = value;
             }
         }
@@ -51,17 +89,7 @@ namespace BESM3CA.Model
             }
         }
 
-        public int PointsPerLevel
-        {
-            get
-            {
-                return _PointsPerLevel;
-            }
-            set
-            {
-                _PointsPerLevel = value;
-            }
-        }
+        public int PointsPerLevel { get; set; }
 
         public int PointAdj
         {
@@ -88,7 +116,7 @@ namespace BESM3CA.Model
         public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
         {
             _Level = Level;
-            _PointsPerLevel = Points;
+            PointsPerLevel = Points;
             _HasLevel = true;
         }
 
@@ -97,7 +125,7 @@ namespace BESM3CA.Model
         {
             _PointAdj = PointAdj;
             _Level = Level;
-            _PointsPerLevel = Points;
+            PointsPerLevel = Points;
             _HasLevel = true;
         }
 
@@ -121,7 +149,7 @@ namespace BESM3CA.Model
                 }
             }
 
-            _PointsPerLevel = Points;
+            PointsPerLevel = Points;
 
             if (AttributeName == "Companion")
             {
@@ -159,7 +187,7 @@ namespace BESM3CA.Model
                 {
                     if (_PointAdj < 0)
                     {
-                        if ((_Level * _PointsPerLevel) + _PointAdj > 0)
+                        if ((_Level * PointsPerLevel) + _PointAdj > 0)
                         {
                             _Level--;
                             PointsUpToDate = false;
@@ -233,6 +261,8 @@ namespace BESM3CA.Model
                
                 _points += VariablesOrRestrictions;
 
+                _SpecialPointsUsed = ChildPoints;
+
                 if (isCompanion)
                 {
                     if (ChildPoints > 120)
@@ -280,7 +310,7 @@ namespace BESM3CA.Model
             textWriter.WriteAttributeString("Level", _Level.ToString());
             textWriter.WriteAttributeString("Variant", _Variant.ToString());
             textWriter.WriteAttributeString("HasLevel", _HasLevel.ToString());
-            textWriter.WriteAttributeString("Points", _PointsPerLevel.ToString());
+            textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
             textWriter.WriteAttributeString("PointAdj", _PointAdj.ToString());
             textWriter.WriteEndElement();
         }        
@@ -315,7 +345,7 @@ namespace BESM3CA.Model
                                         _Variant = int.Parse(reader.Value);
                                         break;
                                     case "Points":
-                                        _PointsPerLevel = int.Parse(reader.Value);
+                                        PointsPerLevel = int.Parse(reader.Value);
                                         break;
                                     case "PointAdj":
                                         _PointAdj = int.Parse(reader.Value);

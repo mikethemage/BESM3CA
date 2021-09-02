@@ -41,8 +41,7 @@ namespace BESM3CA
         {
             FileName = "";
             Text = "BESM3CA";
-            //lbAttributeList.DataSource = null;  //don't think this is needed - remove???
-
+            
             //Reset root character:
             RootCharacter = new CharacterData("");
 
@@ -239,9 +238,18 @@ namespace BESM3CA
             }
             else if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                if(((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)
+                if(((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)  //Need to also disable for "Special" types
                 {
-                    EnableLevelButtons();
+                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
+
+                    if (SelectedAttribute.Type == "Special")
+                    {
+                        DisableLevelButtons();
+                    }
+                    else
+                    {
+                        EnableLevelButtons();
+                    }
                 }
                 else
                 {
@@ -487,28 +495,9 @@ namespace BESM3CA
 
                     AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
-                    if (SelectedAttribute.SpecialContainer || altform)
-                    {
-                        int LevelsUsed = 0;
-                        foreach (TreeNode child in Node.Nodes)
-                        {
-                            SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
-
-                            if (SelectedAttribute.Type == "Special" || altform)
-                            {
-                                LevelsUsed += ((AttributeData)child.Tag).Level * ((AttributeData)child.Tag).PointsPerLevel;
-                            }
-                        }
-                        int specialpoints;
-                        if (altform)
-                        {
-                            specialpoints = ((AttributeData)Node.Tag).Level * 10;
-                        }
-                        else
-                        {
-                            specialpoints = ((AttributeData)Node.Tag).Level;
-                        }
-                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + (specialpoints - LevelsUsed).ToString() + " Left)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
+                    if (SelectedAttribute.SpecialContainer || altform)                    {                     
+                        
+                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + ((AttributeData)Node.Tag).GetSpecialPoints(templateData) + " Left)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
                     }
                     else
                     {
@@ -846,7 +835,7 @@ namespace BESM3CA
                     VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
 
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
-                    refreshTree(tvCharacterTree.SelectedNode.Parent.Nodes);
+                    refreshTree(tvCharacterTree.Nodes);
                 }
             }
         }
