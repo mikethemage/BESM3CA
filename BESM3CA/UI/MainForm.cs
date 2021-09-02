@@ -523,7 +523,7 @@ namespace BESM3CA
                 {
                     AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
 
-                    if (SelectedAttribute.Type == "Restriction")
+                    if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
                     {
                         Extra += GetPoints(Child);
                     }

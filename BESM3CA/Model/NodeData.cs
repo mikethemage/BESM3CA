@@ -5,18 +5,37 @@ namespace BESM3CA.Model
 {
     class NodeData
     {
-        //Members:
+        //Internal Variables:
         protected string _name;
         protected int _ID;
         protected string _Notes;
         protected NodeData _FirstChild;
         protected NodeData _Parent;
         private int _LastChildOrder;
+        protected int _points;
+        private bool _pointsUpToDate;
+
 
         //Properties:
         public int NodeOrder { get; set; }
         public NodeData Next { get; set; }
         public NodeData Prev{ get; set; }
+
+        protected bool PointsUpToDate
+        {
+            get
+            {
+                return _pointsUpToDate;
+            }
+            set
+            {
+                _pointsUpToDate = value;
+                if (value == false && _Parent != null)
+                {
+                    _Parent.PointsUpToDate = false;
+                }
+            }
+        }
 
         public string Name
         {
@@ -66,7 +85,41 @@ namespace BESM3CA.Model
             }
         }
 
+
+        //Constructors:
+        public NodeData(string AttributeName, int AttributeID, string Notes)
+        {
+            _name = AttributeName;
+            _ID = AttributeID;
+            _Notes = Notes;
+            NodeOrder = 1;
+            _FirstChild = null;
+            _Parent = null;
+            _LastChildOrder = 0;
+            Next = null;
+            Prev = null;
+            _pointsUpToDate = false;
+        }
+
+        public NodeData()
+        {
+            NodeOrder = 1;
+            _FirstChild = null;
+            _Parent = null;
+            _LastChildOrder = 0;
+            Next = null;
+            Prev = null;
+            _pointsUpToDate = false;
+        }
+
+
         //Member Functions:
+        public virtual int GetPoints(TemplateData templateData)
+        {
+            //Virtual for derived classes
+            return 0;
+        }
+
         public void addChild(NodeData Child)
         {
             if (_FirstChild == null)
@@ -107,9 +160,7 @@ namespace BESM3CA.Model
                     Prev.Next = null;
                 }
                 _Parent = null;
-            }
-            
-            
+            }           
         }
 
         public void MoveUp()
@@ -139,7 +190,6 @@ namespace BESM3CA.Model
                 int tempNodeOrder = NodeOrder;
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
-
             }
         }
 
@@ -172,32 +222,7 @@ namespace BESM3CA.Model
                 temp.NodeOrder = tempNodeOrder;
             }
         }
-
-        //Constructors:
-        public NodeData(string AttributeName, int AttributeID, string Notes)
-        {
-            _name = AttributeName;
-            _ID = AttributeID;
-            _Notes = Notes;
-            NodeOrder = 1;
-            _FirstChild = null;
-            _Parent = null;
-            _LastChildOrder = 0;
-            Next = null;
-            Prev = null;
-            _pointsUpToDate = false;
-        }  
         
-        public NodeData()
-        {
-            NodeOrder = 1;
-            _FirstChild = null;
-            _Parent = null;
-            _LastChildOrder = 0;
-            Next = null;
-            Prev = null;
-            _pointsUpToDate = false;
-        }
 
         //XML:
         public void SaveXML(XmlTextWriter textWriter)
@@ -296,18 +321,5 @@ namespace BESM3CA.Model
         {
             //Virtual for derived classes
         }
-
-
-
-        protected int _points;
-        protected bool _pointsUpToDate;
-
-        public virtual int GetPoints(TemplateData templateData)
-        {
-            //Virtual for derived classes
-            return 0;            
-        }
-
-        
     }
 }

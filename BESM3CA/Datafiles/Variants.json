@@ -1,1 +1,442 @@
-[{"ID":41,"Name":"Specific Powers","CostperLevel":2,"AttributeID":6,"Desc":"","DefaultVariant":true},{"ID":1,"Name":"Unlimited","CostperLevel":12,"AttributeID":6,"Desc":"","DefaultVariant":false},{"ID":5,"Name":"Boosting","CostperLevel":15,"AttributeID":10,"Desc":"","DefaultVariant":false},{"ID":7,"Name":"Boosting: Combined Restoration","CostperLevel":25,"AttributeID":10,"Desc":"","DefaultVariant":false},{"ID":4,"Name":"Charging","CostperLevel":10,"AttributeID":10,"Desc":"","DefaultVariant":true},{"ID":6,"Name":"Charging: Combined Restoration","CostperLevel":20,"AttributeID":10,"Desc":"","DefaultVariant":false},{"ID":3,"Name":"External","CostperLevel":15,"AttributeID":11,"Desc":"","DefaultVariant":false},{"ID":2,"Name":"Internal","CostperLevel":10,"AttributeID":11,"Desc":"","DefaultVariant":true},{"ID":9,"Name":"Major","CostperLevel":30,"AttributeID":16,"Desc":"","DefaultVariant":false},{"ID":8,"Name":"Minor","CostperLevel":20,"AttributeID":16,"Desc":"","DefaultVariant":true},{"ID":10,"Name":"Primal","CostperLevel":40,"AttributeID":16,"Desc":"","DefaultVariant":false},{"ID":11,"Name":"Focused","CostperLevel":4,"AttributeID":37,"Desc":"","DefaultVariant":true},{"ID":13,"Name":"Melee","CostperLevel":7,"AttributeID":37,"Desc":"","DefaultVariant":false},{"ID":12,"Name":"Targeted","CostperLevel":4,"AttributeID":37,"Desc":"","DefaultVariant":false},{"ID":14,"Name":"Unlimited","CostperLevel":10,"AttributeID":37,"Desc":"","DefaultVariant":false},{"ID":46,"Name":"Multi-Form","CostperLevel":20,"AttributeID":40,"Desc":"","DefaultVariant":false},{"ID":45,"Name":"Single Form","CostperLevel":10,"AttributeID":40,"Desc":"","DefaultVariant":true},{"ID":47,"Name":"Unlimited Forms","CostperLevel":30,"AttributeID":40,"Desc":"","DefaultVariant":false},{"ID":44,"Name":"All Powers","CostperLevel":20,"AttributeID":41,"Desc":"","DefaultVariant":false},{"ID":43,"Name":"One Power","CostperLevel":15,"AttributeID":41,"Desc":"","DefaultVariant":true},{"ID":50,"Name":"Broad Category","CostperLevel":6,"AttributeID":42,"Desc":"","DefaultVariant":false},{"ID":51,"Name":"Specific Category","CostperLevel":5,"AttributeID":42,"Desc":"","DefaultVariant":false},{"ID":48,"Name":"Universal","CostperLevel":8,"AttributeID":42,"Desc":"","DefaultVariant":true},{"ID":49,"Name":"Very Broad Category","CostperLevel":7,"AttributeID":42,"Desc":"","DefaultVariant":false},{"ID":52,"Name":"Very Specific Category","CostperLevel":4,"AttributeID":42,"Desc":"","DefaultVariant":false},{"ID":54,"Name":"All Attributes","CostperLevel":24,"AttributeID":44,"Desc":"","DefaultVariant":false},{"ID":56,"Name":"Drain All Attributes","CostperLevel":30,"AttributeID":44,"Desc":"","DefaultVariant":false},{"ID":55,"Name":"Drain Single Attribute","CostperLevel":20,"AttributeID":44,"Desc":"","DefaultVariant":false},{"ID":53,"Name":"Single Attribute","CostperLevel":14,"AttributeID":44,"Desc":"","DefaultVariant":true},{"ID":58,"Name":"Major","CostperLevel":10,"AttributeID":48,"Desc":"","DefaultVariant":false},{"ID":57,"Name":"Minor","CostperLevel":5,"AttributeID":48,"Desc":"","DefaultVariant":true},{"ID":59,"Name":"Primal","CostperLevel":15,"AttributeID":48,"Desc":"","DefaultVariant":false},{"ID":60,"Name":"Full","CostperLevel":10,"AttributeID":53,"Desc":"","DefaultVariant":true},{"ID":61,"Name":"Variable Intensity","CostperLevel":5,"AttributeID":53,"Desc":"","DefaultVariant":false},{"ID":63,"Name":"Difficult to Stop","CostperLevel":10,"AttributeID":54,"Desc":"","DefaultVariant":false},{"ID":62,"Name":"Easy to Stop","CostperLevel":5,"AttributeID":54,"Desc":"","DefaultVariant":true},{"ID":65,"Name":"Grow and Shrink","CostperLevel":30,"AttributeID":59,"Desc":"","DefaultVariant":false},{"ID":64,"Name":"Grow or Shrink","CostperLevel":25,"AttributeID":59,"Desc":"","DefaultVariant":true},{"ID":67,"Name":"Focused","CostperLevel":4,"AttributeID":68,"Desc":"","DefaultVariant":false},{"ID":66,"Name":"Ordinary","CostperLevel":8,"AttributeID":68,"Desc":"","DefaultVariant":true},{"ID":69,"Name":"Major","CostperLevel":4,"AttributeID":69,"Desc":"","DefaultVariant":false},{"ID":68,"Name":"Minor","CostperLevel":2,"AttributeID":69,"Desc":"","DefaultVariant":true},{"ID":70,"Name":"Universal","CostperLevel":6,"AttributeID":69,"Desc":"","DefaultVariant":false},{"ID":73,"Name":"All Attributes","CostperLevel":20,"AttributeID":72,"Desc":"","DefaultVariant":false},{"ID":72,"Name":"One Attribute","CostperLevel":10,"AttributeID":72,"Desc":"","DefaultVariant":false},{"ID":71,"Name":"Specific Attribute","CostperLevel":5,"AttributeID":72,"Desc":"","DefaultVariant":true},{"ID":75,"Name":"Any Solid","CostperLevel":10,"AttributeID":73,"Desc":"","DefaultVariant":false},{"ID":76,"Name":"Major Class","CostperLevel":8,"AttributeID":73,"Desc":"","DefaultVariant":false},{"ID":78,"Name":"Minor Class","CostperLevel":6,"AttributeID":73,"Desc":"","DefaultVariant":false},{"ID":77,"Name":"Similar Mass","CostperLevel":8,"AttributeID":73,"Desc":"","DefaultVariant":false},{"ID":74,"Name":"Unlimited","CostperLevel":12,"AttributeID":73,"Desc":"","DefaultVariant":true},{"ID":80,"Name":"Alternate Attack","CostperLevel":2,"AttributeID":79,"Desc":"","DefaultVariant":false},{"ID":79,"Name":"Primary Attack","CostperLevel":2,"AttributeID":79,"Desc":"","DefaultVariant":true},{"ID":40,"Name":"Boosting","CostperLevel":4,"AttributeID":236,"Desc":"","DefaultVariant":false},{"ID":38,"Name":"Restoring","CostperLevel":3,"AttributeID":236,"Desc":"","DefaultVariant":true}]
+[
+  {
+    "ID": 41,
+    "Name": "Specific Powers",
+    "CostperLevel": 2,
+    "AttributeID": 6,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 1,
+    "Name": "Unlimited",
+    "CostperLevel": 12,
+    "AttributeID": 6,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 5,
+    "Name": "Boosting",
+    "CostperLevel": 15,
+    "AttributeID": 10,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 7,
+    "Name": "Boosting: Combined Restoration",
+    "CostperLevel": 25,
+    "AttributeID": 10,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 4,
+    "Name": "Charging",
+    "CostperLevel": 10,
+    "AttributeID": 10,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 6,
+    "Name": "Charging: Combined Restoration",
+    "CostperLevel": 20,
+    "AttributeID": 10,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 3,
+    "Name": "External",
+    "CostperLevel": 15,
+    "AttributeID": 11,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 2,
+    "Name": "Internal",
+    "CostperLevel": 10,
+    "AttributeID": 11,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 9,
+    "Name": "Major",
+    "CostperLevel": 30,
+    "AttributeID": 16,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 8,
+    "Name": "Minor",
+    "CostperLevel": 20,
+    "AttributeID": 16,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 10,
+    "Name": "Primal",
+    "CostperLevel": 40,
+    "AttributeID": 16,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 11,
+    "Name": "Focused",
+    "CostperLevel": 4,
+    "AttributeID": 37,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 13,
+    "Name": "Melee",
+    "CostperLevel": 7,
+    "AttributeID": 37,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 12,
+    "Name": "Targeted",
+    "CostperLevel": 4,
+    "AttributeID": 37,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 14,
+    "Name": "Unlimited",
+    "CostperLevel": 10,
+    "AttributeID": 37,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 46,
+    "Name": "Multi-Form",
+    "CostperLevel": 20,
+    "AttributeID": 40,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 45,
+    "Name": "Single Form",
+    "CostperLevel": 10,
+    "AttributeID": 40,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 47,
+    "Name": "Unlimited Forms",
+    "CostperLevel": 30,
+    "AttributeID": 40,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 44,
+    "Name": "All Powers",
+    "CostperLevel": 20,
+    "AttributeID": 41,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 43,
+    "Name": "One Power",
+    "CostperLevel": 15,
+    "AttributeID": 41,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 50,
+    "Name": "Broad Category",
+    "CostperLevel": 6,
+    "AttributeID": 42,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 51,
+    "Name": "Specific Category",
+    "CostperLevel": 5,
+    "AttributeID": 42,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 48,
+    "Name": "Universal",
+    "CostperLevel": 8,
+    "AttributeID": 42,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 49,
+    "Name": "Very Broad Category",
+    "CostperLevel": 7,
+    "AttributeID": 42,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 52,
+    "Name": "Very Specific Category",
+    "CostperLevel": 4,
+    "AttributeID": 42,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 54,
+    "Name": "All Attributes",
+    "CostperLevel": 24,
+    "AttributeID": 44,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 56,
+    "Name": "Drain All Attributes",
+    "CostperLevel": 30,
+    "AttributeID": 44,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 55,
+    "Name": "Drain Single Attribute",
+    "CostperLevel": 20,
+    "AttributeID": 44,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 53,
+    "Name": "Single Attribute",
+    "CostperLevel": 14,
+    "AttributeID": 44,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 58,
+    "Name": "Major",
+    "CostperLevel": 10,
+    "AttributeID": 48,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 57,
+    "Name": "Minor",
+    "CostperLevel": 5,
+    "AttributeID": 48,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 59,
+    "Name": "Primal",
+    "CostperLevel": 15,
+    "AttributeID": 48,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 60,
+    "Name": "Full",
+    "CostperLevel": 10,
+    "AttributeID": 53,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 61,
+    "Name": "Variable Intensity",
+    "CostperLevel": 5,
+    "AttributeID": 53,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 63,
+    "Name": "Difficult to Stop",
+    "CostperLevel": 10,
+    "AttributeID": 54,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 62,
+    "Name": "Easy to Stop",
+    "CostperLevel": 5,
+    "AttributeID": 54,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 65,
+    "Name": "Grow and Shrink",
+    "CostperLevel": 30,
+    "AttributeID": 59,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 64,
+    "Name": "Grow or Shrink",
+    "CostperLevel": 25,
+    "AttributeID": 59,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 67,
+    "Name": "Focused",
+    "CostperLevel": 4,
+    "AttributeID": 68,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 66,
+    "Name": "Ordinary",
+    "CostperLevel": 8,
+    "AttributeID": 68,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 69,
+    "Name": "Major",
+    "CostperLevel": 4,
+    "AttributeID": 69,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 68,
+    "Name": "Minor",
+    "CostperLevel": 2,
+    "AttributeID": 69,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 70,
+    "Name": "Universal",
+    "CostperLevel": 6,
+    "AttributeID": 69,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 73,
+    "Name": "All Attributes",
+    "CostperLevel": 20,
+    "AttributeID": 72,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 72,
+    "Name": "One Attribute",
+    "CostperLevel": 10,
+    "AttributeID": 72,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 71,
+    "Name": "Specific Attribute",
+    "CostperLevel": 5,
+    "AttributeID": 72,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 75,
+    "Name": "Any Solid",
+    "CostperLevel": 10,
+    "AttributeID": 73,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 76,
+    "Name": "Major Class",
+    "CostperLevel": 8,
+    "AttributeID": 73,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 78,
+    "Name": "Minor Class",
+    "CostperLevel": 6,
+    "AttributeID": 73,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 77,
+    "Name": "Similar Mass",
+    "CostperLevel": 8,
+    "AttributeID": 73,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 74,
+    "Name": "Unlimited",
+    "CostperLevel": 12,
+    "AttributeID": 73,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 80,
+    "Name": "Alternate Attack",
+    "CostperLevel": 2,
+    "AttributeID": 79,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 79,
+    "Name": "Primary Attack",
+    "CostperLevel": 2,
+    "AttributeID": 79,
+    "Desc": "",
+    "DefaultVariant": true
+  },
+  {
+    "ID": 40,
+    "Name": "Boosting",
+    "CostperLevel": 4,
+    "AttributeID": 236,
+    "Desc": "",
+    "DefaultVariant": false
+  },
+  {
+    "ID": 38,
+    "Name": "Restoring",
+    "CostperLevel": 3,
+    "AttributeID": 236,
+    "Desc": "",
+    "DefaultVariant": true
+  }
+]

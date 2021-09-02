@@ -6,12 +6,15 @@ namespace BESM3CA.Model
 {
     class AttributeData : NodeData
     {
+        //Internal Variables:
         int _Level;
-        int _Points;
+        int _PointsPerLevel;
         bool _HasLevel;
         int _Variant = 0;
         int _PointAdj = 0;
 
+
+        //Properties:
         public bool HasLevel
         {
             get
@@ -29,46 +32,6 @@ namespace BESM3CA.Model
             set
             {
                 _Variant = value;
-            }
-        }
-
-        public bool raiseLevel()
-        {
-
-            //need to check maxlevel
-            if (_HasLevel == true)
-            {
-                _Level++;
-                _pointsUpToDate = false;
-            }
-            return _HasLevel;
-        }
-
-        public bool lowerLevel()
-        {
-            if (_Level > 0)
-            {
-                if (_HasLevel == true)
-                {
-                    if (_PointAdj < 0)
-                    {
-                        if ((_Level * _Points) + _PointAdj > 0)
-                        {
-                            _Level--;
-                            _pointsUpToDate = false;
-                        }
-                    }
-                    else
-                    {
-                        _Level--;
-                        _pointsUpToDate = false;
-                    }
-                }
-                return _HasLevel;
-            }
-            else
-            {
-                return false;
             }
         }
 
@@ -92,11 +55,11 @@ namespace BESM3CA.Model
         {
             get
             {
-                return _Points;
+                return _PointsPerLevel;
             }
             set
             {
-                _Points = value;
+                _PointsPerLevel = value;
             }
         }
 
@@ -120,9 +83,105 @@ namespace BESM3CA.Model
             }
         }
 
+
+        //Constructors:
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
+        {
+            _Level = Level;
+            _PointsPerLevel = Points;
+            _HasLevel = true;
+        }
+
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points, int PointAdj)
+            : base(AttributeName, AttributeID, Notes)
+        {
+            _PointAdj = PointAdj;
+            _Level = Level;
+            _PointsPerLevel = Points;
+            _HasLevel = true;
+        }
+
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points) : base(AttributeName, AttributeID, Notes)
+        {
+            if (AttributeName == "Item")
+            {
+                _HasLevel = false;
+                _Level = 1;
+            }
+            else
+            {
+                _HasLevel = true;
+                if (AttributeName == "Weapon")
+                {
+                    _Level = 0;
+                }
+                else
+                {
+                    _Level = 1;
+                }
+            }
+
+            _PointsPerLevel = Points;
+
+            if (AttributeName == "Companion")
+            {
+                addChild(new CharacterData(""));
+            }
+            if (AttributeName == "Mind Control")
+            {
+                addChild(new AttributeData("Range", 167, "", 3, 1, -3));
+            }
+        }
+
+        public AttributeData() : base()
+        {
+
+        }
+
+
+        //Member Functions:
+        public bool raiseLevel()
+        {
+            //need to check maxlevel
+            if (_HasLevel == true)
+            {
+                _Level++;
+                PointsUpToDate = false;
+            }
+            return _HasLevel;
+        }
+
+        public bool lowerLevel()
+        {
+            if (_Level > 0)
+            {
+                if (_HasLevel == true)
+                {
+                    if (_PointAdj < 0)
+                    {
+                        if ((_Level * _PointsPerLevel) + _PointAdj > 0)
+                        {
+                            _Level--;
+                            PointsUpToDate = false;
+                        }
+                    }
+                    else
+                    {
+                        _Level--;
+                        PointsUpToDate = false;
+                    }
+                }
+                return _HasLevel;
+            }
+            else
+            {
+                return false;
+            }
+        }        
+
         public override int GetPoints(TemplateData templateData)
         {
-            if (_pointsUpToDate == false || _FirstChild == null)
+            if (PointsUpToDate == false || _FirstChild == null)
             {
                 
                 bool isItem = false;
@@ -141,222 +200,78 @@ namespace BESM3CA.Model
                     {
                         isAlternateAttack = true;
                     }
+                }               
+
+                int VariablesOrRestrictions = 0;
+                int ChildPoints = 0;
+
+                NodeData temp = _FirstChild;
+                while(temp != null)
+                {
+                    if (temp.GetType() == typeof(AttributeData))
+                    {
+                        AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
+                        if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
+                        {
+                            VariablesOrRestrictions += temp.GetPoints(templateData);
+                        }
+                        else
+                        {
+                            ChildPoints += temp.GetPoints(templateData);
+                        }
+
+                    }
+                    else 
+                    {
+                        ChildPoints += temp.GetPoints(templateData);
+                    }
+                    
+                    temp = temp.Next;
                 }
-                _points = 0;
 
-                //NodeData temp = _FirstChild;
-                //while(temp != null)
-                //{
-                //    _points += temp.GetPoints();
-                //    temp = temp.Next;
-                //}
+                _points = BaseCost;
+               
+                _points += VariablesOrRestrictions;
 
-                _points += BaseCost;
-                _pointsUpToDate = true;
+                if (isCompanion)
+                {
+                    if (ChildPoints > 120)
+                    {
+                        _points += 2 + ((ChildPoints - 120) / 10);
+                    }
+                    else
+                    {
+                        _points += 2;
+                    }
+                }
+
+                if (isItem)
+                {
+                    //item point cost calc:
+                    if (ChildPoints < 1)
+                    {
+                        _points += 1;
+                    }
+                    else
+                    {
+                        _points += (ChildPoints / 2);
+                    }
+                } 
+                
+                //***
+                //if alternate weapon attack half points
+                if (isAlternateAttack)
+                {
+                    _points /= 2;
+                }
+                //***
+                //Points should equal BaseCost +- any restrictions or variables
+
+                PointsUpToDate = true;
             }
 
            
             return _points;
-        }
-
-
-        /*
-         * int basepoints = 0;
-            int level = 1;
-            
-            int PointAdj = 0;
-                    
-                basepoints = ((AttributeData)Node.Tag).PointsPerLevel;
-                level = ((AttributeData)Node.Tag).Level;
-                
-
-                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
-
-                if (SelectedAttribute.Type == "Special")
-                {
-                    basepoints = 0;
-                    level = 0;
-                }
-                PointAdj = ((AttributeData)Node.Tag).PointAdj;
-            }
-            
-
-            int Extra = 0;
-            int itempoints = 0;
-            foreach (TreeNode Child in Node.Nodes)
-            {
-                if (isItem == false && isCompanion == false && isAlternateForm == false)
-                {
-                    Extra += GetPoints(Child);
-                }
-                else if (isCompanion == true && Child.Tag.GetType() == typeof(AttributeData))
-                {
-                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
-
-                    if (SelectedAttribute.Type == "Restriction")
-                    {
-                        Extra += GetPoints(Child);
-                    }
-                }
-                else if (isItem == true)
-                {
-                    itempoints += GetPoints(Child);
-                }
-                else if (isCompanion == true)
-                {
-                    if (Child.Tag.GetType() == typeof(CharacterData))
-                    {
-                        int temp = GetPoints(Child);
-                        if (temp > 120)
-                        {
-                            basepoints += 2 + ((GetPoints(Child) - 120) / 10);
-                        }
-                        else
-                        {
-                            basepoints += 2;
-                        }
-                    }
-                    else
-                    {
-                        Extra += GetPoints(Child);
-                    }
-                }
-            }
-            if (isItem)
-            {
-                if (itempoints < 1)
-                {
-                    basepoints = 1;
-                }
-                else
-                {
-                    basepoints += itempoints / 2;
-                }
-            }
-            
-            //***
-            //if alternate weapon attack half points
-            if (isAlternateAttack)
-            {
-                return ((basepoints * level) + Extra + 1) / 2;
-            }
-            //***
-
-            return (basepoints * level) + Extra + PointAdj;
-
-
-
-         * 
-         * 
-         * 
-         * 
-         * 
-          foreach (TreeNode Node in Nodes)
-            {
-                refreshTree(Node.Nodes);
-
-                if (Node.Tag.GetType() == typeof(AttributeData))
-                {
-                    bool altform = false;
-                    if (((AttributeData)Node.Tag).Name == "Alternate Form")
-                    {
-                        altform = true;
-                    }
-
-                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
-
-                    if (SelectedAttribute.SpecialContainer || altform)
-                    {
-                        int LevelsUsed = 0;
-                        foreach (TreeNode child in Node.Nodes)
-                        {
-                            SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
-
-                            if (SelectedAttribute.Type == "Special" || altform)
-                            {
-                                LevelsUsed += ((AttributeData)child.Tag).Level * ((AttributeData)child.Tag).PointsPerLevel;
-                            }
-                        }
-                        int specialpoints;
-                        if (altform)
-                        {
-                            specialpoints = ((AttributeData)Node.Tag).Level * 10;
-                        }
-                        else
-                        {
-                            specialpoints = ((AttributeData)Node.Tag).Level;
-                        }
-                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + (specialpoints - LevelsUsed).ToString() + " Left)" + " (" + GetPoints(Node) + " Points)";
-                    }
-                    else
-                    {
-                        SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
-
-                        if (SelectedAttribute.Type == "Special")
-                        {
-                            Node.Text = ((AttributeData)Node.Tag).Name;
-
-                        }
-                        else
-                        {
-                            Node.Text = ((AttributeData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
-                        }
-                    }
-                }
-                else
-                {
-                    Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
-                }                
-            }
-        }
-         */
-
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
-        {
-            _Level = Level;
-            _Points = Points;
-            _HasLevel = true;
-        }
-
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points, int PointAdj)
-            : base(AttributeName, AttributeID, Notes)
-        {
-            _PointAdj = PointAdj;
-            _Level = Level;
-            _Points = Points;
-            _HasLevel = true;
-        }
-
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points) : base(AttributeName, AttributeID, Notes)
-        {
-            if (AttributeName == "Item")
-            {
-                _HasLevel = false;
-                _Level = 1;
-            }
-            else
-            {
-                _HasLevel = true;
-                if(AttributeName=="Weapon")
-                {
-                    _Level = 0;
-                }
-                else
-                {
-                    _Level = 1;
-                }
-            }
-
-            _Points = Points;
-
-            if (AttributeName == "Companion")
-            {
-                addChild(new CharacterData(""));
-            }
-            if (AttributeName == "Mind Control")
-            {
-                addChild(new AttributeData("Range", 167, "", 3, 1, -3));
-            }
         }
 
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
@@ -365,15 +280,10 @@ namespace BESM3CA.Model
             textWriter.WriteAttributeString("Level", _Level.ToString());
             textWriter.WriteAttributeString("Variant", _Variant.ToString());
             textWriter.WriteAttributeString("HasLevel", _HasLevel.ToString());
-            textWriter.WriteAttributeString("Points", _Points.ToString());
+            textWriter.WriteAttributeString("Points", _PointsPerLevel.ToString());
             textWriter.WriteAttributeString("PointAdj", _PointAdj.ToString());
             textWriter.WriteEndElement();
-        }
-
-        public AttributeData() : base()
-        {
-
-        }
+        }        
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
@@ -405,7 +315,7 @@ namespace BESM3CA.Model
                                         _Variant = int.Parse(reader.Value);
                                         break;
                                     case "Points":
-                                        _Points = int.Parse(reader.Value);
+                                        _PointsPerLevel = int.Parse(reader.Value);
                                         break;
                                     case "PointAdj":
                                         _PointAdj = int.Parse(reader.Value);
@@ -426,8 +336,6 @@ namespace BESM3CA.Model
                     }
                 }
             }
-
         }
     }
-
 }

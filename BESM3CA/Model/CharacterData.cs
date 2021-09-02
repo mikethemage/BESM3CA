@@ -5,10 +5,12 @@ namespace BESM3CA.Model
 {
     class CharacterData : NodeData
     {
+        //Internal Variables:
         int _body;
         int _mind;
         int _soul;
 
+        //Properties:
         public string CharacterName {get; set;}
      
         public int BaseCost
@@ -54,6 +56,7 @@ namespace BESM3CA.Model
                 if (value >= 0)
                 {
                     _body = value;
+                    PointsUpToDate = false;
                 }
             }
         }
@@ -69,6 +72,7 @@ namespace BESM3CA.Model
                 if (value >= 0)
                 {
                     _mind = value;
+                    PointsUpToDate = false;
                 }
             }
         }
@@ -84,13 +88,30 @@ namespace BESM3CA.Model
                 if (value >= 0)
                 {
                     _soul = value;
+                    PointsUpToDate = false;
                 }
             }
         }
 
+
+        //Constructors:
+        public CharacterData(string Notes) : base("Character", 0, Notes)
+        {
+            _body = 1;
+            _mind = 1;
+            _soul = 1;
+        }
+
+        public CharacterData() : base()
+        {
+            //Default Constructor
+        }
+
+
+        //Member functions:
         public override int GetPoints(TemplateData templateData)
         {            
-                if (_pointsUpToDate == false || _FirstChild == null)
+                if (PointsUpToDate == false || _FirstChild == null)
                 {
                     _points = BaseCost;
                     NodeData temp = _FirstChild;
@@ -99,17 +120,10 @@ namespace BESM3CA.Model
                         _points += temp.GetPoints(templateData);
                         temp = temp.Next;
                     }
-                    _pointsUpToDate = true;
+                    PointsUpToDate = true;
                 }
                 
                 return _points;            
-        }
-
-        public CharacterData(string Notes) : base("Character", 0, Notes)
-        {
-            _body = 1;
-            _mind = 1;
-            _soul = 1;
         }
 
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
@@ -119,11 +133,6 @@ namespace BESM3CA.Model
             textWriter.WriteAttributeString("Body", _body.ToString());
             textWriter.WriteAttributeString("Soul", _soul.ToString());
             textWriter.WriteEndElement();
-        }
-
-        public CharacterData() : base()
-        {
-            //Default Constructor
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
@@ -136,7 +145,6 @@ namespace BESM3CA.Model
                 {
                     if (reader.Name == "CharacterStats")
                     {
-
                         // loading node attributes
                         int attributeCount = reader.AttributeCount;
                         if (attributeCount > 0)
@@ -172,6 +180,5 @@ namespace BESM3CA.Model
                 }
             }
         }
-
     }
 }
