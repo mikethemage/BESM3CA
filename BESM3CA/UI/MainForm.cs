@@ -421,7 +421,8 @@ namespace BESM3CA
             if (SaveExisting == false || FileName == "")
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                //saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                saveFileDialog1.RestoreDirectory = false;
                 saveFileDialog1.Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*";
                 saveFileDialog1.FilterIndex = 1;
 
@@ -442,7 +443,8 @@ namespace BESM3CA
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            openFileDialog1.RestoreDirectory = false;
             openFileDialog1.Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*";
             openFileDialog1.FilterIndex = 1;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -467,113 +469,7 @@ namespace BESM3CA
                 ResetAll();
             }
         }
-
-        /*private int GetPoints(TreeNode Node)
-        {
-            int basepoints = 0;
-            int level = 1;
-            bool isItem = false;
-            bool isCompanion = false;
-            bool isAlternateAttack = false;
-            bool isAlternateForm = false;
-            int PointAdj = 0;
-
-            if (Node.Tag.GetType() == typeof(AttributeData))
-            {
-                basepoints = ((AttributeData)Node.Tag).PointsPerLevel;
-                level = ((AttributeData)Node.Tag).Level;
-                isItem = ((AttributeData)Node.Tag).Name == "Item";
-                isCompanion = ((AttributeData)Node.Tag).Name == "Companion";
-                isAlternateForm = ((AttributeData)Node.Tag).Name == "Alternate Form";
-
-                if (((AttributeData)Node.Tag).Variant > 0)
-                {
-                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((AttributeData)Node.Tag).Variant).First();
-
-                    if (SelectedVariant.Name == "Alternate Attack")
-                    {
-                        isAlternateAttack = true;
-                    }
-                }
-
-                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
-
-                if (SelectedAttribute.Type == "Special")
-                {
-                    basepoints = 0;
-                    level = 0;
-                }
-                PointAdj = ((AttributeData)Node.Tag).PointAdj;
-            }
-            else
-            {
-                basepoints = ((CharacterData)Node.Tag).BaseCost;
-                level = 1;
-            }
-
-            int Extra = 0;
-            int itempoints = 0;
-            foreach (TreeNode Child in Node.Nodes)
-            {
-                if (isItem == false && isCompanion == false && isAlternateForm == false)
-                {
-                    Extra += GetPoints(Child);
-                }
-                else if (isCompanion == true && Child.Tag.GetType() == typeof(AttributeData))
-                {
-                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
-
-                    if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
-                    {
-                        Extra += GetPoints(Child);
-                    }
-                }
-                else if (isItem == true)
-                {
-                    itempoints += GetPoints(Child);
-                }
-                else if (isCompanion == true)
-                {
-                    if (Child.Tag.GetType() == typeof(CharacterData))
-                    {
-                        int temp = GetPoints(Child);
-                        if (temp > 120)
-                        {
-                            basepoints += 2 + ((GetPoints(Child) - 120) / 10);
-                        }
-                        else
-                        {
-                            basepoints += 2;
-                        }
-                    }
-                    else
-                    {
-                        Extra += GetPoints(Child);
-                    }
-                }
-            }
-            if (isItem)
-            {
-                if (itempoints < 1)
-                {
-                    basepoints = 1;
-                }
-                else
-                {
-                    basepoints += itempoints / 2;
-                }
-            }
-            
-            //***
-            //if alternate weapon attack half points
-            if (isAlternateAttack)
-            {
-                return ((basepoints * level) + Extra + 1) / 2;
-            }
-            //***
-
-            return (basepoints * level) + Extra + PointAdj;
-        }*/
+        
 
         private void refreshTree(TreeNodeCollection Nodes)
         {
@@ -718,7 +614,8 @@ namespace BESM3CA
         private void exportToTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            saveFileDialog1.RestoreDirectory = false;
             saveFileDialog1.Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 1;
 
