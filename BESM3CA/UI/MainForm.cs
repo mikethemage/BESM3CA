@@ -7,6 +7,7 @@ using System.Linq;
 using BESM3CA.Model;
 using BESM3CA.UI;
 using BESM3CA.Templates;
+using System.Diagnostics;
 
 namespace BESM3CA
 {
@@ -33,7 +34,7 @@ namespace BESM3CA
         private void BESM3CA_Load(object sender, EventArgs e)
         {
             checkMaxLevel = false;
-            //templateData = new TemplateData();
+            //Load template from file:
             templateData = TemplateData.JSONLoader();
             ResetAll();
         }
@@ -83,12 +84,16 @@ namespace BESM3CA
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
                 //LINQ Version:
-                var FilteredVarList = from Att in templateData.AttributeList
+                IEnumerable<ListItems> FilteredVarList = from Att in templateData.AttributeList
                                       where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeID
                                       from Vari in templateData.VariantList
                                       where Att.ID == Vari.AttributeID
                                       orderby Vari.DefaultVariant descending, Vari.Name
-                                      select (Att.ID, AttributeName: Att.Name, VariantID: Vari.ID, VariantName: Vari.Name, Vari.CostperLevel, Vari.Desc, Vari.DefaultVariant);
+                                      select new ListItems
+                                      ( 
+                                          Att.Name + " [" + Vari.Name + "]", 
+                                          Vari.ID
+                                      );                
 
                 lbVariantList.Items.Clear();
 
@@ -104,10 +109,8 @@ namespace BESM3CA
                     }
                     lbAttributeList.Top = HeightAdjust1;
 
-                    foreach (var item in FilteredVarList)
-                    {
-                        lbVariantList.Items.Add(new ListItems(item.AttributeName + " [" + item.VariantName + "]", item.VariantID));
-                    }
+                    lbVariantList.Items.AddRange(FilteredVarList.ToArray());
+                   
                 }
                 else
                 {
@@ -196,15 +199,17 @@ namespace BESM3CA
 
         private void AddAttr()
         {
+            //MessageBox.Show(lbAttributeList.SelectedValue.ToString());
+
             if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
             {
                 TreeNode NewNode;
                 NewNode = tvCharacterTree.SelectedNode.Nodes.Add(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString());
 
                 AttributeListing Att = templateData.AttributeList.FirstOrDefault(n => n.ID==((ListItems)lbAttributeList.SelectedItem).ValueMember);                                                             
-                                   
-                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel, templateData);
-                //Temp code for subbing in decoupler:
+
+                //Temp code for subbing in decoupler:                   
+                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel, templateData);                
                 ((NodeData)NewNode.Parent.Tag).AddChild((NodeData)NewNode.Tag);
                 //***
 
@@ -238,7 +243,7 @@ namespace BESM3CA
             }
             else if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                if(((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)  //Need to also disable for "Special" types
+                if(((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)  
                 {
                     AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
@@ -257,8 +262,9 @@ namespace BESM3CA
                 }
             }
             else
-            { 
-              //Error              
+            {
+                //Error
+                Debug.Assert(false);
             }
         }
 
@@ -428,11 +434,13 @@ namespace BESM3CA
         {
             if (SaveExisting == false || FileName == "")
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                //saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                saveFileDialog1.RestoreDirectory = false;
-                saveFileDialog1.Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*";
-                saveFileDialog1.FilterIndex = 1;
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog
+                {
+                    //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                    RestoreDirectory = false,
+                    Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*",
+                    FilterIndex = 1
+                };
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -450,11 +458,13 @@ namespace BESM3CA
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            //openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog1.RestoreDirectory = false;
-            openFileDialog1.Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 ResetAll();
@@ -478,7 +488,6 @@ namespace BESM3CA
             }
         }
         
-
         private void RefreshTree(TreeNodeCollection Nodes)
         {
             foreach (TreeNode Node in Nodes)
@@ -526,9 +535,7 @@ namespace BESM3CA
             e.Cancel = false;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                int temp;
-
-                if (int.TryParse(tbBody.Text, out temp) && temp > 0)
+                if (int.TryParse(tbBody.Text, out int temp) && temp > 0)
                 {
                     ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body = temp;
                 }
@@ -543,9 +550,7 @@ namespace BESM3CA
             e.Cancel = false;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                int temp;
-
-                if (int.TryParse(tbMind.Text, out temp) && temp > 0)
+                if (int.TryParse(tbMind.Text, out int temp) && temp > 0)
                 {
                     ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind = temp;
                 }
@@ -560,9 +565,7 @@ namespace BESM3CA
             e.Cancel = false;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                int temp;
-
-                if (int.TryParse(tbSoul.Text, out temp) && temp > 0)
+                if (int.TryParse(tbSoul.Text, out int temp) && temp > 0)
                 {
                     ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul = temp;
                 }
@@ -602,11 +605,13 @@ namespace BESM3CA
 
         private void exportToTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            //saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog1.RestoreDirectory = false;
-            saveFileDialog1.Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            saveFileDialog1.FilterIndex = 1;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {

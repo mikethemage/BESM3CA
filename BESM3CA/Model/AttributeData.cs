@@ -15,6 +15,14 @@ namespace BESM3CA.Model
 
         //Properties:
 
+        public bool HasVariants
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public int GetSpecialPoints (TemplateData templateData)
         {
             bool altform = false;
@@ -46,10 +54,7 @@ namespace BESM3CA.Model
                 specialpoints -= _SpecialPointsUsed;
             }
 
-
             return specialpoints;
-
-
         }
 
         public bool HasLevel
@@ -112,29 +117,13 @@ namespace BESM3CA.Model
         }
 
 
-        //Constructors:
-        /*public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points) : base(AttributeName, AttributeID, Notes)
-        {
-            _Level = Level;
-            PointsPerLevel = Points;
-            _HasLevel = true;
-        }*/
-
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Level, int Points, int PointAdj, TemplateData useTemplate)
-            : base(AttributeName, AttributeID, Notes, useTemplate)
-        {
-            _PointAdj = PointAdj;
-            _Level = Level;
-            PointsPerLevel = Points;
-            _HasLevel = true;
-        }
-
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points, TemplateData useTemplate) : base(AttributeName, AttributeID, Notes, useTemplate)
+        //Constructors:         
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points, TemplateData useTemplate, int Level=1, int PointAdj=0) : base(AttributeName, AttributeID, Notes, useTemplate)
         {
             if (AttributeName == "Item")
             {
                 _HasLevel = false;
-                _Level = 1;
+                //_Level = 1;
             }
             else
             {
@@ -143,13 +132,15 @@ namespace BESM3CA.Model
                 {
                     _Level = 0;
                 }
-                else
+                /*else
                 {
                     _Level = 1;
-                }
+                }*/
             }
 
             PointsPerLevel = Points;
+            _PointAdj = PointAdj;
+            _Level = Level;
 
             if (AttributeName == "Companion")
             {
@@ -157,11 +148,11 @@ namespace BESM3CA.Model
             }
             if (AttributeName == "Mind Control")
             {
-                AddChild(new AttributeData("Range", 167, "", 3, 1, -3,_asscTemplate));
+                AddChild(new AttributeData("Range", 167, "",  1, _asscTemplate,3,-3));
             }
         }
 
-        public AttributeData() : base()
+        public AttributeData() : base(null,0,null,null)
         {
             //Default Constructor - currently needed for loading code
             //Todo: refactor

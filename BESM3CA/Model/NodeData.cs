@@ -95,6 +95,7 @@ namespace BESM3CA.Model
             _name = AttributeName;
             _ID = AttributeID;
             _Notes = Notes;
+
             NodeOrder = 1;
             _FirstChild = null;
             _Parent = null;
@@ -104,17 +105,17 @@ namespace BESM3CA.Model
             _pointsUpToDate = false;
         }
 
-        public NodeData()
-        {
-            
-            NodeOrder = 1;
-            _FirstChild = null;
-            _Parent = null;
-            _LastChildOrder = 0;
-            Next = null;
-            Prev = null;
-            _pointsUpToDate = false;
-        }
+        //public NodeData()
+        //{
+        //    //Default Constructor - currently needed for loading code
+        //    NodeOrder = 1;
+        //    _FirstChild = null;
+        //    _Parent = null;
+        //    _LastChildOrder = 0;
+        //    Next = null;
+        //    Prev = null;
+        //    _pointsUpToDate = false;
+        //}
 
 
         //Member Functions:

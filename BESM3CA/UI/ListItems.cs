@@ -1,31 +1,27 @@
 ﻿namespace BESM3CA
 {
     class ListItems
-    {
+    {        
+        //Properties:
+        public string DisplayMember { get; set; }
+        public int ValueMember { get; set; }
+
+        public string OptionalMember { get; set; }
+
+        //Constructors:
         public ListItems(string Data, int Key)
         {
             DisplayMember = Data;
             ValueMember = Key;
+            OptionalMember = null;
         }
 
-        public string DisplayMember
+        public ListItems(string Data, int Key, string Optional)
         {
-            get
-            { return _DisplayMember; }
-            set
-            { _DisplayMember = value; }
+            DisplayMember = Data;
+            ValueMember = Key;
+            OptionalMember = Optional;
         }
-
-        public int ValueMember
-        {
-            get
-            { return _ValueMember; }
-            set
-            { _ValueMember = value; }
-        }
-
-        private string _DisplayMember;
-        private int _ValueMember;
 
     }
 }

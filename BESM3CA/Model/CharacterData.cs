@@ -102,7 +102,7 @@ namespace BESM3CA.Model
             _soul = 1;
         }
 
-        public CharacterData() : base()
+        public CharacterData() : base("Character", 0, null, null)
         {
             //Default Constructor - currently needed for loading code
             //Todo: refactor
