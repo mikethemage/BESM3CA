@@ -25,7 +25,7 @@ namespace BESM3CA
 
         private string FileName;
         private bool checkMaxLevel;
-        
+
         public MainForm()
         {
             InitializeComponent();
@@ -43,7 +43,7 @@ namespace BESM3CA
         {
             FileName = "";
             Text = "BESM3CA";
-            
+
             //Reset root character:
             RootCharacter = new CharacterData("", templateData);
 
@@ -51,7 +51,7 @@ namespace BESM3CA
             tvCharacterTree.Nodes.Clear();
             TreeNode Root;
             Root = tvCharacterTree.Nodes.Add("Character");
-            Root.Tag = RootCharacter;            
+            Root.Tag = RootCharacter;
             tvCharacterTree.SelectedNode = Root;
             //***
 
@@ -81,64 +81,47 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))            
-            {                
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants ) //FilteredVarList.Any())
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants)
+            {
+                //LINQ Version:
+                IEnumerable<ListItems> FilteredVarList = from Att in templateData.AttributeList
+                                                         where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeID
+                                                         from Vari in templateData.VariantList
+                                                         where Att.ID == Vari.AttributeID
+                                                         orderby Vari.DefaultVariant descending, Vari.Name
+                                                         select new ListItems
+                                                         (
+                                                             Att.Name + " [" + Vari.Name + "]",
+                                                             Vari.ID
+                                                         );
+
+                lbVariantList.Items.Clear();
+                lbVariantList.Visible = true;
+                lbVariant.Visible = true;
+                cbFilter.Top = HeightAdjust3;
+
+                if (lbAttributeList.Top == HeightAdjust2)
                 {
-                    lbVariantList.Items.Clear();
-                    //LINQ Version:
-                    IEnumerable<ListItems> FilteredVarList = from Att in templateData.AttributeList
-                                      where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeID
-                                      from Vari in templateData.VariantList
-                                      where Att.ID == Vari.AttributeID
-                                      orderby Vari.DefaultVariant descending, Vari.Name
-                                      select new ListItems
-                                      ( 
-                                          Att.Name + " [" + Vari.Name + "]", 
-                                          Vari.ID
-                                      );  
-
-                    lbVariantList.Visible = true;
-                    lbVariant.Visible = true;
-                    cbFilter.Top = HeightAdjust3;
-
-                    if (lbAttributeList.Top == HeightAdjust2)
-                    {
-                        lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
-                    }
-                    lbAttributeList.Top = HeightAdjust1;
-
-                    lbVariantList.Items.AddRange(FilteredVarList.ToArray()); 
-                    
-                    lbVariantList.DisplayMember = "DisplayMember";
-                    lbVariantList.ValueMember = "ValueMember";                  
+                    lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
                 }
-                else
-                {
-                    cbFilter.Top = HeightAdjust4;
-                    if (lbAttributeList.Top == HeightAdjust1)
-                    {
-                        lbAttributeList.Height += (HeightAdjust1 - HeightAdjust2);
-                    }
-                    lbAttributeList.Top = HeightAdjust2;
+                lbAttributeList.Top = HeightAdjust1;
 
-                    lbVariantList.Items.Clear();
-                    lbVariantList.Visible = false;
-                    lbVariant.Visible = false;
-                }                
+                lbVariantList.Items.AddRange(FilteredVarList.ToArray());
+
+                lbVariantList.DisplayMember = "DisplayMember";
+                lbVariantList.ValueMember = "ValueMember";
             }
             else
             {
+                lbVariantList.Items.Clear();
+                lbVariantList.Visible = false;
+                lbVariant.Visible = false;
                 cbFilter.Top = HeightAdjust4;
                 if (lbAttributeList.Top == HeightAdjust1)
                 {
                     lbAttributeList.Height += (HeightAdjust1 - HeightAdjust2);
                 }
                 lbAttributeList.Top = HeightAdjust2;
-
-                lbVariantList.Items.Clear();
-                lbVariantList.Visible = false;
-                lbVariant.Visible = false;
             }
         }
 
@@ -165,7 +148,7 @@ namespace BESM3CA
                                   (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) || Att.Type == "Attribute" || Att.Type == "Defect" || Att.Type == "Skill")
                                   &&
                                   Att.Name != "Character"
-                                  
+
                                   from Children in SelectedAttributeChildren
                                   where
                                   Att.ID == Children.ID
@@ -197,52 +180,50 @@ namespace BESM3CA
         }
 
         private void AddAttr()
-        {
-            //MessageBox.Show(lbAttributeList.SelectedValue.ToString());
-
+        {            
             if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
             {
                 TreeNode NewNode;
                 NewNode = tvCharacterTree.SelectedNode.Nodes.Add(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString());
 
-                AttributeListing Att = templateData.AttributeList.FirstOrDefault(n => n.ID==((ListItems)lbAttributeList.SelectedItem).ValueMember);                                                             
+                AttributeListing Att = templateData.AttributeList.FirstOrDefault(n => n.ID == ((ListItems)lbAttributeList.SelectedItem).ValueMember);
 
                 //Temp code for subbing in decoupler:                   
-                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel, templateData);                
+                NewNode.Tag = new AttributeData(NewNode.Text, Att.ID, "", Att.CostperLevel, templateData);
                 ((NodeData)NewNode.Parent.Tag).AddChild((NodeData)NewNode.Tag);
                 //***
 
                 TreeNode NewSubNode;
-                if (((NodeData)NewNode.Tag).Children !=null)
+                if (((NodeData)NewNode.Tag).Children != null)
                 {
                     //Required children now created in class, just need to check for them and update treeview accordingly:
                     NodeData RequiredChildren = ((NodeData)NewNode.Tag).Children;
-                    while(RequiredChildren!=null)
+                    while (RequiredChildren != null)
                     {
                         NewSubNode = NewNode.Nodes.Add(((NodeData)NewNode.Tag).Children.Name);
                         NewSubNode.Tag = ((NodeData)NewNode.Tag).Children;
                         NewSubNode.Parent.Expand();
                         RequiredChildren = RequiredChildren.Next;
-                    }                    
-                }                
+                    }
+                }
 
                 RefreshTree(tvCharacterTree.Nodes);
-                tvCharacterTree.SelectedNode.Expand();              
+                tvCharacterTree.SelectedNode.Expand();
             }
-        } 
+        }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             RefreshList();
             RefreshTextBoxes();
 
-            if(tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 DisableLevelButtons();
             }
             else if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                if(((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)  
+                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)
                 {
                     AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
@@ -280,7 +261,7 @@ namespace BESM3CA
         }
 
         private void RefreshTextBoxes()
-        {            
+        {
             tbNotes.Text = ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes;
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
@@ -343,7 +324,7 @@ namespace BESM3CA
                 tbACV.Visible = false;
                 tbDCV.Visible = false;
 
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Item")                
+                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Item")
                 {
                     //Is Item:
                     tbLevel.Visible = false;
@@ -364,13 +345,13 @@ namespace BESM3CA
                     lbDescription.Visible = true;
 
                     IEnumerable<string> Description = from Att in templateData.AttributeList
-                                      where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID
-                                      select Att.Description;
+                                                      where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID
+                                                      select Att.Description;
 
                     tbDesc.Text = Description.First();
                     lbLevel.Visible = true;
 
-                    if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Companion")                    
+                    if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Companion")
                     {
                         //is companion
                         tbPPL.Visible = false;
@@ -389,7 +370,7 @@ namespace BESM3CA
                         lbPointsPerLevel.Visible = true;
                         lbPointCost.Visible = true;
                         //end not companion
-                    }                    
+                    }
                     //End not Item
                 }
             }
@@ -486,7 +467,7 @@ namespace BESM3CA
                 ResetAll();
             }
         }
-        
+
         private void RefreshTree(TreeNodeCollection Nodes)
         {
             foreach (TreeNode Node in Nodes)
@@ -503,8 +484,9 @@ namespace BESM3CA
 
                     AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
-                    if (SelectedAttribute.SpecialContainer || altform)                    {                     
-                        
+                    if (SelectedAttribute.SpecialContainer || altform)
+                    {
+
                         Node.Text = ((AttributeData)Node.Tag).Name + " (" + ((AttributeData)Node.Tag).GetSpecialPoints(templateData) + " Left)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
                     }
                     else
@@ -525,10 +507,10 @@ namespace BESM3CA
                 else
                 {
                     Node.Text = ((CharacterData)Node.Tag).Name + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
-                }                
+                }
             }
         }
-       
+
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
@@ -574,7 +556,7 @@ namespace BESM3CA
                 }
             }
         }
-        
+
         private void tbBody_Validated(object sender, EventArgs e)
         {
             RefreshTree(tvCharacterTree.Nodes);
@@ -590,7 +572,7 @@ namespace BESM3CA
         {
             RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
-        }  
+        }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -727,7 +709,7 @@ namespace BESM3CA
                     tw.WriteLine();
                 }
             }
-        }                        
+        }
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
@@ -787,9 +769,9 @@ namespace BESM3CA
         private void bnMoveUp_Click(object sender, EventArgs e)
         {
             if (tvCharacterTree.SelectedNode != tvCharacterTree.Nodes[0] && tvCharacterTree.SelectedNode.Parent.Nodes.Count > 1 && tvCharacterTree.SelectedNode.PrevNode != null)
-            {                
+            {
                 TreeNode tempnode = tvCharacterTree.SelectedNode;
-                ((NodeData)tempnode.Tag).MoveUp();                
+                ((NodeData)tempnode.Tag).MoveUp();
                 tvCharacterTree.Sort();
                 tvCharacterTree.SelectedNode = tempnode;
                 RefreshTree(tempnode.Parent.Nodes);
@@ -801,8 +783,8 @@ namespace BESM3CA
             if (tvCharacterTree.SelectedNode != tvCharacterTree.Nodes[0] && tvCharacterTree.SelectedNode.Parent.Nodes.Count > 1 && tvCharacterTree.SelectedNode.NextNode != null)
             {
                 TreeNode tempnode = tvCharacterTree.SelectedNode;
-                ((NodeData)tempnode.Tag).MoveDown();                
-               
+                ((NodeData)tempnode.Tag).MoveDown();
+
                 tvCharacterTree.Sort();
                 tvCharacterTree.SelectedNode = tempnode;
 
