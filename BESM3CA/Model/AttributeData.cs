@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Linq;
 using BESM3CA.Templates;
-
+using System.Diagnostics;
 
 namespace BESM3CA.Model
 {
@@ -13,6 +13,7 @@ namespace BESM3CA.Model
         int _Variant = 0;
         int _PointAdj = 0;
         int _SpecialPointsUsed = 0;
+        AttributeListing _attributeListing;
 
 
         //Properties:
@@ -20,46 +21,18 @@ namespace BESM3CA.Model
         {
             get
             {
-                if(_Variant!=0)
+                if (_Variant != 0)
                 {
                     return true;
                 }
-                return false;  //Todo -check if variants possible but not selected yet
-            }
-        }
 
-        public int GetSpecialPoints (TemplateData templateData)
-        {
-            bool altform = false;
-            if (_name == "Alternate Form")
-            {
-                altform = true;
-            }
-
-            AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ID).First();
-            
-            int specialpoints=0;
-
-            if (SelectedAttribute.SpecialContainer || altform)
-            {
-                if(PointsUpToDate==false)
+                if(_attributeListing!=null && _attributeListing.RequiresVariant)
                 {
-                    GetPoints(templateData);
-                }
-                
-                if (altform)
-                {
-                    specialpoints = Level * 10;
-                }
-                else
-                {
-                    specialpoints = Level;
+                    return true;
                 }
 
-                specialpoints -= _SpecialPointsUsed;
+                return false;  
             }
-
-            return specialpoints;
         }
 
         public bool HasLevel
@@ -68,7 +41,7 @@ namespace BESM3CA.Model
             {
                 return _HasLevel;
             }
-        }            
+        }
 
         public int Variant
         {
@@ -123,8 +96,10 @@ namespace BESM3CA.Model
 
 
         //Constructors:         
-        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points, TemplateData useTemplate, int Level=1, int PointAdj=0) : base(AttributeName, AttributeID, Notes, useTemplate)
+        public AttributeData(string AttributeName, int AttributeID, string Notes, int Points, TemplateData useTemplate, int Level = 1, int PointAdj = 0) : base(AttributeName, AttributeID, Notes, useTemplate)
         {
+            Debug.Assert(useTemplate != null);  //Check if we have a template...
+
             if (AttributeName == "Item")
             {
                 _HasLevel = false;
@@ -149,15 +124,17 @@ namespace BESM3CA.Model
 
             if (AttributeName == "Companion")
             {
-                AddChild(new CharacterData("",_asscTemplate));
+                AddChild(new CharacterData("", _asscTemplate));
             }
             if (AttributeName == "Mind Control")
             {
-                AddChild(new AttributeData("Range", 167, "",  1, _asscTemplate,3,-3));
+                AddChild(new AttributeData("Range", 167, "", 1, _asscTemplate, 3, -3));
             }
+
+            _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
         }
 
-        public AttributeData() : base(null,0,null,null)
+        public AttributeData() : base(null, 0, null, null)
         {
             //Default Constructor - currently needed for loading code
             //Todo: refactor
@@ -165,6 +142,40 @@ namespace BESM3CA.Model
 
 
         //Member Functions:
+        public int GetSpecialPoints(TemplateData templateData)
+        {
+            bool altform = false;
+            if (_name == "Alternate Form")
+            {
+                altform = true;
+            }
+
+            AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ID).First();
+
+            int specialpoints = 0;
+
+            if (SelectedAttribute.SpecialContainer || altform)
+            {
+                if (PointsUpToDate == false)
+                {
+                    GetPoints(templateData);
+                }
+
+                if (altform)
+                {
+                    specialpoints = Level * 10;
+                }
+                else
+                {
+                    specialpoints = Level;
+                }
+
+                specialpoints -= _SpecialPointsUsed;
+            }
+
+            return specialpoints;
+        }
+
         public bool RaiseLevel()
         {
             //need to check maxlevel
@@ -202,13 +213,13 @@ namespace BESM3CA.Model
             {
                 return false;
             }
-        }        
+        }
 
         public override int GetPoints(TemplateData templateData)
         {
             if (PointsUpToDate == false || _FirstChild == null)
             {
-                
+
                 bool isItem = false;
                 bool isCompanion = false;
                 bool isAlternateAttack = false;
@@ -225,13 +236,13 @@ namespace BESM3CA.Model
                     {
                         isAlternateAttack = true;
                     }
-                }               
+                }
 
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
 
                 NodeData temp = _FirstChild;
-                while(temp != null)
+                while (temp != null)
                 {
                     if (temp.GetType() == typeof(AttributeData))
                     {
@@ -246,18 +257,19 @@ namespace BESM3CA.Model
                         }
 
                     }
-                    else 
+                    else
                     {
                         ChildPoints += temp.GetPoints(templateData);
                     }
-                    
+
                     temp = temp.Next;
                 }
 
+                //Points should equal BaseCost +- any restrictions or variables
                 _points = BaseCost;
-               
                 _points += VariablesOrRestrictions;
 
+                //Update special points used counter while recalculating points:
                 _SpecialPointsUsed = ChildPoints;
 
                 if (isCompanion)
@@ -283,21 +295,19 @@ namespace BESM3CA.Model
                     {
                         _points += (ChildPoints / 2);
                     }
-                } 
-                
+                }
+
                 //***
                 //if alternate weapon attack half points
                 if (isAlternateAttack)
                 {
                     _points /= 2;
                 }
-                //***
-                //Points should equal BaseCost +- any restrictions or variables
+                //***                
 
                 PointsUpToDate = true;
             }
 
-           
             return _points;
         }
 
@@ -310,7 +320,7 @@ namespace BESM3CA.Model
             textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
             textWriter.WriteAttributeString("PointAdj", _PointAdj.ToString());
             textWriter.WriteEndElement();
-        }        
+        }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {

@@ -1,23 +1,23 @@
-﻿using System;
+﻿using BESM3CA.Model;
+using BESM3CA.Templates;
+using BESM3CA.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Windows.Forms;
-using System.Linq;
 using System.Diagnostics;
-using BESM3CA.Model;
-using BESM3CA.UI;
-using BESM3CA.Templates;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BESM3CA
 {
     public partial class MainForm : Form
     {
         //Constants for adjusting right hand list and combo boxes:
-        const int HeightAdjust1 = 125;
-        const int HeightAdjust2 = 27;
-        const int HeightAdjust3 = 101;
-        const int HeightAdjust4 = 3;
+        private const int HeightAdjust1 = 125;
+        private const int HeightAdjust2 = 27;
+        private const int HeightAdjust3 = 101;
+        private const int HeightAdjust4 = 3;
         //****
 
         private TemplateData templateData;
@@ -81,10 +81,13 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
-            {
-                //LINQ Version:
-                IEnumerable<ListItems> FilteredVarList = from Att in templateData.AttributeList
+            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))            
+            {                
+                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants ) //FilteredVarList.Any())
+                {
+                    lbVariantList.Items.Clear();
+                    //LINQ Version:
+                    IEnumerable<ListItems> FilteredVarList = from Att in templateData.AttributeList
                                       where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeID
                                       from Vari in templateData.VariantList
                                       where Att.ID == Vari.AttributeID
@@ -93,12 +96,8 @@ namespace BESM3CA
                                       ( 
                                           Att.Name + " [" + Vari.Name + "]", 
                                           Vari.ID
-                                      );                
+                                      );  
 
-                lbVariantList.Items.Clear();
-
-                if (FilteredVarList.Any())
-                {
                     lbVariantList.Visible = true;
                     lbVariant.Visible = true;
                     cbFilter.Top = HeightAdjust3;
@@ -109,24 +108,24 @@ namespace BESM3CA
                     }
                     lbAttributeList.Top = HeightAdjust1;
 
-                    lbVariantList.Items.AddRange(FilteredVarList.ToArray());
-                   
+                    lbVariantList.Items.AddRange(FilteredVarList.ToArray()); 
+                    
+                    lbVariantList.DisplayMember = "DisplayMember";
+                    lbVariantList.ValueMember = "ValueMember";                  
                 }
                 else
                 {
                     cbFilter.Top = HeightAdjust4;
-
                     if (lbAttributeList.Top == HeightAdjust1)
                     {
                         lbAttributeList.Height += (HeightAdjust1 - HeightAdjust2);
                     }
                     lbAttributeList.Top = HeightAdjust2;
+
+                    lbVariantList.Items.Clear();
                     lbVariantList.Visible = false;
                     lbVariant.Visible = false;
-                }
-
-                lbVariantList.DisplayMember = "DisplayMember";
-                lbVariantList.ValueMember = "ValueMember";
+                }                
             }
             else
             {
