@@ -23,8 +23,15 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <StartupObject>BESM3CA.Program</StartupObject>
+    <Platforms>AnyCPU;x64</Platforms>
+    <Authors>Mike Dunn</Authors>
+    <PackageProjectUrl>https://github.com/mikethemage/BESM3CA</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
@@ -49,9 +56,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Update="Datafiles\BESM3E.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -64,6 +68,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="BESM3CADataSet.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Datafiles\BESM3E.json" />
+    <None Remove="Datafiles\datafile-schema.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Datafiles\BESM3E.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Datafiles\datafile-schema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
