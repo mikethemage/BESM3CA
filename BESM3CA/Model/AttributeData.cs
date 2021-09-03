@@ -482,6 +482,10 @@ namespace BESM3CA.Model
                     }
                 }
             }
+            if (_asscTemplate != null)
+            {
+                _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
+            }
         }
     }
 }
