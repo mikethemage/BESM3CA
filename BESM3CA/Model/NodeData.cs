@@ -1,5 +1,7 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using BESM3CA.Templates;
+using System.Linq;
 
 namespace BESM3CA.Model
 {
@@ -22,6 +24,33 @@ namespace BESM3CA.Model
         public int NodeOrder { get; set; }
         public NodeData Next { get; set; }
         public NodeData Prev{ get; set; }
+
+        public virtual List<AttributeListing> PotentialChildren
+        {
+            get
+            {
+                //Virtual for overrides
+                return null;
+            }
+        }
+
+        public List<ListItems> GetFilteredPotentialChildren(string Filter)
+        {
+            List<AttributeListing> SelectedAttributeChildren;
+            SelectedAttributeChildren = PotentialChildren;
+
+            //LINQ Version:
+            List<ListItems> FilteredAttList = (from Att in SelectedAttributeChildren
+                                  where
+                                  (
+                                  //cbFilter.SelectedIndex == -1 || 
+                                  Filter == "All" || Filter == "" || Att.Type == Filter)
+
+                                  orderby Att.Type, Att.Name
+                                  select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();
+
+            return FilteredAttList;
+        }
 
         protected bool PointsUpToDate
         {

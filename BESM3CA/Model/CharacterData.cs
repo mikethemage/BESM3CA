@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using BESM3CA.Templates;
 
 namespace BESM3CA.Model
@@ -11,6 +13,15 @@ namespace BESM3CA.Model
         int _soul;
 
         //Properties:
+
+        public override List<AttributeListing> PotentialChildren
+        {
+            get
+            {                
+                return _asscTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+            }
+        }
+
         public string CharacterName {get; set;}
      
         public int BaseCost

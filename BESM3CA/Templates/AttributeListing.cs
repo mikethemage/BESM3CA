@@ -33,7 +33,7 @@ namespace BESM3CA.Templates
             {
                 string temp = "";
 
-                var ChildIDs = from child in _children.Values
+                var ChildIDs = from child in _children
                                select child.ID;
 
                 temp = string.Join(",", ChildIDs);
@@ -41,10 +41,10 @@ namespace BESM3CA.Templates
                 return temp;
             }
         }
-        private SortedList<string, AttributeListing> _children;
+        private List<AttributeListing> _children;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public SortedList<string, AttributeListing> Children
+        public List<AttributeListing> Children
         {
             get
             {
@@ -57,7 +57,7 @@ namespace BESM3CA.Templates
             CostperLevelDesc = "";
             Progression = "";
 
-            _children = new SortedList<string, AttributeListing>();
+            _children = new List<AttributeListing>();
 
         }
 
@@ -65,7 +65,7 @@ namespace BESM3CA.Templates
         {
             if (Child != null)
             {
-                _children.Add(Child.Name, Child);
+                _children.Add(Child);
             }
         }
     }

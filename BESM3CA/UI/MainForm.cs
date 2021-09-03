@@ -130,48 +130,36 @@ namespace BESM3CA
             RefreshVariants();
 
             List<AttributeListing> SelectedAttributeChildren;
+            SelectedAttributeChildren = ((NodeData)tvCharacterTree.SelectedNode.Tag).PotentialChildren;
 
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+            string Filter;
+            if (cbFilter.SelectedIndex == -1)
             {
-                SelectedAttributeChildren = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
+                Filter = "";
             }
             else
             {
-                SelectedAttributeChildren = templateData.AttributeList;
+                Filter = cbFilter.Items[cbFilter.SelectedIndex].ToString();
             }
 
-            //LINQ Version:
-            var FilteredAttList = from Att in templateData.AttributeList
-                                  where
-                                  (cbFilter.SelectedIndex == -1 || cbFilter.Items[cbFilter.SelectedIndex].ToString() == "All" || cbFilter.Items[cbFilter.SelectedIndex].ToString() == "" || Att.Type == cbFilter.Items[cbFilter.SelectedIndex].ToString())
-                                  &&
-                                  (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) || Att.Type == "Attribute" || Att.Type == "Defect" || Att.Type == "Skill")
-                                  &&
-                                  Att.Name != "Character"
-
-                                  from Children in SelectedAttributeChildren
-                                  where
-                                  Att.ID == Children.ID
-                                  orderby Att.Type, Att.Name
-                                  select (Att.ID, Att.Name, Att.Type);
-
+            List<ListItems> FilteredAttList = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);
 
             lbAttributeList.Items.Clear();
-            string Type = "";
 
-            foreach (var item in FilteredAttList)
+            string Type = "";
+            foreach (ListItems item in FilteredAttList)
             {
-                if (Type != item.Type)
+                if (Type != item.OptionalMember)
                 {
                     if (Type != "")
                     {
                         lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
                     }
-                    Type = item.Type;
+                    Type = item.OptionalMember;
                     lbAttributeList.Items.Add(new ListItems(Type + ":", 0));
                     lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
                 }
-                lbAttributeList.Items.Add(new ListItems(item.Name, item.ID));
+                lbAttributeList.Items.Add(item);
             }
 
             lbAttributeList.DisplayMember = "DisplayMember";
@@ -180,7 +168,7 @@ namespace BESM3CA
         }
 
         private void AddAttr()
-        {            
+        {
             if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
             {
                 TreeNode NewNode;
@@ -813,9 +801,6 @@ namespace BESM3CA
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = ((ListItems)lbVariantList.SelectedItem).ValueMember;
                     ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = ((ListItems)lbVariantList.SelectedItem).DisplayMember;
 
-                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == ((ListItems)lbVariantList.SelectedItem).ValueMember).First();
-
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
                     RefreshTree(tvCharacterTree.Nodes);
                 }
             }

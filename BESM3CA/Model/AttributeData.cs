@@ -2,6 +2,7 @@
 using System.Linq;
 using BESM3CA.Templates;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace BESM3CA.Model
 {
@@ -13,10 +14,19 @@ namespace BESM3CA.Model
         int _Variant = 0;
         int _PointAdj = 0;
         int _SpecialPointsUsed = 0;
-        AttributeListing _attributeListing;
+        private AttributeListing _attributeListing;
+        private VariantListing _variantListing;
 
 
         //Properties:
+        public override List<AttributeListing> PotentialChildren
+        {
+            get
+            {
+                return _asscTemplate.AttributeList.Where(n => n.ID == ID).First().Children;                
+            }
+        }
+
         public bool HasVariants
         {
             get
@@ -51,6 +61,16 @@ namespace BESM3CA.Model
             }
             set
             {
+                if (_asscTemplate != null)
+                {
+                    _variantListing = _asscTemplate.VariantList.Where(n => n.ID == value).First();
+                    PointsPerLevel = _variantListing.CostperLevel;
+                }
+                else
+                {
+                    _variantListing = null;
+                }
+                
                 PointsUpToDate = false;
                 _Variant = value;
             }
@@ -102,8 +122,7 @@ namespace BESM3CA.Model
 
             if (AttributeName == "Item")
             {
-                _HasLevel = false;
-                //_Level = 1;
+                _HasLevel = false;                
             }
             else
             {
@@ -111,11 +130,7 @@ namespace BESM3CA.Model
                 if (AttributeName == "Weapon")
                 {
                     _Level = 0;
-                }
-                /*else
-                {
-                    _Level = 1;
-                }*/
+                }                
             }
 
             PointsPerLevel = Points;
@@ -132,6 +147,7 @@ namespace BESM3CA.Model
             }
 
             _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
+            _variantListing = null;
         }
 
         public AttributeData() : base(null, 0, null, null)
