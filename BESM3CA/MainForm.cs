@@ -9,7 +9,7 @@ using System.Linq;
 namespace BESM3CA
 {
     public partial class MainForm : Form
-    {
+    { 
         const int HeightAdjust1 = 125;
         const int HeightAdjust2 = 27;
         const int HeightAdjust3 = 101;
@@ -109,7 +109,7 @@ namespace BESM3CA
                         listBox1.Height -= (HeightAdjust1 - HeightAdjust2) ;
                     }
                     listBox1.Top = HeightAdjust1;
-                    
+
                     foreach (var item in FilteredVarList)
                     {
                         listBox2.Items.Add(new ListItems(item.AttributeName + " [" + item.VariantName + "]", item.VariantID));
@@ -139,7 +139,7 @@ namespace BESM3CA
                     listBox1.Height += (HeightAdjust1 - HeightAdjust2)  ;
                 }
                 listBox1.Top = HeightAdjust2;
-                
+
                 listBox2.Items.Clear();
                 listBox2.Visible = false;
                 label4.Visible = false;
@@ -1084,11 +1084,6 @@ namespace BESM3CA
             }
             refreshTree(treeView1.Nodes);
             RefreshTextBoxes();
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
         }
     }
 
