@@ -21,4 +21,4 @@ This project is currently in development and therefore further features are plan
 \
 \
 **Disclaimer:**\
-"BESM" / "Big Eyes Small Mouth" is a trademark of White Wolf Entertainment AB and licensed by Dyskami Publishing Company.  This application is not endorsed by or associated with White Wolf Entertainment AB or Dyskami Publishing Company in any way.  This is a non-profit fan-made utility intended to help players in conjuction with official source materials.
+"BESM" / "Big Eyes Small Mouth" is a trademark of White Wolf Entertainment AB and licensed by Dyskami Publishing Company.  This application is not endorsed by or associated with White Wolf Entertainment AB or Dyskami Publishing Company in any way.  This is a non-profit fan-made utility intended to help players in conjuction with official source materials.  
