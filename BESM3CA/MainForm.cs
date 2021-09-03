@@ -1,48 +1,50 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlClient;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace BESM3CA
 {
     public partial class MainForm : Form
     {
+        const int HeightAdjust1 = 125;
+        const int HeightAdjust2 = 27;
+        const int HeightAdjust3 = 101;
+        const int HeightAdjust4 = 3;
+
         private string FileName;
         private bool checkMaxLevel;
-        private SqlConnection conn;
+
+        private List<AttributeListing> AttributeList;
+        private List<VariantListing> VariantList;
+        private List<TypeListing> TypeList;
+
         public MainForm()
         {
             InitializeComponent();
         }
-        private string source;
+
 
         private void BESM3CA_Load(object sender, EventArgs e)
         {
             checkMaxLevel = false;
 
-            //Config File:
-            //source = Properties.Settings.Default.BESM3CAConnectionString;
+            AttributeList = new List<AttributeListing>();
+            VariantList = new List<VariantListing>();
+            TypeList = new List<TypeListing>();
 
-#if DEBUG
-            //Development:
-            source = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Mike\\Documents\\Visual Studio 2019\\Projects\\BESM3CA\\DB\\BESM3CA.mdf\";Integrated Security=True;Connect Timeout=30;";
-#else
-            //App Folder:
-            //Initial Catalog=BESM3Release;
-                source="Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"" + Application.StartupPath + "\\BESM3CA.mdf\";Integrated Security=True;Connect Timeout=30;";            
-#endif
-
-            conn = new SqlConnection(source);
-            conn.Open();
-
-#if DEBUG
-            LoadDatabase();
-#endif
+            //Removed: loading from database.
+            
+            //Create new JSON file - debugging only:
+            //JSONyStuff.createJSON(AttributeList, VariantList, TypeList);
+                      
+            //Now loads from JSON files:
+            JSONyStuff.JSONLoader(out AttributeList, out VariantList, out TypeList);
 
             ResetAll();
-
         }
 
         private void ResetAll()
@@ -62,20 +64,23 @@ namespace BESM3CA
             RefreshTextBoxes();
             treeView1.TreeViewNodeSorter = new NodeSorter();
             treeView1.SelectedNode = Root;
-
         }
+
         private void RefreshFilter()
         {
+            comboBox1.Items.Clear();
             comboBox1.Items.Add("All");
             comboBox1.SelectedIndex = 0;
-            SqlCommand cmd;
-            cmd = new SqlCommand("Select TypeName from Types Order by TypeName;", conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+
+            //LINQ Version:
+            var FilteredTypeList = from AttType in TypeList
+                                   orderby AttType.Name
+                                   select AttType.Name;
+
+            foreach (var item in FilteredTypeList)
             {
-                comboBox1.Items.Add(reader["TypeName"].ToString());
+                comboBox1.Items.Add(item);
             }
-            reader.Close();
 
         }
 
@@ -83,105 +88,111 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                SqlCommand cmd;
-                cmd = new SqlCommand("SELECT Attribute.AttributeID, Attribute.AttributeName, Variant.VariantID, Variant.VariantName, Variant.CostperLevel, Variant.VariantDesc, Variant.DefaultVariant " +
-                "FROM Attribute INNER JOIN Variant ON Attribute.AttributeID = Variant.AttributeID " +
-                "WHERE Attribute.AttributeID=" + ((AttributeData)treeView1.SelectedNode.Tag).AttributeID, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                //LINQ Version:
+                var FilteredVarList = from Att in AttributeList
+                                      where Att.ID == ((AttributeData)treeView1.SelectedNode.Tag).AttributeID
+                                      from Vari in VariantList
+                                      where Att.ID == Vari.AttributeID
+                                      orderby Vari.DefaultVariant descending, Vari.Name
+                                      select (Att.ID, AttributeName: Att.Name, VariantID: Vari.ID, VariantName: Vari.Name, Vari.CostperLevel, Vari.Desc, Vari.DefaultVariant);
 
                 listBox2.Items.Clear();
 
-                if (reader.HasRows)
+                if (FilteredVarList.Any())
                 {
                     listBox2.Visible = true;
                     label4.Visible = true;
-                    comboBox1.Top = 77;
-
-                    if (listBox1.Top == 26)
+                    comboBox1.Top = HeightAdjust3;
+                    
+                    if (listBox1.Top == HeightAdjust2)
                     {
-                        listBox1.Height -= 104 - 26;
+                        listBox1.Height -= (HeightAdjust1 - HeightAdjust2) ;
                     }
-                    listBox1.Top = 104;
-                    // listBox1.Height = 225;
-
-                    while (reader.Read())
+                    listBox1.Top = HeightAdjust1;
+                    
+                    foreach (var item in FilteredVarList)
                     {
-                        listBox2.Items.Add(new ListItems(reader["AttributeName"].ToString() + " [" + reader["VariantName"].ToString() + "]", (int)reader["VariantID"]));
+                        listBox2.Items.Add(new ListItems(item.AttributeName + " [" + item.VariantName + "]", item.VariantID));
                     }
                 }
                 else
                 {
-                    comboBox1.Top = 3;
+                    comboBox1.Top = HeightAdjust4;
 
-                    // listBox1.Height = 303;
-                    if (listBox1.Top == 104)
+                    if (listBox1.Top == HeightAdjust1)
                     {
-                        listBox1.Height += 104 - 26;
+                        listBox1.Height += (HeightAdjust1 - HeightAdjust2) ;
                     }
-                    listBox1.Top = 26;
+                    listBox1.Top = HeightAdjust2;
                     listBox2.Visible = false;
                     label4.Visible = false;
                 }
-
-                reader.Close();
 
                 listBox2.DisplayMember = "DisplayMember";
                 listBox2.ValueMember = "ValueMember";
             }
             else
             {
-                comboBox1.Top = 3;
-                if (listBox1.Top == 104)
+                comboBox1.Top = HeightAdjust4;
+                if (listBox1.Top == HeightAdjust1)
                 {
-                    listBox1.Height += 104 - 26;
+                    listBox1.Height += (HeightAdjust1 - HeightAdjust2)  ;
                 }
-                listBox1.Top = 26;
-                //listBox1.Height = 303;
-
+                listBox1.Top = HeightAdjust2;
+                
                 listBox2.Items.Clear();
                 listBox2.Visible = false;
                 label4.Visible = false;
             }
-
         }
 
         private void RefreshList()
         {
             RefreshVariants();
-            string FilterAtts = "";
-            if (comboBox1.SelectedIndex > -1 && comboBox1.Items[comboBox1.SelectedIndex].ToString() != "All" && comboBox1.Items[comboBox1.SelectedIndex].ToString() != "")
-            {
-                FilterAtts = " and Type='" + comboBox1.Items[comboBox1.SelectedIndex].ToString() + "' ";
-            }
-            SqlCommand cmd;
+
+            List<AttributeListing> SelectedAttributeChildren;
+
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                cmd = new SqlCommand("Select Attribute.AttributeID, Attribute.AttributeName, Type from "
-                + "Attribute, AttChildren,Types Where Attribute.Type=Types.TypeName " + FilterAtts + " and AttributeName<>'Character' and ChildID=Attribute.AttributeID and ParentID=" + ((AttributeData)treeView1.SelectedNode.Tag).AttributeID + " Order By Types.TypeOrder, AttributeName;"
-                , conn);
+                SelectedAttributeChildren = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First().Children.Values.ToList<AttributeListing>();
             }
             else
             {
-                cmd = new SqlCommand("Select AttributeID, AttributeName, Type from Attribute, Types Where Attribute.Type=Types.TypeName  " + FilterAtts + " and (Type='Attribute' or Type='Defect' or Type='Skill') Order By Types.TypeOrder, AttributeName;", conn);
+                SelectedAttributeChildren = AttributeList;
             }
-            SqlDataReader reader = cmd.ExecuteReader();
+
+            //LINQ Version:
+            var FilteredAttList = from Att in AttributeList
+                                  where
+                                  (comboBox1.SelectedIndex == -1 || comboBox1.Items[comboBox1.SelectedIndex].ToString() == "All" || comboBox1.Items[comboBox1.SelectedIndex].ToString() == "" || Att.Type == comboBox1.Items[comboBox1.SelectedIndex].ToString())
+                                  && 
+                                  (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData) || Att.Type == "Attribute" || Att.Type == "Defect" || Att.Type == "Skill")
+                                  &&
+                                  Att.Name!="Character"
+                                  from Children in SelectedAttributeChildren
+                                  where
+                                  Att.ID==Children.ID
+                                  orderby Att.Type, Att.Name
+                                  select (Att.ID, Att.Name, Att.Type);
+                       
             listBox1.Items.Clear();
             string Type = "";
-            while (reader.Read())
+
+            foreach (var item in FilteredAttList)
             {
-                if (Type != reader["Type"].ToString())
+                if (Type != item.Type)
                 {
                     if (Type != "")
                     {
                         listBox1.Items.Add(new ListItems("-------------------------", 0));
                     }
-                    Type = reader["Type"].ToString();
+                    Type = item.Type;
                     listBox1.Items.Add(new ListItems(Type + ":", 0));
                     listBox1.Items.Add(new ListItems("-------------------------", 0));
                 }
-                listBox1.Items.Add(new ListItems(reader["AttributeName"].ToString(), (int)reader["AttributeID"]));
+                listBox1.Items.Add(new ListItems(item.Name, item.ID));
             }
-            reader.Close();
+
             listBox1.DisplayMember = "DisplayMember";
             listBox1.ValueMember = "ValueMember";
 
@@ -200,12 +211,9 @@ namespace BESM3CA
                 TreeNode NewNode;
                 NewNode = treeView1.SelectedNode.Nodes.Add(((ListItems)listBox1.SelectedItem).DisplayMember.ToString());
 
-
-
-                SqlCommand cmd;
-
-
-                cmd = new SqlCommand("Select CostperLevel from Attribute where AttributeID=" + ((ListItems)listBox1.SelectedItem).ValueMember + ";", conn);
+                var CostPerLevel = from Att in AttributeList
+                                   where Att.ID == ((ListItems)listBox1.SelectedItem).ValueMember
+                                   select Att.CostperLevel;
 
                 int baselevel = 0;
                 if (NewNode.Text == "Weapon")
@@ -218,15 +226,15 @@ namespace BESM3CA
                     baselevel = 1;
                 }
 
-                if (cmd.ExecuteScalar().GetType() == typeof(DBNull))
+                if (CostPerLevel.First() == 0)
                 {
-                    cmd = new SqlCommand("Select RequiresVariant from Attribute where AttributeID=" + ((ListItems)listBox1.SelectedItem).ValueMember + ";", conn);
-                    if ((bool)cmd.ExecuteScalar() == true)
+                    var RequiresVariant = from Att in AttributeList
+                                          where Att.ID == ((ListItems)listBox1.SelectedItem).ValueMember
+                                          select Att.RequiresVariant;
+
+                    if (RequiresVariant.First() == true)
                     {
-
-
                         NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, 0);
-
 
                     }
                     else
@@ -236,12 +244,10 @@ namespace BESM3CA
                 }
                 else
                 {
-                    int pointsPerLevel = (int)cmd.ExecuteScalar();
-                    NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, pointsPerLevel);
+                    NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)listBox1.SelectedItem).ValueMember, "", baselevel, CostPerLevel.First());
                 }
 
-
-                    ((NodeData)NewNode.Tag).NodeOrder = NewNode.Parent.Nodes.Count;
+                                    ((NodeData)NewNode.Tag).NodeOrder = NewNode.Parent.Nodes.Count;
 
                 if (((ListItems)listBox1.SelectedItem).DisplayMember == "Companion")
                 {
@@ -263,20 +269,11 @@ namespace BESM3CA
                 treeView1.SelectedNode.Expand();
                 //treeView1.Focus();
 
-
-
             }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
-            {
-                conn.Close();
-            }
-            catch
-            { }
-
 
         }
 
@@ -291,7 +288,6 @@ namespace BESM3CA
         {
             RefreshList();
             RefreshTextBoxes();
-
 
         }
 
@@ -340,8 +336,6 @@ namespace BESM3CA
             }
             else
             {
-
-
                 tbBody.Text = "";
                 tbMind.Text = "";
                 tbSoul.Text = "";
@@ -368,17 +362,12 @@ namespace BESM3CA
                     tbLevel.Visible = true;
                     tbDesc.Visible = true;
                     label15.Visible = true;
-                    SqlCommand cmd;
-                    cmd = new SqlCommand("Select Description from Attribute where AttributeID=" + ((AttributeData)treeView1.SelectedNode.Tag).ID + ";", conn);
-                    if (cmd.ExecuteScalar().GetType() == typeof(DBNull))
-                    {
-                        tbDesc.Text = "";
-                    }
-                    else
-                    {
-                        string DescTest = (string)cmd.ExecuteScalar();
-                        tbDesc.Text = DescTest;
-                    }
+
+                    var Description = from Att in AttributeList
+                                      where Att.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID
+                                      select Att.Description;
+
+                    tbDesc.Text = Description.First();
 
                     label5.Visible = true;
                     if (((AttributeData)treeView1.SelectedNode.Tag).Name != "Companion")
@@ -412,8 +401,6 @@ namespace BESM3CA
                     label11.Visible = false;
                 }
 
-
-
             }
         }
 
@@ -427,19 +414,15 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                SqlCommand cmd;
-                cmd = new SqlCommand("Select EnforceMaxLevel from Attribute where AttributeID=" + ((AttributeData)treeView1.SelectedNode.Tag).ID + ";", conn);
-                bool enforceMaxLevel = (bool)cmd.ExecuteScalar();
-                cmd = new SqlCommand("Select MaxLevel from Attribute where AttributeID=" + ((AttributeData)treeView1.SelectedNode.Tag).ID + ";", conn);
+                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
 
-                if ((checkMaxLevel == false && enforceMaxLevel == false) ||
-                   (cmd.ExecuteScalar().GetType() != typeof(DBNull) && (int)cmd.ExecuteScalar() > ((AttributeData)treeView1.SelectedNode.Tag).Level))
+                if ((checkMaxLevel == false && SelectedAttribute.EnforceMaxLevel == false) ||
+                   (SelectedAttribute.MaxLevel != int.MaxValue && SelectedAttribute.MaxLevel > ((AttributeData)treeView1.SelectedNode.Tag).Level))
                 {
                     ((AttributeData)treeView1.SelectedNode.Tag).raiseLevel();
 
                 }
                 refreshTree(treeView1.Nodes);
-
             }
         }
 
@@ -447,30 +430,22 @@ namespace BESM3CA
         {
             if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
-                SqlCommand cmd;
-                cmd = new SqlCommand("Select AttributeName from Attribute where AttributeID=" + ((AttributeData)treeView1.SelectedNode.Tag).ID + ";", conn);
-                string AName = (string)cmd.ExecuteScalar();
+                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)treeView1.SelectedNode.Tag).ID).First();
 
-
-                if (((AttributeData)treeView1.SelectedNode.Tag).Level > 1 || (((AttributeData)treeView1.SelectedNode.Tag).Level > 0 && AName == "Weapon"))
+                if (((AttributeData)treeView1.SelectedNode.Tag).Level > 1 || (((AttributeData)treeView1.SelectedNode.Tag).Level > 0 && SelectedAttribute.Name == "Weapon"))
                 {
                     ((AttributeData)treeView1.SelectedNode.Tag).lowerLevel();
 
                 }
                 refreshTree(treeView1.Nodes);
-
             }
-        }
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile(true);
-
         }
+
         private void SaveFile(bool SaveExisting)
         {
             if (SaveExisting == false || FileName == "")
@@ -512,9 +487,7 @@ namespace BESM3CA
                 {
                     treeView1.SelectedNode = treeView1.Nodes[0];
                 }
-
             }
-
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -540,7 +513,6 @@ namespace BESM3CA
             bool isAlternateForm = false;
             int PointAdj = 0;
 
-            SqlCommand cmd;
             if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
             {
                 basepoints = ((AttributeData)Node.Tag).PointsPerLevel;
@@ -551,20 +523,20 @@ namespace BESM3CA
 
                 if (((AttributeData)Node.Tag).Variant > 0)
                 {
-                    cmd = new SqlCommand("select VariantName from Variant where VariantID=" + ((AttributeData)Node.Tag).Variant, conn);
-                    if ((string)cmd.ExecuteScalar() == "Alternate Attack")
+                    VariantListing SelectedVariant = VariantList.Where(n => n.ID == ((AttributeData)Node.Tag).Variant).First();
+
+                    if (SelectedVariant.Name == "Alternate Attack")
                     {
                         isAlternateAttack = true;
                     }
                 }
 
+                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
-                cmd = new SqlCommand("select Type from Attribute where Type='Special' and AttributeID=" + ((AttributeData)Node.Tag).ID, conn);
-                if (cmd.ExecuteScalar() != null)
+                if (SelectedAttribute.Type == "Special")
                 {
                     basepoints = 0;
                     level = 0;
-
                 }
                 PointAdj = ((AttributeData)Node.Tag).PointAdj;
             }
@@ -572,9 +544,7 @@ namespace BESM3CA
             {
                 basepoints = ((CharacterData)Node.Tag).basecost;
                 level = 1;
-
             }
-
 
             int Extra = 0;
             int itempoints = 0;
@@ -586,8 +556,9 @@ namespace BESM3CA
                 }
                 else if (isCompanion == true && Child.Tag.GetType() == typeof(BESM3CA.AttributeData))
                 {
-                    cmd = new SqlCommand("select Type from Attribute where AttributeID=" + ((AttributeData)Child.Tag).ID, conn);
-                    if (cmd.ExecuteScalar().ToString() == "Restriction")
+                    AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Child.Tag).ID).First();
+
+                    if (SelectedAttribute.Type == "Restriction")
                     {
                         Extra += GetPoints(Child);
                     }
@@ -615,7 +586,6 @@ namespace BESM3CA
                         Extra += GetPoints(Child);
                     }
                 }
-
             }
             if (isItem)
             {
@@ -638,7 +608,6 @@ namespace BESM3CA
             }
             //***
 
-
             return (basepoints * level) + Extra + PointAdj;
 
         }
@@ -650,8 +619,6 @@ namespace BESM3CA
             {
                 refreshTree(Node.Nodes);
 
-                SqlCommand cmd;
-
                 if (Node.Tag.GetType() == typeof(BESM3CA.AttributeData))
                 {
                     bool altform = false;
@@ -659,14 +626,17 @@ namespace BESM3CA
                     {
                         altform = true;
                     }
-                    cmd = new SqlCommand("Select SpecialContainer from Attribute where AttributeID=" + ((AttributeData)Node.Tag).ID + ";", conn);
-                    if ((bool)cmd.ExecuteScalar() || altform)
+
+                    AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
+
+                    if (SelectedAttribute.SpecialContainer || altform)
                     {
                         int LevelsUsed = 0;
                         foreach (TreeNode child in Node.Nodes)
                         {
-                            cmd = new SqlCommand("Select Type from Attribute where AttributeID=" + ((AttributeData)child.Tag).ID + ";", conn);
-                            if ((string)cmd.ExecuteScalar() == "Special" || altform)
+                            SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
+
+                            if (SelectedAttribute.Type == "Special" || altform)
                             {
                                 LevelsUsed += ((AttributeData)child.Tag).Level * ((AttributeData)child.Tag).PointsPerLevel;
                             }
@@ -684,9 +654,9 @@ namespace BESM3CA
                     }
                     else
                     {
+                        SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
 
-                        cmd = new SqlCommand("Select Type from Attribute where AttributeID=" + ((AttributeData)Node.Tag).ID + ";", conn);
-                        if ((string)cmd.ExecuteScalar() == "Special")
+                        if (SelectedAttribute.Type == "Special")
                         {
                             Node.Text = ((AttributeData)Node.Tag).Name;
 
@@ -701,7 +671,6 @@ namespace BESM3CA
                 {
                     Node.Text = ((CharacterData)Node.Tag).Name + " (" + GetPoints(Node) + " Points)";
                 }
-
 
             }
         }
@@ -730,21 +699,7 @@ namespace BESM3CA
 
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
-            e.Cancel = false;
-            if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
-            {
-                int temp = 0;
-
-                if (int.TryParse(tbBody.Text, out temp) && temp > 0)
-                {
-                    ((CharacterData)treeView1.SelectedNode.Tag).Body = temp;
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-
-            }
+            
         }
 
         private void tbMind_Validating(object sender, CancelEventArgs e)
@@ -787,8 +742,7 @@ namespace BESM3CA
 
         private void tbBody_Validated(object sender, EventArgs e)
         {
-            refreshTree(treeView1.Nodes);
-            RefreshTextBoxes();
+            
         }
 
         private void tbMind_Validated(object sender, EventArgs e)
@@ -804,7 +758,6 @@ namespace BESM3CA
         }
 
 
-
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox2.SelectedIndex >= 0)
@@ -813,8 +766,10 @@ namespace BESM3CA
                 {
                     ((AttributeData)treeView1.SelectedNode.Tag).Variant = ((ListItems)listBox2.SelectedItem).ValueMember;
                     ((AttributeData)treeView1.SelectedNode.Tag).Name = ((ListItems)listBox2.SelectedItem).DisplayMember;
-                    SqlCommand cmd = new SqlCommand("Select CostPerLevel from Variant where VariantID=" + ((ListItems)listBox2.SelectedItem).ValueMember, conn);
-                    ((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel = (int)cmd.ExecuteScalar();
+
+                    VariantListing SelectedVariant = VariantList.Where(n => n.ID == ((ListItems)listBox2.SelectedItem).ValueMember).First();
+
+                    ((AttributeData)treeView1.SelectedNode.Tag).PointsPerLevel = SelectedVariant.CostperLevel;
                     refreshTree(treeView1.SelectedNode.Parent.Nodes);
                 }
 
@@ -844,10 +799,7 @@ namespace BESM3CA
                 treeView1.Sort();
                 treeView1.SelectedNode = tempnode;
 
-
             }
-
-
 
         }
 
@@ -863,7 +815,6 @@ namespace BESM3CA
                 treeView1.Sort();
                 treeView1.SelectedNode = tempnode;
 
-
             }
         }
 
@@ -875,19 +826,9 @@ namespace BESM3CA
             }
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void tbLevel_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -921,7 +862,6 @@ namespace BESM3CA
                 //close file
                 tw.Close();
 
-
             }
             else
             {
@@ -940,7 +880,6 @@ namespace BESM3CA
             bool isAttrib = false;
             foreach (TreeNode current in nodes)
             {
-
                 string nexttabstring;
 
                 if (current.Tag.GetType() == typeof(CharacterData))
@@ -951,7 +890,6 @@ namespace BESM3CA
                     tw.WriteLine(tabstring + current.Text);
 
                     nexttabstring = tabstring + "\t";
-
 
                     tw.WriteLine(nexttabstring + "Mind: " + ((CharacterData)current.Tag).Mind);
 
@@ -971,20 +909,18 @@ namespace BESM3CA
 
                     tw.WriteLine();
 
-
                 }
                 else
                 {
-                    SqlCommand cmd;
-                    cmd = new SqlCommand("select Type from Attribute where AttributeID=" + ((AttributeData)current.Tag).ID, conn);
-                    if (cmd.ExecuteScalar().ToString() == "Attribute")
+                    AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)current.Tag).ID).First();
+
+                    if (SelectedAttribute.Type == "Attribute")
                     {
                         //write stuff
                         // write a line of text to the file
                         tw.WriteLine(tabstring + current.Text);
 
                         nexttabstring = tabstring + "\t";
-
 
                         if (((AttributeData)current.Tag).Name == "Item")
                         {
@@ -993,20 +929,11 @@ namespace BESM3CA
                         }
                         else
                         {
-
                             tw.WriteLine(nexttabstring + "Level " + ((AttributeData)current.Tag).Level + " x " + ((AttributeData)current.Tag).PointsPerLevel + " = " + (((AttributeData)current.Tag).Level * ((AttributeData)current.Tag).PointsPerLevel));
                         }
 
-                        cmd = new SqlCommand("Select Description from Attribute where AttributeID=" + ((AttributeData)current.Tag).ID + ";", conn);
-                        if (cmd.ExecuteScalar().GetType() == typeof(DBNull))
-                        {
+                        tw.WriteLine(nexttabstring + "Description: " + SelectedAttribute.Description);
 
-                        }
-                        else
-                        {
-                            string DescTest = (string)cmd.ExecuteScalar();
-                            tw.WriteLine(nexttabstring + "Description: " + DescTest);
-                        }
                         isAttrib = true;
                     }
                     else
@@ -1017,18 +944,13 @@ namespace BESM3CA
 
                         nexttabstring = tabstring + "\t";
 
-
                     }
-
-
 
                 }
                 if (((NodeData)current.Tag).Notes != "")
                 {
                     tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current.Tag).Notes).Replace("\n", "\n" + nexttabstring) + "]");
                 }
-
-
 
                 exportNode(current.Nodes, tabdepth + 1, tw);
 
@@ -1096,9 +1018,10 @@ namespace BESM3CA
                         {
                             if (child.Tag.GetType() == typeof(BESM3CA.AttributeData))
                             {
-                                SqlCommand cmd;
-                                cmd = new SqlCommand("select Type from Attribute where AttributeID=" + ((AttributeData)child.Tag).ID, conn);
-                                if (cmd.ExecuteScalar().ToString() == "Restriction")
+                                AttributeListing SelectedAttribute = AttributeList.Where(n => n.ID == ((AttributeData)child.Tag).ID).First();
+
+
+                                if (SelectedAttribute.Type == "Restriction")
                                 {
                                     temp = new CalcStats(0, 0, 0, 0);
                                     break;
@@ -1124,76 +1047,46 @@ namespace BESM3CA
             ((NodeData)treeView1.SelectedNode.Tag).Notes = textBox1.Text;
         }
 
-        private void LoadDatabase()
+        private void tbPoints_TextChanged(object sender, EventArgs e)
         {
-            Hashtable AttHash = new Hashtable();
-
-            SqlCommand cmd;
-            cmd = new SqlCommand("Select * from Attribute, Types where Attribute.Type=Types.TypeName Order by TypeOrder, AttributeName;", conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                AttributeListing temp = new AttributeListing();
-                temp.ID = (int)reader["AttributeID"];
-                temp.Name = (string)reader["AttributeName"];
-                temp.Container = (bool)reader["Container"];
-                if (reader["CostperLevel"].GetType() != typeof(DBNull))
-                {
-                    temp.CostperLevel = (int)reader["CostperLevel"];
-                }
-                else
-                {
-                    temp.CostperLevel = 0;
-                }
-                temp.CostperLevelDesc = (string)reader["CostperLevelDesc"];
-                temp.EnforceMaxLevel = (bool)reader["EnforceMaxLevel"];
-                temp.Human = (bool)reader["Human"];
-
-                if (reader["MaxLevel"].GetType() != typeof(DBNull))
-                {
-                    temp.MaxLevel = (int)reader["MaxLevel"];
-                }
-                else
-                {
-                    temp.MaxLevel = int.MaxValue;
-                }
-
-                temp.Page = (string)reader["Page"];
-
-
-                if (reader["Progression"].GetType() != typeof(DBNull))
-                {
-                    temp.Progression = (string)reader["Progression"];
-                }
-                else
-                {
-                    temp.Progression = "";
-                }
-
-                temp.RequiresVariant = (bool)reader["RequiresVariant"];
-                temp.SpecialContainer = (bool)reader["SpecialContainer"];
-                temp.SpecialPointsPerLevel = (int)reader["SpecialPointsPerLevel"];
-                temp.Stat = (string)reader["Stat"];
-                temp.Type = (string)reader["Type"];
-
-
-                AttHash.Add(temp.ID, temp);
-
-            }
-            reader.Close();
-            cmd = new SqlCommand("Select * from AttChildren;", conn);
-            reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                ((AttributeListing)AttHash[reader["ParentID"]]).AddChild((AttributeListing)AttHash[reader["ChildID"]]);
-
-
-            }
-            reader.Close();
 
         }
 
-        private void tbPoints_TextChanged(object sender, EventArgs e)
+        private void tbBody_ValueChanged(object sender, EventArgs e)
+        {
+            
+            if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            {
+                ((CharacterData)treeView1.SelectedNode.Tag).Body = (int)tbBody.Value;
+                
+            }
+            refreshTree(treeView1.Nodes);
+            RefreshTextBoxes();
+        }
+
+        private void tbMind_ValueChanged(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            {
+                ((CharacterData)treeView1.SelectedNode.Tag).Mind = (int)tbMind.Value;
+
+            }
+            refreshTree(treeView1.Nodes);
+            RefreshTextBoxes();
+        }
+
+        private void tbSoul_ValueChanged(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode.Tag.GetType() == typeof(BESM3CA.CharacterData))
+            {
+                ((CharacterData)treeView1.SelectedNode.Tag).Soul = (int)tbSoul.Value;
+
+            }
+            refreshTree(treeView1.Nodes);
+            RefreshTextBoxes();
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
 
         }
@@ -1241,7 +1134,6 @@ namespace BESM3CA
             Energy = e;
             ACV = a;
             DCV = d;
-
         }
     }
 

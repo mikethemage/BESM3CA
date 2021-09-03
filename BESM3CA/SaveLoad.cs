@@ -6,14 +6,11 @@ namespace BESM3CA
     class SaveLoad
     {
         // Xml tag for node, e.g. 'node' in case of <node></node> 
-
         private const string XmlNodeTag = "node";
 
         // Xml attributes for node e.g. <node text="Asia" tag="" 
         // imageindex="1"></node>
-
         private const string XmlNodeTextAtt = "text";
-        //  private const string XmlNodeTagAtt = "tag";
 
         private void SetAttributeValue(TreeNode node,
                     string propertyName, string value)
@@ -22,11 +19,7 @@ namespace BESM3CA
             {
                 node.Text = value;
             }
-
-            /* else if (propertyName == XmlNodeTagAtt)
-             {
-                 node.Tag = value;
-             }*/
+                        
         }
 
         public void DeserializeTreeView(TreeView treeView, string fileName)
@@ -35,7 +28,6 @@ namespace BESM3CA
             try
             {
                 // disabling re-drawing of treeview till all nodes are added
-
                 treeView.BeginUpdate();
                 reader = new XmlTextReader(fileName);
                 TreeNode parentNode = null;
@@ -68,7 +60,6 @@ namespace BESM3CA
                             else
                                 treeView.Nodes.Add(newNode);
 
-
                             // making current node 'ParentNode' if its not empty
 
                             if (!isEmptyElement)
@@ -95,8 +86,8 @@ namespace BESM3CA
                         }
 
                     }
-                    // moving up to in TreeView if end tag is encountered
 
+                    // moving up to in TreeView if end tag is encountered
                     else if (reader.NodeType == XmlNodeType.EndElement)
                     {
                         if (reader.Name == XmlNodeTag)
@@ -104,15 +95,17 @@ namespace BESM3CA
                             parentNode = parentNode.Parent;
                         }
                     }
+
                     else if (reader.NodeType == XmlNodeType.XmlDeclaration)
                     {
                         //Ignore Xml Declaration                    
-
                     }
+
                     else if (reader.NodeType == XmlNodeType.None)
                     {
                         return;
                     }
+
                     else if (reader.NodeType == XmlNodeType.Text)
                     {
                         parentNode.Nodes.Add(reader.Value);
@@ -123,7 +116,6 @@ namespace BESM3CA
             finally
             {
                 // enabling redrawing of treeview after all nodes are added
-
                 treeView.EndUpdate();
                 treeView.ExpandAll();
                 reader.Close();
@@ -136,7 +128,6 @@ namespace BESM3CA
 
             // writing the xml declaration tag
             textWriter.WriteStartDocument();
-            //textWriter.WriteRaw("\r\n");
 
             // writing the main tag that encloses all node tags
             textWriter.WriteStartElement("TreeView");
@@ -158,10 +149,7 @@ namespace BESM3CA
                                                            node.Text);
 
                 if (node.Tag != null)
-                {
-                    //textWriter.WriteAttributeString(XmlNodeTagAtt,
-                    //                            node.Tag.ToString());
-
+                {                    
                     ((NodeData)node.Tag).SaveXML(textWriter);
                     // write data
                 }
@@ -175,6 +163,5 @@ namespace BESM3CA
             }
         }
     }
-
 
 }
