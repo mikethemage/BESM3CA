@@ -25,6 +25,35 @@ namespace BESM3CA.Model
         public NodeData Next { get; set; }
         public NodeData Prev{ get; set; }
 
+
+        //***
+        public virtual bool HasCharacterStats
+        {
+            get
+            {
+                //Virtual for overrides
+                return false;
+            }
+        }
+        public virtual bool HasLevelStats
+        {
+            get
+            {
+                //Virtual for overrides
+                return false;
+            }
+        }
+        public virtual bool HasPointsStats
+        {
+            get
+            {
+                //Virtual for overrides
+                return false;
+            }
+        }
+        //***
+
+
         public virtual List<AttributeListing> PotentialChildren
         {
             get

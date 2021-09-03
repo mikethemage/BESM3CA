@@ -14,6 +14,30 @@ namespace BESM3CA.Model
 
         //Properties:
 
+        //***
+        public override bool HasCharacterStats
+        {
+            get
+            {                
+                return true;
+            }
+        }
+        public override bool HasLevelStats
+        {
+            get
+            {                
+                return false;
+            }
+        }
+        public override bool HasPointsStats
+        {
+            get
+            {                
+                return false;
+            }
+        }
+        //***
+
         public override List<AttributeListing> PotentialChildren
         {
             get

@@ -1,7 +1,4 @@
-﻿using BESM3CA.Templates;
-using System.Linq;
-
-namespace BESM3CA.Model
+﻿namespace BESM3CA.Model
 {
     class CalcStats
     {
@@ -18,7 +15,7 @@ namespace BESM3CA.Model
             DCV = d;
         }
 
-        public static CalcStats GetStats(NodeData Node, TemplateData templateData)
+        public static CalcStats GetStats(NodeData Node)
         {
             CalcStats stats;
 
@@ -29,9 +26,9 @@ namespace BESM3CA.Model
             else if (Node.GetType() == typeof(CharacterData))
             {
                 stats = new CalcStats(((CharacterData)Node).BaseHealth,
-                 ((CharacterData)Node).BaseEnergy,
-                ((CharacterData)Node).BaseCV,
-                ((CharacterData)Node).BaseCV);
+                    ((CharacterData)Node).BaseEnergy,
+                    ((CharacterData)Node).BaseCV,
+                    ((CharacterData)Node).BaseCV);
             }
             else
             {
@@ -72,10 +69,8 @@ namespace BESM3CA.Model
                         while(child!=null)
                         {
                             if (child.GetType() == typeof(AttributeData))
-                            {
-                                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)child).ID).First();
-
-                                if (SelectedAttribute.Type == "Restriction")
+                            {   
+                                if (((AttributeData)child).AttributeType == "Restriction")
                                 {
                                     temp = new CalcStats(0, 0, 0, 0);
                                     break;

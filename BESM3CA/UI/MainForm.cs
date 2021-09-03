@@ -24,7 +24,7 @@ namespace BESM3CA
         private CharacterData RootCharacter;
 
         private string FileName;
-        private bool checkMaxLevel;
+        //private bool checkMaxLevel;
 
         public MainForm()
         {
@@ -33,7 +33,7 @@ namespace BESM3CA
 
         private void BESM3CA_Load(object sender, EventArgs e)
         {
-            checkMaxLevel = false;
+            //checkMaxLevel = false;
             //Load template from file:
             templateData = TemplateData.JSONLoader();
             ResetAll();
@@ -129,9 +129,6 @@ namespace BESM3CA
         {
             RefreshVariants();
 
-            List<AttributeListing> SelectedAttributeChildren;
-            SelectedAttributeChildren = ((NodeData)tvCharacterTree.SelectedNode.Tag).PotentialChildren;
-
             string Filter;
             if (cbFilter.SelectedIndex == -1)
             {
@@ -215,14 +212,14 @@ namespace BESM3CA
                 {
                     AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
 
-                    if (SelectedAttribute.Type == "Special")
-                    {
-                        DisableLevelButtons();
-                    }
-                    else
-                    {
-                        EnableLevelButtons();
-                    }
+                    //if (SelectedAttribute.Type == "Special")
+                    //{
+                    //    DisableLevelButtons();
+                    //}
+                    //else
+                    //{
+                    EnableLevelButtons();
+                    //}
                 }
                 else
                 {
@@ -251,44 +248,32 @@ namespace BESM3CA
         private void RefreshTextBoxes()
         {
             tbNotes.Text = ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+
+            CalcStats stats = CalcStats.GetStats((NodeData)tvCharacterTree.SelectedNode.Tag);//, templateData);
+
+            if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasCharacterStats)
             {
                 tbBody.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body.ToString();
                 tbMind.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind.ToString();
                 tbSoul.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul.ToString();
+                tbHealth.Text = stats.Health.ToString();
+                tbEnergy.Text = stats.Energy.ToString();
+                tbACV.Text = stats.ACV.ToString();
+                tbDCV.Text = stats.DCV.ToString();
                 tbBody.Visible = true;
                 tbMind.Visible = true;
                 tbSoul.Visible = true;
+                tbHealth.Visible = true;
+                tbEnergy.Visible = true;
+                tbACV.Visible = true;
+                tbDCV.Visible = true;
                 lbBody.Visible = true;
                 lbMind.Visible = true;
                 lbSoul.Visible = true;
-                tbLevel.Text = "";
-                tbDesc.Text = "";
-                tbLevel.Visible = false;
-                tbDesc.Visible = false;
-                lbLevel.Visible = false;
                 lbHealth.Visible = true;
                 lbEnergy.Visible = true;
-                lbPointsPerLevel.Visible = false;
-                lbPointCost.Visible = false;
-
-                CalcStats stats = CalcStats.GetStats((NodeData)tvCharacterTree.SelectedNode.Tag, templateData);
-                tbHealth.Visible = true;
-                tbEnergy.Visible = true;
-                tbHealth.Text = stats.Health.ToString();
-                tbEnergy.Text = stats.Energy.ToString();
-
                 lbACV.Visible = true;
                 lbDCV.Visible = true;
-                tbACV.Visible = true;
-                tbDCV.Visible = true;
-                tbACV.Text = stats.ACV.ToString();
-                tbDCV.Text = stats.DCV.ToString();
-
-                lbDescription.Visible = false;
-                tbPPL.Visible = false;
-                tbPoints.Visible = false;
-
             }
             else
             {
@@ -298,83 +283,79 @@ namespace BESM3CA
                 tbBody.Visible = false;
                 tbMind.Visible = false;
                 tbSoul.Visible = false;
+                tbHealth.Visible = false;
+                tbEnergy.Visible = false;
                 lbBody.Visible = false;
                 lbMind.Visible = false;
                 lbSoul.Visible = false;
-
                 lbHealth.Visible = false;
                 lbEnergy.Visible = false;
-                tbHealth.Visible = false;
-                tbEnergy.Visible = false;
-
                 lbACV.Visible = false;
                 lbDCV.Visible = false;
                 tbACV.Visible = false;
                 tbDCV.Visible = false;
+            }
 
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Item")
+            if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasLevelStats)
+            {
+                if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
                 {
-                    //Is Item:
-                    tbLevel.Visible = false;
-                    lbLevel.Visible = false;
-                    tbPPL.Visible = false;
-
-                    tbPoints.Visible = false;
-                    lbPointsPerLevel.Visible = false;
-                    lbPointCost.Visible = false;
-                    //End is Item
+                    tbLevel.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level.ToString();
+                    tbDesc.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeDescription;
                 }
                 else
                 {
-                    //Not Item
-                    tbLevel.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level.ToString();
-                    tbLevel.Visible = true;
-                    tbDesc.Visible = true;
-                    lbDescription.Visible = true;
-
-                    IEnumerable<string> Description = from Att in templateData.AttributeList
-                                                      where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID
-                                                      select Att.Description;
-
-                    tbDesc.Text = Description.First();
-                    lbLevel.Visible = true;
-
-                    if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Name == "Companion")
-                    {
-                        //is companion
-                        tbPPL.Visible = false;
-                        tbPoints.Visible = false;
-                        lbPointsPerLevel.Visible = false;
-                        lbPointCost.Visible = false;
-                        //End is companion
-                    }
-                    else
-                    {
-                        //Not companion
-                        tbPPL.Visible = true;
-                        tbPPL.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel.ToString();
-                        tbPoints.Text = ((((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel * ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level) + ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj).ToString();
-                        tbPoints.Visible = true;
-                        lbPointsPerLevel.Visible = true;
-                        lbPointCost.Visible = true;
-                        //end not companion
-                    }
-                    //End not Item
+                    tbLevel.Text = "";
+                    tbDesc.Text = "";
                 }
+                tbLevel.Visible = true;
+                tbDesc.Visible = true;
+                lbLevel.Visible = true;
+                lbDescription.Visible = true;
+            }
+            else
+            {
+                tbLevel.Text = "";
+                tbDesc.Text = "";
+                tbLevel.Visible = false;
+                tbDesc.Visible = false;
+                lbLevel.Visible = false;
+                lbDescription.Visible = false;
+            }
+
+            if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasPointsStats)
+            {
+                if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+                {
+                    tbPPL.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel.ToString();
+                    tbPoints.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).BaseCost.ToString(); 
+                }
+                else
+                {
+                    tbLevel.Text = "";
+                    tbDesc.Text = "";
+                }
+                tbPPL.Visible = true;                
+                tbPoints.Visible = true;                
+                lbPointsPerLevel.Visible = true;
+                lbPointCost.Visible = true;                
+            }
+            else
+            {
+                tbPPL.Text = "";
+                tbPoints.Text = ""; 
+                tbPPL.Visible = false;                
+                tbPoints.Visible = false;                
+                lbPointsPerLevel.Visible = false;
+                lbPointCost.Visible = false;
             }
         }
 
         private void RaiseLevel()
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
-            {
-                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
-
-                if ((checkMaxLevel == false && SelectedAttribute.EnforceMaxLevel == false) ||
-                   (SelectedAttribute.MaxLevel != int.MaxValue && SelectedAttribute.MaxLevel > ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level))
-                {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).RaiseLevel();
-                }
+            {                
+                ((AttributeData)tvCharacterTree.SelectedNode.Tag).RaiseLevel();                
                 RefreshTree(tvCharacterTree.Nodes);
             }
         }
@@ -383,12 +364,7 @@ namespace BESM3CA
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
-
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).Level > 1 || (((AttributeData)tvCharacterTree.SelectedNode.Tag).Level > 0 && SelectedAttribute.Name == "Weapon"))
-                {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).LowerLevel();
-                }
+                ((AttributeData)tvCharacterTree.SelectedNode.Tag).LowerLevel();                
                 RefreshTree(tvCharacterTree.Nodes);
             }
         }
@@ -634,7 +610,7 @@ namespace BESM3CA
 
                     tw.WriteLine();
 
-                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag, templateData);
+                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag);//, templateData);
                     tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
                     tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
 

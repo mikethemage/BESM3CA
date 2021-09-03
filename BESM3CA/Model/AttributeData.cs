@@ -19,11 +19,74 @@ namespace BESM3CA.Model
 
 
         //Properties:
+
+        //***
+        public override bool HasCharacterStats
+        {
+            get
+            {
+                return false;
+            }
+        }
+        public override bool HasLevelStats
+        {
+            get
+            {
+                if(Name=="Item")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }                
+            }
+        }
+        public override bool HasPointsStats
+        {
+            get
+            {
+                if (Name == "Item")
+                {
+                    return false;
+                }
+                else
+                {
+                    if (Name == "Companion")
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        //***
+
+
+        public string AttributeDescription
+        {
+            get
+            {
+                return _attributeListing.Description;
+            }
+        }
+
+        public string AttributeType
+        {
+            get
+            {
+                return _attributeListing.Type;
+            }
+        }
+
         public override List<AttributeListing> PotentialChildren
         {
             get
             {
-                return _asscTemplate.AttributeList.Where(n => n.ID == ID).First().Children;                
+                return _asscTemplate.AttributeList.Where(n => n.ID == ID).First().Children;
             }
         }
 
@@ -36,12 +99,12 @@ namespace BESM3CA.Model
                     return true;
                 }
 
-                if(_attributeListing!=null && _attributeListing.RequiresVariant)
+                if (_attributeListing != null && _attributeListing.RequiresVariant)
                 {
                     return true;
                 }
 
-                return false;  
+                return false;
             }
         }
 
@@ -70,7 +133,7 @@ namespace BESM3CA.Model
                 {
                     _variantListing = null;
                 }
-                
+
                 PointsUpToDate = false;
                 _Variant = value;
             }
@@ -122,7 +185,7 @@ namespace BESM3CA.Model
 
             if (AttributeName == "Item")
             {
-                _HasLevel = false;                
+                _HasLevel = false;
             }
             else
             {
@@ -130,7 +193,7 @@ namespace BESM3CA.Model
                 if (AttributeName == "Weapon")
                 {
                     _Level = 0;
-                }                
+                }
             }
 
             PointsPerLevel = Points;
@@ -194,18 +257,24 @@ namespace BESM3CA.Model
 
         public bool RaiseLevel()
         {
-            //need to check maxlevel
-            if (_HasLevel == true)
+            if (_attributeListing.EnforceMaxLevel == false || (_attributeListing.MaxLevel != int.MaxValue && _attributeListing.MaxLevel > Level)) //need to check maxlevel
             {
-                _Level++;
-                PointsUpToDate = false;
+                if (_HasLevel == true)
+                {
+                    _Level++;
+                    PointsUpToDate = false;
+                }
+                return _HasLevel;
             }
-            return _HasLevel;
+            else
+            {
+                return false;
+            }            
         }
 
         public bool LowerLevel()
         {
-            if (_Level > 0)
+            if (Level > 1 || (Level > 0 && _attributeListing.Name == "Weapon"))
             {
                 if (_HasLevel == true)
                 {
