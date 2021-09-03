@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # BESM 3rd Edition Character Assistant
 
 **BESM3CA** is a character creator for the third edition of the BESM (Big Eyes, Small Mouth) roleplaying game.  It is currently a 64-bit Windows application using .Net 5.0.  Supported operating systems are Windows 7 x64 and higher.
@@ -23,6 +24,10 @@ This project is currently in development and therefore further features are plan
 \
 **Disclaimer:**\
 "BESM" / "Big Eyes Small Mouth" is a trademark of White Wolf Entertainment AB and licensed by Dyskami Publishing Company.  This application is not endorsed by or associated with White Wolf Entertainment AB or Dyskami Publishing Company in any way.  This is a non-profit fan-made utility intended to help players in conjuction with official source materials.
+=======
+# BESM3CA
+BESM 3rd Edition Character Assistant
+>>>>>>> parent of 0f1e451... Update README.md
 =======
 # BESM3CA
 BESM 3rd Edition Character Assistant
