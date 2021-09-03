@@ -21,20 +21,28 @@ namespace BESM3CA.Model
         {
             get
             {
-                if (_attributeListing.SpecialContainer || Name == "Alternate Form")
+                if (_attributeListing != null)
                 {
-                    return Name + " (" + GetSpecialPoints(_asscTemplate) + " Left)" + " (" + GetPoints(_asscTemplate) + " Points)";
-                }
-                else
-                {
-                    if (_attributeListing.Type == "Special")
+
+                    if (_attributeListing.SpecialContainer || Name == "Alternate Form")
                     {
-                        return Name;
+                        return Name + " (" + GetSpecialPoints() + " Left)" + " (" + GetPoints() + " Points)";
                     }
                     else
                     {
-                        return Name + " (" + GetPoints(_asscTemplate) + " Points)";
+                        if (AttributeType == "Special")
+                        {
+                            return Name;
+                        }
+                        else
+                        {
+                            return Name + " (" + GetPoints() + " Points)";
+                        }
                     }
+                }
+                else
+                {
+                    return "";
                 }
             }
         }
@@ -234,11 +242,12 @@ namespace BESM3CA.Model
         {
             //Default Constructor - currently needed for loading code
             //Todo: refactor
+            
         }
 
 
         //Member Functions:
-        public int GetSpecialPoints(TemplateData templateData)
+        public int GetSpecialPoints()
         {
             bool altform = false;
             if (_name == "Alternate Form")
@@ -246,7 +255,7 @@ namespace BESM3CA.Model
                 altform = true;
             }
 
-            AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ID).First();
+            AttributeListing SelectedAttribute = _asscTemplate.AttributeList.Where(n => n.ID == ID).First();
 
             int specialpoints = 0;
 
@@ -254,7 +263,7 @@ namespace BESM3CA.Model
             {
                 if (PointsUpToDate == false)
                 {
-                    GetPoints(templateData);
+                    GetPoints();
                 }
 
                 if (altform)
@@ -317,7 +326,7 @@ namespace BESM3CA.Model
             }
         }
 
-        public override int GetPoints(TemplateData templateData)
+        public override int GetPoints()
         {
             if (PointsUpToDate == false || _FirstChild == null)
             {
@@ -331,7 +340,7 @@ namespace BESM3CA.Model
                 isAlternateForm = (Name == "Alternate Form");
                 if (Variant > 0)
                 {
-                    VariantListing SelectedVariant = templateData.VariantList.Where(n => n.ID == Variant).First();
+                    VariantListing SelectedVariant = _asscTemplate.VariantList.Where(n => n.ID == Variant).First();
 
                     if (SelectedVariant.Name == "Alternate Attack")
                     {
@@ -347,19 +356,19 @@ namespace BESM3CA.Model
                 {
                     if (temp.GetType() == typeof(AttributeData))
                     {
-                        AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
+                        AttributeListing SelectedAttribute = _asscTemplate.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
                         if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
                         {
-                            VariablesOrRestrictions += temp.GetPoints(templateData);
+                            VariablesOrRestrictions += temp.GetPoints();
                         }
                         else
                         {
-                            ChildPoints += temp.GetPoints(templateData);
+                            ChildPoints += temp.GetPoints();
                         }
                     }
                     else
                     {
-                        ChildPoints += temp.GetPoints(templateData);
+                        ChildPoints += temp.GetPoints();
                     }
 
                     temp = temp.Next;

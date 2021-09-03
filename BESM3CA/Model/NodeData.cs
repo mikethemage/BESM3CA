@@ -29,7 +29,7 @@ namespace BESM3CA.Model
         {
             get
             {
-                return Name + " (" + GetPoints(_asscTemplate) + " Points)";
+                return Name + " (" + GetPoints() + " Points)";
             }
         }
 
@@ -189,7 +189,7 @@ namespace BESM3CA.Model
 
 
         //Member Functions:
-        public virtual int GetPoints(TemplateData templateData)
+        public virtual int GetPoints()
         {
             //Virtual for derived classes
             return 0;
@@ -374,6 +374,7 @@ namespace BESM3CA.Model
                                         break;
                                     case "ID":
                                         _ID = int.Parse(reader.Value);
+                                        
                                         break;
                                     default:
                                         break;

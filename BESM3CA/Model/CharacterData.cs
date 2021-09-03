@@ -152,7 +152,7 @@ namespace BESM3CA.Model
 
 
         //Member functions:
-        public override int GetPoints(TemplateData templateData)
+        public override int GetPoints()
         {            
                 if (PointsUpToDate == false || _FirstChild == null)
                 {
@@ -160,7 +160,7 @@ namespace BESM3CA.Model
                     NodeData temp = _FirstChild;
                     while(temp != null)
                     {
-                        _points += temp.GetPoints(templateData);
+                        _points += temp.GetPoints();
                         temp = temp.Next;
                     }
                     PointsUpToDate = true;

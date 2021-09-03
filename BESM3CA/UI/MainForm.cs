@@ -408,7 +408,7 @@ namespace BESM3CA
                 ResetAll();
                 tvCharacterTree.Nodes.Clear();
                 //SaveLoad Loader = new SaveLoad();
-                SaveLoad.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName);
+                SaveLoad.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName, templateData);
                 FileName = openFileDialog1.FileName;
                 Text = ApplicationName + " - " + FileName;
                 if (tvCharacterTree.Nodes.Count > 0)

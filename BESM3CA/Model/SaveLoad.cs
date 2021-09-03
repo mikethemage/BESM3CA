@@ -22,11 +22,10 @@ namespace BESM3CA.Model
             if (propertyName == XmlNodeTextAtt)
             {
                 node.Text = value;
-            }
-                        
+            }                        
         }
 
-        public static void DeserializeTreeView(TreeView treeView, string fileName)
+        public static void DeserializeTreeView(TreeView treeView, string fileName, TemplateData templateData)
         {
             XmlTextReader reader = null;
             try
@@ -46,6 +45,7 @@ namespace BESM3CA.Model
                             //Read template name
                             Debug.Assert(reader.Value == "BESM3E");
                             //todo: load correct template
+
                         }                        
                     }
                     else if (reader.NodeType == XmlNodeType.Element)
@@ -85,12 +85,12 @@ namespace BESM3CA.Model
                         {
                             if (reader.Name.EndsWith(".CharacterData") && newNode != null)
                             {
-                                newNode.Tag = new CharacterData();//todo: refactor to take reference to template
+                                newNode.Tag = new CharacterData("", templateData);//todo: refactor to take reference to template
                                 ((CharacterData)newNode.Tag).LoadXML(reader);
                             }
                             else if (reader.Name.EndsWith(".AttributeData") && newNode != null)
                             {
-                                newNode.Tag = new AttributeData();//todo: refactor to take reference to template
+                                newNode.Tag = new AttributeData("", 0, "", 0, templateData);//todo: refactor to take reference to template
                                 ((AttributeData)newNode.Tag).LoadXML(reader);
                             }
                             else
