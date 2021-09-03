@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.IO;
 
 
 namespace BESM3CA.Templates
@@ -10,11 +11,8 @@ namespace BESM3CA.Templates
     {
         //Properties:
         public List<AttributeListing> AttributeList { get; set; }
-
         public List<VariantListing> VariantList { get; set; }
-
         public List<TypeListing> TypeList { get; set; }
-
         public string TemplateName { get; set; }
 
 
@@ -39,9 +37,10 @@ namespace BESM3CA.Templates
         {
             TemplateData temp;
 
-            string input = System.IO.File.ReadAllText(@"Datafiles\BESM3E.json");
+            string input = File.ReadAllText(@"Datafiles\BESM3E.json");
+            
 
-            temp = System.Text.Json.JsonSerializer.Deserialize<TemplateData>(input);
+            temp = JsonSerializer.Deserialize<TemplateData>(input);
 
             using (JsonDocument document = JsonDocument.Parse(input))
             {

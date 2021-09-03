@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
+using System.Diagnostics;
 using BESM3CA.Model;
 using BESM3CA.UI;
 using BESM3CA.Templates;
-using System.Diagnostics;
 
 namespace BESM3CA
 {

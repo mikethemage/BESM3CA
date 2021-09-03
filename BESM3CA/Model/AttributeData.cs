@@ -1,6 +1,7 @@
 ﻿using System.Xml;
-using BESM3CA.Templates;
 using System.Linq;
+using BESM3CA.Templates;
+
 
 namespace BESM3CA.Model
 {
@@ -19,7 +20,11 @@ namespace BESM3CA.Model
         {
             get
             {
-                return false;
+                if(_Variant!=0)
+                {
+                    return true;
+                }
+                return false;  //Todo -check if variants possible but not selected yet
             }
         }
 

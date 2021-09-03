@@ -65,4 +65,5 @@
   <ItemGroup>
     <Compile Remove="BESM3CADataSet.Designer.cs" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
