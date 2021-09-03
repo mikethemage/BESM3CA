@@ -17,6 +17,27 @@ namespace BESM3CA.Model
         private AttributeListing _attributeListing;
         private VariantListing _variantListing;
 
+        public override string DisplayText
+        {
+            get
+            {
+                if (_attributeListing.SpecialContainer || Name == "Alternate Form")
+                {
+                    return Name + " (" + GetSpecialPoints(_asscTemplate) + " Left)" + " (" + GetPoints(_asscTemplate) + " Points)";
+                }
+                else
+                {
+                    if (_attributeListing.Type == "Special")
+                    {
+                        return Name;
+                    }
+                    else
+                    {
+                        return Name + " (" + GetPoints(_asscTemplate) + " Points)";
+                    }
+                }
+            }
+        }
 
         //Properties:
         public override bool HasCharacterStats
@@ -30,14 +51,14 @@ namespace BESM3CA.Model
         {
             get
             {
-                if(Name=="Item")
+                if (Name == "Item")
                 {
                     return false;
                 }
                 else
                 {
                     return true;
-                }                
+                }
             }
         }
         public override bool HasPointsStats
@@ -61,7 +82,7 @@ namespace BESM3CA.Model
                 }
             }
         }
-        
+
         public string AttributeDescription
         {
             get
@@ -265,7 +286,7 @@ namespace BESM3CA.Model
             else
             {
                 return false;
-            }            
+            }
         }
 
         public bool LowerLevel()

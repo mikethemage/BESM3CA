@@ -25,6 +25,13 @@ namespace BESM3CA.Model
         public NodeData Next { get; set; }
         public NodeData Prev{ get; set; }
 
+        public virtual string DisplayText
+        {
+            get
+            {
+                return Name + " (" + GetPoints(_asscTemplate) + " Points)";
+            }
+        }
 
         //***
         public virtual bool HasCharacterStats

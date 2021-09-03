@@ -20,11 +20,12 @@ namespace BESM3CA
         private const int HeightAdjust4 = 3;
         //****
 
+        private const string ApplicationName = "BESM3CA";
+
         private TemplateData templateData;
         private CharacterData RootCharacter;
 
-        private string FileName;
-        //private bool checkMaxLevel;
+        private string FileName;        
 
         public MainForm()
         {
@@ -42,7 +43,7 @@ namespace BESM3CA
         private void ResetAll()
         {
             FileName = "";
-            Text = "BESM3CA";
+            Text = ApplicationName;
 
             //Reset root character:
             RootCharacter = new CharacterData("", templateData);
@@ -164,7 +165,6 @@ namespace BESM3CA
                 lbAttributeList.DisplayMember = "DisplayMember";
                 lbAttributeList.ValueMember = "ValueMember";
             }
-
         }
 
         private void AddAttr()
@@ -213,16 +213,7 @@ namespace BESM3CA
             {
                 if (((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)
                 {
-                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).ID).First();
-
-                    //if (SelectedAttribute.Type == "Special")
-                    //{
-                    //    DisableLevelButtons();
-                    //}
-                    //else
-                    //{
-                    EnableLevelButtons();
-                    //}
+                    EnableLevelButtons();                    
                 }
                 else
                 {
@@ -385,14 +376,14 @@ namespace BESM3CA
                 {
                     //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
                     RestoreDirectory = false,
-                    Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*",
+                    Filter = ApplicationName + " Files (*.xml)|*.xml|All Files (*.*)|*.*",
                     FilterIndex = 1
                 };
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     FileName = saveFileDialog1.FileName;
-                    Text = "BESM3CA - " + FileName;
+                    Text = ApplicationName + " - " + FileName;
                 }
                 else
                 {
@@ -409,7 +400,7 @@ namespace BESM3CA
             {
                 //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
                 RestoreDirectory = false,
-                Filter = "BESM3CA Files (*.xml)|*.xml|All Files (*.*)|*.*",
+                Filter = ApplicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
                 FilterIndex = 1
             };
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -419,7 +410,7 @@ namespace BESM3CA
                 //SaveLoad Loader = new SaveLoad();
                 SaveLoad.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName);
                 FileName = openFileDialog1.FileName;
-                Text = "BESM3CA - " + FileName;
+                Text = ApplicationName + " - " + FileName;
                 if (tvCharacterTree.Nodes.Count > 0)
                 {
                     tvCharacterTree.SelectedNode = tvCharacterTree.Nodes[0];
@@ -440,41 +431,7 @@ namespace BESM3CA
             foreach (TreeNode Node in Nodes)
             {
                 RefreshTree(Node.Nodes);
-
-                if (Node.Tag.GetType() == typeof(AttributeData))
-                {
-                    bool altform = false;
-                    if (((AttributeData)Node.Tag).Name == "Alternate Form")
-                    {
-                        altform = true;
-                    }
-
-                    AttributeListing SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
-
-                    if (SelectedAttribute.SpecialContainer || altform)
-                    {
-
-                        Node.Text = ((AttributeData)Node.Tag).Name + " (" + ((AttributeData)Node.Tag).GetSpecialPoints(templateData) + " Left)" + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
-                    }
-                    else
-                    {
-                        SelectedAttribute = templateData.AttributeList.Where(n => n.ID == ((AttributeData)Node.Tag).ID).First();
-
-                        if (SelectedAttribute.Type == "Special")
-                        {
-                            Node.Text = ((AttributeData)Node.Tag).Name;
-
-                        }
-                        else
-                        {
-                            Node.Text = ((AttributeData)Node.Tag).Name + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
-                        }
-                    }
-                }
-                else
-                {
-                    Node.Text = ((CharacterData)Node.Tag).Name + " (" + ((NodeData)Node.Tag).GetPoints(templateData) + " Points)";
-                }
+                Node.Text = ((NodeData)Node.Tag).DisplayText;
             }
         }
 
