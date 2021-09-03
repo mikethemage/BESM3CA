@@ -14,8 +14,8 @@ namespace BESM3CA.Model
         int _PointAdj = 0;
         int _SpecialPointsUsed = 0;
 
-        //Properties:
 
+        //Properties:
         public bool HasVariants
         {
             get
