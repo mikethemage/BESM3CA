@@ -19,8 +19,6 @@ namespace BESM3CA.Model
 
 
         //Properties:
-
-        //***
         public override bool HasCharacterStats
         {
             get
@@ -63,9 +61,7 @@ namespace BESM3CA.Model
                 }
             }
         }
-        //***
-
-
+        
         public string AttributeDescription
         {
             get
@@ -304,7 +300,6 @@ namespace BESM3CA.Model
         {
             if (PointsUpToDate == false || _FirstChild == null)
             {
-
                 bool isItem = false;
                 bool isCompanion = false;
                 bool isAlternateAttack = false;
@@ -340,7 +335,6 @@ namespace BESM3CA.Model
                         {
                             ChildPoints += temp.GetPoints(templateData);
                         }
-
                     }
                     else
                     {

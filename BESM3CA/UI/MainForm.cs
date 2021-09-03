@@ -141,26 +141,29 @@ namespace BESM3CA
 
             List<ListItems> FilteredAttList = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);
 
-            lbAttributeList.Items.Clear();
-
-            string Type = "";
-            foreach (ListItems item in FilteredAttList)
+            if (FilteredAttList != null)
             {
-                if (Type != item.OptionalMember)
+                lbAttributeList.Items.Clear();
+
+                string Type = "";
+                foreach (ListItems item in FilteredAttList)
                 {
-                    if (Type != "")
+                    if (Type != item.OptionalMember)
                     {
+                        if (Type != "")
+                        {
+                            lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
+                        }
+                        Type = item.OptionalMember;
+                        lbAttributeList.Items.Add(new ListItems(Type + ":", 0));
                         lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
                     }
-                    Type = item.OptionalMember;
-                    lbAttributeList.Items.Add(new ListItems(Type + ":", 0));
-                    lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
+                    lbAttributeList.Items.Add(item);
                 }
-                lbAttributeList.Items.Add(item);
-            }
 
-            lbAttributeList.DisplayMember = "DisplayMember";
-            lbAttributeList.ValueMember = "ValueMember";
+                lbAttributeList.DisplayMember = "DisplayMember";
+                lbAttributeList.ValueMember = "ValueMember";
+            }
 
         }
 
@@ -328,24 +331,24 @@ namespace BESM3CA
                 if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
                 {
                     tbPPL.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel.ToString();
-                    tbPoints.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).BaseCost.ToString(); 
+                    tbPoints.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).BaseCost.ToString();
                 }
                 else
                 {
                     tbLevel.Text = "";
                     tbDesc.Text = "";
                 }
-                tbPPL.Visible = true;                
-                tbPoints.Visible = true;                
+                tbPPL.Visible = true;
+                tbPoints.Visible = true;
                 lbPointsPerLevel.Visible = true;
-                lbPointCost.Visible = true;                
+                lbPointCost.Visible = true;
             }
             else
             {
                 tbPPL.Text = "";
-                tbPoints.Text = ""; 
-                tbPPL.Visible = false;                
-                tbPoints.Visible = false;                
+                tbPoints.Text = "";
+                tbPPL.Visible = false;
+                tbPoints.Visible = false;
                 lbPointsPerLevel.Visible = false;
                 lbPointCost.Visible = false;
             }
@@ -354,8 +357,8 @@ namespace BESM3CA
         private void RaiseLevel()
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
-            {                
-                ((AttributeData)tvCharacterTree.SelectedNode.Tag).RaiseLevel();                
+            {
+                ((AttributeData)tvCharacterTree.SelectedNode.Tag).RaiseLevel();
                 RefreshTree(tvCharacterTree.Nodes);
             }
         }
@@ -364,7 +367,7 @@ namespace BESM3CA
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                ((AttributeData)tvCharacterTree.SelectedNode.Tag).LowerLevel();                
+                ((AttributeData)tvCharacterTree.SelectedNode.Tag).LowerLevel();
                 RefreshTree(tvCharacterTree.Nodes);
             }
         }
@@ -610,12 +613,11 @@ namespace BESM3CA
 
                     tw.WriteLine();
 
-                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag);//, templateData);
+                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag);
+
                     tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
                     tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
-
                     tw.WriteLine(nexttabstring + "Health: " + stats.Health);
-
                     tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
 
                     tw.WriteLine();
@@ -680,9 +682,9 @@ namespace BESM3CA
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body = (int)tbBody.Value;
+                RefreshTree(tvCharacterTree.Nodes);
+                RefreshTextBoxes();
             }
-            RefreshTree(tvCharacterTree.Nodes);
-            RefreshTextBoxes();
         }
 
         private void tbMind_ValueChanged(object sender, EventArgs e)
@@ -690,9 +692,9 @@ namespace BESM3CA
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind = (int)tbMind.Value;
+                RefreshTree(tvCharacterTree.Nodes);
+                RefreshTextBoxes();
             }
-            RefreshTree(tvCharacterTree.Nodes);
-            RefreshTextBoxes();
         }
 
         private void tbSoul_ValueChanged(object sender, EventArgs e)
@@ -700,9 +702,9 @@ namespace BESM3CA
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul = (int)tbSoul.Value;
+                RefreshTree(tvCharacterTree.Nodes);
+                RefreshTextBoxes();
             }
-            RefreshTree(tvCharacterTree.Nodes);
-            RefreshTextBoxes();
         }
 
         private void bnAdd_Click(object sender, EventArgs e)
@@ -719,7 +721,7 @@ namespace BESM3CA
         {
             if (tvCharacterTree.SelectedNode.Tag.GetType() != typeof(CharacterData))
             {
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj >= 0)
+                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj >= 0)  //do not delete "freebies"
                 {
                     TreeNode tempNode = tvCharacterTree.SelectedNode.NextNode;
                     ((NodeData)tvCharacterTree.SelectedNode.Tag).Delete();

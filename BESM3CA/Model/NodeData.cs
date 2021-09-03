@@ -65,20 +65,25 @@ namespace BESM3CA.Model
 
         public List<ListItems> GetFilteredPotentialChildren(string Filter)
         {
-            List<AttributeListing> SelectedAttributeChildren;
-            SelectedAttributeChildren = PotentialChildren;
+            List<AttributeListing> SelectedAttributeChildren = PotentialChildren;
+            if (SelectedAttributeChildren != null)
+            {
+                //LINQ Version:
+                List<ListItems> FilteredAttList = (from Att in SelectedAttributeChildren
+                                                   where
+                                                   (
+                                                   //cbFilter.SelectedIndex == -1 || 
+                                                   Filter == "All" || Filter == "" || Att.Type == Filter)
 
-            //LINQ Version:
-            List<ListItems> FilteredAttList = (from Att in SelectedAttributeChildren
-                                  where
-                                  (
-                                  //cbFilter.SelectedIndex == -1 || 
-                                  Filter == "All" || Filter == "" || Att.Type == Filter)
+                                                   orderby Att.Type, Att.Name
+                                                   select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();
 
-                                  orderby Att.Type, Att.Name
-                                  select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();
-
-            return FilteredAttList;
+                return FilteredAttList;
+            }
+            else
+            { 
+                return null;
+            }
         }
 
         protected bool PointsUpToDate

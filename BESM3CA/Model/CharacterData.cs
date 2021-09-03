@@ -41,8 +41,15 @@ namespace BESM3CA.Model
         public override List<AttributeListing> PotentialChildren
         {
             get
-            {                
-                return _asscTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+            {
+                if (_asscTemplate != null)
+                {
+                    return _asscTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
