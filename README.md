@@ -12,11 +12,13 @@ This project is currently in development and therefore further features are plan
 * Cross-platform support
 * Alternate editions of BESM (e.g. 4th edition) or alternate RPG systems
 
+Inspired by, but **not** based on or in anyway affiliated with BESMCG, a character editor for BESM 2nd Edition
+
 **Links:**
-* [Download](https://github.com/mikethemage/BESM3CA/releases)
+* [Download latest release](https://github.com/mikethemage/BESM3CA/releases)
 * [Official BESM Website (4th Edition)](https://BESM4.life)
 * [Buy BESM 3rd Edition (PDF - DriveThruRPG)](https://www.drivethrurpg.com/product/24482/BESM-Big-Eyes-Small-Mouth-3rd-Edition)
-* [Inspired by not based on or in anyway affiliated with BESMCG for BESM 2nd Edition](http://www.technofetish.net/index.html)
+* [BESMCG home page](http://www.technofetish.net/index.html)
 
 \
 \
