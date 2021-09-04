@@ -12,13 +12,7 @@ namespace BESM3CA
 {
     public partial class MainForm : Form
     {
-        //Constants for adjusting right hand list and combo boxes:
-        private const int HeightAdjust1 = 125;
-        private const int HeightAdjust2 = 27;
-        private const int HeightAdjust3 = 101;
-        private const int HeightAdjust4 = 3;
-        //****
-
+        //Fields:
         //Title bar:
         private const string ApplicationName = "BESM3CA";
         private string FileName;
@@ -27,11 +21,13 @@ namespace BESM3CA
         private TemplateData templateData;
         private CharacterData RootCharacter;        
 
+
         //Constructor:
         public MainForm()
         {
             InitializeComponent();
         }
+
 
         //Initialisation code:
         private void BESM3CA_Load(object sender, EventArgs e)
@@ -86,6 +82,13 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
+            //Constants for adjusting right hand list and combo boxes:
+            const int HeightAdjust1 = 125;
+            const int HeightAdjust2 = 27;
+            const int HeightAdjust3 = 101;
+            const int HeightAdjust4 = 3;
+            //****
+
             lbVariantList.Items.Clear();
             
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants)
