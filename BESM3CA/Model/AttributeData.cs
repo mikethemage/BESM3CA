@@ -326,6 +326,36 @@ namespace BESM3CA.Model
             }
         }
 
+        public List<ListItems> GetVariants()
+        {
+            if (HasVariants)
+            {
+                //LINQ Version:
+                List<ListItems> FilteredVarList = (from Att in _asscTemplate.AttributeList
+                                                         where Att.ID == AttributeID
+                                                         from Vari in _asscTemplate.VariantList
+                                                         where Att.ID == Vari.AttributeID
+                                                         orderby Vari.DefaultVariant descending, Vari.Name
+                                                         select new ListItems
+                                                         (
+                                                             Att.Name + " [" + Vari.Name + "]",
+                                                             Vari.ID
+                                                         )).ToList();
+
+
+
+                return FilteredVarList;
+
+                
+            }
+            else
+            {
+                return null;
+            }
+
+            
+        }
+
         public override int GetPoints()
         {
             if (PointsUpToDate == false || _firstChild == null)

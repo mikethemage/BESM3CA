@@ -5,7 +5,6 @@
         //Properties:
         public string DisplayMember { get; set; }
         public int ValueMember { get; set; }
-
         public string OptionalMember { get; set; }
 
         //Constructors:

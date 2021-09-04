@@ -25,7 +25,7 @@ namespace BESM3CA
         private TemplateData templateData;
         private CharacterData RootCharacter;
 
-        private string FileName;        
+        private string FileName;
 
         public MainForm()
         {
@@ -82,39 +82,30 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
+            lbVariantList.Items.Clear();
+            
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants)
-            {
-                //LINQ Version:
-                IEnumerable<ListItems> FilteredVarList = from Att in templateData.AttributeList
-                                                         where Att.ID == ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeID
-                                                         from Vari in templateData.VariantList
-                                                         where Att.ID == Vari.AttributeID
-                                                         orderby Vari.DefaultVariant descending, Vari.Name
-                                                         select new ListItems
-                                                         (
-                                                             Att.Name + " [" + Vari.Name + "]",
-                                                             Vari.ID
-                                                         );
+            {                
+                List<ListItems> FilteredVarList = ((AttributeData)tvCharacterTree.SelectedNode.Tag).GetVariants();
+                if (FilteredVarList != null)
+                {                    
+                    lbVariantList.Visible = true;
+                    lbVariant.Visible = true;
+                    cbFilter.Top = HeightAdjust3;
 
-                lbVariantList.Items.Clear();
-                lbVariantList.Visible = true;
-                lbVariant.Visible = true;
-                cbFilter.Top = HeightAdjust3;
+                    if (lbAttributeList.Top == HeightAdjust2)
+                    {
+                        lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
+                    }
 
-                if (lbAttributeList.Top == HeightAdjust2)
-                {
-                    lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
+                    lbAttributeList.Top = HeightAdjust1;
+                    lbVariantList.Items.AddRange(FilteredVarList.ToArray());
+                    lbVariantList.DisplayMember = "DisplayMember";
+                    lbVariantList.ValueMember = "ValueMember";
                 }
-                lbAttributeList.Top = HeightAdjust1;
-
-                lbVariantList.Items.AddRange(FilteredVarList.ToArray());
-
-                lbVariantList.DisplayMember = "DisplayMember";
-                lbVariantList.ValueMember = "ValueMember";
             }
             else
-            {
-                lbVariantList.Items.Clear();
+            {               
                 lbVariantList.Visible = false;
                 lbVariant.Visible = false;
                 cbFilter.Top = HeightAdjust4;
@@ -213,7 +204,7 @@ namespace BESM3CA
             {
                 if (((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)
                 {
-                    EnableLevelButtons();                    
+                    EnableLevelButtons();
                 }
                 else
                 {

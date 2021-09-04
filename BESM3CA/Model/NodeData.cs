@@ -175,19 +175,6 @@ namespace BESM3CA.Model
             _pointsUpToDate = false;
         }
 
-        //public NodeData()
-        //{
-        //    //Default Constructor - currently needed for loading code
-        //    NodeOrder = 1;
-        //    _FirstChild = null;
-        //    _Parent = null;
-        //    _LastChildOrder = 0;
-        //    Next = null;
-        //    Prev = null;
-        //    _pointsUpToDate = false;
-        //}
-
-
         //Member Functions:
         public virtual int GetPoints()
         {
