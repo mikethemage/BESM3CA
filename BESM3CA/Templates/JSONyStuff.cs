@@ -6,11 +6,11 @@ namespace BESM3CA.Templates
 {
     static class JSONyStuff
     {
-        public static void JSONLoader(out List<AttributeListing> AttributeList, out List<VariantListing> VariantList, out List<TypeListing> TypeList)
+        public static void JSONLoader(out List<AttributeListing> attributeList, out List<VariantListing> variantList, out List<TypeListing> typeList)
         {
             string input = System.IO.File.ReadAllText(@"Datafiles\Attributes.json");
                        
-            AttributeList = System.Text.Json.JsonSerializer.Deserialize<List<AttributeListing>>(input);
+            attributeList = System.Text.Json.JsonSerializer.Deserialize<List<AttributeListing>>(input);
 
             using (JsonDocument document = JsonDocument.Parse(input))
             {
@@ -24,14 +24,14 @@ namespace BESM3CA.Templates
                         string ChildrenList = ChildrenListE.GetString();
                         string[] Children = ChildrenList.Split(',');
                         int ParentID = attrib.GetProperty("ID").GetInt32();
-                        AttributeListing Parent = AttributeList.Find(x => x.ID == ParentID);
+                        AttributeListing Parent = attributeList.Find(x => x.ID == ParentID);
 
                         foreach (string Child in Children)
                         {
                             int ChildID;
                             if (Int32.TryParse(Child, out ChildID))
                             { 
-                                Parent.AddChild(AttributeList.Find(x => x.ID == ChildID)); 
+                                Parent.AddChild(attributeList.Find(x => x.ID == ChildID)); 
                             }
                         }
                     }
@@ -39,26 +39,26 @@ namespace BESM3CA.Templates
             }
             
             input = System.IO.File.ReadAllText(@"Datafiles\Variants.json");
-            VariantList = System.Text.Json.JsonSerializer.Deserialize<List<VariantListing>>(input);
+            variantList = System.Text.Json.JsonSerializer.Deserialize<List<VariantListing>>(input);
 
             input = System.IO.File.ReadAllText(@"Datafiles\Types.json");
-            TypeList = System.Text.Json.JsonSerializer.Deserialize<List<TypeListing>>(input);
+            typeList = System.Text.Json.JsonSerializer.Deserialize<List<TypeListing>>(input);
         }
 
 
-        public static void CreateJSON(List<AttributeListing> AttributeList, List<VariantListing> VariantList, List<TypeListing> TypeList)
+        public static void CreateJSON(List<AttributeListing> attributeList, List<VariantListing> variantList, List<TypeListing> typeList)
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-            string output = System.Text.Json.JsonSerializer.Serialize<List<AttributeListing>>(AttributeList);
+            string output = System.Text.Json.JsonSerializer.Serialize<List<AttributeListing>>(attributeList);
 
             System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM.json", output);
 
-            output = System.Text.Json.JsonSerializer.Serialize<List<VariantListing>>(VariantList);
+            output = System.Text.Json.JsonSerializer.Serialize<List<VariantListing>>(variantList);
 
             System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM2.json", output);
 
-            output = System.Text.Json.JsonSerializer.Serialize<List<TypeListing>>(TypeList);
+            output = System.Text.Json.JsonSerializer.Serialize<List<TypeListing>>(typeList);
 
             System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\TestBESM3.json", output);
 

@@ -152,7 +152,7 @@ namespace BESM3CA.Model
                 if (_asscTemplate != null)
                 {
                     _variantListing = _asscTemplate.VariantList.Where(n => n.ID == value).First();
-                    PointsPerLevel = _variantListing.CostperLevel;
+                    PointsPerLevel = _variantListing.CostPerLevel;
                 }
                 else
                 {
@@ -250,7 +250,7 @@ namespace BESM3CA.Model
         public int GetSpecialPoints()
         {
             bool altform = false;
-            if (_name == "Alternate Form")
+            if (Name == "Alternate Form")
             {
                 altform = true;
             }
@@ -328,7 +328,7 @@ namespace BESM3CA.Model
 
         public override int GetPoints()
         {
-            if (PointsUpToDate == false || _FirstChild == null)
+            if (PointsUpToDate == false || _firstChild == null)
             {
                 bool isItem = false;
                 bool isCompanion = false;
@@ -351,7 +351,7 @@ namespace BESM3CA.Model
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
 
-                NodeData temp = _FirstChild;
+                NodeData temp = _firstChild;
                 while (temp != null)
                 {
                     if (temp.GetType() == typeof(AttributeData))

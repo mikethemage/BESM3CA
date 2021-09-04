@@ -8,12 +8,12 @@ namespace BESM3CA.Model
     class NodeData
     {
         //Fields:
-        protected string _name;
-        protected int _ID;
-        protected string _Notes;
-        protected NodeData _FirstChild;
+        private string _name;
+        private int _ID;
+        private string _notes;
+        protected NodeData _firstChild;
         protected NodeData _Parent;
-        private int _LastChildOrder;
+        private int _lastChildOrder;
         protected int _points;
         private bool _pointsUpToDate;
 
@@ -70,7 +70,7 @@ namespace BESM3CA.Model
             }
         }
 
-        public List<ListItems> GetFilteredPotentialChildren(string Filter)
+        public List<ListItems> GetFilteredPotentialChildren(string filter)
         {
             List<AttributeListing> SelectedAttributeChildren = PotentialChildren;
             if (SelectedAttributeChildren != null)
@@ -80,7 +80,7 @@ namespace BESM3CA.Model
                                                    where
                                                    (
                                                    //cbFilter.SelectedIndex == -1 || 
-                                                   Filter == "All" || Filter == "" || Att.Type == Filter)
+                                                   filter == "All" || filter == "" || Att.Type == filter)
 
                                                    orderby Att.Type, Att.Name
                                                    select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();
@@ -93,13 +93,13 @@ namespace BESM3CA.Model
             }
         }
 
-        protected bool PointsUpToDate
+        public bool PointsUpToDate
         {
             get
             {
                 return _pointsUpToDate;
             }
-            set
+            protected set
             {
                 _pointsUpToDate = value;
                 if (value == false && _Parent != null)
@@ -132,12 +132,12 @@ namespace BESM3CA.Model
         {
             get
             {
-                return _Notes;
+                return _notes;
             }
             set
             {
 
-                _Notes = value;
+                _notes = value;
             }
         }
 
@@ -145,7 +145,7 @@ namespace BESM3CA.Model
         {
             get
             {
-                return _FirstChild;
+                return _firstChild;
             }
         }
 
@@ -159,17 +159,17 @@ namespace BESM3CA.Model
 
 
         //Constructors:
-        public NodeData(string AttributeName, int AttributeID, string Notes, TemplateData useTemplate)
+        public NodeData(string attributeName, int attributeID, string notes, TemplateData useTemplate)
         {
             _asscTemplate = useTemplate;
-            _name = AttributeName;
-            _ID = AttributeID;
-            _Notes = Notes;
+            _name = attributeName;
+            _ID = attributeID;
+            _notes = notes;
 
             NodeOrder = 1;
-            _FirstChild = null;
+            _firstChild = null;
             _Parent = null;
-            _LastChildOrder = 0;
+            _lastChildOrder = 0;
             Next = null;
             Prev = null;
             _pointsUpToDate = false;
@@ -195,26 +195,26 @@ namespace BESM3CA.Model
             return 0;
         }
 
-        public void AddChild(NodeData Child)
+        public void AddChild(NodeData child)
         {
-            if (_FirstChild == null)
+            if (_firstChild == null)
             {
-                _FirstChild = Child;                
+                _firstChild = child;                
             }
             else
             {
-                NodeData temp = _FirstChild;
+                NodeData temp = _firstChild;
                 while (temp.Next!=null)
                 {
                     temp = temp.Next;
                 }
-                temp.Next = Child;
-                Child.Prev = temp;
+                temp.Next = child;
+                child.Prev = temp;
             }
             
-            Child._Parent = this;
-            _LastChildOrder++;
-            Child.NodeOrder= _LastChildOrder;
+            child._Parent = this;
+            _lastChildOrder++;
+            child.NodeOrder= _lastChildOrder;
             _pointsUpToDate = false;
         }
 
@@ -222,9 +222,9 @@ namespace BESM3CA.Model
         {
             if(Parent!=null)
             {
-                if(Parent._FirstChild==this)
+                if(Parent._firstChild==this)
                 {
-                    Parent._FirstChild = Next;                    
+                    Parent._firstChild = Next;                    
                 }
                 if (Next != null)
                 {
@@ -244,9 +244,9 @@ namespace BESM3CA.Model
             {
                 NodeData temp = Prev;
 
-                if (temp.Parent._FirstChild == temp)
+                if (temp.Parent._firstChild == temp)
                 {
-                    temp.Parent._FirstChild = this;
+                    temp.Parent._firstChild = this;
                 }
 
                 if (Next != null)
@@ -274,9 +274,9 @@ namespace BESM3CA.Model
             {
                 NodeData temp = Next;
 
-                if(Parent._FirstChild==this)
+                if(Parent._firstChild==this)
                 {
-                    Parent._FirstChild = temp;
+                    Parent._firstChild = temp;
                 }
 
                 if(Prev!=null)
@@ -310,7 +310,7 @@ namespace BESM3CA.Model
             SaveAdditionalXML(textWriter);
             textWriter.WriteEndElement();
             textWriter.WriteStartElement("Notes");
-            textWriter.WriteString(_Notes);
+            textWriter.WriteString(_notes);
             textWriter.WriteEndElement();
             textWriter.WriteEndElement();
         }
@@ -351,7 +351,7 @@ namespace BESM3CA.Model
                 {
                     if (reader.Name == "Notes")
                     {
-                        _Notes = reader.ReadString();
+                        _notes = reader.ReadString();
                     }
 
                     if (reader.Name == "AdditionalData")

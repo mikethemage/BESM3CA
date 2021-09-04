@@ -154,10 +154,10 @@ namespace BESM3CA.Model
         //Member functions:
         public override int GetPoints()
         {            
-                if (PointsUpToDate == false || _FirstChild == null)
+                if (PointsUpToDate == false || _firstChild == null)
                 {
                     _points = BaseCost;
-                    NodeData temp = _FirstChild;
+                    NodeData temp = _firstChild;
                     while(temp != null)
                     {
                         _points += temp.GetPoints();

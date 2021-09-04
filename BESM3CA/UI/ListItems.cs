@@ -9,18 +9,18 @@
         public string OptionalMember { get; set; }
 
         //Constructors:
-        public ListItems(string Data, int Key)
+        public ListItems(string data, int key)
         {
-            DisplayMember = Data;
-            ValueMember = Key;
+            DisplayMember = data;
+            ValueMember = key;
             OptionalMember = null;
         }
 
-        public ListItems(string Data, int Key, string Optional)
+        public ListItems(string data, int key, string optional)
         {
-            DisplayMember = Data;
-            ValueMember = Key;
-            OptionalMember = Optional;
+            DisplayMember = data;
+            ValueMember = key;
+            OptionalMember = optional;
         }
 
     }
