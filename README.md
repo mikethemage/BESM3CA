@@ -12,7 +12,7 @@ This project is currently in development and therefore further features are plan
 * Cross-platform support
 * Alternate editions of BESM (e.g. 4th edition) or alternate RPG systems
 
-Inspired by, but **not** based on or in anyway affiliated with BESMCG, a character editor for BESM 2nd Edition
+Inspired by, but **not** based on or in anyway affiliated with _BESMCG_, a character editor for BESM 2nd Edition.
 
 **Links:**
 * [Download latest release](https://github.com/mikethemage/BESM3CA/releases)
