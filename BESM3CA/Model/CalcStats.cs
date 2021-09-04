@@ -42,25 +42,23 @@
             {
                 if (current.GetType() == typeof(AttributeData))
                 {
-                    if (((AttributeData)current).Name == "Tough")
+                    switch (((AttributeData)current).Name)
                     {
-                        temp = new CalcStats(((AttributeData)current).Level * 5, 0, 0, 0);
-                    }
-                    else if (((AttributeData)current).Name == "Energy Bonus")
-                    {
-                        temp = new CalcStats(0, ((AttributeData)current).Level * 5, 0, 0);
-                    }
-                    else if (((AttributeData)current).Name == "Attack Combat Mastery")
-                    {
-                        temp = new CalcStats(0, 0, ((AttributeData)current).Level, 0);
-                    }
-                    else if (((AttributeData)current).Name == "Defence Combat Mastery")
-                    {
-                        temp = new CalcStats(0, 0, 0, ((AttributeData)current).Level);
-                    }
-                    else
-                    {
-                        temp = new CalcStats(0, 0, 0, 0);
+                        case "Tough":
+                            temp = new CalcStats(((AttributeData)current).Level * 5, 0, 0, 0);
+                            break;
+                        case "Energy Bonus":
+                            temp = new CalcStats(0, ((AttributeData)current).Level * 5, 0, 0);
+                            break;
+                        case "Attack Combat Mastery":
+                            temp = new CalcStats(0, 0, ((AttributeData)current).Level, 0);
+                            break;
+                        case "Defence Combat Mastery":
+                            temp = new CalcStats(0, 0, 0, ((AttributeData)current).Level);
+                            break;
+                        default:
+                            temp = new CalcStats(0, 0, 0, 0);
+                            break;
                     }
 
                     if (temp.ACV > 0 || temp.DCV > 0 || temp.Energy > 0 || temp.Health > 0)
