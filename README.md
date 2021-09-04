@@ -15,9 +15,9 @@ This project is currently in development and therefore further features are plan
 Inspired by, but **not** based on or in anyway affiliated with _[BESMCG](http://www.technofetish.net/index.html)_, a character editor for BESM 2nd Edition.
 
 **Links:**
-* [Download latest release](https://github.com/mikethemage/BESM3CA/releases)
+* [Download latest release(s)](https://github.com/mikethemage/BESM3CA/releases)
 * [Official BESM Website (4th Edition)](https://BESM4.life)
-* [Buy BESM 3rd Edition (PDF - DriveThruRPG)](https://www.drivethrurpg.com/product/24482/BESM-Big-Eyes-Small-Mouth-3rd-Edition)
+* [Buy BESM 3rd Edition here (PDF - DriveThruRPG)](https://www.drivethrurpg.com/product/24482/BESM-Big-Eyes-Small-Mouth-3rd-Edition)
 
 \
 \
