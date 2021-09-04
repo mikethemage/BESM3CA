@@ -90,7 +90,7 @@ namespace BESM3CA.Model
                             }
                             else if (reader.Name.EndsWith(".AttributeData") && newNode != null)
                             {
-                                newNode.Tag = new AttributeData("", 0, "", 0, templateData);//todo: refactor to take reference to template
+                                newNode.Tag = new AttributeData("", 0, "", /*0,*/ templateData);//todo: refactor to take reference to template
                                 ((AttributeData)newNode.Tag).LoadXML(reader);
                             }
                             else
