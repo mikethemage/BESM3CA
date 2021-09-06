@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Windows.Forms;
 using System.Xml;
 using BESM3CA.Templates;
 
@@ -16,25 +15,27 @@ namespace BESM3CA.Model
 
         private const string XmlTemplateTag = "template";
 
-        private static void SetAttributeValue(TreeNode node,
+        private static void SetAttributeValue(NodeData node,
                     string propertyName, string value)
         {
             if (propertyName == XmlNodeTextAtt)
             {
-                node.Text = value;
-            }                        
+                node.Name = value;
+            }
         }
 
-        public static void DeserializeTreeView(TreeView treeView, string fileName, TemplateData templateData)
+        public static NodeData DeserializeXML(string fileName, TemplateData templateData)
         {
+            //Needs completely re-writing:
+            NodeData rootNode = null;
+
             XmlTextReader reader = null;
             try
-            {
-                // disabling re-drawing of treeview till all nodes are added
-                treeView.BeginUpdate();
+            {                
                 reader = new XmlTextReader(fileName);
-                TreeNode parentNode = null;
-                TreeNode newNode = null;
+                NodeData parentNode = null;
+                NodeData newNode = null;
+
                 while (reader.Read())
                 {
                     if (reader.Name == XmlTemplateTag)
@@ -46,67 +47,63 @@ namespace BESM3CA.Model
                             Debug.Assert(reader.Value == "BESM3E");
                             //todo: load correct template
 
-                        }                        
+                        }
                     }
                     else if (reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Name == XmlNodeTag)
                         {
-                            newNode = new TreeNode();
-                            bool isEmptyElement = reader.IsEmptyElement;
-
-                            // loading node attributes
-
-                            int attributeCount = reader.AttributeCount;
-                            if (attributeCount > 0)
-                            {
-                                for (int i = 0; i < attributeCount; i++)
-                                {
-                                    reader.MoveToAttribute(i);
-                                    SetAttributeValue(newNode,
-                                                 reader.Name, reader.Value);
-                                }
-                            }
-                            // add new node to Parent Node or TreeView
-
-                            if (parentNode != null)
-                                parentNode.Nodes.Add(newNode);
-                            else
-                                treeView.Nodes.Add(newNode);
-
-                            // making current node 'ParentNode' if its not empty
-
-                            if (!isEmptyElement)
-                            {
-                                parentNode = newNode;
-                            }
+                                                        
                         }
                         else
                         {
-                            if (reader.Name.EndsWith(".CharacterData") && newNode != null)
+                            if (reader.Name.EndsWith(".CharacterData") )
                             {
-                                newNode.Tag = new CharacterData("", templateData);//todo: refactor to take reference to template
-                                ((CharacterData)newNode.Tag).LoadXML(reader);
+                                newNode = new CharacterData(templateData);  //todo: refactor to take reference to template
+                                newNode.LoadXML(reader);
+                                if (rootNode == null)// set root node:
+                                {
+                                    rootNode = newNode;                                    
+                                }
+
+                                if(parentNode!=null)
+                                {
+                                    parentNode.AddChild(newNode);
+                                }
+                                
+                                parentNode = newNode;
                             }
-                            else if (reader.Name.EndsWith(".AttributeData") && newNode != null)
+                            else if (reader.Name.EndsWith(".AttributeData") )
                             {
-                                newNode.Tag = new AttributeData("", 0, "", templateData);//todo: refactor to take reference to template
-                                ((AttributeData)newNode.Tag).LoadXML(reader);
+                                newNode = new AttributeData("", 0, "", templateData);//todo: refactor to take reference to template
+                                newNode.LoadXML(reader);
+                                if (parentNode != null)
+                                {
+                                    parentNode.AddChild(newNode);
+                                }
+
+                                parentNode = newNode;
                             }
                             else
                             {
+                                
                             }
 
                         }
 
                     }
 
-                    // moving up to in TreeView if end tag is encountered
+                    // moving up to parent if end tag is encountered
                     else if (reader.NodeType == XmlNodeType.EndElement)
                     {
                         if (reader.Name == XmlNodeTag)
                         {
-                            parentNode = parentNode.Parent;
+                            if (parentNode != null)
+                            {
+                                newNode = newNode.Parent;
+                                parentNode = newNode;
+                            }
+
                         }
                     }
 
@@ -117,26 +114,25 @@ namespace BESM3CA.Model
 
                     else if (reader.NodeType == XmlNodeType.None)
                     {
-                        return;
+                        break;
                     }
 
                     else if (reader.NodeType == XmlNodeType.Text)
                     {
-                        parentNode.Nodes.Add(reader.Value);
+                        
                     }
 
                 }
             }
             finally
-            {
-                // enabling redrawing of treeview after all nodes are added
-                treeView.EndUpdate();
-                treeView.ExpandAll();
+            {                
                 reader.Close();
             }
+
+            return rootNode;
         }
 
-        public void SerializeTreeView(TreeView treeView, string fileName, TemplateData templateData)
+        public static void SerializeXML(NodeData rootNode, string fileName, TemplateData templateData)
         {
             XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.ASCII);
 
@@ -145,42 +141,39 @@ namespace BESM3CA.Model
             textWriter.WriteStartElement("root");
 
             textWriter.WriteElementString(XmlTemplateTag, templateData.TemplateName);
-            
+
 
             // writing the main tag that encloses all node tags
-            textWriter.WriteStartElement("TreeView");
+            textWriter.WriteStartElement("Data");
 
             // save the nodes, recursive method
-            SaveNodes(treeView.Nodes, textWriter);
+            SaveNodes(rootNode, textWriter);
 
             textWriter.WriteEndElement();
             textWriter.WriteEndElement();
             textWriter.Close();
         }
 
-        private void SaveNodes(TreeNodeCollection nodesCollection, XmlTextWriter textWriter)
+        private static void SaveNodes(NodeData nodesCollection, XmlTextWriter textWriter)
         {
-            for (int i = 0; i < nodesCollection.Count; i++)
+            NodeData node = nodesCollection;
+            while (node != null)
             {
-                TreeNode node = nodesCollection[i];
                 textWriter.WriteStartElement(XmlNodeTag);
-                textWriter.WriteAttributeString(XmlNodeTextAtt,
-                                                           node.Text);
+                textWriter.WriteAttributeString(XmlNodeTextAtt, node.DisplayText);
 
-                if (node.Tag != null)
-                {                    
-                    ((NodeData)node.Tag).SaveXML(textWriter);
-                    // write data
-                }
+                node.SaveXML(textWriter);
 
-
-                if (node.Nodes.Count > 0)
+                if (node.Children != null)
                 {
-                    SaveNodes(node.Nodes, textWriter);
+                    SaveNodes(node.Children, textWriter);
                 }
+
                 textWriter.WriteEndElement();
+
+                node = node.Next;
+
             }
         }
     }
-
 }

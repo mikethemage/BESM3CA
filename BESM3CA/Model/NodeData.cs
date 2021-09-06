@@ -17,7 +17,7 @@ namespace BESM3CA.Model
         protected int _points;
         private bool _pointsUpToDate;
 
-        protected TemplateData _asscTemplate;
+        protected TemplateData _associatedTemplate;
 
 
         //Properties:
@@ -159,9 +159,9 @@ namespace BESM3CA.Model
 
 
         //Constructors:
-        public NodeData(string attributeName, int attributeID, string notes, TemplateData useTemplate)
+        public NodeData(string attributeName, int attributeID, string notes, TemplateData templateData)
         {
-            _asscTemplate = useTemplate;
+            _associatedTemplate = templateData;
             _name = attributeName;
             _ID = attributeID;
             _notes = notes;
@@ -221,6 +221,8 @@ namespace BESM3CA.Model
                 {
                     Prev.Next = null;
                 }
+                Parent.PointsUpToDate = false;
+
                 _Parent = null;
             }
         }
@@ -285,9 +287,9 @@ namespace BESM3CA.Model
             }
         }
 
-        public AttributeData AddChildAttribute(string attributeName, int attributeID, TemplateData useTemplate)
+        public AttributeData AddChildAttribute(string attributeName, int attributeID )
         {
-            AttributeData Temp = new AttributeData(attributeName, attributeID, "", useTemplate);
+            AttributeData Temp = new AttributeData(attributeName, attributeID, "", _associatedTemplate);
             AddChild(Temp);
             return Temp;
         }

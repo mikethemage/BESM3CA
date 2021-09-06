@@ -111,7 +111,7 @@ namespace BESM3CA.Model
         {
             get
             {
-                return _asscTemplate.AttributeList.Where(n => n.ID == ID).First().Children;
+                return _associatedTemplate.AttributeList.Where(n => n.ID == ID).First().Children;
             }
         }
 
@@ -149,9 +149,9 @@ namespace BESM3CA.Model
             }
             set
             {
-                if (_asscTemplate != null)
+                if (_associatedTemplate != null)
                 {
-                    _variantListing = _asscTemplate.VariantList.Where(n => n.ID == value).First();
+                    _variantListing = _associatedTemplate.VariantList.Where(n => n.ID == value).First();
                     PointsPerLevel = _variantListing.CostPerLevel;
                 }
                 else
@@ -204,50 +204,42 @@ namespace BESM3CA.Model
 
 
         //Constructors:         
-        public AttributeData(string AttributeName, int AttributeID, string Notes, TemplateData useTemplate, int Level = 1, int PointAdj = 0) : base(AttributeName, AttributeID, Notes, useTemplate)
+        public AttributeData(string attributeName, int attributeID, string notes, TemplateData templateData, int level = 1, int pointAdj = 0) : base(attributeName, attributeID, notes, templateData)
         {
-            Debug.Assert(useTemplate != null);  //Check if we have a template...
+            Debug.Assert(templateData != null);  //Check if we have a template...
 
-            if (AttributeName == "Item")
+            if (attributeName == "Item")
             {
                 _HasLevel = false;
             }
             else
             {
                 _HasLevel = true;
-                if (AttributeName == "Weapon")
+                if (attributeName == "Weapon")
                 {
                     _Level = 0;
                 }
             }            
 
-            _PointAdj = PointAdj;
-            _Level = Level;
+            _PointAdj = pointAdj;
+            _Level = level;
 
-            if (AttributeID != 0)
+            if (attributeID != 0)
             {
-                _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
+                _attributeListing = _associatedTemplate.AttributeList.Find(n => n.ID == attributeID);
                 PointsPerLevel = _attributeListing.CostperLevel;
             }
             _variantListing = null;
 
-            if (AttributeName == "Companion")
+            if (attributeName == "Companion")
             {
-                AddChild(new CharacterData("", _asscTemplate));
+                AddChild(new CharacterData(_associatedTemplate/*, ""*/));
             }
-            if (AttributeName == "Mind Control")
+            if (attributeName == "Mind Control")
             {
-                AddChild(new AttributeData("Range", 167, "", _asscTemplate, 3, -3));
-            }
-
-            
-        }
-
-        /*public AttributeData() : base(null, 0, null, null)
-        {
-            //Default Constructor - currently needed for loading code
-            //Todo: refactor            
-        }*/
+                AddChild(new AttributeData("Range", 167, "", _associatedTemplate, 3, -3));
+            }            
+        }        
 
 
         //Member Functions:
@@ -259,7 +251,7 @@ namespace BESM3CA.Model
                 altform = true;
             }
 
-            AttributeListing SelectedAttribute = _asscTemplate.AttributeList.Where(n => n.ID == ID).First();
+            AttributeListing SelectedAttribute = _associatedTemplate.AttributeList.Where(n => n.ID == ID).First();
 
             int specialpoints = 0;
 
@@ -335,9 +327,9 @@ namespace BESM3CA.Model
             if (HasVariants)
             {
                 //LINQ Version:
-                List<ListItems> FilteredVarList = (from Att in _asscTemplate.AttributeList
+                List<ListItems> FilteredVarList = (from Att in _associatedTemplate.AttributeList
                                                          where Att.ID == AttributeID
-                                                         from Vari in _asscTemplate.VariantList
+                                                         from Vari in _associatedTemplate.VariantList
                                                          where Att.ID == Vari.AttributeID
                                                          orderby Vari.DefaultVariant descending, Vari.Name
                                                          select new ListItems
@@ -374,7 +366,7 @@ namespace BESM3CA.Model
                 isAlternateForm = (Name == "Alternate Form");
                 if (Variant > 0)
                 {
-                    VariantListing SelectedVariant = _asscTemplate.VariantList.Where(n => n.ID == Variant).First();
+                    VariantListing SelectedVariant = _associatedTemplate.VariantList.Where(n => n.ID == Variant).First();
 
                     if (SelectedVariant.Name == "Alternate Attack")
                     {
@@ -390,7 +382,7 @@ namespace BESM3CA.Model
                 {
                     if (temp.GetType() == typeof(AttributeData))
                     {
-                        AttributeListing SelectedAttribute = _asscTemplate.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
+                        AttributeListing SelectedAttribute = _associatedTemplate.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
                         if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
                         {
                             VariablesOrRestrictions += temp.GetPoints();
@@ -516,9 +508,9 @@ namespace BESM3CA.Model
                     }
                 }
             }
-            if (_asscTemplate != null)
+            if (_associatedTemplate != null)
             {
-                _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
+                _attributeListing = _associatedTemplate.AttributeList.Find(n => n.ID == AttributeID);
             }
         }
     }

@@ -19,7 +19,7 @@ namespace BESM3CA
 
         //Data:
         private TemplateData templateData;
-        private CharacterData RootCharacter;        
+        private CharacterData RootCharacter;
 
 
         //Constructor:
@@ -31,7 +31,7 @@ namespace BESM3CA
 
         //Initialisation code:
         private void BESM3CA_Load(object sender, EventArgs e)
-        {            
+        {
             //Load template from file:
             templateData = TemplateData.JSONLoader();
             ResetAll();
@@ -45,7 +45,7 @@ namespace BESM3CA
             Text = ApplicationName;
 
             //Reset root character:
-            RootCharacter = new CharacterData("", templateData);
+            RootCharacter = new CharacterData(templateData/*, ""*/);
 
             //reset Treeview and link to root:
             tvCharacterTree.Nodes.Clear();
@@ -81,12 +81,12 @@ namespace BESM3CA
             const int HeightAdjust3 = 101;
             const int HeightAdjust4 = 3;
             //****
-            
+
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants)
-            {                
+            {
                 List<ListItems> FilteredVarList = ((AttributeData)tvCharacterTree.SelectedNode.Tag).GetVariants();
                 if (FilteredVarList != null)
-                {                    
+                {
                     lbVariantList.Visible = true;
                     lbVariant.Visible = true;
                     cbFilter.Top = HeightAdjust3;
@@ -96,7 +96,7 @@ namespace BESM3CA
                         lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
                     }
 
-                    lbAttributeList.Top = HeightAdjust1;                    
+                    lbAttributeList.Top = HeightAdjust1;
 
                     lbVariantList.DataSource = FilteredVarList;
 
@@ -164,41 +164,9 @@ namespace BESM3CA
             if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
             {
                 NodeData FirstNewNodeData;
-                FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString(), ((ListItems)lbAttributeList.SelectedItem).ValueMember, templateData);
+                FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString(), ((ListItems)lbAttributeList.SelectedItem).ValueMember);
 
-                TreeNode TreeInsertionPoint;
-                TreeInsertionPoint = tvCharacterTree.SelectedNode;
-
-                NodeData CurrentNewNodeData = FirstNewNodeData;
-
-                while (CurrentNewNodeData != null)
-                {                    
-                    TreeInsertionPoint = TreeInsertionPoint.Nodes.Add(CurrentNewNodeData.Name);      //Add node to treeview
-                    TreeInsertionPoint.Tag = CurrentNewNodeData; 
-                    TreeInsertionPoint.Parent.Expand();                       
-
-                    if (CurrentNewNodeData.Children != null)
-                    {
-                        CurrentNewNodeData = CurrentNewNodeData.Children;             //Now check for any children
-                    }
-                    else if (CurrentNewNodeData.Next != null)
-                    {
-                        CurrentNewNodeData = CurrentNewNodeData.Next;                 //if no children add all siblings
-                        TreeInsertionPoint = TreeInsertionPoint.Parent;               //move insertion point back up one
-                    }
-                    else if(CurrentNewNodeData.Parent!=FirstNewNodeData && CurrentNewNodeData.Parent.Next != null     ) // make sure we are not back to original node
-                    {
-                        CurrentNewNodeData = CurrentNewNodeData.Parent.Next;          //no children or siblings so add next sibling of the parent node
-                        TreeInsertionPoint = TreeInsertionPoint.Parent.Parent;        //move insertion point back up two
-                    }
-                    else
-                    {
-                        //either only one node to add, or we have gone through all of the above and ended up at the last immediate child of the original new node
-                        CurrentNewNodeData = null; //drop out of the loop                            
-                    }
-                }
-
-                RefreshTree(tvCharacterTree.Nodes);  //Refresh the whole tree as can have impact both up and down the tree                
+                UpdateTreeFromNodes(tvCharacterTree.SelectedNode, FirstNewNodeData);
             }
         }
 
@@ -360,8 +328,8 @@ namespace BESM3CA
                     return; //User Pressed Cancel
                 }
             }
-            SaveLoad Saver = new SaveLoad();
-            Saver.SerializeTreeView(tvCharacterTree, FileName, templateData);
+
+            SaveLoad.SerializeXML(RootCharacter, FileName, templateData);
         }
 
         private void RefreshTree(TreeNodeCollection Nodes)
@@ -373,97 +341,22 @@ namespace BESM3CA
             }
         }
 
-        private void ExportNode(TreeNodeCollection nodes, int tabdepth, TextWriter tw)
-        {
-            string tabstring = "";
-            for (int i = 0; i < tabdepth; i++)
-            {
-                tabstring += ("\t");
-            }
-            bool isAttrib = false;
-            foreach (TreeNode current in nodes)
-            {
-                string nexttabstring;
-
-                if (current.Tag.GetType() == typeof(CharacterData))
-                {
-                    //write stuff
-                    // write a line of text to the file
-                    tw.WriteLine(tabstring + current.Text);
-
-                    nexttabstring = tabstring + "\t";
-                    tw.WriteLine(nexttabstring + "Mind: " + ((CharacterData)current.Tag).Mind);
-                    tw.WriteLine(nexttabstring + "Body: " + ((CharacterData)current.Tag).Body);
-                    tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current.Tag).Soul);
-                    tw.WriteLine();
-
-                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag);
-
-                    tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
-                    tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
-                    tw.WriteLine(nexttabstring + "Health: " + stats.Health);
-                    tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
-                    tw.WriteLine();
-                }
-                else
-                {
-                    if (((AttributeData)current.Tag).AttributeType == "Attribute")
-                    {
-                        //write stuff
-                        // write a line of text to the file
-                        tw.WriteLine(tabstring + current.Text);
-
-                        nexttabstring = tabstring + "\t";
-
-                        if (((AttributeData)current.Tag).Name == "Item")
-                        {
-
-                            tw.WriteLine(tabstring + "(");
-                        }
-                        else
-                        {
-                            tw.WriteLine(nexttabstring + "Level " + ((AttributeData)current.Tag).Level + " x " + ((AttributeData)current.Tag).PointsPerLevel + " = " + (((AttributeData)current.Tag).Level * ((AttributeData)current.Tag).PointsPerLevel));
-                        }
-
-
-                        tw.WriteLine(nexttabstring + "Description: " + ((AttributeData)current.Tag).AttributeDescription);
-
-                        isAttrib = true;
-                    }
-                    else
-                    {
-                        //write stuff
-                        // write a line of text to the file
-                        tw.WriteLine(tabstring + current.Text + " Level " + ((AttributeData)current.Tag).Level);
-                        nexttabstring = tabstring + "\t";
-                    }
-
-                }
-                if (((NodeData)current.Tag).Notes != "")
-                {
-                    tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current.Tag).Notes).Replace("\n", "\n" + nexttabstring) + "]");
-                }
-
-                ExportNode(current.Nodes, tabdepth + 1, tw);
-
-                if (isAttrib)
-                {
-                    if (((AttributeData)current.Tag).Name == "Item")
-                    {
-                        tw.WriteLine(tabstring + ") / 2");
-                    }
-                    tw.WriteLine();
-                }
-            }
-        }
-
         private void DelAttr()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() != typeof(CharacterData)) //do not allow manual deletion of Character nodes
+            if (tvCharacterTree.SelectedNode != null && tvCharacterTree.SelectedNode.Tag.GetType() != typeof(CharacterData)) //do not allow manual deletion of Character nodes
             {
                 if (((AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj >= 0)  //do not delete "freebies"
                 {
-                    TreeNode tempNode = tvCharacterTree.SelectedNode.NextNode;
+                    TreeNode tempNode;
+                    if (tvCharacterTree.SelectedNode.NextNode != null)
+                    {
+                        tempNode = tvCharacterTree.SelectedNode.NextNode;
+                    }
+                    else
+                    {
+                        tempNode = tvCharacterTree.SelectedNode.PrevNode;
+                    }
+
                     ((NodeData)tvCharacterTree.SelectedNode.Tag).Delete();
                     tvCharacterTree.SelectedNode.Remove();
                     tvCharacterTree.SelectedNode = tempNode;
@@ -499,12 +392,12 @@ namespace BESM3CA
                 //Error
                 Debug.Assert(false);
             }
-        }        
+        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile(true);
-        }        
+        }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -519,8 +412,11 @@ namespace BESM3CA
             {
                 ResetAll();
                 tvCharacterTree.Nodes.Clear();
-                
-                SaveLoad.DeserializeTreeView(tvCharacterTree, openFileDialog1.FileName, templateData);
+
+                RootCharacter = (CharacterData)SaveLoad.DeserializeXML(openFileDialog1.FileName, templateData);
+
+                UpdateTreeFromNodes(tvCharacterTree.Nodes.Add("Character"), RootCharacter);
+
                 FileName = openFileDialog1.FileName;
                 Text = ApplicationName + " - " + FileName;
                 if (tvCharacterTree.Nodes.Count > 0)
@@ -536,7 +432,7 @@ namespace BESM3CA
             {
                 ResetAll();
             }
-        }        
+        }
 
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
@@ -643,7 +539,7 @@ namespace BESM3CA
             {
                 return; //User Pressed Cancel
             }
-        }        
+        }
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
@@ -683,7 +579,7 @@ namespace BESM3CA
         private void bnDelete_Click(object sender, EventArgs e)
         {
             DelAttr();
-        }        
+        }
 
         private void bnMoveUp_Click(object sender, EventArgs e)
         {
@@ -759,6 +655,142 @@ namespace BESM3CA
         private void tbNotes_Validating(object sender, CancelEventArgs e)
         {
             ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes = tbNotes.Text;
+        }
+
+        //Text Exporting Code:
+        private void ExportNode(TreeNodeCollection nodes, int tabdepth, TextWriter tw)
+        {
+            string tabstring = "";
+            for (int i = 0; i < tabdepth; i++)
+            {
+                tabstring += ("\t");
+            }
+            bool isAttrib = false;
+            foreach (TreeNode current in nodes)
+            {
+                string nexttabstring;
+
+                if (current.Tag.GetType() == typeof(CharacterData))
+                {
+                    //write stuff
+                    // write a line of text to the file
+                    tw.WriteLine(tabstring + current.Text);
+
+                    nexttabstring = tabstring + "\t";
+                    tw.WriteLine(nexttabstring + "Mind: " + ((CharacterData)current.Tag).Mind);
+                    tw.WriteLine(nexttabstring + "Body: " + ((CharacterData)current.Tag).Body);
+                    tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current.Tag).Soul);
+                    tw.WriteLine();
+
+                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag);
+
+                    tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
+                    tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
+                    tw.WriteLine(nexttabstring + "Health: " + stats.Health);
+                    tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
+                    tw.WriteLine();
+                }
+                else
+                {
+                    if (((AttributeData)current.Tag).AttributeType == "Attribute")
+                    {
+                        //write stuff
+                        // write a line of text to the file
+                        tw.WriteLine(tabstring + current.Text);
+
+                        nexttabstring = tabstring + "\t";
+
+                        if (((AttributeData)current.Tag).Name == "Item")
+                        {
+
+                            tw.WriteLine(tabstring + "(");
+                        }
+                        else
+                        {
+                            tw.WriteLine(nexttabstring + "Level " + ((AttributeData)current.Tag).Level + " x " + ((AttributeData)current.Tag).PointsPerLevel + " = " + (((AttributeData)current.Tag).Level * ((AttributeData)current.Tag).PointsPerLevel));
+                        }
+
+
+                        tw.WriteLine(nexttabstring + "Description: " + ((AttributeData)current.Tag).AttributeDescription);
+
+                        isAttrib = true;
+                    }
+                    else
+                    {
+                        //write stuff
+                        // write a line of text to the file
+                        tw.WriteLine(tabstring + current.Text + " Level " + ((AttributeData)current.Tag).Level);
+                        nexttabstring = tabstring + "\t";
+                    }
+
+                }
+                if (((NodeData)current.Tag).Notes != "")
+                {
+                    tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current.Tag).Notes).Replace("\n", "\n" + nexttabstring) + "]");
+                }
+
+                ExportNode(current.Nodes, tabdepth + 1, tw);
+
+                if (isAttrib)
+                {
+                    if (((AttributeData)current.Tag).Name == "Item")
+                    {
+                        tw.WriteLine(tabstring + ") / 2");
+                    }
+                    tw.WriteLine();
+                }
+            }
+        }
+
+        private void UpdateTreeFromNodes(TreeNode StartingTreePoint, NodeData StartingNodeData)
+        {
+            //Version for loading code:                                                                 //Version for adding attribs:
+            //StartingTreePoint = tvCharacterTree.Nodes.Add("Character");                               //StartingTreePoint = tvCharacterTree.SelectedNode;
+            //StartingNodeData = RootCharacter;                                                         //StartingNodeData = FirstNewNodeData;
+
+            TreeNode TreeInsertionPoint = StartingTreePoint;
+            NodeData CurrentNewNodeData = StartingNodeData;
+
+            while (CurrentNewNodeData != null)
+            {
+                if (CurrentNewNodeData != RootCharacter)
+                {
+                    TreeInsertionPoint = TreeInsertionPoint.Nodes.Add(CurrentNewNodeData.Name);      //Add node to treeview
+                }
+
+                if (TreeInsertionPoint.Parent != null)
+                {
+                    TreeInsertionPoint.Parent.Expand();
+                }
+
+                TreeInsertionPoint.Tag = CurrentNewNodeData;
+
+                if (CurrentNewNodeData.Children != null)
+                {
+                    CurrentNewNodeData = CurrentNewNodeData.Children;             //Now check for any children
+                }
+                else if (CurrentNewNodeData.Next != null)
+                {
+                    CurrentNewNodeData = CurrentNewNodeData.Next;                 //if no children add all siblings
+                    TreeInsertionPoint = TreeInsertionPoint.Parent;               //move insertion point back up one
+                }
+                else if (CurrentNewNodeData.Parent == null)
+                {
+                    CurrentNewNodeData = null; //drop out of the loop                            
+                }
+                else if (CurrentNewNodeData.Parent != StartingNodeData && CurrentNewNodeData.Parent.Next != null) // make sure we are not back to original node
+                {
+                    CurrentNewNodeData = CurrentNewNodeData.Parent.Next;          //no children or siblings so add next sibling of the parent node
+                    TreeInsertionPoint = TreeInsertionPoint.Parent.Parent;        //move insertion point back up two
+                }
+                else
+                {
+                    //either only one node to add, or we have gone through all of the above and ended up at the last immediate child of the original new node
+                    CurrentNewNodeData = null; //drop out of the loop                            
+                }
+            }
+
+            RefreshTree(tvCharacterTree.Nodes);  //Refresh the whole tree as can have impact both up and down the tree  
         }
     }
 }

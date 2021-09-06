@@ -42,9 +42,9 @@ namespace BESM3CA.Model
         {
             get
             {
-                if (_asscTemplate != null)
+                if (_associatedTemplate != null)
                 {
-                    return _asscTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+                    return _associatedTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
                 }
                 else
                 {
@@ -137,18 +137,18 @@ namespace BESM3CA.Model
 
 
         //Constructors:
-        public CharacterData(string Notes, TemplateData useTemplate) : base("Character", 0, Notes, useTemplate)
+        public CharacterData(TemplateData useTemplate, string Notes="") : base("Character", 0, Notes, useTemplate)
         {
             _body = 1;
             _mind = 1;
             _soul = 1;
         }
 
-        public CharacterData() : base("Character", 0, null, null)
+        /*public CharacterData() : base("Character", 0, null, null)
         {
             //Default Constructor - currently needed for loading code
             //Todo: refactor
-        }
+        }*/
 
 
         //Member functions:
