@@ -523,8 +523,8 @@ namespace BESM3CA
                 TextWriter tw;
                 try
                 {
-                    tw = new StreamWriter(saveFileDialog1.FileName);
-                    ExportNode(tvCharacterTree.Nodes, 0, tw);
+                    tw = new StreamWriter(saveFileDialog1.FileName);                    
+                    SaveLoad.ExportNode(RootCharacter, 0, tw);
                 }
                 catch
                 {
@@ -655,92 +655,7 @@ namespace BESM3CA
         private void tbNotes_Validating(object sender, CancelEventArgs e)
         {
             ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes = tbNotes.Text;
-        }
-
-        //Text Exporting Code:
-        private void ExportNode(TreeNodeCollection nodes, int tabdepth, TextWriter tw)
-        {
-            string tabstring = "";
-            for (int i = 0; i < tabdepth; i++)
-            {
-                tabstring += ("\t");
-            }
-            bool isAttrib = false;
-            foreach (TreeNode current in nodes)
-            {
-                string nexttabstring;
-
-                if (current.Tag.GetType() == typeof(CharacterData))
-                {
-                    //write stuff
-                    // write a line of text to the file
-                    tw.WriteLine(tabstring + current.Text);
-
-                    nexttabstring = tabstring + "\t";
-                    tw.WriteLine(nexttabstring + "Mind: " + ((CharacterData)current.Tag).Mind);
-                    tw.WriteLine(nexttabstring + "Body: " + ((CharacterData)current.Tag).Body);
-                    tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current.Tag).Soul);
-                    tw.WriteLine();
-
-                    CalcStats stats = CalcStats.GetStats((NodeData)current.Tag);
-
-                    tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
-                    tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
-                    tw.WriteLine(nexttabstring + "Health: " + stats.Health);
-                    tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
-                    tw.WriteLine();
-                }
-                else
-                {
-                    if (((AttributeData)current.Tag).AttributeType == "Attribute")
-                    {
-                        //write stuff
-                        // write a line of text to the file
-                        tw.WriteLine(tabstring + current.Text);
-
-                        nexttabstring = tabstring + "\t";
-
-                        if (((AttributeData)current.Tag).Name == "Item")
-                        {
-
-                            tw.WriteLine(tabstring + "(");
-                        }
-                        else
-                        {
-                            tw.WriteLine(nexttabstring + "Level " + ((AttributeData)current.Tag).Level + " x " + ((AttributeData)current.Tag).PointsPerLevel + " = " + (((AttributeData)current.Tag).Level * ((AttributeData)current.Tag).PointsPerLevel));
-                        }
-
-
-                        tw.WriteLine(nexttabstring + "Description: " + ((AttributeData)current.Tag).AttributeDescription);
-
-                        isAttrib = true;
-                    }
-                    else
-                    {
-                        //write stuff
-                        // write a line of text to the file
-                        tw.WriteLine(tabstring + current.Text + " Level " + ((AttributeData)current.Tag).Level);
-                        nexttabstring = tabstring + "\t";
-                    }
-
-                }
-                if (((NodeData)current.Tag).Notes != "")
-                {
-                    tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current.Tag).Notes).Replace("\n", "\n" + nexttabstring) + "]");
-                }
-
-                ExportNode(current.Nodes, tabdepth + 1, tw);
-
-                if (isAttrib)
-                {
-                    if (((AttributeData)current.Tag).Name == "Item")
-                    {
-                        tw.WriteLine(tabstring + ") / 2");
-                    }
-                    tw.WriteLine();
-                }
-            }
-        }
+        }        
 
         private void UpdateTreeFromNodes(TreeNode StartingTreePoint, NodeData StartingNodeData)
         {
