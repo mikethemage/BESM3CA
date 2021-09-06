@@ -23,7 +23,7 @@ namespace BESM3CA.Model
         //Properties:
         public int NodeOrder { get; set; }
         public NodeData Next { get; set; }
-        public NodeData Prev{ get; set; }
+        public NodeData Prev { get; set; }
 
         public virtual string DisplayText
         {
@@ -88,7 +88,7 @@ namespace BESM3CA.Model
                 return FilteredAttList;
             }
             else
-            { 
+            {
                 return null;
             }
         }
@@ -186,32 +186,32 @@ namespace BESM3CA.Model
         {
             if (_firstChild == null)
             {
-                _firstChild = child;                
+                _firstChild = child;
             }
             else
             {
                 NodeData temp = _firstChild;
-                while (temp.Next!=null)
+                while (temp.Next != null)
                 {
                     temp = temp.Next;
                 }
                 temp.Next = child;
                 child.Prev = temp;
             }
-            
+
             child._Parent = this;
             _lastChildOrder++;
-            child.NodeOrder= _lastChildOrder;
+            child.NodeOrder = _lastChildOrder;
             _pointsUpToDate = false;
         }
 
         public void Delete()
         {
-            if(Parent!=null)
+            if (Parent != null)
             {
-                if(Parent._firstChild==this)
+                if (Parent._firstChild == this)
                 {
-                    Parent._firstChild = Next;                    
+                    Parent._firstChild = Next;
                 }
                 if (Next != null)
                 {
@@ -222,12 +222,12 @@ namespace BESM3CA.Model
                     Prev.Next = null;
                 }
                 _Parent = null;
-            }           
+            }
         }
 
         public void MoveUp()
         {
-            if(Prev!=null)
+            if (Prev != null)
             {
                 NodeData temp = Prev;
 
@@ -261,20 +261,20 @@ namespace BESM3CA.Model
             {
                 NodeData temp = Next;
 
-                if(Parent._firstChild==this)
+                if (Parent._firstChild == this)
                 {
                     Parent._firstChild = temp;
                 }
 
-                if(Prev!=null)
+                if (Prev != null)
                 {
                     Prev.Next = temp;
                 }
-                if(temp.Next!=null)
+                if (temp.Next != null)
                 {
                     temp.Next.Prev = this;
                 }
-                
+
                 Next = temp.Next;
                 temp.Prev = Prev;
                 Prev = temp;
@@ -284,7 +284,14 @@ namespace BESM3CA.Model
                 temp.NodeOrder = tempNodeOrder;
             }
         }
-        
+
+        public AttributeData AddChildAttribute(string attributeName, int attributeID, TemplateData useTemplate)
+        {
+            AttributeData Temp = new AttributeData(attributeName, attributeID, "", useTemplate);
+            AddChild(Temp);
+            return Temp;
+        }
+
 
         //XML:
         public void SaveXML(XmlTextWriter textWriter)
@@ -305,7 +312,7 @@ namespace BESM3CA.Model
         public virtual void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             //Virtual for derived classes
-        }      
+        }
 
         public void LoadXML(XmlTextReader reader)
         {
@@ -361,7 +368,7 @@ namespace BESM3CA.Model
                                         break;
                                     case "ID":
                                         _ID = int.Parse(reader.Value);
-                                        
+
                                         break;
                                     default:
                                         break;

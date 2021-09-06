@@ -28,8 +28,8 @@ namespace BESM3CA.Templates
 
                         foreach (string Child in Children)
                         {
-                            int ChildID;
-                            if (Int32.TryParse(Child, out ChildID))
+                            
+                            if (Int32.TryParse(Child, out int ChildID))
                             { 
                                 Parent.AddChild(attributeList.Find(x => x.ID == ChildID)); 
                             }

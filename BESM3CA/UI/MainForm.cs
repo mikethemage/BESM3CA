@@ -31,8 +31,7 @@ namespace BESM3CA
 
         //Initialisation code:
         private void BESM3CA_Load(object sender, EventArgs e)
-        {
-            //checkMaxLevel = false;
+        {            
             //Load template from file:
             templateData = TemplateData.JSONLoader();
             ResetAll();
@@ -70,14 +69,8 @@ namespace BESM3CA
 
         private void RefreshFilter()
         {
-            cbFilter.Items.Clear();
-            cbFilter.Items.Add("All");
+            cbFilter.DataSource = templateData.GetTypesForFilter();
             cbFilter.SelectedIndex = 0;
-
-            foreach (string item in templateData.GetTypesForFilter())
-            {
-                cbFilter.Items.Add(item);
-            }
         }
 
         private void RefreshVariants()
@@ -88,8 +81,6 @@ namespace BESM3CA
             const int HeightAdjust3 = 101;
             const int HeightAdjust4 = 3;
             //****
-
-            lbVariantList.Items.Clear();
             
             if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants)
             {                
@@ -105,14 +96,17 @@ namespace BESM3CA
                         lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
                     }
 
-                    lbAttributeList.Top = HeightAdjust1;
-                    lbVariantList.Items.AddRange(FilteredVarList.ToArray());
+                    lbAttributeList.Top = HeightAdjust1;                    
+
+                    lbVariantList.DataSource = FilteredVarList;
+
                     lbVariantList.DisplayMember = "DisplayMember";
                     lbVariantList.ValueMember = "ValueMember";
                 }
             }
             else
-            {               
+            {
+                lbVariantList.DataSource = null;
                 lbVariantList.Visible = false;
                 lbVariant.Visible = false;
                 cbFilter.Top = HeightAdjust4;
@@ -169,30 +163,42 @@ namespace BESM3CA
         {
             if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
             {
-                TreeNode NewNode;
-                NewNode = tvCharacterTree.SelectedNode.Nodes.Add(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString());
+                NodeData FirstNewNodeData;
+                FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString(), ((ListItems)lbAttributeList.SelectedItem).ValueMember, templateData);
 
-                //Temp code for subbing in decoupler:                   
-                NewNode.Tag = new AttributeData(NewNode.Text, ((ListItems)lbAttributeList.SelectedItem).ValueMember, "", templateData);
-                ((NodeData)NewNode.Parent.Tag).AddChild((NodeData)NewNode.Tag);
-                //***
+                TreeNode TreeInsertionPoint;
+                TreeInsertionPoint = tvCharacterTree.SelectedNode;
 
-                TreeNode NewSubNode;
-                if (((NodeData)NewNode.Tag).Children != null)
-                {
-                    //Required children now created in class, just need to check for them and update treeview accordingly:
-                    NodeData RequiredChildren = ((NodeData)NewNode.Tag).Children;
-                    while (RequiredChildren != null)
+                NodeData CurrentNewNodeData = FirstNewNodeData;
+
+                while (CurrentNewNodeData != null)
+                {                    
+                    TreeInsertionPoint = TreeInsertionPoint.Nodes.Add(CurrentNewNodeData.Name);      //Add node to treeview
+                    TreeInsertionPoint.Tag = CurrentNewNodeData; 
+                    TreeInsertionPoint.Parent.Expand();                       
+
+                    if (CurrentNewNodeData.Children != null)
                     {
-                        NewSubNode = NewNode.Nodes.Add(((NodeData)NewNode.Tag).Children.Name);
-                        NewSubNode.Tag = ((NodeData)NewNode.Tag).Children;
-                        NewSubNode.Parent.Expand();
-                        RequiredChildren = RequiredChildren.Next;
+                        CurrentNewNodeData = CurrentNewNodeData.Children;             //Now check for any children
+                    }
+                    else if (CurrentNewNodeData.Next != null)
+                    {
+                        CurrentNewNodeData = CurrentNewNodeData.Next;                 //if no children add all siblings
+                        TreeInsertionPoint = TreeInsertionPoint.Parent;               //move insertion point back up one
+                    }
+                    else if(CurrentNewNodeData.Parent!=FirstNewNodeData && CurrentNewNodeData.Parent.Next != null     ) // make sure we are not back to original node
+                    {
+                        CurrentNewNodeData = CurrentNewNodeData.Parent.Next;          //no children or siblings so add next sibling of the parent node
+                        TreeInsertionPoint = TreeInsertionPoint.Parent.Parent;        //move insertion point back up two
+                    }
+                    else
+                    {
+                        //either only one node to add, or we have gone through all of the above and ended up at the last immediate child of the original new node
+                        CurrentNewNodeData = null; //drop out of the loop                            
                     }
                 }
 
-                RefreshTree(tvCharacterTree.Nodes);
-                tvCharacterTree.SelectedNode.Expand();
+                RefreshTree(tvCharacterTree.Nodes);  //Refresh the whole tree as can have impact both up and down the tree                
             }
         }
 
@@ -331,6 +337,7 @@ namespace BESM3CA
                 RefreshTree(tvCharacterTree.Nodes);
             }
         }
+
         private void SaveFile(bool SaveExisting)
         {
             if (SaveExisting == false || FileName == "")

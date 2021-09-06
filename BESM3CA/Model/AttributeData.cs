@@ -204,7 +204,7 @@ namespace BESM3CA.Model
 
 
         //Constructors:         
-        public AttributeData(string AttributeName, int AttributeID, string Notes, /*int Points,*/ TemplateData useTemplate, int Level = 1, int PointAdj = 0) : base(AttributeName, AttributeID, Notes, useTemplate)
+        public AttributeData(string AttributeName, int AttributeID, string Notes, TemplateData useTemplate, int Level = 1, int PointAdj = 0) : base(AttributeName, AttributeID, Notes, useTemplate)
         {
             Debug.Assert(useTemplate != null);  //Check if we have a template...
 
@@ -219,15 +219,16 @@ namespace BESM3CA.Model
                 {
                     _Level = 0;
                 }
-            }
-
-            //PointsPerLevel = Points;
+            }            
 
             _PointAdj = PointAdj;
             _Level = Level;
 
-            _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
-            PointsPerLevel = _attributeListing.CostperLevel;
+            if (AttributeID != 0)
+            {
+                _attributeListing = _asscTemplate.AttributeList.Find(n => n.ID == AttributeID);
+                PointsPerLevel = _attributeListing.CostperLevel;
+            }
             _variantListing = null;
 
             if (AttributeName == "Companion")
@@ -236,17 +237,17 @@ namespace BESM3CA.Model
             }
             if (AttributeName == "Mind Control")
             {
-                AddChild(new AttributeData("Range", 167, "", /*1,*/ _asscTemplate, 3, -3));
+                AddChild(new AttributeData("Range", 167, "", _asscTemplate, 3, -3));
             }
 
             
         }
 
-        public AttributeData() : base(null, 0, null, null)
+        /*public AttributeData() : base(null, 0, null, null)
         {
             //Default Constructor - currently needed for loading code
             //Todo: refactor            
-        }
+        }*/
 
 
         //Member Functions:

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.Json;
 using System.IO;
 
-
 namespace BESM3CA.Templates
 {
     class TemplateData
@@ -27,10 +26,11 @@ namespace BESM3CA.Templates
         public List<String> GetTypesForFilter()
         {
             //LINQ Version:
-            IEnumerable<string> FilteredTypeList = from AttType in TypeList
+            List<String> tempList =  (from AttType in TypeList
                                                    orderby AttType.Name
-                                                   select AttType.Name;
-            return FilteredTypeList.ToList();
+                                                   select AttType.Name).ToList();
+            tempList.Insert(0, "All");
+            return tempList;
         }
 
         public static TemplateData JSONLoader()
@@ -61,9 +61,8 @@ namespace BESM3CA.Templates
                                 AttributeListing Parent = temp.AttributeList.Find(x => x.ID == ParentID);
 
                                 foreach (string Child in Children)
-                                {
-                                    int ChildID;
-                                    if (Int32.TryParse(Child, out ChildID))
+                                {                                    
+                                    if (Int32.TryParse(Child, out int ChildID))
                                     {
                                         Parent.AddChild(temp.AttributeList.Find(x => x.ID == ChildID));
                                     }

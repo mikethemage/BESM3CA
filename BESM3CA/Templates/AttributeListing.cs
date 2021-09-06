@@ -41,7 +41,7 @@ namespace BESM3CA.Templates
                 return temp;
             }
         }
-        private List<AttributeListing> _children;
+        private readonly List<AttributeListing> _children;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public List<AttributeListing> Children
