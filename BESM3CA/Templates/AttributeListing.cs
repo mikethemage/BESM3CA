@@ -6,10 +6,13 @@ namespace BESM3CA.Templates
 {
     class AttributeListing
     {
+        //Fields:
+        private readonly List<AttributeListing> _children;
+
+
+        //Properties:
         public int ID { get; set; }
-
         public string Name { get; set; }
-
         public string CostperLevelDesc { get; set; }
         public string Progression { get; set; }
         public int MaxLevel { get; set; }
@@ -19,12 +22,10 @@ namespace BESM3CA.Templates
         public string Type { get; set; }
         public bool Container { get; set; }
         public int CostperLevel { get; set; }
-
         public bool RequiresVariant { get; set; }
         public int SpecialPointsPerLevel { get; set; }
         public bool SpecialContainer { get; set; }
         public bool EnforceMaxLevel { get; set; }
-
         public string Description { get; set; }
 
         public string ChildrenList
@@ -40,8 +41,7 @@ namespace BESM3CA.Templates
 
                 return temp;
             }
-        }
-        private readonly List<AttributeListing> _children;
+        }               
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public List<AttributeListing> Children
@@ -52,6 +52,8 @@ namespace BESM3CA.Templates
             }
         }
 
+
+        //Constructor:
         public AttributeListing()
         {
             CostperLevelDesc = "";
@@ -61,6 +63,8 @@ namespace BESM3CA.Templates
 
         }
 
+
+        //Member functions:
         public void AddChild(AttributeListing Child)
         {
             if (Child != null)

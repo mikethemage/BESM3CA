@@ -13,8 +13,6 @@ namespace BESM3CA.Model
         int _soul;
 
         //Properties:
-
-        //***
         public override bool HasCharacterStats
         {
             get
@@ -22,6 +20,7 @@ namespace BESM3CA.Model
                 return true;
             }
         }
+
         public override bool HasLevelStats
         {
             get
@@ -29,6 +28,7 @@ namespace BESM3CA.Model
                 return false;
             }
         }
+
         public override bool HasPointsStats
         {
             get
@@ -36,8 +36,7 @@ namespace BESM3CA.Model
                 return false;
             }
         }
-        //***
-
+        
         public override List<AttributeListing> PotentialChildren
         {
             get
@@ -52,7 +51,6 @@ namespace BESM3CA.Model
                 }
             }
         }
-
         public string CharacterName {get; set;}
      
         public int BaseCost
@@ -136,20 +134,14 @@ namespace BESM3CA.Model
         }
 
 
-        //Constructors:
+        //Constructor:
         public CharacterData(TemplateData useTemplate, string Notes="") : base("Character", 0, Notes, useTemplate)
         {
             _body = 1;
             _mind = 1;
             _soul = 1;
         }
-
-        /*public CharacterData() : base("Character", 0, null, null)
-        {
-            //Default Constructor - currently needed for loading code
-            //Todo: refactor
-        }*/
-
+              
 
         //Member functions:
         public override int GetPoints()
@@ -169,6 +161,8 @@ namespace BESM3CA.Model
                 return _points;            
         }
 
+
+        //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("CharacterStats");

@@ -98,15 +98,24 @@ namespace BESM3CA
 
                     lbAttributeList.Top = HeightAdjust1;
 
+                    lbVariantList.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event
+                    lbVariantList.DisplayMember = "Name";
+                    lbVariantList.ValueMember = "ID";
                     lbVariantList.DataSource = FilteredVarList;
 
-                    lbVariantList.DisplayMember = "DisplayMember";
-                    lbVariantList.ValueMember = "ValueMember";
+                    if( ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant>0)
+                    {
+                        lbVariantList.SelectedValue = ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant;  //Load in saved variant
+                    }
+                    else
+                    {
+                        lbVariantList.SelectedIndex = -1; // This optional line keeps the first item from being selected.
+                    }                    
+                    lbVariantList.SelectedIndexChanged += lbVariantList_SelectedIndexChanged;   //Re-enable event           
                 }
             }
             else
-            {
-                lbVariantList.DataSource = null;
+            {                
                 lbVariantList.Visible = false;
                 lbVariant.Visible = false;
                 cbFilter.Top = HeightAdjust4;
@@ -130,21 +139,19 @@ namespace BESM3CA
             else
             {
                 Filter = cbFilter.Items[cbFilter.SelectedIndex].ToString();
-            }
-
-            lbAttributeList.DataSource = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);
-
-            lbAttributeList.DisplayMember = "DisplayMember";
-            lbAttributeList.ValueMember = "ValueMember";
-
+            }         
+            
+            lbAttributeList.DisplayMember = "Name";
+            lbAttributeList.ValueMember = "ID"; 
+            lbAttributeList.DataSource = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);            
         }
 
         private void AddAttr()
         {
-            if (lbAttributeList.SelectedIndex >= 0 && ((ListItems)lbAttributeList.SelectedItem).ValueMember > 0)
+            if (tvCharacterTree.SelectedNode!=null && lbAttributeList.SelectedIndex >= 0 && (int)lbAttributeList.SelectedValue>0)          
             {
                 NodeData FirstNewNodeData;
-                FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(((ListItems)lbAttributeList.SelectedItem).DisplayMember.ToString(), ((ListItems)lbAttributeList.SelectedItem).ValueMember);
+                FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(lbAttributeList.Text, (int)lbAttributeList.SelectedValue);
 
                 UpdateTreeFromNodes(tvCharacterTree.SelectedNode, FirstNewNodeData);
             }
@@ -603,10 +610,10 @@ namespace BESM3CA
         {
             if (lbVariantList.SelectedIndex >= 0)
             {
-                if (((ListItems)lbVariantList.SelectedItem).ValueMember > 0)
+                if ((int)lbVariantList.SelectedValue > 0) 
                 {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = ((ListItems)lbVariantList.SelectedItem).ValueMember;
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = ((ListItems)lbVariantList.SelectedItem).DisplayMember;
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = (int)lbVariantList.SelectedValue;
+                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = lbVariantList.Text;
 
                     RefreshTree(tvCharacterTree.Nodes);
                 }

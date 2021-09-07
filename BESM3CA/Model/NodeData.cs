@@ -16,7 +16,6 @@ namespace BESM3CA.Model
         private int _lastChildOrder;
         protected int _points;
         private bool _pointsUpToDate;
-
         protected TemplateData _associatedTemplate;
 
 
@@ -32,8 +31,7 @@ namespace BESM3CA.Model
                 return Name + " (" + GetPoints() + " Points)";
             }
         }
-
-        //***
+                
         public virtual bool HasCharacterStats
         {
             get
@@ -58,9 +56,7 @@ namespace BESM3CA.Model
                 return false;
             }
         }
-        //***
-
-
+        
         public virtual List<AttributeListing> PotentialChildren
         {
             get
@@ -89,14 +85,14 @@ namespace BESM3CA.Model
                 string Type = "";
                 for (int i = 0; i<FilteredAttList.Count;i++)
                 {
-                    if (Type != FilteredAttList[i].OptionalMember)
+                    if (Type != FilteredAttList[i].Type)
                     {
                         if (Type != "")
                         {
                             FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
                             i++;
                         }
-                        Type = FilteredAttList[i].OptionalMember;                   
+                        Type = FilteredAttList[i].Type;                   
                         FilteredAttList.Insert(i, new ListItems(Type + ":", 0));
                         i++;
                         FilteredAttList.Insert(i, new ListItems("-------------------------", 0));

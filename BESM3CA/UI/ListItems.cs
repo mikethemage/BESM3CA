@@ -3,24 +3,24 @@
     class ListItems
     {        
         //Properties:
-        public string DisplayMember { get; set; }
-        public int ValueMember { get; set; }
-        public string OptionalMember { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Type { get; set; }
+
 
         //Constructors:
-        public ListItems(string data, int key)
+        public ListItems(string name, int id)
         {
-            DisplayMember = data;
-            ValueMember = key;
-            OptionalMember = null;
+            Name = name;
+            ID = id;
+            Type = null;
         }
 
-        public ListItems(string data, int key, string optional)
+        public ListItems(string name, int id, string type)
         {
-            DisplayMember = data;
-            ValueMember = key;
-            OptionalMember = optional;
+            Name = name;
+            ID = id;
+            Type = type;
         }
-
     }
 }

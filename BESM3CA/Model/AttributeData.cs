@@ -17,13 +17,14 @@ namespace BESM3CA.Model
         private AttributeListing _attributeListing;
         private VariantListing _variantListing;
 
+
+        //Properties:
         public override string DisplayText
         {
             get
             {
                 if (_attributeListing != null)
                 {
-
                     if (_attributeListing.SpecialContainer || Name == "Alternate Form")
                     {
                         return Name + " (" + GetSpecialPoints() + " Left)" + " (" + GetPoints() + " Points)";
@@ -47,7 +48,6 @@ namespace BESM3CA.Model
             }
         }
 
-        //Properties:
         public override bool HasCharacterStats
         {
             get
@@ -55,6 +55,7 @@ namespace BESM3CA.Model
                 return false;
             }
         }
+
         public override bool HasLevelStats
         {
             get
@@ -69,6 +70,7 @@ namespace BESM3CA.Model
                 }
             }
         }
+
         public override bool HasPointsStats
         {
             get
@@ -338,18 +340,12 @@ namespace BESM3CA.Model
                                                              Vari.ID
                                                          )).ToList();
 
-
-
-                return FilteredVarList;
-
-                
+                return FilteredVarList;                
             }
             else
             {
                 return null;
-            }
-
-            
+            }            
         }
 
         public override int GetPoints()
@@ -432,13 +428,11 @@ namespace BESM3CA.Model
                     }
                 }
 
-                //***
-                //if alternate weapon attack half points
+                //if alternate weapon attack half points:
                 if (isAlternateAttack)
                 {
                     _points /= 2;
-                }
-                //***                
+                }            
 
                 PointsUpToDate = true;
             }
@@ -446,6 +440,8 @@ namespace BESM3CA.Model
             return _points;
         }
 
+
+        //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("AttributeStats");
@@ -465,7 +461,6 @@ namespace BESM3CA.Model
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-
                     if (reader.Name == "AttributeStats")
                     {
                         // loading node attributes
