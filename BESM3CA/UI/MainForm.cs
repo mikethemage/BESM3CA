@@ -45,7 +45,7 @@ namespace BESM3CA
             Text = ApplicationName;
 
             //Reset root character:
-            RootCharacter = new CharacterData(templateData/*, ""*/);
+            RootCharacter = new CharacterData(templateData);
 
             //reset Treeview and link to root:
             tvCharacterTree.Nodes.Clear();
@@ -132,31 +132,11 @@ namespace BESM3CA
                 Filter = cbFilter.Items[cbFilter.SelectedIndex].ToString();
             }
 
-            List<ListItems> FilteredAttList = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);
+            lbAttributeList.DataSource = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);
 
-            if (FilteredAttList != null)
-            {
-                lbAttributeList.Items.Clear();
+            lbAttributeList.DisplayMember = "DisplayMember";
+            lbAttributeList.ValueMember = "ValueMember";
 
-                string Type = "";
-                foreach (ListItems item in FilteredAttList)
-                {
-                    if (Type != item.OptionalMember)
-                    {
-                        if (Type != "")
-                        {
-                            lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
-                        }
-                        Type = item.OptionalMember;
-                        lbAttributeList.Items.Add(new ListItems(Type + ":", 0));
-                        lbAttributeList.Items.Add(new ListItems("-------------------------", 0));
-                    }
-                    lbAttributeList.Items.Add(item);
-                }
-
-                lbAttributeList.DisplayMember = "DisplayMember";
-                lbAttributeList.ValueMember = "ValueMember";
-            }
         }
 
         private void AddAttr()
@@ -523,7 +503,7 @@ namespace BESM3CA
                 TextWriter tw;
                 try
                 {
-                    tw = new StreamWriter(saveFileDialog1.FileName);                    
+                    tw = new StreamWriter(saveFileDialog1.FileName);
                     SaveLoad.ExportNode(RootCharacter, 0, tw);
                 }
                 catch
@@ -655,7 +635,7 @@ namespace BESM3CA
         private void tbNotes_Validating(object sender, CancelEventArgs e)
         {
             ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes = tbNotes.Text;
-        }        
+        }
 
         private void UpdateTreeFromNodes(TreeNode StartingTreePoint, NodeData StartingNodeData)
         {

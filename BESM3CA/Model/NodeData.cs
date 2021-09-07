@@ -85,6 +85,25 @@ namespace BESM3CA.Model
                                                    orderby Att.Type, Att.Name
                                                    select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();
 
+                //Add dividers:
+                string Type = "";
+                for (int i = 0; i<FilteredAttList.Count;i++)
+                {
+                    if (Type != FilteredAttList[i].OptionalMember)
+                    {
+                        if (Type != "")
+                        {
+                            FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
+                            i++;
+                        }
+                        Type = FilteredAttList[i].OptionalMember;                   
+                        FilteredAttList.Insert(i, new ListItems(Type + ":", 0));
+                        i++;
+                        FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
+                        i++;
+                    }                    
+                }
+
                 return FilteredAttList;
             }
             else
