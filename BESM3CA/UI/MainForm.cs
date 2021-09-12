@@ -150,9 +150,7 @@ namespace BESM3CA
         {
             if (tvCharacterTree.SelectedNode!=null && lbAttributeList.SelectedIndex >= 0 && (int)lbAttributeList.SelectedValue>0)          
             {
-                NodeData FirstNewNodeData;
-                FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(lbAttributeList.Text, (int)lbAttributeList.SelectedValue);
-
+                NodeData FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(lbAttributeList.Text, (int)lbAttributeList.SelectedValue);
                 UpdateTreeFromNodes(tvCharacterTree.SelectedNode, FirstNewNodeData);
             }
         }
@@ -173,7 +171,7 @@ namespace BESM3CA
         {
             tbNotes.Text = ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes;
 
-            CalcStats stats = CalcStats.GetStats((NodeData)tvCharacterTree.SelectedNode.Tag);//, templateData);
+            CalcStats stats = CalcStats.GetStats((NodeData)tvCharacterTree.SelectedNode.Tag);
 
             if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasCharacterStats)
             {
