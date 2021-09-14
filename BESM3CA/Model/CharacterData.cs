@@ -223,10 +223,10 @@ namespace BESM3CA.Model
         {
             CalcStats stats;
 
-            stats = new CalcStats(((CharacterData)this).BaseHealth,
-                    ((CharacterData)this).BaseEnergy,
-                    ((CharacterData)this).BaseCV,
-                    ((CharacterData)this).BaseCV);
+            stats = new CalcStats(BaseHealth,
+                    BaseEnergy,
+                    BaseCV,
+                    BaseCV);
 
             NodeData child = Children;
             while (child != null)
