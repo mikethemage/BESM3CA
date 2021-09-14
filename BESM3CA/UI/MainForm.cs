@@ -9,9 +9,9 @@ using System.Windows.Forms;
 namespace BESM3CA
 {
     public partial class MainForm : Form
-    {        
+    {
         //Title bar:
-        private const string ApplicationName = "BESM3CA";      
+        private const string ApplicationName = "BESM3CA";
 
         //Data:        
         private Controller CurrentController;
@@ -51,27 +51,27 @@ namespace BESM3CA
             CurrentController.ResetAll();
             
             //reset Treeview 
-            tvCharacterTree.Nodes.Clear();
+            CharacterTreeView.Nodes.Clear();
 
             //link to root:
-            tvCharacterTree.SelectedNode = AddNodeDataToTree(CurrentController.RootCharacter, tvCharacterTree.Nodes);                        
+            CharacterTreeView.SelectedNode = AddNodeDataToTree(CurrentController.RootCharacter, CharacterTreeView.Nodes);                        
 
             //Refresh right hand boxes:
             RefreshFilter();
             RefreshList();
 
             //Refresh tree/data:
-            RefreshTree(tvCharacterTree.Nodes);
+            RefreshTree(CharacterTreeView.Nodes);
             RefreshTextBoxes();
 
             //Sort visually by Node order
-            tvCharacterTree.TreeViewNodeSorter = new NodeSorter();            
+            CharacterTreeView.TreeViewNodeSorter = new NodeSorter();            
         }
 
         private void RefreshFilter()
         {
             //Reset Attribute filter listbox:
-            cbFilter.DataSource = CurrentController.SelectedTemplate.GetTypesForFilter();            
+            FilterComboBox.DataSource = CurrentController.SelectedTemplate.GetTypesForFilter();            
         }
 
         private void RefreshVariants()
@@ -83,48 +83,48 @@ namespace BESM3CA
             const int HeightAdjust4 = 3;
             //****
 
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)tvCharacterTree.SelectedNode.Tag).HasVariants)
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(AttributeData) && ((AttributeData)CharacterTreeView.SelectedNode.Tag).HasVariants)
             {
-                List<ListItems> FilteredVarList = ((AttributeData)tvCharacterTree.SelectedNode.Tag).GetVariants();
+                List<ListItems> FilteredVarList = ((AttributeData)CharacterTreeView.SelectedNode.Tag).GetVariants();
                 if (FilteredVarList != null)
                 {
-                    lbVariantList.Visible = true;
+                    VariantListBox.Visible = true;
                     lbVariant.Visible = true;
-                    cbFilter.Top = HeightAdjust3;
+                    FilterComboBox.Top = HeightAdjust3;
 
-                    if (lbAttributeList.Top == HeightAdjust2)
+                    if (AttributeListBox.Top == HeightAdjust2)
                     {
-                        lbAttributeList.Height -= (HeightAdjust1 - HeightAdjust2);
+                        AttributeListBox.Height -= (HeightAdjust1 - HeightAdjust2);
                     }
 
-                    lbAttributeList.Top = HeightAdjust1;
+                    AttributeListBox.Top = HeightAdjust1;
 
-                    lbVariantList.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event
-                    lbVariantList.DisplayMember = "Name";
-                    lbVariantList.ValueMember = "ID";
-                    lbVariantList.DataSource = FilteredVarList;
+                    VariantListBox.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event
+                    VariantListBox.DisplayMember = "Name";
+                    VariantListBox.ValueMember = "ID";
+                    VariantListBox.DataSource = FilteredVarList;
 
-                    if( ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant>0)
+                    if( ((AttributeData)CharacterTreeView.SelectedNode.Tag).Variant>0)
                     {
-                        lbVariantList.SelectedValue = ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant;  //Load in saved variant
+                        VariantListBox.SelectedValue = ((AttributeData)CharacterTreeView.SelectedNode.Tag).Variant;  //Load in saved variant
                     }
                     else
                     {
-                        lbVariantList.SelectedIndex = -1; // This optional line keeps the first item from being selected.
+                        VariantListBox.SelectedIndex = -1; // This optional line keeps the first item from being selected.
                     }                    
-                    lbVariantList.SelectedIndexChanged += lbVariantList_SelectedIndexChanged;   //Re-enable event           
+                    VariantListBox.SelectedIndexChanged += lbVariantList_SelectedIndexChanged;   //Re-enable event           
                 }
             }
             else
             {                
-                lbVariantList.Visible = false;
+                VariantListBox.Visible = false;
                 lbVariant.Visible = false;
-                cbFilter.Top = HeightAdjust4;
-                if (lbAttributeList.Top == HeightAdjust1)
+                FilterComboBox.Top = HeightAdjust4;
+                if (AttributeListBox.Top == HeightAdjust1)
                 {
-                    lbAttributeList.Height += (HeightAdjust1 - HeightAdjust2);
+                    AttributeListBox.Height += (HeightAdjust1 - HeightAdjust2);
                 }
-                lbAttributeList.Top = HeightAdjust2;
+                AttributeListBox.Top = HeightAdjust2;
             }
         }
 
@@ -133,26 +133,26 @@ namespace BESM3CA
             RefreshVariants();
 
             string Filter;
-            if (cbFilter.SelectedIndex == -1)
+            if (FilterComboBox.SelectedIndex == -1)
             {
                 Filter = "";
             }
             else
             {
-                Filter = cbFilter.Items[cbFilter.SelectedIndex].ToString();
+                Filter = FilterComboBox.Items[FilterComboBox.SelectedIndex].ToString();
             }         
             
-            lbAttributeList.DisplayMember = "Name";
-            lbAttributeList.ValueMember = "ID"; 
-            lbAttributeList.DataSource = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);            
+            AttributeListBox.DisplayMember = "Name";
+            AttributeListBox.ValueMember = "ID"; 
+            AttributeListBox.DataSource = ((NodeData)CharacterTreeView.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);            
         }
 
         private void AddAttr()
         {
-            if (tvCharacterTree.SelectedNode!=null && lbAttributeList.SelectedIndex >= 0 && (int)lbAttributeList.SelectedValue>0)          
+            if (CharacterTreeView.SelectedNode!=null && AttributeListBox.SelectedIndex >= 0 && (int)AttributeListBox.SelectedValue>0)          
             {
-                NodeData FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(lbAttributeList.Text, (int)lbAttributeList.SelectedValue);
-                UpdateTreeFromNodes(tvCharacterTree.SelectedNode, FirstNewNodeData);
+                NodeData FirstNewNodeData = ((NodeData)CharacterTreeView.SelectedNode.Tag).AddChildAttribute(AttributeListBox.Text, (int)AttributeListBox.SelectedValue);
+                UpdateTreeFromNodes(CharacterTreeView.SelectedNode, FirstNewNodeData);
                 RefreshTextBoxes();
             }
         }
@@ -171,126 +171,126 @@ namespace BESM3CA
 
         private void RefreshTextBoxes()
         {
-            tbNotes.Text = ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes;
+            NotesTextBox.Text = ((NodeData)CharacterTreeView.SelectedNode.Tag).Notes;
 
-            if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasCharacterStats)
+            if (((NodeData)CharacterTreeView.SelectedNode.Tag).HasCharacterStats)
             {
                 //Get Character Stats:
-                CalcStats stats = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetStats();
+                CalcStats stats = ((NodeData)CharacterTreeView.SelectedNode.Tag).GetStats();
 
-                tbBody.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body.ToString();
-                tbMind.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind.ToString();
-                tbSoul.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul.ToString();
-                tbHealth.Text = stats.Health.ToString();
-                tbEnergy.Text = stats.Energy.ToString();
-                tbACV.Text = stats.ACV.ToString();
-                tbDCV.Text = stats.DCV.ToString();
-                tbBody.Visible = true;
-                tbMind.Visible = true;
-                tbSoul.Visible = true;
-                tbHealth.Visible = true;
-                tbEnergy.Visible = true;
-                tbACV.Visible = true;
-                tbDCV.Visible = true;
-                lbBody.Visible = true;
-                lbMind.Visible = true;
-                lbSoul.Visible = true;
-                lbHealth.Visible = true;
-                lbEnergy.Visible = true;
-                lbACV.Visible = true;
-                lbDCV.Visible = true;
+                BodyTextBox.Text = ((CharacterData)CharacterTreeView.SelectedNode.Tag).Body.ToString();
+                MindTextBox.Text = ((CharacterData)CharacterTreeView.SelectedNode.Tag).Mind.ToString();
+                SoulTextBox.Text = ((CharacterData)CharacterTreeView.SelectedNode.Tag).Soul.ToString();
+                HealthTextBox.Text = stats.Health.ToString();
+                EnergyTextBox.Text = stats.Energy.ToString();
+                ACVTextBox.Text = stats.ACV.ToString();
+                DCVTextBox.Text = stats.DCV.ToString();
+                BodyTextBox.Visible = true;
+                MindTextBox.Visible = true;
+                SoulTextBox.Visible = true;
+                HealthTextBox.Visible = true;
+                EnergyTextBox.Visible = true;
+                ACVTextBox.Visible = true;
+                DCVTextBox.Visible = true;
+                BodyLabel.Visible = true;
+                MindLabel.Visible = true;
+                SoulLabel.Visible = true;
+                HealthLabel.Visible = true;
+                EnergyLabel.Visible = true;
+                ACVLabel.Visible = true;
+                DCVLabel.Visible = true;
             }
             else
             {
-                tbBody.Text = "";
-                tbMind.Text = "";
-                tbSoul.Text = "";
-                tbBody.Visible = false;
-                tbMind.Visible = false;
-                tbSoul.Visible = false;
-                tbHealth.Visible = false;
-                tbEnergy.Visible = false;
-                lbBody.Visible = false;
-                lbMind.Visible = false;
-                lbSoul.Visible = false;
-                lbHealth.Visible = false;
-                lbEnergy.Visible = false;
-                lbACV.Visible = false;
-                lbDCV.Visible = false;
-                tbACV.Visible = false;
-                tbDCV.Visible = false;
+                BodyTextBox.Text = "";
+                MindTextBox.Text = "";
+                SoulTextBox.Text = "";
+                BodyTextBox.Visible = false;
+                MindTextBox.Visible = false;
+                SoulTextBox.Visible = false;
+                HealthTextBox.Visible = false;
+                EnergyTextBox.Visible = false;
+                BodyLabel.Visible = false;
+                MindLabel.Visible = false;
+                SoulLabel.Visible = false;
+                HealthLabel.Visible = false;
+                EnergyLabel.Visible = false;
+                ACVLabel.Visible = false;
+                DCVLabel.Visible = false;
+                ACVTextBox.Visible = false;
+                DCVTextBox.Visible = false;
             }
 
-            if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasLevelStats)
+            if (((NodeData)CharacterTreeView.SelectedNode.Tag).HasLevelStats)
             {
-                if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+                if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(AttributeData))
                 {
-                    tbLevel.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).Level.ToString();
-                    tbDesc.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).AttributeDescription;
+                    LevelTextBox.Text = ((AttributeData)CharacterTreeView.SelectedNode.Tag).Level.ToString();
+                    DescriptionTextBox.Text = ((AttributeData)CharacterTreeView.SelectedNode.Tag).AttributeDescription;
                 }
                 else
                 {
-                    tbLevel.Text = "";
-                    tbDesc.Text = "";
+                    LevelTextBox.Text = "";
+                    DescriptionTextBox.Text = "";
                 }
-                tbLevel.Visible = true;
-                tbDesc.Visible = true;
-                lbLevel.Visible = true;
-                lbDescription.Visible = true;
+                LevelTextBox.Visible = true;
+                DescriptionTextBox.Visible = true;
+                LevelLabel.Visible = true;
+                DescriptionLabel.Visible = true;
             }
             else
             {
-                tbLevel.Text = "";
-                tbDesc.Text = "";
-                tbLevel.Visible = false;
-                tbDesc.Visible = false;
-                lbLevel.Visible = false;
-                lbDescription.Visible = false;
+                LevelTextBox.Text = "";
+                DescriptionTextBox.Text = "";
+                LevelTextBox.Visible = false;
+                DescriptionTextBox.Visible = false;
+                LevelLabel.Visible = false;
+                DescriptionLabel.Visible = false;
             }
 
-            if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasPointsStats)
+            if (((NodeData)CharacterTreeView.SelectedNode.Tag).HasPointsStats)
             {
-                if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+                if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(AttributeData))
                 {
-                    tbPPL.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).PointsPerLevel.ToString();
-                    tbPoints.Text = ((AttributeData)tvCharacterTree.SelectedNode.Tag).BaseCost.ToString();
+                    PointsPerLevelTextBox.Text = ((AttributeData)CharacterTreeView.SelectedNode.Tag).PointsPerLevel.ToString();
+                    PointCostTextBox.Text = ((AttributeData)CharacterTreeView.SelectedNode.Tag).BaseCost.ToString();
                 }
                 else
                 {
-                    tbLevel.Text = "";
-                    tbDesc.Text = "";
+                    LevelTextBox.Text = "";
+                    DescriptionTextBox.Text = "";
                 }
-                tbPPL.Visible = true;
-                tbPoints.Visible = true;
-                lbPointsPerLevel.Visible = true;
-                lbPointCost.Visible = true;
+                PointsPerLevelTextBox.Visible = true;
+                PointCostTextBox.Visible = true;
+                PointsPerLevelLabel.Visible = true;
+                PointCostLabel.Visible = true;
             }
             else
             {
-                tbPPL.Text = "";
-                tbPoints.Text = "";
-                tbPPL.Visible = false;
-                tbPoints.Visible = false;
-                lbPointsPerLevel.Visible = false;
-                lbPointCost.Visible = false;
+                PointsPerLevelTextBox.Text = "";
+                PointCostTextBox.Text = "";
+                PointsPerLevelTextBox.Visible = false;
+                PointCostTextBox.Visible = false;
+                PointsPerLevelLabel.Visible = false;
+                PointCostLabel.Visible = false;
             }
         }
 
         private void RaiseLevel()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                ((AttributeData)tvCharacterTree.SelectedNode.Tag).RaiseLevel();
-                RefreshTree(tvCharacterTree.Nodes);
+                ((AttributeData)CharacterTreeView.SelectedNode.Tag).RaiseLevel();
+                RefreshTree(CharacterTreeView.Nodes);
             }
         }
 
         private void LowerLevel()
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                ((AttributeData)tvCharacterTree.SelectedNode.Tag).LowerLevel();
-                RefreshTree(tvCharacterTree.Nodes);
+                ((AttributeData)CharacterTreeView.SelectedNode.Tag).LowerLevel();
+                RefreshTree(CharacterTreeView.Nodes);
             }
         }
 
@@ -334,24 +334,24 @@ namespace BESM3CA
 
         private void DelAttr()
         {
-            if (tvCharacterTree.SelectedNode != null && tvCharacterTree.SelectedNode.Tag.GetType() != typeof(CharacterData)) //do not allow manual deletion of Character nodes
+            if (CharacterTreeView.SelectedNode != null && CharacterTreeView.SelectedNode.Tag.GetType() != typeof(CharacterData)) //do not allow manual deletion of Character nodes
             {
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).PointAdj >= 0)  //do not delete "freebies"
+                if (((AttributeData)CharacterTreeView.SelectedNode.Tag).PointAdj >= 0)  //do not delete "freebies"
                 {
                     TreeNode tempNode;
-                    if (tvCharacterTree.SelectedNode.NextNode != null)
+                    if (CharacterTreeView.SelectedNode.NextNode != null)
                     {
-                        tempNode = tvCharacterTree.SelectedNode.NextNode;
+                        tempNode = CharacterTreeView.SelectedNode.NextNode;
                     }
                     else
                     {
-                        tempNode = tvCharacterTree.SelectedNode.PrevNode;
+                        tempNode = CharacterTreeView.SelectedNode.PrevNode;
                     }
 
-                    ((NodeData)tvCharacterTree.SelectedNode.Tag).Delete();
-                    tvCharacterTree.SelectedNode.Remove();
-                    tvCharacterTree.SelectedNode = tempNode;
-                    RefreshTree(tvCharacterTree.Nodes);
+                    ((NodeData)CharacterTreeView.SelectedNode.Tag).Delete();
+                    CharacterTreeView.SelectedNode.Remove();
+                    CharacterTreeView.SelectedNode = tempNode;
+                    RefreshTree(CharacterTreeView.Nodes);
                     RefreshTextBoxes();
                 }
             }
@@ -364,13 +364,13 @@ namespace BESM3CA
             RefreshList();
             RefreshTextBoxes();
 
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
                 DisableLevelButtons();
             }
-            else if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(AttributeData))
+            else if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(AttributeData))
             {
-                if (((AttributeData)tvCharacterTree.SelectedNode.Tag).HasLevel)
+                if (((AttributeData)CharacterTreeView.SelectedNode.Tag).HasLevel)
                 {
                     EnableLevelButtons();
                 }
@@ -403,18 +403,18 @@ namespace BESM3CA
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 ResetAll();
-                tvCharacterTree.Nodes.Clear();
+                CharacterTreeView.Nodes.Clear();
 
                 CurrentController.Load(openFileDialog1.FileName);
 
                 //***
 
-                UpdateTreeFromNodes(tvCharacterTree.Nodes.Add(CurrentController.RootCharacter.Name), CurrentController.RootCharacter);
+                UpdateTreeFromNodes(CharacterTreeView.Nodes.Add(CurrentController.RootCharacter.Name), CurrentController.RootCharacter);
                 
                 Text = ApplicationName + " - " + CurrentController.FileName;
-                if (tvCharacterTree.Nodes.Count > 0)
+                if (CharacterTreeView.Nodes.Count > 0)
                 {
-                    tvCharacterTree.SelectedNode = tvCharacterTree.Nodes[0];
+                    CharacterTreeView.SelectedNode = CharacterTreeView.Nodes[0];
                 }
             }
         }
@@ -430,11 +430,11 @@ namespace BESM3CA
         private void tbBody_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                if (int.TryParse(tbBody.Text, out int temp) && temp > 0)
+                if (int.TryParse(BodyTextBox.Text, out int temp) && temp > 0)
                 {
-                    ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body = temp;
+                    ((CharacterData)CharacterTreeView.SelectedNode.Tag).Body = temp;
                 }
                 else
                 {
@@ -445,11 +445,11 @@ namespace BESM3CA
         private void tbMind_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                if (int.TryParse(tbMind.Text, out int temp) && temp > 0)
+                if (int.TryParse(MindTextBox.Text, out int temp) && temp > 0)
                 {
-                    ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind = temp;
+                    ((CharacterData)CharacterTreeView.SelectedNode.Tag).Mind = temp;
                 }
                 else
                 {
@@ -460,11 +460,11 @@ namespace BESM3CA
         private void tbSoul_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                if (int.TryParse(tbSoul.Text, out int temp) && temp > 0)
+                if (int.TryParse(SoulTextBox.Text, out int temp) && temp > 0)
                 {
-                    ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul = temp;
+                    ((CharacterData)CharacterTreeView.SelectedNode.Tag).Soul = temp;
                 }
                 else
                 {
@@ -475,18 +475,18 @@ namespace BESM3CA
 
         private void tbBody_Validated(object sender, EventArgs e)
         {
-            RefreshTree(tvCharacterTree.Nodes);
+            RefreshTree(CharacterTreeView.Nodes);
             RefreshTextBoxes();
         }
         private void tbMind_Validated(object sender, EventArgs e)
         {
-            RefreshTree(tvCharacterTree.Nodes);
+            RefreshTree(CharacterTreeView.Nodes);
             RefreshTextBoxes();
         }
 
         private void tbSoul_Validated(object sender, EventArgs e)
         {
-            RefreshTree(tvCharacterTree.Nodes);
+            RefreshTree(CharacterTreeView.Nodes);
             RefreshTextBoxes();
         }
 
@@ -522,30 +522,30 @@ namespace BESM3CA
 
         private void tbBody_ValueChanged(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body = (int)tbBody.Value;
-                RefreshTree(tvCharacterTree.Nodes);
+                ((CharacterData)CharacterTreeView.SelectedNode.Tag).Body = (int)BodyTextBox.Value;
+                RefreshTree(CharacterTreeView.Nodes);
                 RefreshTextBoxes();
             }
         }
 
         private void tbMind_ValueChanged(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind = (int)tbMind.Value;
-                RefreshTree(tvCharacterTree.Nodes);
+                ((CharacterData)CharacterTreeView.SelectedNode.Tag).Mind = (int)MindTextBox.Value;
+                RefreshTree(CharacterTreeView.Nodes);
                 RefreshTextBoxes();
             }
         }
 
         private void tbSoul_ValueChanged(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode.Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedNode.Tag.GetType() == typeof(CharacterData))
             {
-                ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul = (int)tbSoul.Value;
-                RefreshTree(tvCharacterTree.Nodes);
+                ((CharacterData)CharacterTreeView.SelectedNode.Tag).Soul = (int)SoulTextBox.Value;
+                RefreshTree(CharacterTreeView.Nodes);
                 RefreshTextBoxes();
             }
         }
@@ -562,25 +562,25 @@ namespace BESM3CA
 
         private void bnMoveUp_Click(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode != tvCharacterTree.Nodes[0] && tvCharacterTree.SelectedNode.Parent.Nodes.Count > 1 && tvCharacterTree.SelectedNode.PrevNode != null)
+            if (CharacterTreeView.SelectedNode != CharacterTreeView.Nodes[0] && CharacterTreeView.SelectedNode.Parent.Nodes.Count > 1 && CharacterTreeView.SelectedNode.PrevNode != null)
             {
-                TreeNode tempnode = tvCharacterTree.SelectedNode;
+                TreeNode tempnode = CharacterTreeView.SelectedNode;
                 ((NodeData)tempnode.Tag).MoveUp();
-                tvCharacterTree.Sort();
-                tvCharacterTree.SelectedNode = tempnode;
+                CharacterTreeView.Sort();
+                CharacterTreeView.SelectedNode = tempnode;
                 RefreshTree(tempnode.Parent.Nodes);
             }
         }
 
         private void bnMoveDown_Click(object sender, EventArgs e)
         {
-            if (tvCharacterTree.SelectedNode != tvCharacterTree.Nodes[0] && tvCharacterTree.SelectedNode.Parent.Nodes.Count > 1 && tvCharacterTree.SelectedNode.NextNode != null)
+            if (CharacterTreeView.SelectedNode != CharacterTreeView.Nodes[0] && CharacterTreeView.SelectedNode.Parent.Nodes.Count > 1 && CharacterTreeView.SelectedNode.NextNode != null)
             {
-                TreeNode tempnode = tvCharacterTree.SelectedNode;
+                TreeNode tempnode = CharacterTreeView.SelectedNode;
                 ((NodeData)tempnode.Tag).MoveDown();
 
-                tvCharacterTree.Sort();
-                tvCharacterTree.SelectedNode = tempnode;
+                CharacterTreeView.Sort();
+                CharacterTreeView.SelectedNode = tempnode;
 
                 RefreshTree(tempnode.Parent.Nodes);
             }
@@ -600,14 +600,14 @@ namespace BESM3CA
 
         private void lbVariantList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbVariantList.SelectedIndex >= 0)
+            if (VariantListBox.SelectedIndex >= 0)
             {
-                if ((int)lbVariantList.SelectedValue > 0) 
+                if ((int)VariantListBox.SelectedValue > 0) 
                 {
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Variant = (int)lbVariantList.SelectedValue;
-                    ((AttributeData)tvCharacterTree.SelectedNode.Tag).Name = lbVariantList.Text;
+                    ((AttributeData)CharacterTreeView.SelectedNode.Tag).Variant = (int)VariantListBox.SelectedValue;
+                    ((AttributeData)CharacterTreeView.SelectedNode.Tag).Name = VariantListBox.Text;
 
-                    RefreshTree(tvCharacterTree.Nodes);
+                    RefreshTree(CharacterTreeView.Nodes);
                 }
             }
         }
@@ -615,7 +615,7 @@ namespace BESM3CA
         private void lbAttributeList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             AddAttr();
-            lbAttributeList.Focus();
+            AttributeListBox.Focus();
         }
 
         private void lbAttributeList_KeyPress(object sender, KeyPressEventArgs e)
@@ -633,7 +633,7 @@ namespace BESM3CA
 
         private void tbNotes_Validating(object sender, CancelEventArgs e)
         {
-            ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes = tbNotes.Text;
+            ((NodeData)CharacterTreeView.SelectedNode.Tag).Notes = NotesTextBox.Text;
         }
 
         private void UpdateTreeFromNodes(TreeNode StartingTreePoint, NodeData StartingNodeData)
@@ -684,7 +684,7 @@ namespace BESM3CA
                 }
             }
 
-            RefreshTree(tvCharacterTree.Nodes);  //Refresh the whole tree as can have impact both up and down the tree  
+            RefreshTree(CharacterTreeView.Nodes);  //Refresh the whole tree as can have impact both up and down the tree  
         }
     }
 }
