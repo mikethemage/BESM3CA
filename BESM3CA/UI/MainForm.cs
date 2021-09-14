@@ -1,25 +1,20 @@
 ﻿using BESM3CA.Model;
-using BESM3CA.Templates;
 using BESM3CA.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Windows.Forms;
 
 namespace BESM3CA
 {
     public partial class MainForm : Form
-    {
-        //Fields:
+    {        
         //Title bar:
-        private const string ApplicationName = "BESM3CA";
-        private string FileName;
+        private const string ApplicationName = "BESM3CA";      
 
-        //Data:
-        private TemplateData templateData;
-        private CharacterData RootCharacter;
+        //Data:        
+        private Controller CurrentController;
 
 
         //Constructor:
@@ -32,45 +27,51 @@ namespace BESM3CA
         //Initialisation code:
         private void BESM3CA_Load(object sender, EventArgs e)
         {
-            //Load template from file:
-            templateData = TemplateData.JSONLoader();
+            //Initialise Controller:
+            CurrentController = new Controller();            
             ResetAll();
         }
 
 
         //UI member functions:
-        private void ResetAll()
+        private TreeNode AddNodeDataToTree(NodeData nodeData, TreeNodeCollection insertionPoint)
         {
-            FileName = "";
+            TreeNode AddedNode;
+            AddedNode = insertionPoint.Add(nodeData.Name);
+            AddedNode.Tag = nodeData;
+
+            return AddedNode;
+        }
+
+        private void ResetAll()
+        {           
             Text = ApplicationName;
 
             //Reset root character:
-            RootCharacter = new CharacterData(templateData);
-
-            //reset Treeview and link to root:
+            CurrentController.ResetAllTemp();
+            
+            //reset Treeview 
             tvCharacterTree.Nodes.Clear();
-            TreeNode Root;
-            Root = tvCharacterTree.Nodes.Add("Character");
-            Root.Tag = RootCharacter;
-            tvCharacterTree.SelectedNode = Root;
-            //***
+
+            //link to root:
+            tvCharacterTree.SelectedNode = AddNodeDataToTree(CurrentController.RootCharacter, tvCharacterTree.Nodes);                        
 
             //Refresh right hand boxes:
             RefreshFilter();
             RefreshList();
 
-            //Todo: update refresh data code:
+            //Refresh tree/data:
             RefreshTree(tvCharacterTree.Nodes);
             RefreshTextBoxes();
-            tvCharacterTree.TreeViewNodeSorter = new NodeSorter();
-            tvCharacterTree.SelectedNode = Root;
-            //***            
+
+            //Sort visually by Node order
+            tvCharacterTree.TreeViewNodeSorter = new NodeSorter();            
         }
 
         private void RefreshFilter()
         {
-            cbFilter.DataSource = templateData.GetTypesForFilter();
-            cbFilter.SelectedIndex = 0;
+            //Reset Attribute filter listbox:
+            cbFilter.DataSource = CurrentController.SelectedTemplate.GetTypesForFilter();            
         }
 
         private void RefreshVariants()
@@ -293,7 +294,7 @@ namespace BESM3CA
 
         private void SaveFile(bool SaveExisting)
         {
-            if (SaveExisting == false || FileName == "")
+            if (SaveExisting == false || CurrentController.FileName == "")
             {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog
                 {
@@ -305,16 +306,19 @@ namespace BESM3CA
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    FileName = saveFileDialog1.FileName;
-                    Text = ApplicationName + " - " + FileName;
+                    CurrentController.SaveAs(saveFileDialog1.FileName);
+                    
+                    Text = ApplicationName + " - " + CurrentController.FileName;
                 }
                 else
                 {
                     return; //User Pressed Cancel
                 }
             }
-
-            SaveLoad.SerializeXML(RootCharacter, FileName, templateData);
+            else
+            {
+                CurrentController.Save();
+            }            
         }
 
         private void RefreshTree(TreeNodeCollection Nodes)
@@ -398,12 +402,13 @@ namespace BESM3CA
                 ResetAll();
                 tvCharacterTree.Nodes.Clear();
 
-                RootCharacter = (CharacterData)SaveLoad.DeserializeXML(openFileDialog1.FileName, templateData);
+                CurrentController.Load(openFileDialog1.FileName);
 
-                UpdateTreeFromNodes(tvCharacterTree.Nodes.Add("Character"), RootCharacter);
+                //***
 
-                FileName = openFileDialog1.FileName;
-                Text = ApplicationName + " - " + FileName;
+                UpdateTreeFromNodes(tvCharacterTree.Nodes.Add(CurrentController.RootCharacter.Name), CurrentController.RootCharacter);
+                
+                Text = ApplicationName + " - " + CurrentController.FileName;
                 if (tvCharacterTree.Nodes.Count > 0)
                 {
                     tvCharacterTree.SelectedNode = tvCharacterTree.Nodes[0];
@@ -504,21 +509,7 @@ namespace BESM3CA
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //open file saveFileDialog1.FileName
-                TextWriter tw;
-                try
-                {
-                    tw = new StreamWriter(saveFileDialog1.FileName);
-                    SaveLoad.ExportNode(RootCharacter, 0, tw);
-                }
-                catch
-                {
-                    MessageBox.Show("Error Opening file: " + saveFileDialog1.FileName);
-                    return;
-                }
-
-                //close file
-                tw.Close();
+                CurrentController.Export(saveFileDialog1.FileName);                
             }
             else
             {
@@ -644,16 +635,16 @@ namespace BESM3CA
 
         private void UpdateTreeFromNodes(TreeNode StartingTreePoint, NodeData StartingNodeData)
         {
-            //Version for loading code:                                                                 //Version for adding attribs:
-            //StartingTreePoint = tvCharacterTree.Nodes.Add("Character");                               //StartingTreePoint = tvCharacterTree.SelectedNode;
-            //StartingNodeData = RootCharacter;                                                         //StartingNodeData = FirstNewNodeData;
+            //Version for loading code:                                                     //Version for adding attribs:
+            //StartingTreePoint == tvCharacterTree.Nodes.Add()                               //StartingTreePoint == tvCharacterTree.SelectedNode
+            //StartingNodeData == RootCharacter                                              //StartingNodeData == FirstNewNodeData
 
             TreeNode TreeInsertionPoint = StartingTreePoint;
             NodeData CurrentNewNodeData = StartingNodeData;
 
             while (CurrentNewNodeData != null)
             {
-                if (CurrentNewNodeData != RootCharacter)
+                if (CurrentNewNodeData != CurrentController.RootCharacter)
                 {
                     TreeInsertionPoint = TreeInsertionPoint.Nodes.Add(CurrentNewNodeData.Name);      //Add node to treeview
                 }

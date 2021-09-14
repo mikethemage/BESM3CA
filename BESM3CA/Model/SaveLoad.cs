@@ -2,8 +2,9 @@
 using System.IO;
 using System.Xml;
 using BESM3CA.Templates;
+using BESM3CA.Model;
 
-namespace BESM3CA.Model
+namespace BESM3CA.Control
 {
     class SaveLoad
     {
@@ -57,7 +58,7 @@ namespace BESM3CA.Model
                         }
                         else
                         {
-                            if (reader.Name.EndsWith(".CharacterData"))
+                            if (reader.Name.EndsWith("CharacterData"))
                             {
                                 newNode = new CharacterData(templateData);  //todo: refactor to take reference to template
                                 newNode.LoadXML(reader);
@@ -74,7 +75,7 @@ namespace BESM3CA.Model
 
                                 parentNode = newNode;
                             }
-                            else if (reader.Name.EndsWith(".AttributeData"))
+                            else if (reader.Name.EndsWith("AttributeData"))
                             {
                                 newNode = new AttributeData("", 0, "", templateData);//todo: refactor to take reference to template
                                 newNode.LoadXML(reader);
@@ -132,7 +133,7 @@ namespace BESM3CA.Model
 
         public static void SerializeXML(NodeData rootNode, string fileName, TemplateData templateData)
         {
-            XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.ASCII);
+            XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.UTF8);
 
             // writing the xml declaration tag
             textWriter.WriteStartDocument();
@@ -157,7 +158,7 @@ namespace BESM3CA.Model
             while (node != null)
             {
                 textWriter.WriteStartElement(XmlNodeTag);
-                textWriter.WriteAttributeString(XmlNodeTextAtt, node.DisplayText);
+                //textWriter.WriteAttributeString(XmlNodeTextAtt, node.DisplayText);
 
                 node.SaveXML(textWriter);
 

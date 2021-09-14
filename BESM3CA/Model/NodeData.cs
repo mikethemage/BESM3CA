@@ -313,11 +313,11 @@ namespace BESM3CA.Model
         //XML:
         public void SaveXML(XmlTextWriter textWriter)
         {
-            textWriter.WriteStartElement(GetType().ToString());
+            textWriter.WriteStartElement(GetType().Name);
             textWriter.WriteAttributeString("Name", _name);
             textWriter.WriteAttributeString("ID", _ID.ToString());
             textWriter.WriteStartElement("AdditionalData");
-            textWriter.WriteAttributeString("Type", GetType().ToString());
+            //textWriter.WriteAttributeString("Type", GetType().Name);
             SaveAdditionalXML(textWriter);
             textWriter.WriteEndElement();
             textWriter.WriteStartElement("Notes");
@@ -396,7 +396,7 @@ namespace BESM3CA.Model
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {
-                    if (reader.Name == GetType().ToString())
+                    if (reader.Name.EndsWith(GetType().Name))
                     {
                         break;
                     }
