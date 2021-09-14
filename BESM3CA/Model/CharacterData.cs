@@ -1,14 +1,59 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using BESM3CA.Templates;
 
-namespace BESM3CA
+namespace BESM3CA.Model
 {
     class CharacterData : NodeData
     {
+        //Internal Variables:
         int _body;
         int _mind;
         int _soul;
 
-        public int basecost
+        //Properties:
+        public override bool HasCharacterStats
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public override bool HasLevelStats
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override bool HasPointsStats
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override List<AttributeListing> PotentialChildren
+        {
+            get
+            {
+                if (_associatedTemplate != null)
+                {
+                    return _associatedTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public string CharacterName { get; set; }
+
+        public int BaseCost
         {
             get
             {
@@ -16,7 +61,7 @@ namespace BESM3CA
             }
         }
 
-        public int basehealth
+        public int BaseHealth
         {
             get
             {
@@ -24,7 +69,7 @@ namespace BESM3CA
             }
         }
 
-        public int baseenergy
+        public int BaseEnergy
         {
             get
             {
@@ -32,7 +77,7 @@ namespace BESM3CA
             }
         }
 
-        public int baseCV
+        public int BaseCV
         {
             get
             {
@@ -51,6 +96,7 @@ namespace BESM3CA
                 if (value >= 0)
                 {
                     _body = value;
+                    PointsUpToDate = false;
                 }
             }
         }
@@ -66,6 +112,7 @@ namespace BESM3CA
                 if (value >= 0)
                 {
                     _mind = value;
+                    PointsUpToDate = false;
                 }
             }
         }
@@ -81,17 +128,41 @@ namespace BESM3CA
                 if (value >= 0)
                 {
                     _soul = value;
+                    PointsUpToDate = false;
                 }
             }
         }
 
-        public CharacterData(string Notes) : base("Character", 0, Notes)
+
+        //Constructor:
+        public CharacterData(TemplateData useTemplate, string Notes = "") : base("Character", 0, Notes, useTemplate)
         {
             _body = 1;
             _mind = 1;
             _soul = 1;
         }
 
+
+        //Member functions:
+        public override int GetPoints()
+        {
+            if (PointsUpToDate == false || _firstChild == null)
+            {
+                _points = BaseCost;
+                NodeData temp = _firstChild;
+                while (temp != null)
+                {
+                    _points += temp.GetPoints();
+                    temp = temp.Next;
+                }
+                PointsUpToDate = true;
+            }
+
+            return _points;
+        }
+
+
+        //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("CharacterStats");
@@ -99,12 +170,6 @@ namespace BESM3CA
             textWriter.WriteAttributeString("Body", _body.ToString());
             textWriter.WriteAttributeString("Soul", _soul.ToString());
             textWriter.WriteEndElement();
-
-        }
-
-        public CharacterData() : base()
-        {
-
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
@@ -115,10 +180,8 @@ namespace BESM3CA
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-
                     if (reader.Name == "CharacterStats")
                     {
-
                         // loading node attributes
                         int attributeCount = reader.AttributeCount;
                         if (attributeCount > 0)
@@ -155,5 +218,25 @@ namespace BESM3CA
             }
         }
 
+
+        public override CalcStats GetStats()
+        {
+            CalcStats stats;
+
+            stats = new CalcStats(BaseHealth,
+                    BaseEnergy,
+                    BaseCV,
+                    BaseCV);
+
+            NodeData child = Children;
+            while (child != null)
+            {
+                CalcStats temp = child.GetStats();
+                stats += temp;
+                child = child.Next;
+            }
+
+            return stats;
+        }
     }
 }
