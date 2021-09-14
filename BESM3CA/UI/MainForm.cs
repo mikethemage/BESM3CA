@@ -48,7 +48,7 @@ namespace BESM3CA
             Text = ApplicationName;
 
             //Reset root character:
-            CurrentController.ResetAllTemp();
+            CurrentController.ResetAll();
             
             //reset Treeview 
             tvCharacterTree.Nodes.Clear();
@@ -153,6 +153,7 @@ namespace BESM3CA
             {
                 NodeData FirstNewNodeData = ((NodeData)tvCharacterTree.SelectedNode.Tag).AddChildAttribute(lbAttributeList.Text, (int)lbAttributeList.SelectedValue);
                 UpdateTreeFromNodes(tvCharacterTree.SelectedNode, FirstNewNodeData);
+                RefreshTextBoxes();
             }
         }
 
@@ -172,10 +173,11 @@ namespace BESM3CA
         {
             tbNotes.Text = ((NodeData)tvCharacterTree.SelectedNode.Tag).Notes;
 
-            CalcStats stats = CalcStats.GetStats((NodeData)tvCharacterTree.SelectedNode.Tag);
-
             if (((NodeData)tvCharacterTree.SelectedNode.Tag).HasCharacterStats)
             {
+                //Get Character Stats:
+                CalcStats stats = ((NodeData)tvCharacterTree.SelectedNode.Tag).GetStats();
+
                 tbBody.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Body.ToString();
                 tbMind.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Mind.ToString();
                 tbSoul.Text = ((CharacterData)tvCharacterTree.SelectedNode.Tag).Soul.ToString();
@@ -350,6 +352,7 @@ namespace BESM3CA
                     tvCharacterTree.SelectedNode.Remove();
                     tvCharacterTree.SelectedNode = tempNode;
                     RefreshTree(tvCharacterTree.Nodes);
+                    RefreshTextBoxes();
                 }
             }
         }
@@ -509,7 +512,7 @@ namespace BESM3CA
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                CurrentController.Export(saveFileDialog1.FileName);                
+                CurrentController.ExportToText(saveFileDialog1.FileName);                
             }
             else
             {

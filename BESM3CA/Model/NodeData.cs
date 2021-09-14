@@ -408,5 +408,14 @@ namespace BESM3CA.Model
         {
             //Virtual for derived classes
         }
+
+
+        //Getting stats:
+        public virtual CalcStats GetStats()
+        {
+            //Virtual for override            
+            return null;
+        }
+
     }
 }

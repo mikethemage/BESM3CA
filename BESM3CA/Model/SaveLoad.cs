@@ -200,7 +200,8 @@ namespace BESM3CA.Control
                     tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current).Soul);
                     tw.WriteLine();
 
-                    CalcStats stats = CalcStats.GetStats(current);
+                    //CalcStats stats = CalcStats.GetStats(current);
+                    CalcStats stats = current.GetStats();
 
                     tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
                     tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);

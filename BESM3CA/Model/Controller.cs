@@ -11,17 +11,22 @@ namespace BESM3CA.Model
 {
     class Controller
     {
+        //Properties:
         public string FileName { get; set; }
         public TemplateData SelectedTemplate { get; set; }
         public CharacterData RootCharacter { get; set; }
 
+
+        //Constructor:
         public Controller()
         {
             //Load template from file:
             SelectedTemplate = TemplateData.JSONLoader();
-            ResetAllTemp();
+            ResetAll();
         }
 
+       
+        //Public Methods:
         public void Load(string fileName)
         {
             RootCharacter = (CharacterData)SaveLoad.DeserializeXML(fileName, SelectedTemplate);
@@ -30,7 +35,7 @@ namespace BESM3CA.Model
             FileName = fileName;
         }
 
-        public void ResetAllTemp()
+        public void ResetAll()
         {
             //Reset root character:
             RootCharacter = new CharacterData(SelectedTemplate);
@@ -48,7 +53,7 @@ namespace BESM3CA.Model
             SaveLoad.SerializeXML(RootCharacter, FileName, SelectedTemplate);       
         }
 
-        public void Export(string exportFile)
+        public void ExportToText(string exportFile)
         {
             TextWriter tw;
             try

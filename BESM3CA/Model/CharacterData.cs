@@ -16,7 +16,7 @@ namespace BESM3CA.Model
         public override bool HasCharacterStats
         {
             get
-            {                
+            {
                 return true;
             }
         }
@@ -24,7 +24,7 @@ namespace BESM3CA.Model
         public override bool HasLevelStats
         {
             get
-            {                
+            {
                 return false;
             }
         }
@@ -32,11 +32,11 @@ namespace BESM3CA.Model
         public override bool HasPointsStats
         {
             get
-            {                
+            {
                 return false;
             }
         }
-        
+
         public override List<AttributeListing> PotentialChildren
         {
             get
@@ -51,8 +51,8 @@ namespace BESM3CA.Model
                 }
             }
         }
-        public string CharacterName {get; set;}
-     
+        public string CharacterName { get; set; }
+
         public int BaseCost
         {
             get
@@ -135,30 +135,30 @@ namespace BESM3CA.Model
 
 
         //Constructor:
-        public CharacterData(TemplateData useTemplate, string Notes="") : base("Character", 0, Notes, useTemplate)
+        public CharacterData(TemplateData useTemplate, string Notes = "") : base("Character", 0, Notes, useTemplate)
         {
             _body = 1;
             _mind = 1;
             _soul = 1;
         }
-              
+
 
         //Member functions:
         public override int GetPoints()
-        {            
-                if (PointsUpToDate == false || _firstChild == null)
+        {
+            if (PointsUpToDate == false || _firstChild == null)
+            {
+                _points = BaseCost;
+                NodeData temp = _firstChild;
+                while (temp != null)
                 {
-                    _points = BaseCost;
-                    NodeData temp = _firstChild;
-                    while(temp != null)
-                    {
-                        _points += temp.GetPoints();
-                        temp = temp.Next;
-                    }
-                    PointsUpToDate = true;
+                    _points += temp.GetPoints();
+                    temp = temp.Next;
                 }
-                
-                return _points;            
+                PointsUpToDate = true;
+            }
+
+            return _points;
         }
 
 
@@ -216,6 +216,27 @@ namespace BESM3CA.Model
                     }
                 }
             }
+        }
+
+
+        public override CalcStats GetStats()
+        {
+            CalcStats stats;
+
+            stats = new CalcStats(((CharacterData)this).BaseHealth,
+                    ((CharacterData)this).BaseEnergy,
+                    ((CharacterData)this).BaseCV,
+                    ((CharacterData)this).BaseCV);
+
+            NodeData child = Children;
+            while (child != null)
+            {
+                CalcStats temp = child.GetStats();
+                stats += temp;
+                child = child.Next;
+            }
+
+            return stats;
         }
     }
 }

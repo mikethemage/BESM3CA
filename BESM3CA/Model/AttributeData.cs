@@ -508,5 +508,49 @@ namespace BESM3CA.Model
                 _attributeListing = _associatedTemplate.AttributeList.Find(n => n.ID == AttributeID);
             }
         }
+
+        public override CalcStats GetStats()
+        {
+            CalcStats stats;            
+
+            switch (Name)
+            {
+                case "Tough":
+                    stats = new CalcStats(Level * 5, 0, 0, 0);
+                    break;
+                case "Energy Bonus":
+                    stats = new CalcStats(0, Level * 5, 0, 0);
+                    break;
+                case "Attack Combat Mastery":
+                    stats = new CalcStats(0, 0, Level, 0);
+                    break;
+                case "Defence Combat Mastery":
+                    stats = new CalcStats(0, 0, 0, Level);
+                    break;
+                default:
+                    stats = new CalcStats(0, 0, 0, 0);
+                    break;
+            }
+
+            if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
+            {
+                NodeData child = Children;
+                while (child != null)
+                {
+                    if (child.GetType() == typeof(AttributeData))
+                    {
+                        if (((AttributeData)child).AttributeType == "Restriction")
+                        {
+                            stats = new CalcStats(0, 0, 0, 0);
+                            break;
+                        }
+                    }
+                    child = child.Next;
+                }                
+            }
+
+            return stats;
+        }
+
     }
 }
