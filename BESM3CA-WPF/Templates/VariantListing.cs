@@ -6,7 +6,7 @@
 
         public string Name { get; set; }
 
-        public int CostPerLevel { get; set; }
+        public int CostperLevel { get; set; }
 
         public int AttributeID { get; set; }
 

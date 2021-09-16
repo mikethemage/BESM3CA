@@ -154,7 +154,7 @@ namespace BESM3CA.Model
                 if (_associatedTemplate != null)
                 {
                     _variantListing = _associatedTemplate.VariantList.Where(n => n.ID == value).First();
-                    PointsPerLevel = _variantListing.CostPerLevel;
+                    PointsPerLevel = _variantListing.CostperLevel;
                 }
                 else
                 {

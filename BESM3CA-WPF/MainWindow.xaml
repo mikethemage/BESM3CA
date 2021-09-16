@@ -9,100 +9,112 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
             <TreeView x:Name="CharacterTreeView" Margin="10,10,10,10" Grid.Column="0" SelectedItemChanged="CharacterTreeView_SelectedItemChanged"
-                      />
+                      >
+                <!--<TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type local:TreeNodeData}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding DisplayText}"></TextBlock>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>-->
+            </TreeView>
 
             <StackPanel Grid.Column="1" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Button x:Name="MoveUpButton" Content="Move Up" Margin="5,5,5,5" HorizontalAlignment="Stretch"/>
-                <Button x:Name="MoveDownButton" Content="Move Down" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-                <Button x:Name="RaiseLevelButton" Content="Raise Level" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-                <Button x:Name="LowerLevelButton" Content="Lower Level" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
-                <Button x:Name="AddAttButton" Content="Add" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="AddAttButton_Click" />
-                <Button x:Name="DelAttButton" Content="Delete" Margin="5,5,5,5" HorizontalAlignment="Stretch" />
+                <Button x:Name="MoveUpButton" Content="Move Up" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="MoveUpButton_Click"/>
+                <Button x:Name="MoveDownButton" Content="Move Down" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="MoveDownButton_Click" />
+                <Button x:Name="RaiseLevelButton" Content="Raise Level" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="RaiseLevelButton_Click" />
+                <Button x:Name="LowerLevelButton" Content="Lower Level" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="LowerLevelButton_Click" />
+                <Button x:Name="AddAttButton" Content="Add" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="AddAttButton_Click" />
+                <Button x:Name="DelAttButton" Content="Delete" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="DelAttButton_Click" />
             </StackPanel>
 
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="5*"/>
                     
                 </Grid.RowDefinitions>
 
                 <Label x:Name="VariantLabel" Content="Variant:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" />
-                <ListBox x:Name="VariantListBox" Margin="10,10,10,10" Grid.Row="1"/>
-                <ComboBox x:Name="FilterComboBox" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2"/>
-                <ListBox x:Name="AttributeListBox" Margin="10,10,10,10" Grid.Row="3" />
+                <ListBox x:Name="VariantListBox" Height="60" Margin="10,10,10,10" Grid.Row="1" SelectionChanged="VariantListBox_SelectionChanged"/>
+                <ComboBox x:Name="FilterComboBox" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2" SelectionChanged="FilterComboBox_SelectionChanged"/>
+                <ListBox x:Name="AttributeListBox" Margin="10,10,10,10" Grid.Row="3" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" />
 
             </Grid>          
 
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="5 5 5 15">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="15"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
              
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                
+               
+                
+
             </Grid.RowDefinitions>
 
             <Label x:Name="NotesLabel" Content="Notes" Margin="5,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0"/>
-            <TextBox x:Name="NotesTextBox" Text="Notes Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="1" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <TextBox x:Name="NotesTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="1" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
             <Label x:Name="LevelLabel" Content="Level" Visibility="Hidden" Margin="5,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1"/>
-            <TextBox x:Name="LevelTextBox" Text="Level Text Box" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <TextBox x:Name="LevelTextBox" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="PointsPerLevelLabel" Content="Points Per Level" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="2"/>
-            <TextBox x:Name="PointsPerLevelTextBox" Text="Points Per Level Text Box" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="PointsPerLevelLabel" Content="Points Per Level" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="PointsPerLevelTextBox" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="PointCostLabel" Content="PointCost" HorizontalAlignment="Left" Visibility="Hidden" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="3"/>
-            <TextBox x:Name="PointCostTextBox" Text="Point Cost Text Box" Margin="5,0,5,5" Visibility="Hidden" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="PointCostLabel" Content="Point Cost" HorizontalAlignment="Left" Visibility="Hidden" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="4"/>
+            <TextBox x:Name="PointCostTextBox" Margin="5,0,5,5" Visibility="Hidden" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="4" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="BodyLabel" Content="Body" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="4"/>
-            <TextBox x:Name="BodyTextBox" Text="Body Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="4" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="BodyLabel" Content="Body" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="6"/>
+            <TextBox x:Name="BodyTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="MindLabel" Content="Mind" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="5"/>
-            <TextBox x:Name="MindTextBox" Text="Mind Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="MindLabel" Content="Mind" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="7"/>
+            <TextBox x:Name="MindTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="7" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="SoulLabel" Content="Soul" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="6"/>
-            <TextBox x:Name="SoulTextBox" Text="Soul Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="SoulLabel" Content="Soul" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="8"/>
+            <TextBox x:Name="SoulTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="8" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="DescriptionLabel" Content="Description" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1"/>
-            <TextBox x:Name="DescriptionTextBox" Text="Description Text Box" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="6" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="DescriptionLabel" Content="Description" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"/>
+            <TextBox x:Name="DescriptionTextBox" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="ACVLabel" Content="ACV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="2"/>
-            <TextBox x:Name="ACVTextBox" Text="ACV Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="ACVLabel" Content="ACV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="2" />
+            <TextBox x:Name="ACVTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="DCVLabel" Content="DCV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="3"/>
-            <TextBox x:Name="DCVTextBox" Text="DCV Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="3" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="DCVLabel" Content="DCV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="4"/>
+            <TextBox x:Name="DCVTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="4" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="HealthLabel" Content="Health" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="4"/>
-            <TextBox x:Name="HealthTextBox" Text="Health Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="4" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="HealthLabel" Content="Health" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="6"/>
+            <TextBox x:Name="HealthTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
-            <Label x:Name="EnergyLabel" Content="Energy" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="5"/>
-            <TextBox x:Name="EnergyTextBox" Text="Energy Text Box" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="5" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <Label x:Name="EnergyLabel" Content="Energy" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="7"/>
+            <TextBox x:Name="EnergyTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="7" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
         </Grid>
        

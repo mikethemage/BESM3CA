@@ -6,8 +6,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
+
 namespace BESM3CA
 {
+    
+    
+    
     public partial class MainForm : Form
     {
         //Title bar:
@@ -144,7 +148,10 @@ namespace BESM3CA
             
             AttributeListBox.DisplayMember = "Name";
             AttributeListBox.ValueMember = "ID"; 
+
+
             AttributeListBox.DataSource = ((NodeData)CharacterTreeView.SelectedNode.Tag).GetFilteredPotentialChildren(Filter);            
+
         }
 
         private void AddAttr()
@@ -325,6 +332,9 @@ namespace BESM3CA
 
         private void RefreshTree(TreeNodeCollection Nodes)
         {
+            
+
+            
             foreach (TreeNode Node in Nodes)
             {
                 RefreshTree(Node.Nodes);
