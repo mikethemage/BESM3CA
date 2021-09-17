@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:BESM3CA"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="BESM3CA" Height="600" Width="800" Loaded="Window_Loaded">
+        WindowStartupLocation="CenterScreen"
+        Title="BESM3CA" Height="600" Width="1060" MinHeight="570" MinWidth="540" Loaded="Window_Loaded">
         
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" MinHeight="250"/>
+            <RowDefinition Height="170"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <Menu Background="White" >
@@ -41,9 +42,9 @@
         </Grid>
         <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*" MinWidth="200"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*" MinWidth="30"/>
             </Grid.ColumnDefinitions>
 
             <TreeView x:Name="CharacterTreeView" Margin="10,10,10,10" Grid.Column="0" SelectedItemChanged="CharacterTreeView_SelectedItemChanged" >
@@ -51,12 +52,12 @@
             </TreeView>
 
             <StackPanel Grid.Column="1" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Button x:Name="MoveUpButton" Content="Move Up" Margin="5,5,5,5" HorizontalAlignment="Stretch" Click="MoveUpButton_Click"/>
-                <Button x:Name="MoveDownButton" Content="Move Down" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="MoveDownButton_Click" />
-                <Button x:Name="RaiseLevelButton" Content="Raise Level" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="RaiseLevelButton_Click" />
-                <Button x:Name="LowerLevelButton" Content="Lower Level" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="LowerLevelButton_Click" />
-                <Button x:Name="AddAttButton" Content="Add" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="AddAttButton_Click" />
-                <Button x:Name="DelAttButton" Content="Delete" Margin="5,15,5,5" HorizontalAlignment="Stretch" Click="DelAttButton_Click" />
+                <Button x:Name="MoveUpButton" Content="Move Up" Margin="5,5,5,5" Height="35" HorizontalAlignment="Stretch" Click="MoveUpButton_Click"/>
+                <Button x:Name="MoveDownButton" Content="Move Down" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Click="MoveDownButton_Click" />
+                <Button x:Name="RaiseLevelButton" Content="Raise Level" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Click="RaiseLevelButton_Click" />
+                <Button x:Name="LowerLevelButton" Content="Lower Level" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Click="LowerLevelButton_Click" />
+                <Button x:Name="AddAttButton" Content="Add" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Click="AddAttButton_Click" />
+                <Button x:Name="DelAttButton" Content="Delete" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Click="DelAttButton_Click" />
                 
             </StackPanel>
 
@@ -72,7 +73,7 @@
                 <Label x:Name="VariantLabel" Content="Variant:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" />
                 <ListBox x:Name="VariantListBox" Height="60" Margin="10,10,10,10" Grid.Row="1" SelectionChanged="VariantListBox_SelectionChanged"/>
                 <ComboBox x:Name="FilterComboBox" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2" SelectionChanged="FilterComboBox_SelectionChanged"/>
-                <ListBox x:Name="AttributeListBox" Margin="10,10,10,10" Grid.Row="3" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" />
+                <ListBox x:Name="AttributeListBox" Margin="10,10,10,10" Grid.Row="3" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" SelectionChanged="AttributeListBox_SelectionChanged" />
 
             </Grid>
 

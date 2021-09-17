@@ -42,7 +42,7 @@ namespace BESM3CA
             TreeViewItem AddedNode = new TreeViewItem();
             AddedNode.Header = nodeData.DisplayText;
             AddedNode.Tag = nodeData;
-            
+
             insertionPoint.Add(AddedNode);
 
             return AddedNode;
@@ -57,10 +57,10 @@ namespace BESM3CA
 
             //reset Treeview             
             CharacterTreeView.Items.Clear();
-            
+
             //link to root:
             AddNodeDataToTree(CurrentController.RootCharacter, CharacterTreeView.Items).IsSelected = true;
-            
+
             //Refresh right hand boxes:
             RefreshFilter();
             RefreshList();
@@ -69,8 +69,8 @@ namespace BESM3CA
             RefreshTree(CharacterTreeView.Items);
             RefreshTextBoxes();
 
-              
-            
+
+
         }
 
         private void RefreshFilter()
@@ -82,29 +82,29 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-            
 
-            
-            
-            
-            
-            
-            if (CharacterTreeView.SelectedItem!=null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData) && ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasVariants)
+
+
+
+
+
+
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData) && ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasVariants)
             {
                 List<ListItems> FilteredVarList = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetVariants();
                 if (FilteredVarList != null)
                 {
                     VariantListBox.Visibility = Visibility.Visible;
                     VariantLabel.Visibility = Visibility.Visible;
-                    
 
 
 
 
 
-                    
-                    
-                    
+
+
+
+
                     //VariantListBox.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event  - not currently needed for WPF version
                     VariantListBox.DisplayMemberPath = "Name";
                     VariantListBox.SelectedValuePath = "ID";
@@ -125,7 +125,7 @@ namespace BESM3CA
             {
                 VariantListBox.Visibility = Visibility.Collapsed;
                 VariantLabel.Visibility = Visibility.Collapsed;
-                
+
 
 
 
@@ -147,7 +147,7 @@ namespace BESM3CA
             {
                 Filter = FilterComboBox.Items[FilterComboBox.SelectedIndex].ToString();
             }
-            
+
             AttributeListBox.DisplayMemberPath = "Name";
             AttributeListBox.SelectedValuePath = "ID";
             if (CharacterTreeView.SelectedItem != null)
@@ -335,13 +335,13 @@ namespace BESM3CA
             }
         }
 
-        private void RefreshTree(ItemCollection Nodes) 
-        {            
-                foreach (TreeViewItem Node in Nodes)
-                {
-                    RefreshTree(Node.Items);
-                    Node.Header = ((NodeData)Node.Tag).DisplayText;
-                }            
+        private void RefreshTree(ItemCollection Nodes)
+        {
+            foreach (TreeViewItem Node in Nodes)
+            {
+                RefreshTree(Node.Items);
+                Node.Header = ((NodeData)Node.Tag).DisplayText;
+            }
         }
 
         private void DelAttr()   //Todo: fix code to select nearest item after deletion
@@ -388,7 +388,7 @@ namespace BESM3CA
                 else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
                 {
                     DelAttButton.IsEnabled = true;
-                    
+
                     MoveDownButton.IsEnabled = true;
 
                     CheckMoveUpDown();
@@ -408,6 +408,8 @@ namespace BESM3CA
                     Debug.Assert(false);
                 }
             }
+
+            CheckValidAttributeForAddButton();
         }
 
         private void CheckMoveUpDown()
@@ -424,7 +426,7 @@ namespace BESM3CA
                     MoveUpButton.IsEnabled = true;
                 }
 
-                
+
 
                 if (((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count - 1] == CharacterTreeView.SelectedItem)
                 {
@@ -494,8 +496,8 @@ namespace BESM3CA
             }
         }
 
-        
-        
+
+
         private void MindTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
@@ -509,8 +511,8 @@ namespace BESM3CA
             }
         }
 
-        
-        
+
+
         private void SoulTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
@@ -638,10 +640,10 @@ namespace BESM3CA
                 TreeViewItem tempnode = (TreeViewItem)CharacterTreeView.SelectedItem;
                 ((NodeData)tempnode.Tag).MoveDown();
 
-                ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Clear(); 
+                ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Clear();
                 ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Tag.NodeOrder", System.ComponentModel.ListSortDirection.Ascending));
                 ((TreeViewItem)tempnode.Parent).Items.Refresh();
-                
+
                 tempnode.IsSelected = true;
 
                 CheckMoveUpDown();
@@ -667,7 +669,7 @@ namespace BESM3CA
                 if ((int)VariantListBox.SelectedValue > 0)
                 {
                     ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = (int)VariantListBox.SelectedValue;
-                    ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Name = ((ListItems)VariantListBox.SelectedItem).Name;                    
+                    ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Name = ((ListItems)VariantListBox.SelectedItem).Name;
 
                     RefreshTree(CharacterTreeView.Items);
                 }
@@ -717,7 +719,7 @@ namespace BESM3CA
                     TreeInsertionPoint = AddNodeDataToTree(CurrentNewNodeData, TreeInsertionPoint.Items);//Add node to treeview                    
                 }
 
-                if (TreeInsertionPoint.Parent != null && TreeInsertionPoint.Parent.GetType()==typeof(TreeViewItem))
+                if (TreeInsertionPoint.Parent != null && TreeInsertionPoint.Parent.GetType() == typeof(TreeViewItem))
                 {
                     ((TreeViewItem)TreeInsertionPoint.Parent).IsExpanded = true;  //.ExpandSubtree();
                 }
@@ -750,6 +752,23 @@ namespace BESM3CA
             }
 
             RefreshTree(CharacterTreeView.Items);  //Refresh the whole tree as can have impact both up and down the tree  
+        }
+
+        private void AttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckValidAttributeForAddButton();
+        }
+
+        private void CheckValidAttributeForAddButton()
+        {
+            if (CharacterTreeView.SelectedItem != null && AttributeListBox.SelectedIndex >= 0 && (int)AttributeListBox.SelectedValue > 0)
+            {
+                AddAttButton.IsEnabled = true;
+            }
+            else
+            {
+                AddAttButton.IsEnabled = false;
+            }
         }
     }
 }
