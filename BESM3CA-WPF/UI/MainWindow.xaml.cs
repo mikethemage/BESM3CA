@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using BESM3CA.Model;
+using BESM3CA;
+//using BESM3CA_WPF.UI;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using BESM3CA.Model;
-using BESM3CA;
-//using BESM3CA_WPF.UI;
 using Microsoft.Win32;
-using System.Windows.Threading;
 
 namespace BESM3CA_WPF
 {

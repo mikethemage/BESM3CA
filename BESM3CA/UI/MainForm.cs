@@ -1,12 +1,11 @@
 ﻿using BESM3CA.Model;
+
 using BESM3CA.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-
-
 
 namespace BESM3CA
 {
