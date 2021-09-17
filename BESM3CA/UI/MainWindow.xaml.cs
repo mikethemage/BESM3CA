@@ -37,7 +37,7 @@ namespace BESM3CA
 
 
         //UI member functions:
-        private TreeViewItem AddNodeDataToTree(NodeData nodeData, ItemCollection insertionPoint)
+        private static TreeViewItem AddNodeDataToTree(NodeData nodeData, ItemCollection insertionPoint)
         {
             TreeViewItem AddedNode = new TreeViewItem();
             AddedNode.Header = nodeData.DisplayText;
@@ -381,9 +381,18 @@ namespace BESM3CA
                 if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
                 {
                     DisableLevelButtons();
+                    DelAttButton.IsEnabled = false;
+                    MoveUpButton.IsEnabled = false;
+                    MoveDownButton.IsEnabled = false;
                 }
                 else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
                 {
+                    DelAttButton.IsEnabled = true;
+                    
+                    MoveDownButton.IsEnabled = true;
+
+                    CheckMoveUpDown();
+
                     if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevel)
                     {
                         EnableLevelButtons();
@@ -397,6 +406,34 @@ namespace BESM3CA
                 {
                     //Error
                     Debug.Assert(false);
+                }
+            }
+        }
+
+        private void CheckMoveUpDown()
+        {
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Parent != null)
+            {
+                if (((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[0] == CharacterTreeView.SelectedItem)
+                {
+                    //First Item
+                    MoveUpButton.IsEnabled = false;
+                }
+                else
+                {
+                    MoveUpButton.IsEnabled = true;
+                }
+
+                
+
+                if (((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count - 1] == CharacterTreeView.SelectedItem)
+                {
+                    //Last Item
+                    MoveDownButton.IsEnabled = false;
+                }
+                else
+                {
+                    MoveDownButton.IsEnabled = true;
                 }
             }
         }
@@ -424,7 +461,7 @@ namespace BESM3CA
 
                 //***
                 TreeViewItem newRoot = new TreeViewItem();
-                newRoot.Header = CurrentController.RootCharacter.Name;
+                newRoot.Header = CurrentController.RootCharacter.DisplayText;
                 CharacterTreeView.Items.Add(newRoot);
                 UpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
 
@@ -589,6 +626,8 @@ namespace BESM3CA
                 ((TreeViewItem)tempnode.Parent).Items.Refresh();
 
                 tempnode.IsSelected = true;
+
+                CheckMoveUpDown();
             }
         }
 
@@ -604,6 +643,8 @@ namespace BESM3CA
                 ((TreeViewItem)tempnode.Parent).Items.Refresh();
                 
                 tempnode.IsSelected = true;
+
+                CheckMoveUpDown();
             }
         }
 

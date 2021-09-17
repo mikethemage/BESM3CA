@@ -14,6 +14,7 @@ namespace BESM3CA.Templates
         public List<TypeListing> TypeList { get; set; }
         public string TemplateName { get; set; }
 
+        public Progressions Progressions = new Progressions();
 
         //Constructors:
         public TemplateData()

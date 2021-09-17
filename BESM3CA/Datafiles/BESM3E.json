@@ -115,7 +115,7 @@
       "ChildrenList": ""
     },
     {
-      "ID": 231,
+      "ID": 0,
       "Name": "Character",
       "CostperLevelDesc": "",
       "Progression": "",
@@ -3075,7 +3075,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "Duration [trn10]",
+      "Description": "Time required: [trn10]",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -3113,7 +3113,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "\u002B[n] re-rolls per session",
+      "Description": "\u002B[n] re-rolls per game session",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286"
     },
     {
@@ -4248,12 +4248,12 @@
       "Human": false,
       "Type": "Attribute",
       "Container": false,
-      "CostperLevel": 0,
+      "CostperLevel": 1,
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[ceil(1.5*n)] points to spend",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286"
     },
     {

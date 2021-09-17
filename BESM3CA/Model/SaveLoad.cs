@@ -13,7 +13,7 @@ namespace BESM3CA.Control
 
         // Xml attributes for node e.g. <node text="Asia" tag="" 
         // imageindex="1"></node>
-        private const string XmlNodeTextAtt = "text";
+        //private const string XmlNodeTextAtt = "text";
 
         private const string XmlTemplateTag = "template";
 

@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
+    <PackageReference Include="MathParser.org-mXparser" Version="4.4.2" />
   </ItemGroup>
 
 </Project>

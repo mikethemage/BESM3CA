@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="BESM3CA" Height="600" Width="800" Loaded="Window_Loaded">
-
+        
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,6 +16,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <Menu Background="White" >
+                
                 <MenuItem Header="_File" >
                     <MenuItem x:Name="NewMenuItem" Header="_New" Click="NewMenuItem_Click"  />
                     <MenuItem x:Name="OpenMenuItem" Header="_Open" Click="OpenMenuItem_Click" />
