@@ -163,7 +163,7 @@ namespace BESM3CA_WPF
             if (CharacterTreeView.SelectedItem != null && AttributeListBox.SelectedIndex >= 0 && (int)AttributeListBox.SelectedValue > 0)
             {
                 NodeData FirstNewNodeData = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).AddChildAttribute(((ListItems)AttributeListBox.SelectedItem).Name, (int)AttributeListBox.SelectedValue);
-                UpdateTreeFromNodes(((TreeViewItem)CharacterTreeView.SelectedItem), FirstNewNodeData);
+                UpdateTreeFromNodes((TreeViewItem)CharacterTreeView.SelectedItem, FirstNewNodeData);
                 RefreshTextBoxes();
             }
         }
@@ -403,46 +403,48 @@ namespace BESM3CA_WPF
             }
         }
 
-        /***
-        Todo: Tool strip items
+        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile(true);
+        }
 
-        ***/
+        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = ApplicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                ResetAll();
+                CharacterTreeView.Items.Clear();
 
+                CurrentController.Load(openFileDialog1.FileName);
 
+                //***
+                TreeViewItem newRoot = new TreeViewItem();
+                newRoot.Header = CurrentController.RootCharacter.Name;
+                CharacterTreeView.Items.Add(newRoot);
+                UpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
 
+                Title = ApplicationName + " - " + CurrentController.FileName;
+                if (CharacterTreeView.Items.Count > 0)
+                {
+                    ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected = true;
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        private void NewMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to start a new character?  Any unsaved data will be lost!", "New", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ResetAll();
+            }
+        }
 
         private void BodyTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -505,37 +507,37 @@ namespace BESM3CA_WPF
 
 
 
+        /*******/
 
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
-        //More menu items
+        private void SaveAsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile(false);
+        }
 
+        private void ExportToTextMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                CurrentController.ExportToText(saveFileDialog1.FileName);
+            }
+            else
+            {
+                return; //User Pressed Cancel
+            }
+        }
 
         /*Todo: check if validation code required (control should force integer value on front end???*/
 
@@ -565,7 +567,7 @@ namespace BESM3CA_WPF
 
 
 
-
+        /******/
 
         private void AddAttButton_Click(object sender, RoutedEventArgs e)
         {
@@ -639,24 +641,27 @@ namespace BESM3CA_WPF
             AttributeListBox.Focus();
         }
 
-        /*Todo: Keypress events*/
-
-
-
-
-
-
+        private void AttributeListBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Return)
+            {
+                AddAttr();
+            }
+        }
 
         private void FilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshList();
         }
 
-       //Todo: update value from Notes box 
-        
-        
-        
-        
+        private void NotesTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (CharacterTreeView.SelectedItem != null)
+            {
+                ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Notes = NotesTextBox.Text;
+            }
+        }
+
         private void UpdateTreeFromNodes(TreeViewItem StartingTreePoint, NodeData StartingNodeData)
         {
             //Version for loading code:                                                     //Version for adding attribs:
@@ -706,87 +711,6 @@ namespace BESM3CA_WPF
             }
 
             RefreshTree(CharacterTreeView.Items);  //Refresh the whole tree as can have impact both up and down the tree  
-        }
-
-        private void NotesTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(CharacterTreeView.SelectedItem !=null)
-            {
-                ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Notes = NotesTextBox.Text;
-            }
-        }
-
-        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void SaveAsMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFile(false);
-        }
-
-        private void ExportToTextMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog
-            {
-                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
-                RestoreDirectory = false,
-                Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*",
-                FilterIndex = 1
-            };
-
-            if (saveFileDialog1.ShowDialog() == true)
-            {
-                CurrentController.ExportToText(saveFileDialog1.FileName);
-            }
-            else
-            {
-                return; //User Pressed Cancel
-            }
-        }
-
-        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFile(true);
-        }
-
-        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
-                RestoreDirectory = false,
-                Filter = ApplicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
-                FilterIndex = 1
-            };
-            if (openFileDialog1.ShowDialog() == true)
-            {
-                ResetAll();
-                CharacterTreeView.Items.Clear();
-
-                CurrentController.Load(openFileDialog1.FileName);
-
-                //***
-                TreeViewItem newRoot = new TreeViewItem();
-                newRoot.Header = CurrentController.RootCharacter.Name;
-                CharacterTreeView.Items.Add(newRoot);
-                UpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
-                
-                Title = ApplicationName + " - " + CurrentController.FileName;
-                if (CharacterTreeView.Items.Count > 0)
-                {
-                    ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected=true;                    
-                }
-            }
-        }
-
-        private void NewMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to start a new character?  Any unsaved data will be lost!", "New", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                ResetAll();
-            }
         }
     }
 }

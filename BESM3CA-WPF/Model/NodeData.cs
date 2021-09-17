@@ -3,7 +3,6 @@ using System.Xml;
 using BESM3CA.Templates;
 using System.Linq;
 
-
 namespace BESM3CA.Model
 {
     class NodeData 
@@ -24,11 +23,6 @@ namespace BESM3CA.Model
         public int NodeOrder { get; set; }
         public NodeData Next { get; set; }
         public NodeData Prev { get; set; }
-
-
-       
-
-        
 
         public virtual string DisplayText
         {
@@ -70,12 +64,7 @@ namespace BESM3CA.Model
                 //Virtual for overrides
                 return null;
             }
-        }
-        /*public override string ToString()
-        {
-            //Override ToString so that WPF TreeViewItem can work
-            return DisplayText;
-        }*/
+        }        
 
         public List<ListItems> GetFilteredPotentialChildren(string filter)
         {
@@ -130,8 +119,7 @@ namespace BESM3CA.Model
                 _pointsUpToDate = value;
                 if (value == false && _Parent != null)
                 {
-                    _Parent.PointsUpToDate = false;
-                    
+                    _Parent.PointsUpToDate = false;                    
                 }
             }
         }

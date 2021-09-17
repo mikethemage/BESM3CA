@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 
 
+
 namespace BESM3CA
 {
     
@@ -304,6 +305,9 @@ namespace BESM3CA
             }
         }
 
+        
+        
+        
         private void SaveFile(bool SaveExisting)
         {
             if (SaveExisting == false || CurrentController.FileName == "")
@@ -396,6 +400,9 @@ namespace BESM3CA
             }
         }
 
+
+
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile(true);
@@ -428,6 +435,8 @@ namespace BESM3CA
                 }
             }
         }
+
+
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -649,6 +658,9 @@ namespace BESM3CA
         {
             ((NodeData)CharacterTreeView.SelectedNode.Tag).Notes = NotesTextBox.Text;
         }
+
+
+
 
         private void UpdateTreeFromNodes(TreeNode StartingTreePoint, NodeData StartingNodeData)
         {
