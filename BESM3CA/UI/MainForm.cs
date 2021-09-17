@@ -44,6 +44,8 @@ namespace BESM3CA
             AddedNode = insertionPoint.Add(nodeData.Name);
             AddedNode.Tag = nodeData;
 
+           
+            
             return AddedNode;
         }
 
@@ -76,6 +78,7 @@ namespace BESM3CA
         {
             //Reset Attribute filter listbox:
             FilterComboBox.DataSource = CurrentController.SelectedTemplate.GetTypesForFilter();            
+
         }
 
         private void RefreshVariants()
@@ -115,7 +118,7 @@ namespace BESM3CA
                     else
                     {
                         VariantListBox.SelectedIndex = -1; // This optional line keeps the first item from being selected.
-                    }                    
+                    }                  
                     VariantListBox.SelectedIndexChanged += lbVariantList_SelectedIndexChanged;   //Re-enable event           
                 }
             }
@@ -332,9 +335,6 @@ namespace BESM3CA
 
         private void RefreshTree(TreeNodeCollection Nodes)
         {
-            
-
-            
             foreach (TreeNode Node in Nodes)
             {
                 RefreshTree(Node.Nodes);
@@ -582,6 +582,9 @@ namespace BESM3CA
             }
         }
 
+        
+        
+        
         private void bnMoveDown_Click(object sender, EventArgs e)
         {
             if (CharacterTreeView.SelectedNode != CharacterTreeView.Nodes[0] && CharacterTreeView.SelectedNode.Parent.Nodes.Count > 1 && CharacterTreeView.SelectedNode.NextNode != null)
@@ -596,6 +599,7 @@ namespace BESM3CA
             }
         }
 
+        
         private void bnIncreaseLevel_Click(object sender, EventArgs e)
         {
             RaiseLevel();

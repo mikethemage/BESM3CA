@@ -6,6 +6,7 @@ using BESM3CA.Model;
 using BESM3CA;
 //using BESM3CA_WPF.UI;
 using Microsoft.Win32;
+using System.Windows.Threading;
 
 namespace BESM3CA_WPF
 {
@@ -40,12 +41,12 @@ namespace BESM3CA_WPF
         //UI member functions:
         private TreeViewItem AddNodeDataToTree(NodeData nodeData, ItemCollection insertionPoint)
         {
-            TreeViewItem AddedNode = new TreeViewItem();            
+            TreeViewItem AddedNode = new TreeViewItem();
             AddedNode.Header = nodeData.DisplayText;
             AddedNode.Tag = nodeData;
             
             insertionPoint.Add(AddedNode);
-            
+
             return AddedNode;
         }
 
@@ -70,8 +71,7 @@ namespace BESM3CA_WPF
             RefreshTree(CharacterTreeView.Items);
             RefreshTextBoxes();
 
-            
-
+              
             
         }
 
@@ -86,6 +86,11 @@ namespace BESM3CA_WPF
         {
             
 
+            
+            
+            
+            
+            
             if (CharacterTreeView.SelectedItem!=null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData) && ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasVariants)
             {
                 List<ListItems> FilteredVarList = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetVariants();
@@ -93,16 +98,16 @@ namespace BESM3CA_WPF
                 {
                     VariantListBox.Visibility = Visibility.Visible;
                     VariantLabel.Visibility = Visibility.Visible;
-                    //FilterComboBox.Top = HeightAdjust3;
+                    
 
-                    //if (AttributeListBox.Top == HeightAdjust2)
-                    //{
-                    //    AttributeListBox.Height -= (HeightAdjust1 - HeightAdjust2);
-                    //}
 
-                    //AttributeListBox.Top = HeightAdjust1;
 
-                    //VariantListBox.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event
+
+
+                    
+                    
+                    
+                    //VariantListBox.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event  - not currently needed for WPF version
                     VariantListBox.DisplayMemberPath = "Name";
                     VariantListBox.SelectedValuePath = "ID";
                     VariantListBox.ItemsSource = FilteredVarList;
@@ -115,19 +120,19 @@ namespace BESM3CA_WPF
                     {
                         VariantListBox.SelectedIndex = -1; // This optional line keeps the first item from being selected.
                     }
-                    //VariantListBox.SelectedIndexChanged += lbVariantList_SelectedIndexChanged;   //Re-enable event           
+                    //VariantListBox.SelectedIndexChanged += lbVariantList_SelectedIndexChanged;   //Re-enable event   - not currently needed for WPF version        
                 }
             }
             else
             {
                 VariantListBox.Visibility = Visibility.Collapsed;
                 VariantLabel.Visibility = Visibility.Collapsed;
-                //FilterComboBox.Top = HeightAdjust4;
-                //if (AttributeListBox.Top == HeightAdjust1)
-                //{
-                    //AttributeListBox.Height += (HeightAdjust1 - HeightAdjust2);
-                //}
-                //AttributeListBox.Top = HeightAdjust2;
+                
+
+
+
+
+
             }
         }
 
@@ -160,7 +165,7 @@ namespace BESM3CA_WPF
                 NodeData FirstNewNodeData = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).AddChildAttribute(((ListItems)AttributeListBox.SelectedItem).Name, (int)AttributeListBox.SelectedValue);
                 UpdateTreeFromNodes(((TreeViewItem)CharacterTreeView.SelectedItem), FirstNewNodeData);
                 RefreshTextBoxes();
-            }            
+            }
         }
 
         private void DisableLevelButtons()
@@ -172,113 +177,116 @@ namespace BESM3CA_WPF
         private void EnableLevelButtons()
         {
             LowerLevelButton.IsEnabled = true;
-            RaiseLevelButton.IsEnabled = true;            
+            RaiseLevelButton.IsEnabled = true;
         }
 
         private void RefreshTextBoxes()
         {
-           NotesTextBox.Text = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Notes;
-
-            if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasCharacterStats)
+            if (CharacterTreeView.SelectedItem != null)
             {
-                //Get Character Stats:
-                CalcStats stats = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetStats();
+                NotesTextBox.Text = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Notes;
 
-                BodyTextBox.Text = ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Body.ToString();
-                MindTextBox.Text = ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Mind.ToString();
-                SoulTextBox.Text = ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Soul.ToString();
-                HealthTextBox.Text = stats.Health.ToString();
-                EnergyTextBox.Text = stats.Energy.ToString();
-                ACVTextBox.Text = stats.ACV.ToString();
-                DCVTextBox.Text = stats.DCV.ToString();
-                BodyTextBox.Visibility = Visibility.Visible;
-                MindTextBox.Visibility = Visibility.Visible;
-                SoulTextBox.Visibility = Visibility.Visible;
-                HealthTextBox.Visibility = Visibility.Visible;
-                EnergyTextBox.Visibility = Visibility.Visible;
-                ACVTextBox.Visibility = Visibility.Visible;
-                DCVTextBox.Visibility = Visibility.Visible;
-                BodyLabel.Visibility = Visibility.Visible;
-                MindLabel.Visibility = Visibility.Visible;
-                SoulLabel.Visibility = Visibility.Visible;
-                HealthLabel.Visibility = Visibility.Visible;
-                EnergyLabel.Visibility = Visibility.Visible;
-                ACVLabel.Visibility = Visibility.Visible;
-                DCVLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                BodyTextBox.Text = "";
-                MindTextBox.Text = "";
-                SoulTextBox.Text = "";
-                BodyTextBox.Visibility = Visibility.Hidden;
-                MindTextBox.Visibility = Visibility.Hidden;
-                SoulTextBox.Visibility = Visibility.Hidden;
-                HealthTextBox.Visibility = Visibility.Hidden;
-                EnergyTextBox.Visibility = Visibility.Hidden;
-                BodyLabel.Visibility = Visibility.Hidden;
-                MindLabel.Visibility = Visibility.Hidden;
-                SoulLabel.Visibility = Visibility.Hidden;
-                HealthLabel.Visibility = Visibility.Hidden;
-                EnergyLabel.Visibility = Visibility.Hidden;
-                ACVLabel.Visibility = Visibility.Hidden;
-                DCVLabel.Visibility = Visibility.Hidden;
-                ACVTextBox.Visibility = Visibility.Hidden;
-                DCVTextBox.Visibility = Visibility.Hidden;
-            }
-
-            if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevelStats)
-            {
-                if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasCharacterStats)
                 {
-                    LevelTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Level.ToString();
-                    DescriptionTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).AttributeDescription;
+                    //Get Character Stats:
+                    CalcStats stats = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetStats();
+
+                    BodyTextBox.Text = ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Body.ToString();
+                    MindTextBox.Text = ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Mind.ToString();
+                    SoulTextBox.Text = ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Soul.ToString();
+                    HealthTextBox.Text = stats.Health.ToString();
+                    EnergyTextBox.Text = stats.Energy.ToString();
+                    ACVTextBox.Text = stats.ACV.ToString();
+                    DCVTextBox.Text = stats.DCV.ToString();
+                    BodyTextBox.Visibility = Visibility.Visible;
+                    MindTextBox.Visibility = Visibility.Visible;
+                    SoulTextBox.Visibility = Visibility.Visible;
+                    HealthTextBox.Visibility = Visibility.Visible;
+                    EnergyTextBox.Visibility = Visibility.Visible;
+                    ACVTextBox.Visibility = Visibility.Visible;
+                    DCVTextBox.Visibility = Visibility.Visible;
+                    BodyLabel.Visibility = Visibility.Visible;
+                    MindLabel.Visibility = Visibility.Visible;
+                    SoulLabel.Visibility = Visibility.Visible;
+                    HealthLabel.Visibility = Visibility.Visible;
+                    EnergyLabel.Visibility = Visibility.Visible;
+                    ACVLabel.Visibility = Visibility.Visible;
+                    DCVLabel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    BodyTextBox.Text = "";
+                    MindTextBox.Text = "";
+                    SoulTextBox.Text = "";
+                    BodyTextBox.Visibility = Visibility.Hidden;
+                    MindTextBox.Visibility = Visibility.Hidden;
+                    SoulTextBox.Visibility = Visibility.Hidden;
+                    HealthTextBox.Visibility = Visibility.Hidden;
+                    EnergyTextBox.Visibility = Visibility.Hidden;
+                    BodyLabel.Visibility = Visibility.Hidden;
+                    MindLabel.Visibility = Visibility.Hidden;
+                    SoulLabel.Visibility = Visibility.Hidden;
+                    HealthLabel.Visibility = Visibility.Hidden;
+                    EnergyLabel.Visibility = Visibility.Hidden;
+                    ACVLabel.Visibility = Visibility.Hidden;
+                    DCVLabel.Visibility = Visibility.Hidden;
+                    ACVTextBox.Visibility = Visibility.Hidden;
+                    DCVTextBox.Visibility = Visibility.Hidden;
+                }
+
+                if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevelStats)
+                {
+                    if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                    {
+                        LevelTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Level.ToString();
+                        DescriptionTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).AttributeDescription;
+                    }
+                    else
+                    {
+                        LevelTextBox.Text = "";
+                        DescriptionTextBox.Text = "";
+                    }
+                    LevelTextBox.Visibility = Visibility.Visible;
+                    DescriptionTextBox.Visibility = Visibility.Visible;
+                    LevelLabel.Visibility = Visibility.Visible;
+                    DescriptionLabel.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     LevelTextBox.Text = "";
                     DescriptionTextBox.Text = "";
+                    LevelTextBox.Visibility = Visibility.Hidden;
+                    DescriptionTextBox.Visibility = Visibility.Hidden;
+                    LevelLabel.Visibility = Visibility.Hidden;
+                    DescriptionLabel.Visibility = Visibility.Hidden;
                 }
-                LevelTextBox.Visibility = Visibility.Visible;
-                DescriptionTextBox.Visibility = Visibility.Visible;
-                LevelLabel.Visibility = Visibility.Visible;
-                DescriptionLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                LevelTextBox.Text = "";
-                DescriptionTextBox.Text = "";
-                LevelTextBox.Visibility = Visibility.Hidden;
-                DescriptionTextBox.Visibility = Visibility.Hidden;
-                LevelLabel.Visibility = Visibility.Hidden;
-                DescriptionLabel.Visibility = Visibility.Hidden;
-            }
 
-            if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasPointsStats)
-            {
-                if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasPointsStats)
                 {
-                    PointsPerLevelTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).PointsPerLevel.ToString();
-                    PointCostTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).BaseCost.ToString();
+                    if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                    {
+                        PointsPerLevelTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).PointsPerLevel.ToString();
+                        PointCostTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).BaseCost.ToString();
+                    }
+                    else
+                    {
+                        LevelTextBox.Text = "";
+                        DescriptionTextBox.Text = "";
+                    }
+                    PointsPerLevelTextBox.Visibility = Visibility.Visible;
+                    PointCostTextBox.Visibility = Visibility.Visible;
+                    PointsPerLevelLabel.Visibility = Visibility.Visible;
+                    PointCostLabel.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    LevelTextBox.Text = "";
-                    DescriptionTextBox.Text = "";
+                    PointsPerLevelTextBox.Text = "";
+                    PointCostTextBox.Text = "";
+                    PointsPerLevelTextBox.Visibility = Visibility.Hidden;
+                    PointCostTextBox.Visibility = Visibility.Hidden;
+                    PointsPerLevelLabel.Visibility = Visibility.Hidden;
+                    PointCostLabel.Visibility = Visibility.Hidden;
                 }
-                PointsPerLevelTextBox.Visibility = Visibility.Visible;
-                PointCostTextBox.Visibility = Visibility.Visible;
-                PointsPerLevelLabel.Visibility = Visibility.Visible;
-                PointCostLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                PointsPerLevelTextBox.Text = "";
-                PointCostTextBox.Text = "";
-                PointsPerLevelTextBox.Visibility = Visibility.Hidden;
-                PointCostTextBox.Visibility = Visibility.Hidden;
-                PointsPerLevelLabel.Visibility = Visibility.Hidden;
-                PointCostLabel.Visibility = Visibility.Hidden;
             }
         }
 
@@ -329,18 +337,16 @@ namespace BESM3CA_WPF
             }
         }
 
-        private void RefreshTree(ItemCollection Nodes) //Needs Fixing
-        {
-            
+        private void RefreshTree(ItemCollection Nodes) 
+        {            
                 foreach (TreeViewItem Node in Nodes)
                 {
                     RefreshTree(Node.Items);
                     Node.Header = ((NodeData)Node.Tag).DisplayText;
-                }
-            
+                }            
         }
 
-        private void DelAttr()
+        private void DelAttr()   //Todo: fix code to select nearest item after deletion
         {
             if ((TreeViewItem)CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() != typeof(CharacterData))  //do not allow manual deletion of Character nodes
             {
@@ -357,9 +363,9 @@ namespace BESM3CA_WPF
                     }*/
 
                     ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Delete();
-                    CharacterTreeView.Items.Remove(((TreeViewItem)CharacterTreeView.SelectedItem).Tag);
+                    ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Remove((TreeViewItem)CharacterTreeView.SelectedItem);
                     //CharacterTreeView.SelectedNode = tempNode;
-                    //RefreshTree(CharacterTreeView.Nodes);
+                    RefreshTree(CharacterTreeView.Items);
                     RefreshTextBoxes();
                 }
             }
@@ -369,28 +375,31 @@ namespace BESM3CA_WPF
         //Events:
         private void CharacterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            RefreshList();
-            RefreshTextBoxes();
+            if (CharacterTreeView.SelectedItem != null)
+            {
+                RefreshList();
+                RefreshTextBoxes();
 
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
-            {
-                DisableLevelButtons();
-            }
-            else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
-            {
-                if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevel)
-                {
-                    EnableLevelButtons();
-                }
-                else
+                if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
                 {
                     DisableLevelButtons();
                 }
-            }
-            else
-            {
-                //Error
-                Debug.Assert(false);
+                else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                {
+                    if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevel)
+                    {
+                        EnableLevelButtons();
+                    }
+                    else
+                    {
+                        DisableLevelButtons();
+                    }
+                }
+                else
+                {
+                    //Error
+                    Debug.Assert(false);
+                }
             }
         }
 
@@ -435,135 +444,132 @@ namespace BESM3CA_WPF
 
 
 
-        /*Todo: text box validation
-         */
+        private void BodyTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+            {
+                if (int.TryParse(BodyTextBox.Text, out int temp) && temp > 0)
+                {
+                    ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Body = temp;
+                    RefreshTree(CharacterTreeView.Items);
+                    RefreshTextBoxes();
+                }
+            }
+        }
 
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-                
-        
-               
-        
+        private void MindTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+            {
+                if (int.TryParse(MindTextBox.Text, out int temp) && temp > 0)
+                {
+                    ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Mind = temp;
+                    RefreshTree(CharacterTreeView.Items);
+                    RefreshTextBoxes();
+                }
+            }
+        }
+
+        
+        
+        private void SoulTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+            {
+                if (int.TryParse(SoulTextBox.Text, out int temp) && temp > 0)
+                {
+                    ((CharacterData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Soul = temp;
+                    RefreshTree(CharacterTreeView.Items);
+                    RefreshTextBoxes();
+                }
+            }
+        }
+
+
+
+
+        /*Todo: check if validation code required (control should force integer value on front end???*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //More menu items
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*Todo: check if validation code required (control should force integer value on front end???*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void AddAttButton_Click(object sender, RoutedEventArgs e)
         {
             AddAttr();
-
-            
-
         }
 
         private void DelAttButton_Click(object sender, RoutedEventArgs e)
@@ -576,14 +582,15 @@ namespace BESM3CA_WPF
             if (CharacterTreeView.SelectedItem != CharacterTreeView.Items[0] && ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count > 1)// && ((TreeViewItem)CharacterTreeView.SelectedItem).PrevNode != null)
             {
                 TreeViewItem tempnode = (TreeViewItem)CharacterTreeView.SelectedItem;
-                ((NodeData)tempnode.Tag).MoveUp();                
-                
+                ((NodeData)tempnode.Tag).MoveUp();
+
+                ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Clear();
                 ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Tag.NodeOrder", System.ComponentModel.ListSortDirection.Ascending));
                 ((TreeViewItem)tempnode.Parent).Items.Refresh();
 
                 tempnode.IsSelected = true;
             }
-        }       
+        }
 
         private void MoveDownButton_Click(object sender, RoutedEventArgs e)
         {
@@ -592,9 +599,11 @@ namespace BESM3CA_WPF
                 TreeViewItem tempnode = (TreeViewItem)CharacterTreeView.SelectedItem;
                 ((NodeData)tempnode.Tag).MoveDown();
 
+                ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Clear(); 
                 ((TreeViewItem)tempnode.Parent).Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Tag.NodeOrder", System.ComponentModel.ListSortDirection.Ascending));
                 ((TreeViewItem)tempnode.Parent).Items.Refresh();
-                tempnode.IsSelected = true;               
+                
+                tempnode.IsSelected = true;
             }
         }
 
@@ -643,7 +652,7 @@ namespace BESM3CA_WPF
             RefreshList();
         }
 
-        
+       //Todo: update value from Notes box 
         
         
         
@@ -661,11 +670,10 @@ namespace BESM3CA_WPF
             {
                 if (CurrentNewNodeData != CurrentController.RootCharacter)
                 {
-                    TreeInsertionPoint = AddNodeDataToTree(CurrentNewNodeData, TreeInsertionPoint.Items);//Add node to treeview
-                    
+                    TreeInsertionPoint = AddNodeDataToTree(CurrentNewNodeData, TreeInsertionPoint.Items);//Add node to treeview                    
                 }
 
-                if (TreeInsertionPoint.Parent != null)
+                if (TreeInsertionPoint.Parent != null && TreeInsertionPoint.Parent.GetType()==typeof(TreeViewItem))
                 {
                     ((TreeViewItem)TreeInsertionPoint.Parent).ExpandSubtree();
                 }
@@ -698,6 +706,96 @@ namespace BESM3CA_WPF
             }
 
             RefreshTree(CharacterTreeView.Items);  //Refresh the whole tree as can have impact both up and down the tree  
+        }
+
+        private void NotesTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(CharacterTreeView.SelectedItem !=null)
+            {
+                ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Notes = NotesTextBox.Text;
+            }
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void SaveAsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile(false);
+        }
+
+        private void ExportToTextMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = "Export Files (*.txt)|*.txt|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
+
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                CurrentController.ExportToText(saveFileDialog1.FileName);
+            }
+            else
+            {
+                return; //User Pressed Cancel
+            }
+        }
+
+        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile(true);
+        }
+
+        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = ApplicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                ResetAll();
+                CharacterTreeView.Items.Clear();
+
+                CurrentController.Load(openFileDialog1.FileName);
+
+                //***
+                TreeViewItem newRoot = new TreeViewItem();
+                newRoot.Header = CurrentController.RootCharacter.Name;
+                CharacterTreeView.Items.Add(newRoot);
+                UpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
+                
+                Title = ApplicationName + " - " + CurrentController.FileName;
+                if (CharacterTreeView.Items.Count > 0)
+                {
+                    ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected=true;
+
+                    //Force UI update to populate treeview with all nodes:
+                    ProcessUITasks();
+                   
+                    //Bring root node back into view if needed:
+                    ((TreeViewItem)CharacterTreeView.Items[0]).BringIntoView();
+                }
+            }
+        }
+
+        public static void ProcessUITasks()
+        {
+            //Forces a UI update
+            DispatcherFrame frame = new DispatcherFrame();
+            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(delegate (object parameter) {
+                frame.Continue = false;
+                return null;
+            }), null);
+            Dispatcher.PushFrame(frame);
         }
     }
 }
