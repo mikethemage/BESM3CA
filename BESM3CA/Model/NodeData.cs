@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BESM3CA.Model
 {
-    class NodeData
+    class NodeData 
     {
         //Fields:
         private string _name;
@@ -64,7 +64,7 @@ namespace BESM3CA.Model
                 //Virtual for overrides
                 return null;
             }
-        }
+        }        
 
         public List<ListItems> GetFilteredPotentialChildren(string filter)
         {
@@ -119,7 +119,7 @@ namespace BESM3CA.Model
                 _pointsUpToDate = value;
                 if (value == false && _Parent != null)
                 {
-                    _Parent.PointsUpToDate = false;
+                    _Parent.PointsUpToDate = false;                    
                 }
             }
         }
@@ -132,7 +132,7 @@ namespace BESM3CA.Model
             }
             set
             {
-                _name = value;
+               _name = value;
             }
         }
         public int ID
