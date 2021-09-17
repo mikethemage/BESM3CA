@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BESM3CA_WPF
+namespace BESM3CA
 {
     /// <summary>
     /// Interaction logic for App.xaml
