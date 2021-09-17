@@ -675,7 +675,7 @@ namespace BESM3CA_WPF
 
                 if (TreeInsertionPoint.Parent != null && TreeInsertionPoint.Parent.GetType()==typeof(TreeViewItem))
                 {
-                    ((TreeViewItem)TreeInsertionPoint.Parent).ExpandSubtree();
+                    ((TreeViewItem)TreeInsertionPoint.Parent).IsExpanded = true;  //.ExpandSubtree();
                 }
 
                 TreeInsertionPoint.Tag = CurrentNewNodeData;
@@ -776,26 +776,17 @@ namespace BESM3CA_WPF
                 Title = ApplicationName + " - " + CurrentController.FileName;
                 if (CharacterTreeView.Items.Count > 0)
                 {
-                    ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected=true;
-
-                    //Force UI update to populate treeview with all nodes:
-                    ProcessUITasks();
-                   
-                    //Bring root node back into view if needed:
-                    ((TreeViewItem)CharacterTreeView.Items[0]).BringIntoView();
+                    ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected=true;                    
                 }
             }
         }
 
-        public static void ProcessUITasks()
+        private void NewMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //Forces a UI update
-            DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(delegate (object parameter) {
-                frame.Continue = false;
-                return null;
-            }), null);
-            Dispatcher.PushFrame(frame);
+            if (MessageBox.Show("Are you sure you want to start a new character?  Any unsaved data will be lost!", "New", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ResetAll();
+            }
         }
     }
 }
