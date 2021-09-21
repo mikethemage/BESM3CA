@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text.Json;
 
-namespace BESM3CA.Templates
+namespace BESM3CAData.Templates
 {
-    class Progression
+    public class Progression
     {
         public string ProgressionType { get; set; }
 

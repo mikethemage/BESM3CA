@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text.Json;
 using System.IO;
 
-namespace BESM3CA.Templates
+namespace BESM3CAData.Templates
 {
-    class TemplateData
+    public class TemplateData
     {
         //Properties:
         public List<AttributeListing> AttributeList { get; set; }

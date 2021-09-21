@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using BESM3CA.Templates;
+using BESM3CAData.Templates;
 using System.Linq;
 
-namespace BESM3CA.Model
+namespace BESM3CAData.Model
 {
-    class NodeData 
+    public class NodeData 
     {
         //Fields:
         private string _name;

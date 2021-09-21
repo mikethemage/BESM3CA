@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using BESM3CA.Templates;
-using BESM3CA.Model;
+using BESM3CAData.Templates;
+using BESM3CAData.Model;
 
-namespace BESM3CA.Control
+namespace BESM3CAData.Control
 {
-    class SaveLoad
+    public class SaveLoad
     {
         // Xml tag for node, e.g. 'node' in case of <node></node> 
         private const string XmlNodeTag = "node";

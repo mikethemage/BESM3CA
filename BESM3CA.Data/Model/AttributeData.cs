@@ -1,13 +1,13 @@
 ﻿using System.Xml;
 using System.Linq;
-using BESM3CA.Templates;
+using BESM3CAData.Templates;
 using System.Diagnostics;
 using System.Collections.Generic;
 using org.mariuszgromada.math.mxparser;
 
-namespace BESM3CA.Model
+namespace BESM3CAData.Model
 {
-    class AttributeData : NodeData
+    public class AttributeData : NodeData
     {
         //Fields:
         int _Level;

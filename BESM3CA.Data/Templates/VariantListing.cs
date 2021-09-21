@@ -1,6 +1,6 @@
-﻿namespace BESM3CA.Templates
+﻿namespace BESM3CAData.Templates
 {
-    class VariantListing
+    public class VariantListing
     {
         public int ID { get; set; }
 

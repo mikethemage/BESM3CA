@@ -1,6 +1,6 @@
-﻿namespace BESM3CA.Templates
+﻿namespace BESM3CAData.Templates
 {
-    class TypeListing
+    public class TypeListing
     {
         public int ID { get; set; }
 

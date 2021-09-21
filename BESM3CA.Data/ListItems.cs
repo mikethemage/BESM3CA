@@ -1,6 +1,6 @@
-﻿namespace BESM3CA
+﻿namespace BESM3CAData
 {
-    class ListItems
+    public class ListItems
     {        
         //Properties:
         public string Name { get; set; }

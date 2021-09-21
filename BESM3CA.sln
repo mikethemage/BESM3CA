@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CA", "BESM3CA\BESM3CA.csproj", "{132BB3F6-CD91-46C6-8D07-3DEA6A0DEFF4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CAData", "BESM3CA.Data\BESM3CAData.csproj", "{6F481249-71EF-4A05-A628-E01A8A52D471}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{132BB3F6-CD91-46C6-8D07-3DEA6A0DEFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{132BB3F6-CD91-46C6-8D07-3DEA6A0DEFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{132BB3F6-CD91-46C6-8D07-3DEA6A0DEFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F481249-71EF-4A05-A628-E01A8A52D471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F481249-71EF-4A05-A628-E01A8A52D471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F481249-71EF-4A05-A628-E01A8A52D471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F481249-71EF-4A05-A628-E01A8A52D471}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BESM3CA.Control;
-using BESM3CA.Templates;
+using BESM3CAData.Control;
+using BESM3CAData.Templates;
 
-namespace BESM3CA.Model
+namespace BESM3CAData.Model
 {
-    class Controller
+    public class Controller
     {
         //Properties:
         public string FileName { get; set; }

@@ -2,9 +2,9 @@
 using System.Text.Json.Serialization;
 using System.Linq;
 
-namespace BESM3CA.Templates
+namespace BESM3CAData.Templates
 {
-    class AttributeListing
+    public class AttributeListing
     {
         //Fields:
         private readonly List<AttributeListing> _children;
