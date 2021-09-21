@@ -73,10 +73,8 @@ namespace BESM3CA.Model
             {
                 //LINQ Version:
                 List<ListItems> FilteredAttList = (from Att in SelectedAttributeChildren
-                                                   where
-                                                   (
-                                                   //cbFilter.SelectedIndex == -1 || 
-                                                   filter == "All" || filter == "" || Att.Type == filter)
+                                                   where Att.ID > 0 &&
+                                                   (filter == "All" || filter == "" || Att.Type == filter)
 
                                                    orderby Att.Type, Att.Name
                                                    select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();

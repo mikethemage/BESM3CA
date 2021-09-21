@@ -100,6 +100,15 @@ namespace BESM3CA.Model
             {
                 //Need to process attribute description to calculate numeric components
                 string baseDescription = _attributeListing.Description;
+
+                if(baseDescription=="Custom")
+                {
+                    if (Level >= 1 && Level <= _attributeListing.CustomProgression.Count)
+                    {
+                        baseDescription = _attributeListing.CustomProgression[(Level-1)];
+                    }
+                }
+
                 string completedDescription = "";
 
                 while (baseDescription != null)
@@ -131,7 +140,7 @@ namespace BESM3CA.Model
                 return completedDescription;
             }
         }
-
+        
         private string ProcessDescriptionValue(string valueToParse)
         {
             //Substitute "n" for Level:
@@ -139,35 +148,35 @@ namespace BESM3CA.Model
             {
                 if (int.TryParse(valueToParse.Replace("fn", ""), out int i))
                 {
-                    return _associatedTemplate.Progressions.GetProgression("Fast", i - 1 + Level).ToString();
+                    return _associatedTemplate.GetProgression("Fast", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("mn"))
             {
                 if (int.TryParse(valueToParse.Replace("mn", ""), out int i))
                 {
-                    return _associatedTemplate.Progressions.GetProgression("Medium", i - 1 + Level).ToString();
+                    return _associatedTemplate.GetProgression("Medium", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("sn"))
             {
                 if (int.TryParse(valueToParse.Replace("sn", ""), out int i))
                 {
-                    return _associatedTemplate.Progressions.GetProgression("Slow", i - 1 + Level).ToString();
+                    return _associatedTemplate.GetProgression("Slow", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("tn"))// Time 
             {
                 if (int.TryParse(valueToParse.Replace("tn", ""), out int i))
                 {
-                    return _associatedTemplate.Progressions.GetProgression("Time", i - 1 + Level).ToString();
+                    return _associatedTemplate.GetProgression("Time", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("trn"))// Time Reversed
             {
                 if (int.TryParse(valueToParse.Replace("trn", ""), out int i))
                 {
-                    return _associatedTemplate.Progressions.GetProgression("Time", i - ( Level - 1 ));
+                    return _associatedTemplate.GetProgression("Time", i - ( Level - 1 ));
                 }
             }
 

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
+using BESM3CA.Templates;
 
 namespace BESM3CA
 {
@@ -32,6 +33,9 @@ namespace BESM3CA
         {
             //Initialise Controller:
             CurrentController = new Controller();
+
+            //JSONyStuff.CreateJSON2(CurrentController.SelectedTemplate);
+
             ResetAll();
         }
 
@@ -428,7 +432,7 @@ namespace BESM3CA
 
 
 
-                if (((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count - 1] == CharacterTreeView.SelectedItem)
+                if (((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[^1] == CharacterTreeView.SelectedItem)
                 {
                     //Last Item
                     MoveDownButton.IsEnabled = false;

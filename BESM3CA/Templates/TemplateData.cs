@@ -12,9 +12,10 @@ namespace BESM3CA.Templates
         public List<AttributeListing> AttributeList { get; set; }
         public List<VariantListing> VariantList { get; set; }
         public List<TypeListing> TypeList { get; set; }
-        public string TemplateName { get; set; }
+        public string TemplateName { get; set; }        
 
-        public Progressions Progressions = new Progressions();
+        public List<Progression> ProgressionList { get; set; }
+
 
         //Constructors:
         public TemplateData()
@@ -22,6 +23,18 @@ namespace BESM3CA.Templates
             //Default Constructor for loading
         }
 
+        public string GetProgression(string progressionType, int rank)
+        {
+            Progression SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
+            if(SelectedProgression==null)
+            {
+                return "";
+            }
+            else
+            {
+                return SelectedProgression.GetProgressionValue(rank);
+            }
+        }
 
         //Member functions:
         public List<String> GetTypesForFilter()

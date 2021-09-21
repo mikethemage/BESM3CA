@@ -16,7 +16,11 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "Missing!",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Cannot be aged artificially (magic, disease, etc.)",
+        "Does not age at all"
+      ],
       "ChildrenList": ""
     },
     {
@@ -35,7 +39,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character never loses his or her balance, even when running on a narrow rope or beam.",
       "ChildrenList": ""
     },
     {
@@ -45,7 +49,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -54,7 +58,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character does not suffer normal penalties associated with attacking or defending with melee weapons or while unarmed in poor light, absolute darkness, or against an invisible opponent.",
       "ChildrenList": ""
     },
     {
@@ -62,9 +66,9 @@
       "Name": "Blind Shooting",
       "CostperLevelDesc": "1",
       "Progression": "",
-      "MaxLevel": 1,
+      "MaxLevel": 6,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -72,8 +76,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": true,
-      "Description": "",
+      "EnforceMaxLevel": false,
+      "Description": "The character suffers reduced normal penalties associated with attacking with ranged weapons in poor light, absolute darkness, or against an invisible opponent. All penalties are reduced by [n] grade(s).",
       "ChildrenList": ""
     },
     {
@@ -83,7 +87,7 @@
       "Progression": "",
       "MaxLevel": 2,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -92,7 +96,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Increases unarmed attacks to Weapon Level [n].",
       "ChildrenList": ""
     },
     {
@@ -111,7 +115,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character will take half damage (round down) from most falls and always lands on his or her feet.",
       "ChildrenList": ""
     },
     {
@@ -140,7 +144,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -149,7 +153,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character’s weapons will not be noticed by anything short of an actual physical search (at -6 penalty).",
       "ChildrenList": ""
     },
     {
@@ -159,7 +163,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -168,7 +172,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Increases critical hit damages to triple damage and quadruple damage respectively.",
       "ChildrenList": ""
     },
     {
@@ -178,7 +182,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -187,7 +191,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character is adept at attacking fast targets, which greatly reduces the penalties a character normally suffers. All penalties are reduced by one grade.",
       "ChildrenList": ""
     },
     {
@@ -197,7 +201,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -206,7 +210,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "With a successful defence roll, the character can 'stand his or ground' and deflect a ranged attack away harmlessly.",
       "ChildrenList": ""
     },
     {
@@ -225,7 +229,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Extreme (+6) bonus to Stat rolls vs. disease", "Total resistance" ],
       "ChildrenList": ""
     },
     {
@@ -235,7 +240,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -244,7 +249,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Double the effective, medium, and long ranges of ranged weapons",
       "ChildrenList": ""
     },
     {
@@ -254,7 +259,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -263,7 +268,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "When using a ranged attack, reduce the total penalties associated with firing a weapon at medium or long range by one grade.",
       "ChildrenList": ""
     },
     {
@@ -282,12 +287,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character’s Body Stat is doubled for each assignment of this Attribute when calculating running speed.",
       "ChildrenList": ""
     },
     {
       "ID": 262,
-      "Name": "Flare Variable",
+      "Name": "Flare Variable (1 type)",
       "CostperLevelDesc": "1",
       "Progression": "",
       "MaxLevel": 2,
@@ -301,7 +306,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Extreme (+6) bonus to resist", "Total resistance" ],
       "ChildrenList": ""
     },
     {
@@ -320,7 +326,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "1 EP damage/6 hours", "Cannot freeze" ],
       "ChildrenList": ""
     },
     {
@@ -339,7 +346,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "1 EP damage/5 minutes", "Cannot freeze" ],
       "ChildrenList": ""
     },
     {
@@ -349,7 +357,7 @@
       "Progression": "",
       "MaxLevel": 2147483647,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -358,7 +366,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "The character’s Shock Value is increased by +[n*10]. This may not increase Shock Value to a higher value than one-half the Health Points total.",
       "ChildrenList": ""
     },
     {
@@ -377,7 +385,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Survive high pressures", "Survive crushing pressures" ],
       "ChildrenList": ""
     },
     {
@@ -387,7 +396,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "22",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -396,7 +405,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can judge his or her opponent's approximate Combat Value and weapon Skill Levels from the foe's attitude and posture even without actually seeing him or her fight. Additionally, the character can accurately estimate the opponent's remaining Health Points.",
       "ChildrenList": ""
     },
     {
@@ -415,7 +424,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Survive thin air", "Does not breathe air" ],
       "ChildrenList": ""
     },
     {
@@ -434,7 +444,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Ignore hunger", "Ignore starvation" ],
       "ChildrenList": ""
     },
     {
@@ -453,7 +464,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Ignore thirst", "Ignore total dehydration" ],
       "ChildrenList": ""
     },
     {
@@ -463,7 +475,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -472,7 +484,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Any time the character has a higher Initiative than their opponent and is free to move, they may attempt a leaping attack. If the strike is successful, the character gets an extra +1 to their Damage Multiplier. If the character fails to hit, however, the character is off balance and receives a significant (-3) penalty to any defence rolls until their turn to act in the following round",
       "ChildrenList": ""
     },
     {
@@ -482,7 +494,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -491,7 +503,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Inflict normal damage with unarmed attacks.",
       "ChildrenList": ""
     },
     {
@@ -510,7 +522,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can skim over sand, snow, or ice at full speed.",
       "ChildrenList": ""
     },
     {
@@ -520,7 +532,7 @@
       "Progression": "",
       "MaxLevel": 2147483647,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -529,7 +541,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "+[n*3] bonus to all Initiative rolls",
       "ChildrenList": ""
     },
     {
@@ -548,7 +560,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Survive low pressures", "Survive in vacuum" ],
       "ChildrenList": ""
     },
     {
@@ -558,7 +571,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -567,7 +580,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "When attacking using the Multiple Targets with One Attack rules, the penalties for doing so reduced by one grade.",
       "ChildrenList": ""
     },
     {
@@ -586,7 +599,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "1 EP damage/days", "Cannot overheat" ],
       "ChildrenList": ""
     },
     {
@@ -605,7 +619,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Extreme (+6) bonus to Stat rolls vs. poison", "Total resistance" ],
       "ChildrenList": ""
     },
     {
@@ -615,7 +630,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -624,7 +639,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character will always have easy access to any weapon required for a particular task. The actual weapons and accessories must still be acquired via the Items Attribute.",
       "ChildrenList": ""
     },
     {
@@ -634,7 +649,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -643,7 +658,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Increase the Aim or Wait bonus for pinpoint attacks to a significant (+3) bonus",
       "ChildrenList": ""
     },
     {
@@ -653,7 +668,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -662,7 +677,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "If the character has the Deflection Combat Technique and makes both a successful Deflection defence and a successful attack roll, they can reflect a ranged attack towards any target within range.",
       "ChildrenList": ""
     },
     {
@@ -681,7 +696,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Sleep once every 3-7 days", "Never need to sleep" ],
       "ChildrenList": ""
     },
     {
@@ -700,7 +716,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can slither along the ground at normal walking/running speeds.",
       "ChildrenList": ""
     },
     {
@@ -719,7 +735,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "Significant (+3) bonus to Stat rolls", "Extreme (+6) bonus to Stat rolls" ],
       "ChildrenList": ""
     },
     {
@@ -729,7 +746,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -738,7 +755,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "All penalties for attacking while in motion are reduced by one grade.",
       "ChildrenList": ""
     },
     {
@@ -757,7 +774,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can swing through forests and cities using vines / ropes / webbing or simply his or her arms.",
       "ChildrenList": ""
     },
     {
@@ -767,7 +784,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -776,7 +793,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Can recall the vital statistics and important quirks of practically all opponents that have fought in one type of tournament.  +3 bonus on Judge Opponent rolls.",
       "ChildrenList": ""
     },
     {
@@ -786,7 +803,7 @@
       "Progression": "",
       "MaxLevel": 2147483647,
       "Stat": "",
-      "Page": "",
+      "Page": "23",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -795,7 +812,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "When attacking using the Two Weapons rules, the penalties for doing so reduced by one grade.",
       "ChildrenList": ""
     },
     {
@@ -814,7 +831,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character never leaves footprints or tracks when he or she walks or runs.",
       "ChildrenList": ""
     },
     {
@@ -833,7 +850,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can move at regular walking speed without touching the ground by bounding back and forth between nearby vertical surfaces (walls).",
       "ChildrenList": ""
     },
     {
@@ -852,7 +869,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can cling to walls or ceilings as though they were on the ground or floor.",
       "ChildrenList": ""
     },
     {
@@ -871,7 +888,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character can walk or run over water as if he or she was on land.",
       "ChildrenList": ""
     },
     {
@@ -881,7 +898,7 @@
       "Progression": "",
       "MaxLevel": 1,
       "Stat": "",
-      "Page": "",
+      "Page": "25",
       "Human": false,
       "Type": "Special",
       "Container": false,
@@ -890,7 +907,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Can recall the vital statistics and important quirks of practically all known commercially available weapons.",
       "ChildrenList": ""
     },
     {
@@ -909,7 +926,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "When the character opens his or her mind to the natural world, he or she will always move in the “right” direction.",
       "ChildrenList": ""
     },
     {
@@ -928,7 +945,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "+[n] bonus to Attack Combat Value",
       "ChildrenList": ""
     },
     {
@@ -985,7 +1002,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Anyone touching/entering aura suffers the effect of level [n] version of this weapon attack.",
       "ChildrenList": ""
     },
     {
@@ -1003,8 +1020,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Score one extra hit for every three the attack roll is above the minimum needed to succeed.",
       "ChildrenList": ""
     },
     {
@@ -1023,7 +1040,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Target suffers double damage if they do not make a successful Body Stat roll TN:[(n+2)*3] to resist its effects.",
       "ChildrenList": ""
     },
     {
@@ -1079,8 +1096,9 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Custom",
+      "CustomProgression": [ "Target must have extended contact with the substance (at least several minutes).", "Only brief contact required." ],
       "ChildrenList": ""
     },
     {
@@ -1099,7 +1117,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[n] penalty to resist contagion.",
       "ChildrenList": ""
     },
     {
@@ -1137,7 +1155,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Reduces specified stat of victim by [n]",
       "ChildrenList": ""
     },
     {
@@ -1194,7 +1212,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Victim loses [5*n] Energy Points",
       "ChildrenList": ""
     },
     {
@@ -1251,7 +1269,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[n] penalty to resist",
       "ChildrenList": ""
     },
     {
@@ -1270,7 +1288,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[n] penalty to defend",
       "ChildrenList": ""
     },
     {
@@ -1307,8 +1325,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Allows both passengers and the driver or pilot to fire.",
       "ChildrenList": ""
     },
     {
@@ -2981,7 +2999,7 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[sn1] Companions",
-      "ChildrenList": "199,200,231,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
+      "ChildrenList": "0,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
       "ID": 9,
@@ -6422,5 +6440,95 @@
       "TypeOrder": 5
     }
   ],
-  "TemplateName": "BESM3E"
+  "TemplateName": "BESM3E",
+  "ProgressionList": [
+    {
+      "ProgressionType": "Fast",
+      "ProgressionsList": [
+        "0",
+        "1",
+        "10",
+        "100",
+        "1,000",
+        "10,000",
+        "100,000",
+        "1,000,000",
+        "10,000,000",
+        "100,000,000",
+        "1,000,000,000",
+        "10,000,000,000",
+        "100,000,000,000",
+        "1,000,000,000,000",
+        "10,000,000,000,000",
+        "100,000,000,000,000",
+        "1,000,000,000,000,000"
+      ]
+    },
+    {
+      "ProgressionType": "Medium",
+      "ProgressionsList": [
+        "0",
+        "1",
+        "3",
+        "10",
+        "30",
+        "100",
+        "300",
+        "1,000",
+        "3,000",
+        "10,000",
+        "30,000",
+        "100,000",
+        "300,000",
+        "1,000,000",
+        "3,000,000",
+        "10,000,000",
+        "100,000,000"
+      ]
+    },
+    {
+      "ProgressionType": "Slow",
+      "ProgressionsList": [
+        "0",
+        "1",
+        "2",
+        "4",
+        "8",
+        "15",
+        "30",
+        "60",
+        "125",
+        "250",
+        "500",
+        "1,000",
+        "2,000",
+        "4,000",
+        "8,000",
+        "15,000",
+        "30,000"
+      ]
+    },
+    {
+      "ProgressionType": "Time",
+      "ProgressionsList": [
+        "0",
+        "1 round",
+        "5 round",
+        "1 minute",
+        "10 minutes",
+        "1 hour",
+        "4 hours",
+        "12 hours",
+        "1 day",
+        "1 week",
+        "1 month",
+        "1 season",
+        "1 year",
+        "10 years",
+        "100 years",
+        "1000 years",
+        "Permanent"
+      ]
+    }
+  ]
 }
