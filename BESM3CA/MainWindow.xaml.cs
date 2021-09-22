@@ -45,9 +45,11 @@ namespace BESM3CA
         //UI member functions:
         private static TreeViewItem AddNodeDataToTree(NodeData nodeData, ItemCollection insertionPoint)
         {
-            TreeViewItem AddedNode = new TreeViewItem();
-            AddedNode.Header = nodeData.DisplayText;
-            AddedNode.Tag = nodeData;
+            TreeViewItem AddedNode = new TreeViewItem
+            {
+                Header = nodeData.DisplayText,
+                Tag = nodeData
+            };
 
             insertionPoint.Add(AddedNode);
 
@@ -468,8 +470,11 @@ namespace BESM3CA
                 CurrentController.Load(openFileDialog1.FileName);
 
                 //***
-                TreeViewItem newRoot = new TreeViewItem();
-                newRoot.Header = CurrentController.RootCharacter.DisplayText;
+                TreeViewItem newRoot = new TreeViewItem
+                {
+                    Header = CurrentController.RootCharacter.DisplayText
+                };
+
                 CharacterTreeView.Items.Add(newRoot);
                 UpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
 
