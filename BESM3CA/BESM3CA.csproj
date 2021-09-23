@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BESM3CA.Data\BESM3CAData.csproj" />
+    <ProjectReference Include="..\BESM3CAData\BESM3CAData.csproj" />
   </ItemGroup>
 
 </Project>
