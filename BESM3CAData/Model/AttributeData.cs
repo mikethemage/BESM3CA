@@ -108,6 +108,10 @@ namespace BESM3CAData.Model
                         baseDescription = _attributeListing.CustomProgression[(Level-1)];
                     }
                 }
+                else if (baseDescription== "Variant" && _variantListing !=null && _variantListing.Desc !="")
+                { 
+                    baseDescription = _variantListing.Desc;
+                }
 
                 string completedDescription = "";
 
@@ -177,6 +181,34 @@ namespace BESM3CAData.Model
                 if (int.TryParse(valueToParse.Replace("trn", ""), out int i))
                 {
                     return _associatedTemplate.GetProgression("Time", i - ( Level - 1 ));
+                }
+            }
+            if (valueToParse.Contains("an"))
+            {
+                if (int.TryParse(valueToParse.Replace("an", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Area", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("rn"))
+            {
+                if (int.TryParse(valueToParse.Replace("rn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Range", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("tgn"))
+            {
+                if (int.TryParse(valueToParse.Replace("tgn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Targets", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("grn"))
+            {
+                if (int.TryParse(valueToParse.Replace("grn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Growth", i - 1 + Level).ToString();
                 }
             }
 

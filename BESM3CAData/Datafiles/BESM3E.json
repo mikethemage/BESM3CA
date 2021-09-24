@@ -134,7 +134,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Dummy listing for character nodes",
       "ChildrenList": "80,115,116,1,2,117,118,119,3,120,288,4,5,81,82,121,83,6,122,123,124,7,8,9,125,84,85,126,127,86,10,11,12,128,14,13,129,15,130,131,16,87,17,132,18,19,20,133,21,23,22,24,25,26,27,134,135,136,88,28,29,30,89,31,90,91,92,93,32,137,138,33,94,95,34,35,36,139,140,96,97,37,141,142,38,39,40,143,41,42,43,144,98,99,44,145,45,100,146,101,102,147,148,46,47,149,150,48,49,151,50,51,52,103,105,104,53,54,55,152,153,56,106,57,107,58,59,108,154,155,61,62,63,109,156,157,158,64,65,66,67,159,68,69,70,71,72,73,74,110,75,111,312,76,160,161,112,113,77,114,78,79,162,163,164"
     },
     {
@@ -230,7 +230,7 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
-      "CustomProgression": [ "Extreme (+6) bonus to Stat rolls vs. disease", "Total resistance" ],
+      "CustomProgression": [ "Extreme (\u002B6) bonus to Stat rolls vs. disease", "Total resistance" ],
       "ChildrenList": ""
     },
     {
@@ -307,7 +307,7 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
-      "CustomProgression": [ "Extreme (+6) bonus to resist", "Total resistance" ],
+      "CustomProgression": [ "Extreme (\u002B6) bonus to resist", "Total resistance" ],
       "ChildrenList": ""
     },
     {
@@ -366,7 +366,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "The character’s Shock Value is increased by +[n*10]. This may not increase Shock Value to a higher value than one-half the Health Points total.",
+      "Description": "The character’s Shock Value is increased by \u002B[n*10]. This may not increase Shock Value to a higher value than one-half the Health Points total.",
       "ChildrenList": ""
     },
     {
@@ -484,7 +484,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "Any time the character has a higher Initiative than their opponent and is free to move, they may attempt a leaping attack. If the strike is successful, the character gets an extra +1 to their Damage Multiplier. If the character fails to hit, however, the character is off balance and receives a significant (-3) penalty to any defence rolls until their turn to act in the following round",
+      "Description": "Any time the character has a higher Initiative than their opponent and is free to move, they may attempt a leaping attack. If the strike is successful, the character gets an extra \u002B1 to their Damage Multiplier. If the character fails to hit, however, the character is off balance and receives a significant (-3) penalty to any defence rolls until their turn to act in the following round",
       "ChildrenList": ""
     },
     {
@@ -541,7 +541,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "+[n*3] bonus to all Initiative rolls",
+      "Description": "\u002B[n*3] bonus to all Initiative rolls",
       "ChildrenList": ""
     },
     {
@@ -620,7 +620,7 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
-      "CustomProgression": [ "Extreme (+6) bonus to Stat rolls vs. poison", "Total resistance" ],
+      "CustomProgression": [ "Extreme (\u002B6) bonus to Stat rolls vs. poison", "Total resistance" ],
       "ChildrenList": ""
     },
     {
@@ -658,7 +658,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "Increase the Aim or Wait bonus for pinpoint attacks to a significant (+3) bonus",
+      "Description": "Increase the Aim or Wait bonus for pinpoint attacks to a significant (\u002B3) bonus",
       "ChildrenList": ""
     },
     {
@@ -736,7 +736,7 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
-      "CustomProgression": [ "Significant (+3) bonus to Stat rolls", "Extreme (+6) bonus to Stat rolls" ],
+      "CustomProgression": [ "Significant (\u002B3) bonus to Stat rolls", "Extreme (\u002B6) bonus to Stat rolls" ],
       "ChildrenList": ""
     },
     {
@@ -793,7 +793,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "Can recall the vital statistics and important quirks of practically all opponents that have fought in one type of tournament.  +3 bonus on Judge Opponent rolls.",
+      "Description": "Can recall the vital statistics and important quirks of practically all opponents that have fought in one type of tournament.  \u002B3 bonus on Judge Opponent rolls.",
       "ChildrenList": ""
     },
     {
@@ -945,7 +945,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "+[n] bonus to Attack Combat Value",
+      "Description": "\u002B[n] bonus to Attack Combat Value",
       "ChildrenList": ""
     },
     {
@@ -964,7 +964,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Prevents the passage of gas molecules",
       "ChildrenList": ""
     },
     {
@@ -982,8 +982,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "[an1]",
       "ChildrenList": ""
     },
     {
@@ -1040,7 +1040,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "Target suffers double damage if they do not make a successful Body Stat roll TN:[(n+2)*3] to resist its effects.",
+      "Description": "Target suffers double damage if they do not make a successful Body Stat roll TN:[(n\u002B2)*3] to resist its effects.",
       "ChildrenList": ""
     },
     {
@@ -1059,7 +1059,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Prevents the passage of Insubstantial characters.",
       "ChildrenList": ""
     },
     {
@@ -1078,7 +1078,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Characters cannot teleport in or out.",
       "ChildrenList": ""
     },
     {
@@ -1132,11 +1132,11 @@
       "Type": "Variable",
       "Container": false,
       "CostperLevel": 1,
-      "RequiresVariant": false,
+      "RequiresVariant": true,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Variant",
       "ChildrenList": ""
     },
     {
@@ -1174,7 +1174,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Created items can be permanent.",
       "ChildrenList": ""
     },
     {
@@ -1192,8 +1192,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "[tn1]",
       "ChildrenList": ""
     },
     {
@@ -1231,7 +1231,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Gain [n] additional sensory component(s).",
       "ChildrenList": ""
     },
     {
@@ -1250,7 +1250,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Can be used to interpenetrate other Force Fields while making attacks.",
       "ChildrenList": ""
     },
     {
@@ -1307,7 +1307,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[grn1]",
       "ChildrenList": ""
     },
     {
@@ -1345,7 +1345,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "\u002B[n] bonus to attack roll.",
       "ChildrenList": ""
     },
     {
@@ -1363,8 +1363,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Called shots cannot bypass armour.",
       "ChildrenList": ""
     },
     {
@@ -1383,7 +1383,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[n] penalty equal to resist.",
       "ChildrenList": ""
     },
     {
@@ -1402,7 +1402,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Health Points lost to this attack cannot be restored using the Healing or Regeneration Attributes.",
+        "Health Points lost to this attack cannot be restored using the Healing or Regeneration Attributes. Natural recovery is also slowed.",
+        "No healing or other recovery is possible at all until some exotic event or treatment has occurred."
+      ],
       "ChildrenList": ""
     },
     {
@@ -1421,7 +1426,13 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Minimum range 50 of Range",
+        "Minimum range 10 of Range",
+        "No minimum range."
+      ],
+
       "ChildrenList": ""
     },
     {
@@ -1439,8 +1450,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Weapon damage completely bypasses any normal Armour Rating.",
       "ChildrenList": ""
     },
     {
@@ -1459,7 +1470,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[n] penalty to resist.",
       "ChildrenList": ""
     },
     {
@@ -1477,8 +1488,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Attack is attached to another Weapon attack.",
       "ChildrenList": ""
     },
     {
@@ -1496,8 +1507,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Attack has normal effect on individuals who are Insubstantial",
       "ChildrenList": ""
     },
     {
@@ -1516,7 +1527,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[n\u002B1] illusions total",
       "ChildrenList": ""
     },
     {
@@ -1534,8 +1545,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Gain the Superstrength benefits when appropriate.",
       "ChildrenList": ""
     },
     {
@@ -1554,7 +1565,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Delivers a powerful electric or energy shockto anyone who touches it.",
       "ChildrenList": ""
     },
     {
@@ -1573,7 +1584,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[4*n] damage blocked by Armour/Shields",
       "ChildrenList": ""
     },
     {
@@ -1592,7 +1603,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[8*n] damage blocked by Force Fields",
       "ChildrenList": ""
     },
     {
@@ -1611,7 +1622,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Armour Rating: [2*(n+1)]",
       "ChildrenList": ""
     },
     {
@@ -1629,8 +1640,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Ignore the Armour Ratings of Armour, Shields, and Force Fields, and it affect Insubstantial characters normally.",
       "ChildrenList": ""
     },
     {
@@ -1649,7 +1660,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Create [n] m deep fissure.",
       "ChildrenList": ""
     },
     {
@@ -1667,8 +1678,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "[rn1]",
       "ChildrenList": ""
     },
     {
@@ -1686,8 +1697,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Win initiative against shorter melee weapons.",
       "ChildrenList": ""
     },
     {
@@ -1706,7 +1717,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Regain one lost Level of effectiveness per action spent.",
       "ChildrenList": ""
     },
     {
@@ -1724,8 +1735,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Can specify who is or is not affected.",
       "ChildrenList": ""
     },
     {
@@ -1744,7 +1755,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[n] penalty to defence roll. [2^(n-1)] Possible adjacent targets.",
       "ChildrenList": ""
     },
     {
@@ -1762,8 +1773,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Inflicts temporary damage that shorts out electronics and renders people unconscious.",
       "ChildrenList": ""
     },
     {
@@ -1782,7 +1793,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Entanglement has [n*5] health points.",
       "ChildrenList": ""
     },
     {
@@ -1800,8 +1811,13 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Custom",
+      "CustomProgression": [
+        "Affects only a single individual or specific title-holder",
+        "Affects a specific group or relatively uncommon race",
+        "Affects a common race or condition"
+      ],
       "ChildrenList": ""
     },
     {
@@ -1819,8 +1835,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "[tgn1]",
       "ChildrenList": ""
     },
     {
@@ -1839,7 +1855,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "-[n] penalty to detect",
       "ChildrenList": ""
     },
     {
@@ -1857,8 +1873,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Provides no indication that it is about to strike, and does not reveal the identity of the attacker.",
       "ChildrenList": ""
     },
     {
@@ -1868,7 +1884,7 @@
       "Progression": "",
       "MaxLevel": 2147483647,
       "Stat": "",
-      "Page": "0",
+      "Page": "67",
       "Human": true,
       "Type": "Variable",
       "Container": false,
@@ -1895,8 +1911,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Can teleport to unknown destinations.",
       "ChildrenList": ""
     },
     {
@@ -1915,7 +1931,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Variant",
       "ChildrenList": ""
     },
     {
@@ -1934,7 +1950,15 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "After the Attribute is used, the character may not move, use the Extra Actions Attribute, or make defence rolls for the rest of the round; if he or she has already moved or made a defence roll, the character cannot use activate the Attribute this round.",
+        "As above, but the character must also spend a general action preparing the Attribute before it is used.",
+        "As above, except that character must instead spend five general actions preparing the Attribute before it is used. Characters with the Extra Actions Attribute can use multiple actions in a round to accomplish this.",
+        "As above, except the character must instead spend an entire minute preparing the Attribute before it is used. The Extra Actions Attribute does not reduce this time.",
+        "As above, except the character must instead spend 10 minutes preparing the Attribute before it is used. The Extra Actions Attribute does not reduce this time.",
+        "As above, except the character must instead spend an hour preparing the Attribute before it is used. The Extra Actions Attribute does not reduce this time."
+      ],
       "ChildrenList": ""
     },
     {
@@ -1953,7 +1977,13 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "4-6 shots",
+        "2-3 shots",
+        "1 shot",
+        "Destroyed after a single use."
+      ],
       "ChildrenList": ""
     },
     {
@@ -1971,8 +2001,17 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Custom",
+      "CustomProgresion": [
+        "A single assistant is required",
+        "A small group (2-9) is required.",
+        "A medium group (10-99) is required.",
+        "A large group (100-999) is required.",
+        "A very large group (1,000-9,999) is required.",
+        "A huge group (10,000 or more) is required."
+      ],
+
       "ChildrenList": ""
     },
     {
@@ -1991,7 +2030,11 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Affects anyone or anything standing directly behind the attacker (within 1-2 metres).",
+        "Affects a 1-2 metre radius that includes the user"
+      ],
       "ChildrenList": ""
     },
     {
@@ -2010,7 +2053,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The backlash occurs if the character fails the roll by an extreme (6 or more) margin, and on any dice roll of 2.",
+        "The backlash occurs if the character fails the roll by a significant (3 or more) margin, and on any dice roll of 2.",
+        "The backlash occurs if the character fails the roll by a slight (1 or more) margin, and on any dice roll of 2."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2029,7 +2077,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Blocks attacks moving in any direction.",
       "ChildrenList": ""
     },
     {
@@ -2048,7 +2096,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character can only use the Attribute four to six times a day.",
+        "The character can only use the Attribute twice or three times a day.",
+        "The character can only use the Attribute once a day."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2067,7 +2120,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character can still perform other general actions, but cannot perform offensive actions, tactical actions, make defence rolls, or use other Attributes that also require Concentration.",
+        "The character can move at a slow speed and talk with others while using the Attribute, but cannot perform any combat actions or use any other Attribute.",
+        "The Attribute requires full concentration. The character cannot do anything else while using the Attribute; he or she must remain still and devote full attention to the Attribute."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2086,7 +2144,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The focus is easy to replace.",
+        "The focus is hard to replace.",
+        "The focus is extremely hard to replace."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2105,7 +2168,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The effect of the Attribute does not take place until 1-12 hours after it is used.",
+        "The effect of the Attribute does not take place until 12 hours to a few days after it is used.",
+        "The effect of the Attribute does not take place until a few days to a few weeks after it is used."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2123,8 +2191,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": true,
-      "Description": "",
+      "EnforceMaxLevel": false,
+      "Description": "The Dependent Attribute cannot work until [n] other Attribute(s) are activated.",
       "ChildrenList": ""
     },
     {
@@ -2143,7 +2211,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Drains -[10*n] Energy Points from the user every time an instant use ability is attempted.  If used with Attributes that are normally ongoing, such as Armour, Flight, or Mind Control, reduce the Energy Points as follows: 1 every 10 minutes (- 1), 1 every 5 minutes (-2), 1 every minute (- 3), 1 every two rounds (-4), 1/round (-5), 2/round (- 6), 5/round (-7), 10/round (-8), 20/round (-9), or 50/round (-10).",
       "ChildrenList": ""
     },
     {
@@ -2162,7 +2230,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Attribute’s use can be detected using 1-2 methods.",
+        "The Attribute’s use can be detected using 3-5 methods.",
+        "The Attribute’s use can be detected using 6-9 methods."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2181,7 +2254,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Attribute requires significant emotional involvement.",
+        "The Attribute requires strong emotional involvement.",
+        "The Attribute requires an extreme emotional involvement."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2200,7 +2278,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Provides double protection against the particular attack form and only half protection against other forms of damage.",
       "ChildrenList": ""
     },
     {
@@ -2219,7 +2297,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Adventures often take place in the environment.",
+        "Adventures occasionally take place in the environment.",
+        "Adventures rarely take place in the environment"
+      ],
       "ChildrenList": ""
     },
     {
@@ -2238,7 +2321,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The equipment is easily portable, such as a laptop computer.",
+        "The equipment is awkward, such as a portable altar.",
+        "The equipment is static, such as a large workshop or lab."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2257,7 +2345,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Limited to a large group such as a common race or ethos.",
+        "Limited to a small group such as a rare race or organisation.",
+        "Limited to a single individual."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2276,7 +2369,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Can only become airborne if launched from a high place, gain speed by diving, gain altitude via thermals.",
       "ChildrenList": ""
     },
     {
@@ -2295,7 +2388,11 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Limited to a single broad group of plants.",
+        "Limited to a specific type of plant."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2314,7 +2411,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Requires two hands to operate or wield properly.",
       "ChildrenList": ""
     },
     {
@@ -2333,7 +2430,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character can imbue 4-6 people with the Attribute.",
+        "The character can imbue 2-3 people with the Attribute.",
+        "The character can imbue 1 person with the Attribute."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2351,8 +2453,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": true,
-      "Description": "",
+      "EnforceMaxLevel": false,
+      "Description": "-[n] penalty to all attack rolls",
       "ChildrenList": ""
     },
     {
@@ -2371,7 +2473,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Must be ingested by the target in order to have an effect.",
       "ChildrenList": ""
     },
     {
@@ -2390,7 +2492,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Only usable inside a specific building or other structure.",
       "ChildrenList": ""
     },
     {
@@ -2409,7 +2511,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "It takes several hours of work or special circumstances to enable the character to transform back to an earlier form.",
+        "As above, but the process requires expensive (or hard to find) replacement components, ingredients, or other prerequisites.",
+        "As above, but the process takes several days."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2428,7 +2535,8 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [ "The field has a small limitation.", "The field has a large limitation." ],
       "ChildrenList": ""
     },
     {
@@ -2447,7 +2555,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Requires smooth surface or running start for landing and take off, must maintain a minimum speed once airborne.",
       "ChildrenList": ""
     },
     {
@@ -2466,7 +2574,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "The character cannot use up to Level [n] of the Attribute. The Attribute must be at Level [n+1] or higher.",
       "ChildrenList": ""
     },
     {
@@ -2485,7 +2593,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Any Armour, Mind Shield, or Force Field Attribute stops an additional [n*4] damage (Armour) or [n*8] damage (Force Fields) but this additional damage cannot exceed the Armour Rating of the Armour or Force Field.",
       "ChildrenList": ""
     },
     {
@@ -2504,7 +2612,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Item’s Attribute still provides significant benefit to the character.",
+        "The Item’s Attribute only provides slight benefit to the character.",
+        "The Item’s Attribute hardly provides any benefit to the character."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2523,7 +2636,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Provides double protection against the particular attack form and no protection against other forms of damage.",
       "ChildrenList": ""
     },
     {
@@ -2542,7 +2655,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Attribute affects a large part of the body (torso, both legs, both arms, etc.).",
+        "The Attribute affects a small part of the body (one leg, one arm, abdomen, chest, head, etc.)",
+        "The Attribute affects a tiny part of the body (one hand, face, one foot, groin, knee, etc.)."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2580,7 +2698,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "For every 1 minute the character uses the Attribute, they must wait [tn3] minute(s) before the Attribute functions once again.",
       "ChildrenList": ""
     },
     {
@@ -2599,7 +2717,11 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Half-speed off-road",
+        "Cannot be used on a rough surface."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2618,7 +2740,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Must turn off all Force Fields before using the attack, until following round.",
       "ChildrenList": ""
     },
     {
@@ -2637,7 +2759,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Limited to skimming no more than a metre or two off the ground or water.",
       "ChildrenList": ""
     },
     {
@@ -2675,7 +2797,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Requires plenty of free space surrounding to fly.",
       "ChildrenList": ""
     },
     {
@@ -2694,7 +2816,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Character cannot move when generating the field.",
       "ChildrenList": ""
     },
     {
@@ -2712,8 +2834,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": true,
-      "Description": "",
+      "EnforceMaxLevel": false,
+      "Description": "[2^(n-1)] rounds to stop weapon.",
       "ChildrenList": ""
     },
     {
@@ -2732,26 +2854,11 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
-      "ChildrenList": ""
-    },
-    {
-      "ID": 219,
-      "Name": "Unique",
-      "CostperLevelDesc": "Special",
-      "Progression": "Special",
-      "MaxLevel": 2147483647,
-      "Stat": "",
-      "Page": "80",
-      "Human": true,
-      "Type": "Restriction",
-      "Container": false,
-      "CostperLevel": 0,
-      "RequiresVariant": false,
-      "SpecialPointsPerLevel": 0,
-      "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Non-living material or characters who have the appropriate Special Defence Attributes are completely immune to the effects.",
+        "Non-living material or characters who have the appropriate Special Defence Attributes are completely immune to the effects.  In addition, a subject who is expecting the attack can render his or herself immune for at least one round."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2761,7 +2868,7 @@
       "Progression": "",
       "MaxLevel": 2147483647,
       "Stat": "",
-      "Page": "0",
+      "Page": "80",
       "Human": true,
       "Type": "Restriction",
       "Container": false,
@@ -2789,7 +2896,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character must make succeed with an average roll (Target Number 12) to use it. In non-combat situations, the character cannot attempt to use the Attribute again for 1-10 minutes.",
+        "The character must succeed with a difficult roll (Target Number 15). In non-combat situations, the character cannot attempt to use the Attribute again for 10 – 30 minutes.",
+        "The character must succeed with a challenging roll (Target Number 18). In non-combat situations, the character cannot attempt to use the Attribute again for 30 minutes – 2 hours."
+      ],
       "ChildrenList": ""
     },
     {
@@ -2808,7 +2920,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Burns out on attack roll of a natural 2 or 3.",
       "ChildrenList": ""
     },
     {
@@ -3150,7 +3262,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Variant",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286"
     },
     {
@@ -3245,7 +3357,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Used to reverse the results of the Mind Control Attribute.",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,168,314,313,218,286"
     },
     {
@@ -3454,7 +3566,19 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Water",
+        "Paper",
+        "Flesh and dirt",
+        "Wood",
+        "Rock",
+        "Aluminium",
+        "Iron and steel",
+        "Gold and Tungsten",
+        "Diamond",
+        "Energy (including Force Fields)"
+      ],
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,213,214,215,216,217,287,314,313,218,286"
     },
     {
@@ -3644,7 +3768,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Variant",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286"
     },
     {
@@ -3690,7 +3814,7 @@
       "Name": "Organisational Ties",
       "CostperLevelDesc": "2",
       "Progression": "Descriptive",
-      "MaxLevel": 6,
+      "MaxLevel": 10,
       "Stat": "Soul",
       "Page": "44",
       "Human": true,
@@ -3700,8 +3824,20 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "Custom",
+      "CustomProgression": [
+        "Connected",
+        "Respected",
+        "Modest Authority",
+        "Local Authority",
+        "Regional Authority",
+        "Provincial Authority",
+        "National Authority",
+        "International Authority",
+        "Planetary Authority",
+        "Extraplanetary Authority"
+      ],
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -3967,7 +4103,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Maximum change of [n] size rank(s).",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -3985,8 +4121,8 @@
       "RequiresVariant": false,
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
-      "EnforceMaxLevel": false,
-      "Description": "",
+      "EnforceMaxLevel": true,
+      "Description": "[fn3] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286"
     },
     {
@@ -4005,7 +4141,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": true,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[n] special defence slot(s).",
       "ChildrenList": "260,199,200,202,203,204,205,206,207,261,208,209,210,262,263,264,269,211,265,266,267,268,214,270,215,271,217,272,287,273,314,313,218,286"
     },
     {
@@ -4024,7 +4160,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": true,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[n] special movement type(s).",
       "ChildrenList": "199,200,274,275,202,203,204,205,206,207,208,209,210,276,211,277,214,217,278,287,279,314,313,218,280,286,281,282,283,284"
     },
     {
@@ -4062,7 +4198,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[mn5] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286"
     },
     {
@@ -4081,7 +4217,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Can lift [sn1] tonne(s), +[n] to unarmed Damage Multiplier, +[2*n] bonus to strength-based Body stat rolls.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,215,217,287,314,313,218,286"
     },
     {
@@ -4100,7 +4236,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[n] critters for every current Health point.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -4119,7 +4255,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Can lift up to [fn1] kg.",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,314,313,218,286"
     },
     {
@@ -4138,7 +4274,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "+[n] bonus to mind touch rolls.",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,168,314,313,218,286"
     },
     {
@@ -4157,7 +4293,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Teleport up to [fn2] m",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,213,214,167,217,287,168,314,313,285,218,286"
     },
     {
@@ -4176,7 +4312,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "+[5*n] Health points.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -4195,7 +4331,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Transfer up to [n] attribute level(s).",
       "ChildrenList": "199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,314,313,218,286"
     },
     {
@@ -4214,7 +4350,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Objects up to [2*n] character points.",
       "ChildrenList": "199,200,202,203,204,205,206,207,166,208,209,210,213,214,167,217,287,168,314,313,218,286"
     },
     {
@@ -4233,7 +4369,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[mn3] m per hour",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -4290,7 +4426,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[mn2] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,210,213,214,217,287,314,313,218,286"
     },
     {
@@ -4309,7 +4445,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "$[mn6],000",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286"
     },
     {
@@ -4328,7 +4464,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "[n] base damage",
       "ChildrenList": "169,220,165,199,170,171,221,200,172,202,203,173,174,175,204,205,206,176,166,208,177,209,210,222,178,179,223,180,181,224,182,183,184,225,186,185,187,188,189,226,214,190,191,192,193,167,194,217,195,227,287,196,228,197,232,233,229,234,235,314,313,218,230,236,286"
     },
     {
@@ -4347,7 +4483,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Points The attack form is rare.",
+        "The attack form is uncommon.",
+        "The attack form is common."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4366,7 +4507,19 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Height: 3 – 4 metres, Mass: 200 – 1,200 kg",
+        "Height: 5 – 8 metres, Mass: 1.5 – 8 tonnes",
+        "Height: 9 – 15 metres, Mass: 10 – 60 tonnes",
+        "Height: 16 – 30 metres, Mass: 75 – 500 tonnes",
+        "Height: 31 – 60 metres, Mass: 550 – 4,000 tonnes",
+        "Height: 61 – 125 metres, Mass: 4 k – 30 k tonnes",
+        "Height: 126 – 250 metres, Mass: 40 k – 250 k tonnes",
+        "Height: 251 – 500 metres, Mass: 300 k – 2 M tonnes",
+        "Height: 501 – 1,000 metres, Mass: 2 M – 15 M tonnes",
+        "Height: 1,000 – 2,000 metres, Mass: 2 M – 125 M tonnes"
+      ],
       "ChildrenList": ""
     },
     {
@@ -4385,7 +4538,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "[20*n] damage points per round of exposure",
       "ChildrenList": ""
     },
     {
@@ -4404,7 +4557,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Initiating the Blind Fury is difficult; reverting to normal emotional state is easy.",
+        "Initiating the Blind Fury and reverting to a normal emotional state are both moderately difficult.",
+        "Initiating the Blind Fury is easy; reverting to normal emotional state is difficult."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4423,7 +4581,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Mild conditions are imposed on the objects’ ownership and usage.",
+        "Strict conditions are imposed on the objects’ ownership and usage.",
+        "Severe conditions are imposed on the objects’ ownership and usage."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4442,7 +4605,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Restricted to a large area (100 km radius), such as a single county or large city.",
+        "Restricted to a small area (1 km radius), such as a small town or large, multi-structure complex.",
+        "Restricted to a tiny area (100 m radius), such as a small village or single building."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4461,7 +4629,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character suffers from a slight disadvantage.",
+        "The character suffers from a moderate disadvantage.",
+        "The character suffers from a severe disadvantage."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4480,7 +4653,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character is distracted by a trigger that is encountered infrequently.",
+        "The character is distracted by a few infrequent triggers, or by one trigger that is encountered frequently.",
+        "The character is distracted by several infrequent triggers, or by one trigger that is encountered constantly."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4499,7 +4677,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "At any one time, only a couple of girls/guys are actively chasing the character.",
+        "Three or more girls/guys are after the character; a new one appears every few adventures.",
+        "Swarms of girls/guys may be after the character; a new one appears nearly every adventure."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4518,7 +4701,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The constant attention the character receives is slightly inconvenient.",
+        "The constant attention the character receives is moderately inconvenient.",
+        "The constant attention the character receives is severely inconvenient."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4537,7 +4725,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character only has one usable arm. He or she cannot hold onto objects while punching or using a hand-held weapon.",
+        "The character has rudimentary manipulative ability using paws or talons, such as a bear, octopus, dragon, or bird. It can grapple and lift things, but not perform tasks that require fine manipulation or tool use, such as firing a pistol or using most hand-held Items.",
+        "The character has no useable arms. He or she cannot carry hand-held weapons, grab or push objects, or punch enemies in combat. This rank includes animals with no manipulative ability, such as horses, fish, or snakes."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4556,7 +4749,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character has a severe speech impediment, which will give him or her a significant (-3) penalty on rolls where clear or quick speech is required. This can also represent an entity whose speech is clear to his or her own species but onan unusual wavelength or mode that prevents easy communication with other races.",
+        "The character can communicate with a range of sounds that carry emotional content but which are not language, such as the sounds made by normal animals.",
+        "The character is completely mute with no way to verbally communicate."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4575,7 +4773,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "The character’s Attack Combat Value is decreased by [n] Point(s).",
       "ChildrenList": ""
     },
     {
@@ -4594,7 +4792,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
-      "Description": "",
+      "Description": "The character’s DCV is decreased by [n] Point(s).",
       "ChildrenList": ""
     },
     {
@@ -4613,7 +4811,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "It is difficult to trigger the Involuntary Change.",
+        "It is moderately easy to trigger the Involuntary Change.",
+        "It is easy to trigger the Involuntary Change."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4632,7 +4835,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character experiences a small degree of discrimination.",
+        "The character experiences a large degree of discrimination.",
+        "The character experiences a severe degree of discrimination."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4670,7 +4878,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The mark is easily concealable because it is small or in an inconspicuous location.",
+        "The mark can be concealed, but this is difficult because it is large or in an obvious location.",
+        "Under most circumstances, the mark cannot be concealed because it affects the character’s entire body."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4708,7 +4921,7 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "The character’s Health Points are decreased by [5*n] Points.",
       "ChildrenList": ""
     },
     {
@@ -5968,6 +6181,30 @@
   ],
   "VariantList": [
     {
+      "ID": 81,
+      "Name": "Per Round",
+      "CostperLevel": 1,
+      "AttributeID": 175,
+      "Desc": "Continues each round for [n] rounds",
+      "DefaultVariant": true
+    },
+    {
+      "ID": 82,
+      "Name": "Hourly",
+      "CostperLevel": 1,
+      "AttributeID": 175,
+      "Desc": "-[2*n] penalty to resist",
+      "DefaultVariant": false
+    },
+    {
+      "ID": 83,
+      "Name": "Daily",
+      "CostperLevel": 1,
+      "AttributeID": 175,
+      "Desc": "-[n] penalty to resist",
+      "DefaultVariant": false
+    },
+    {
       "ID": 41,
       "Name": "Specific Powers",
       "CostperLevel": 2,
@@ -6132,7 +6369,7 @@
       "Name": "Broad Category",
       "CostperLevel": 6,
       "AttributeID": 42,
-      "Desc": "",
+      "Desc": "Works over a broad category of targets.",
       "DefaultVariant": false
     },
     {
@@ -6140,7 +6377,7 @@
       "Name": "Specific Category",
       "CostperLevel": 5,
       "AttributeID": 42,
-      "Desc": "",
+      "Desc": "Works over a specific category of targets.",
       "DefaultVariant": false
     },
     {
@@ -6148,7 +6385,7 @@
       "Name": "Universal",
       "CostperLevel": 8,
       "AttributeID": 42,
-      "Desc": "",
+      "Desc": "Works on anything with a Mind Stat of 1 or higher.",
       "DefaultVariant": true
     },
     {
@@ -6156,7 +6393,7 @@
       "Name": "Very Broad Category",
       "CostperLevel": 7,
       "AttributeID": 42,
-      "Desc": "",
+      "Desc": "Works over a very broad category of targets.",
       "DefaultVariant": false
     },
     {
@@ -6164,7 +6401,7 @@
       "Name": "Very Specific Category",
       "CostperLevel": 4,
       "AttributeID": 42,
-      "Desc": "",
+      "Desc": "Works over a very specific category of targets.",
       "DefaultVariant": false
     },
     {
@@ -6396,7 +6633,7 @@
       "Name": "Boosting",
       "CostperLevel": 4,
       "AttributeID": 236,
-      "Desc": "",
+      "Desc": "Can increase Stat values above their normal level (but not above 20), or raise Health or Energy Points beyond their normal level (but not more than twice normal)",
       "DefaultVariant": false
     },
     {
@@ -6404,7 +6641,7 @@
       "Name": "Restoring",
       "CostperLevel": 3,
       "AttributeID": 236,
-      "Desc": "",
+      "Desc": "Can only restore lost Energy or Health Points or Stat values",
       "DefaultVariant": true
     }
   ],
@@ -6513,7 +6750,7 @@
       "ProgressionsList": [
         "0",
         "1 round",
-        "5 round",
+        "5 rounds",
         "1 minute",
         "10 minutes",
         "1 hour",
@@ -6528,6 +6765,82 @@
         "100 years",
         "1000 years",
         "Permanent"
+      ]
+    },
+    {
+      "ProgressionType": "Area",
+      "ProgressionsList": [
+        "Individual",
+        "1 m",
+        "3 m",
+        "10 m",
+        "30 m",
+        "100 m",
+        "300 m",
+        "1 km",
+        "3 km",
+        "10 km",
+        "30 km",
+        "100 km",
+        "300 km",
+        "1,000 km",
+        "3,000 km",
+        "10,000 km",
+        "Infinite"
+      ]
+    },
+    {
+      "ProgressionType": "Range",
+      "ProgressionsList": [
+        "self or touch",
+        "10 m",
+        "100 m",
+        "1 km ",
+        "10 km",
+        "100 km",
+        "1,000 km",
+        "10,000 km",
+        "100,000 km",
+        "1,000,000 km",
+        "10,000,000 km",
+        "100,000,000 km",
+        "1,000,000,000 km",
+        "10,000,000,000 km",
+        "100,000,000,000 km",
+        "1,000,000,000,000 km",
+        "Infinite"
+      ]
+    },
+    {
+      "ProgressionType": "Targets",
+      "ProgressionList": [
+        "1 person/100 kg",
+        "2 people/200 kg",
+        "5 people/500 kg",
+        "10 people/1 tonne",
+        "50 people/5 tonnes",
+        "100 people/10 tonnes",
+        "1,000 people/100 tonnes",
+        "10,000 people/1,000 tonnes",
+        "100,000 people/10,000 tonnes",
+        "1,000,000 people/100,000 tonnes",
+        "10,000,000 people/1,000,000 tonnes",
+        "100,000,000 people/10,000,000 tonnes",
+        "1,000,000,000 people/100,000,000 tonnes",
+        "10,000,000,000 people/100,000,000 tonnes",
+        "100,000,000,000 people/10,000,000,000 tonnes",
+        "1,000,000,000,000 people/100,000,000,000 tonnes",
+        "Infinite"
+      ]
+    },
+    {
+      "ProgressionType": "Growth",
+      "ProgressionList": [
+        "10x growth",
+        "50x growth",
+        "100x growth",
+        "500x growth",
+        "1,000x growth"      
       ]
     }
   ]

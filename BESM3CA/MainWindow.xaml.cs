@@ -683,6 +683,7 @@ namespace BESM3CA
                     ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Name = ((ListItems)VariantListBox.SelectedItem).Name;
 
                     RefreshTree(CharacterTreeView.Items);
+                    RefreshTextBoxes();
                 }
             }
         }
