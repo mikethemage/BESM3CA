@@ -1,6 +1,6 @@
-﻿namespace BESM3CA.Model
+﻿namespace BESM3CAData.Model
 {
-    class CalcStats
+    public class CalcStats
     {
         public int Health;
         public int Energy;

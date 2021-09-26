@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text.Json;
 using System.IO;
 
-namespace BESM3CA.Templates
+namespace BESM3CAData.Templates
 {
-    class TemplateData
+    public class TemplateData
     {
         //Properties:
         public List<AttributeListing> AttributeList { get; set; }
         public List<VariantListing> VariantList { get; set; }
         public List<TypeListing> TypeList { get; set; }
-        public string TemplateName { get; set; }
+        public string TemplateName { get; set; }        
+
+        public List<Progression> ProgressionList { get; set; }
 
 
         //Constructors:
@@ -21,6 +23,18 @@ namespace BESM3CA.Templates
             //Default Constructor for loading
         }
 
+        public string GetProgression(string progressionType, int rank)
+        {
+            Progression SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
+            if(SelectedProgression==null)
+            {
+                return "";
+            }
+            else
+            {
+                return SelectedProgression.GetProgressionValue(rank);
+            }
+        }
 
         //Member functions:
         public List<String> GetTypesForFilter()

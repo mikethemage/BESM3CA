@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using BESM3CA.Templates;
+using BESM3CAData.Templates;
 
-namespace BESM3CA.Model
+namespace BESM3CAData.Model
 {
-    class CharacterData : NodeData
+    public class CharacterData : NodeData
     {
         //Internal Variables:
         int _body;

@@ -21,21 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Datafiles\BESM3E.json" />
-    <None Remove="Datafiles\datafile-schema.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Datafiles\BESM3E.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Datafiles\datafile-schema.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BESM3CAData\BESM3CAData.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace BESM3CA.Templates
+namespace BESM3CAData.Templates
 {
-    static class JSONyStuff
+    public static class JSONyStuff
     {
         public static void JSONLoader(out List<AttributeListing> attributeList, out List<VariantListing> variantList, out List<TypeListing> typeList)
         {

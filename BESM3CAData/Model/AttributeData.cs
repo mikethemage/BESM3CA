@@ -1,12 +1,13 @@
 ﻿using System.Xml;
 using System.Linq;
-using BESM3CA.Templates;
+using BESM3CAData.Templates;
 using System.Diagnostics;
 using System.Collections.Generic;
+using org.mariuszgromada.math.mxparser;
 
-namespace BESM3CA.Model
+namespace BESM3CAData.Model
 {
-    class AttributeData : NodeData
+    public class AttributeData : NodeData
     {
         //Fields:
         int _Level;
@@ -97,9 +98,129 @@ namespace BESM3CA.Model
         {
             get
             {
-                return _attributeListing.Description;
+                //Need to process attribute description to calculate numeric components
+                string baseDescription = _attributeListing.Description;
+
+                if(baseDescription=="Custom")
+                {
+                    if (Level >= 1 && Level <= _attributeListing.CustomProgression.Count)
+                    {
+                        baseDescription = _attributeListing.CustomProgression[(Level-1)];
+                    }
+                }
+                else if (baseDescription== "Variant" && _variantListing !=null && _variantListing.Desc !="")
+                { 
+                    baseDescription = _variantListing.Desc;
+                }
+
+                string completedDescription = "";
+
+                while (baseDescription != null)
+                {
+                    string[] pieces = baseDescription.Split('[', 2);
+                    completedDescription += pieces[0];
+                    if (pieces.Length > 1)
+                    {
+                        baseDescription = pieces[1];
+                        pieces = baseDescription.Split(']', 2);
+
+                        completedDescription += ProcessDescriptionValue(pieces[0]);
+
+                        if (pieces.Length > 1)
+                        {
+                            baseDescription = pieces[1];
+                        }
+                        else
+                        {
+                            baseDescription = null;
+                        }
+                    }
+                    else
+                    {
+                        baseDescription = null;
+                    }
+                }
+
+                return completedDescription;
             }
         }
+        
+        private string ProcessDescriptionValue(string valueToParse)
+        {
+            //Substitute "n" for Level:
+            if (valueToParse.Contains("fn"))
+            {
+                if (int.TryParse(valueToParse.Replace("fn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Fast", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("mn"))
+            {
+                if (int.TryParse(valueToParse.Replace("mn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Medium", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("sn"))
+            {
+                if (int.TryParse(valueToParse.Replace("sn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Slow", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("tn"))// Time 
+            {
+                if (int.TryParse(valueToParse.Replace("tn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Time", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("trn"))// Time Reversed
+            {
+                if (int.TryParse(valueToParse.Replace("trn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Time", i - ( Level - 1 ));
+                }
+            }
+            if (valueToParse.Contains("an"))
+            {
+                if (int.TryParse(valueToParse.Replace("an", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Area", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("rn"))
+            {
+                if (int.TryParse(valueToParse.Replace("rn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Range", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("tgn"))
+            {
+                if (int.TryParse(valueToParse.Replace("tgn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Targets", i - 1 + Level).ToString();
+                }
+            }
+            if (valueToParse.Contains("grn"))
+            {
+                if (int.TryParse(valueToParse.Replace("grn", ""), out int i))
+                {
+                    return _associatedTemplate.GetProgression("Growth", i - 1 + Level).ToString();
+                }
+            }
+
+
+            valueToParse = valueToParse.Replace("n", Level.ToString());
+
+            Expression e = new Expression(valueToParse);
+
+            return e.calculate().ToString();
+        }
+
+       
 
         public string AttributeType
         {
@@ -221,7 +342,7 @@ namespace BESM3CA.Model
                 {
                     _Level = 0;
                 }
-            }            
+            }
 
             _PointAdj = pointAdj;
             _Level = level;
@@ -240,8 +361,8 @@ namespace BESM3CA.Model
             if (attributeName == "Mind Control")
             {
                 AddChild(new AttributeData("Range", 167, "", _associatedTemplate, 3, -3));
-            }            
-        }        
+            }
+        }
 
 
         //Member Functions:
@@ -330,22 +451,22 @@ namespace BESM3CA.Model
             {
                 //LINQ Version:
                 List<ListItems> FilteredVarList = (from Att in _associatedTemplate.AttributeList
-                                                         where Att.ID == AttributeID
-                                                         from Vari in _associatedTemplate.VariantList
-                                                         where Att.ID == Vari.AttributeID
-                                                         orderby Vari.DefaultVariant descending, Vari.Name
-                                                         select new ListItems
-                                                         (
-                                                             Att.Name + " [" + Vari.Name + "]",
-                                                             Vari.ID
-                                                         )).ToList();
+                                                   where Att.ID == AttributeID
+                                                   from Vari in _associatedTemplate.VariantList
+                                                   where Att.ID == Vari.AttributeID
+                                                   orderby Vari.DefaultVariant descending, Vari.Name
+                                                   select new ListItems
+                                                   (
+                                                       Att.Name + " [" + Vari.Name + "]",
+                                                       Vari.ID
+                                                   )).ToList();
 
-                return FilteredVarList;                
+                return FilteredVarList;
             }
             else
             {
                 return null;
-            }            
+            }
         }
 
         public override int GetPoints()
@@ -407,24 +528,24 @@ namespace BESM3CA.Model
                 {
                     if (ChildPoints > 120)
                     {
-                        _points += 2 + ((ChildPoints - 120) / 10);
+                        _points += (2 + ((ChildPoints - 120) / 10)) * Level;
                     }
                     else
                     {
-                        _points += 2;
+                        _points += 2 * Level;
                     }
                 }
 
                 if (isItem)
                 {
                     //item point cost calc:
-                    if (ChildPoints < 1)
+                    if (ChildPoints < 2)
                     {
-                        _points += 1;
+                        _points += 0;
                     }
                     else
                     {
-                        _points += (ChildPoints / 2);
+                        _points += ChildPoints / 2;
                     }
                 }
 
@@ -432,7 +553,7 @@ namespace BESM3CA.Model
                 if (isAlternateAttack)
                 {
                     _points /= 2;
-                }            
+                }
 
                 PointsUpToDate = true;
             }
@@ -511,7 +632,7 @@ namespace BESM3CA.Model
 
         public override CalcStats GetStats()
         {
-            CalcStats stats;            
+            CalcStats stats;
 
             switch (Name)
             {
@@ -546,7 +667,7 @@ namespace BESM3CA.Model
                         }
                     }
                     child = child.Next;
-                }                
+                }
             }
 
             return stats;

@@ -2,9 +2,9 @@
 using System.Text.Json.Serialization;
 using System.Linq;
 
-namespace BESM3CA.Templates
+namespace BESM3CAData.Templates
 {
-    class AttributeListing
+    public class AttributeListing
     {
         //Fields:
         private readonly List<AttributeListing> _children;
@@ -27,6 +27,8 @@ namespace BESM3CA.Templates
         public bool SpecialContainer { get; set; }
         public bool EnforceMaxLevel { get; set; }
         public string Description { get; set; }
+
+        public List<string> CustomProgression { get; set; }
 
         public string ChildrenList
         {
