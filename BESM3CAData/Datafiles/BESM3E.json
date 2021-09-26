@@ -2003,7 +2003,7 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
-      "CustomProgresion": [
+      "CustomProgression": [
         "A single assistant is required",
         "A small group (2-9) is required.",
         "A medium group (10-99) is required.",

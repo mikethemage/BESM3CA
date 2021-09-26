@@ -127,7 +127,7 @@
             <xctk:IntegerUpDown x:Name="SoulTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="8" VerticalAlignment="Stretch" Maximum="1024" Minimum="1" DefaultValue="1" Increment="1" ValueChanged="SoulTextBox_ValueChanged" />
 
             <Label x:Name="DescriptionLabel" Content="Description" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8"/>
-            <TextBox x:Name="DescriptionTextBox" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="2" VerticalAlignment="Stretch" IsEnabled="False" TextWrapping="Wrap" />
+            <TextBox x:Name="DescriptionTextBox" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="2" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" />
 
             <Label x:Name="ACVLabel" Content="ACV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="2" />
             <TextBox x:Name="ACVTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" VerticalAlignment="Stretch" IsEnabled="False" />
