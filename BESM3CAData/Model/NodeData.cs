@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BESM3CAData.Model
 {
-    public class NodeData 
+    public abstract class NodeData
     {
         //Fields:
         private string _name;
@@ -31,40 +31,25 @@ namespace BESM3CAData.Model
                 return Name + " (" + GetPoints() + " Points)";
             }
         }
-                
-        public virtual bool HasCharacterStats
+
+        public abstract bool HasCharacterStats
         {
-            get
-            {
-                //Virtual for overrides
-                return false;
-            }
+            get;
         }
-        public virtual bool HasLevelStats
+        public abstract bool HasLevelStats
         {
-            get
-            {
-                //Virtual for overrides
-                return false;
-            }
+            get;
         }
-        public virtual bool HasPointsStats
+
+        public abstract bool HasPointsStats
         {
-            get
-            {
-                //Virtual for overrides
-                return false;
-            }
+            get;
         }
-        
-        public virtual List<AttributeListing> PotentialChildren
+
+        public abstract List<AttributeListing> PotentialChildren
         {
-            get
-            {
-                //Virtual for overrides
-                return null;
-            }
-        }        
+            get;
+        }
 
         public List<ListItems> GetFilteredPotentialChildren(string filter)
         {
@@ -81,7 +66,7 @@ namespace BESM3CAData.Model
 
                 //Add dividers:
                 string Type = "";
-                for (int i = 0; i<FilteredAttList.Count;i++)
+                for (int i = 0; i < FilteredAttList.Count; i++)
                 {
                     if (Type != FilteredAttList[i].Type)
                     {
@@ -90,12 +75,12 @@ namespace BESM3CAData.Model
                             FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
                             i++;
                         }
-                        Type = FilteredAttList[i].Type;                   
+                        Type = FilteredAttList[i].Type;
                         FilteredAttList.Insert(i, new ListItems(Type + ":", 0));
                         i++;
                         FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
                         i++;
-                    }                    
+                    }
                 }
 
                 return FilteredAttList;
@@ -117,7 +102,7 @@ namespace BESM3CAData.Model
                 _pointsUpToDate = value;
                 if (value == false && _Parent != null)
                 {
-                    _Parent.PointsUpToDate = false;                    
+                    _Parent.PointsUpToDate = false;
                 }
             }
         }
@@ -130,7 +115,7 @@ namespace BESM3CAData.Model
             }
             set
             {
-               _name = value;
+                _name = value;
             }
         }
         public int ID
@@ -189,12 +174,8 @@ namespace BESM3CAData.Model
         }
 
         //Member Functions:
-        public virtual int GetPoints()
-        {
-            //Virtual for derived classes
-            return 0;
-        }
-
+        public abstract int GetPoints();
+        
         public void AddChild(NodeData child)
         {
             if (_firstChild == null)
@@ -300,7 +281,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public AttributeData AddChildAttribute(string attributeName, int attributeID )
+        public AttributeData AddChildAttribute(string attributeName, int attributeID)
         {
             AttributeData Temp = new AttributeData(attributeName, attributeID, "", _associatedTemplate);
             AddChild(Temp);
@@ -324,11 +305,8 @@ namespace BESM3CAData.Model
             textWriter.WriteEndElement();
         }
 
-        public virtual void SaveAdditionalXML(XmlTextWriter textWriter)
-        {
-            //Virtual for derived classes
-        }
-
+        public abstract void SaveAdditionalXML(XmlTextWriter textWriter);
+        
         public void LoadXML(XmlTextReader reader)
         {
             while (reader.NodeType != XmlNodeType.None)
@@ -402,18 +380,10 @@ namespace BESM3CAData.Model
             }
         }
 
-        public virtual void LoadAdditionalXML(XmlTextReader reader)
-        {
-            //Virtual for derived classes
-        }
+        public abstract void LoadAdditionalXML(XmlTextReader reader);
 
 
         //Getting stats:
-        public virtual CalcStats GetStats()
-        {
-            //Virtual for override            
-            return null;
-        }
-
+        public abstract CalcStats GetStats();      
     }
 }

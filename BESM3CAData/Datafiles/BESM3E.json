@@ -2764,7 +2764,7 @@
     },
     {
       "ID": 287,
-      "Name": "Somantic Components",
+      "Name": "Somatic Components",
       "CostperLevelDesc": "-1",
       "Progression": "",
       "MaxLevel": 1,
@@ -4902,7 +4902,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Nemesis is merely annoying and/or interferes infrequently.",
+        "The Nemesis may actively try to harm the character and/or interferes frequently.",
+        "The Nemesis will always harm the character given the opportunity, and/or interferes constantly."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4940,7 +4945,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The organisation has partial ownership of the character; the character is subject to slight punishment for opposing the owners.",
+        "The organisation has significant ownership of the character; the character is subject to moderate punishment for opposing the owners.",
+        "The organisation has total ownership of the character; the character is subject to severe punishment for opposing the owners."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4959,7 +4969,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character has a slight phobia or one that is encountered infrequently.",
+        "The character has a moderate phobia or one that is encountered frequently.",
+        "The character has a severe phobia or one that is encountered constantly."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4978,7 +4993,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The impairment is a slight inconvenience to the character.",
+        "The impairment is a moderate inconvenience to the character.",
+        "The impairment is a severe inconvenience to the character."
+      ],
       "ChildrenList": ""
     },
     {
@@ -4997,7 +5017,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The nightmares occur infrequently and have a slight effect on the character’s lifestyle.",
+        "The nightmares occur frequently and have a moderate effect on the character’s lifestyle.",
+        "The nightmares occur constantly and have a severe effect on the character’s lifestyle."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5016,7 +5041,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Red Tape only impedes the character before or after a major action (but not both) and/or the Red Tape is easy to manage most of the time.",
+        "The Red Tape impedes a character both before and after a major action, and/or is difficult to manage most of the time.",
+        "The Red Tape impedes a character before, after, and during a major action, and/or is extremely difficult to manage most of the time."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5035,7 +5065,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "Damage the character delivers in combat is reduced by 1.",
+        "The character only adds half his or her Attack Combat Value when determining attack damage.",
+        "The character’s Damage Multiplier (page 105) is reduced by 1."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5054,7 +5089,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character has a diminished primary sense (such as short-sightedness or being hard of hearing), or has lost a secondary sense (such as taste or smell).",
+        "The character has completely lost a primary sense (sight or hearing), or has two diminished primary senses, or has completely lost multiple secondary senses.",
+        "The character has completely lost a primary sense (sight or hearing) and multiple secondary senses."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5073,7 +5113,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The S.O. is rarely placed in grave danger and appears infrequently.",
+        "The S.O. is often placed in grave danger and appears frequently.",
+        "The S.O. is always placed in grave danger and appears constantly."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5092,7 +5137,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Skeleton is difficult to discover, and/or the consequences of discovery are slight, and/or the character’s reputation will be impacted slightly.",
+        "The Skeleton is relatively easy to discover, and/or the consequences of discovery are moderate, and/or the character’s reputation will be seriously impacted.",
+        "The Skeleton is very easy to discover, and/or the consequences of discovery are severe, and/or the character’s reputation will be devastated."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5111,7 +5161,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The Special Requirement is easy to obtain and/or needed infrequently.",
+        "The Special Requirement is difficult to obtain and/or needed frequently.",
+        "The Special Requirement is extremely difficult to obtain and/or needed constantly."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5130,7 +5185,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character is slightly unappealing.",
+        "The character is moderately unappealing.",
+        "The character is severely unappealing."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5168,7 +5228,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The character’s accessible Attribute Levels all drop by one-quarter (round up) when affected by the Vulnerability.",
+        "The character’s accessible Attribute Levels all drop by one-half (round up) when affected by the Vulnerability.",
+        "The character cannot use any Attributes when affected by the Vulnerability."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5187,7 +5252,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The reward, contract, or other incentive offered to hunt the character is minor.",
+        "The reward, contract, or other incentive offered to hunt the character is significant.",
+        "The reward, contract, or other incentive offered to hunt the character is extreme."
+      ],
       "ChildrenList": ""
     },
     {
@@ -5206,7 +5276,12 @@
       "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
-      "Description": "",
+      "Description": "Custom",
+      "CustomProgression": [
+        "The weak point is tiny (-6 extreme Called Shot penalty).",
+        "The weak point is small (-3 significant Called Shot penalty).",
+        "The weak point is large (-1 slight Called Shot penalty)."
+      ],
       "ChildrenList": ""
     },
     {
