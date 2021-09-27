@@ -5,11 +5,11 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest  
+    runs-on: windows-latest  
 
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET 3.x
+      - name: Setup .NET 5.0.x
         uses: actions/setup-dotnet@v1
         with:
           # Semantic version range syntax or exact version of a dotnet version
