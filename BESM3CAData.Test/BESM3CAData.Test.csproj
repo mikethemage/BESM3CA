@@ -23,4 +23,10 @@
     <ProjectReference Include="..\BESM3CAData\BESM3CAData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using BESM3CAData.Templates;
 using System.Collections.Generic;
@@ -45,7 +44,7 @@ namespace BESM3CAData.Test
         public void Template_GetTypesForFilterShouldAlwaysContainAll()
         {
             TemplateData DefaultTemplate = TemplateData.JSONLoader(); 
-            List<String> output = DefaultTemplate.GetTypesForFilter();
+            List<string> output = DefaultTemplate.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>("All", output);
         }
