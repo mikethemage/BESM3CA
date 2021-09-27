@@ -54,7 +54,7 @@ namespace BESM3CAData.Control
                     {
                         if (reader.Name == XmlNodeTag)
                         {
-
+                            //Do nothing
                         }
                         else
                         {
@@ -88,7 +88,7 @@ namespace BESM3CAData.Control
                             }
                             else
                             {
-
+                                //Do nothing
                             }
                         }
                     }
@@ -118,7 +118,7 @@ namespace BESM3CAData.Control
 
                     else if (reader.NodeType == XmlNodeType.Text)
                     {
-
+                        //Do Nothing
                     }
 
                 }
@@ -191,7 +191,7 @@ namespace BESM3CAData.Control
                 if (current.GetType() == typeof(CharacterData))
                 {
                     //write stuff
-                    // write a line of text to the file
+                    //write a line of text to the file
                     tw.WriteLine(tabstring + current.DisplayText);
 
                     nexttabstring = tabstring + "\t";
@@ -199,8 +199,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine(nexttabstring + "Body: " + ((CharacterData)current).Body);
                     tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current).Soul);
                     tw.WriteLine();
-
-                    //CalcStats stats = CalcStats.GetStats(current);
+                                        
                     CalcStats stats = current.GetStats();
 
                     tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
@@ -214,7 +213,7 @@ namespace BESM3CAData.Control
                     if (((AttributeData)current).AttributeType == "Attribute")
                     {
                         //write stuff
-                        // write a line of text to the file
+                        //write a line of text to the file
                         tw.WriteLine(tabstring + current.DisplayText);
 
                         nexttabstring = tabstring + "\t";
@@ -236,7 +235,7 @@ namespace BESM3CAData.Control
                     else
                     {
                         //write stuff
-                        // write a line of text to the file
+                        //write a line of text to the file
                         tw.WriteLine(tabstring + current.DisplayText + " Level " + ((AttributeData)current).Level);
                         nexttabstring = tabstring + "\t";
                     }

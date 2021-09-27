@@ -56,16 +56,16 @@ namespace BESM3CAData.Model
         public void ExportToText(string exportFile)
         {
             TextWriter tw;
-            try
-            {
+            /*try
+            {*/
                 tw = new StreamWriter(exportFile);
                 SaveLoad.ExportNode(RootCharacter, 0, tw);
-            }
+            /*}
             catch
             {
                 //MessageBox.Show("Error Opening file: " + saveFileDialog1.FileName);
                 return;
-            }
+            }*/
             //close file
             tw.Close();
         }

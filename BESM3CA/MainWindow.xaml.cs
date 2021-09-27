@@ -36,7 +36,7 @@ namespace BESM3CA
             //Initialise Controller:
             CurrentController = new Controller();
 
-            //JSONyStuff.CreateJSON2(CurrentController.SelectedTemplate);
+            //CurrentController.SelectedTemplate.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
 
             ResetAll();
         }
