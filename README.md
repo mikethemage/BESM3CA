@@ -20,7 +20,7 @@ Inspired by, but **not** based on or in anyway affiliated with _[BESMCG](http://
 * [Buy BESM 3rd Edition here (PDF - DriveThruRPG)](https://www.drivethrurpg.com/product/24482/BESM-Big-Eyes-Small-Mouth-3rd-Edition)
 
 \
-Build Status: ![example workflow](https://github.com/mikethemage/BESM3CA/actions/workflows/main.yml/badge.svg)
+Build Status:  ![build](https://github.com/mikethemage/BESM3CA/actions/workflows/main.yml/badge.svg)
 
 \
 \
