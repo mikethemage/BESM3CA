@@ -28,7 +28,7 @@ namespace BESM3CAData.Templates
                 }
                 else
                 {
-                    return ProgressionsList.Count;
+                    return ProgressionsList.Count-1;
                 }
             }
         }
@@ -49,12 +49,12 @@ namespace BESM3CAData.Templates
             if (rank > MaxRank)
             {
                 //error: above maximum rank for calculations
-                return "0";
+                return "ERROR";
             }
             if (rank < MinRank)
             {
                 //error: below minimum rank for calculations
-                return "0";
+                return "ERROR";
             }
 
             return ProgressionsList[rank];

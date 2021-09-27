@@ -32,6 +32,7 @@ namespace BESM3CAData.Templates
 
         public string ChildrenList
         {
+            //Used for serialisation
             get
             {
                 string temp = "";
@@ -48,6 +49,7 @@ namespace BESM3CAData.Templates
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public List<AttributeListing> Children
         {
+            //Ignore for serialisation
             get
             {
                 return _children;
@@ -58,9 +60,9 @@ namespace BESM3CAData.Templates
         //Constructor:
         public AttributeListing()
         {
+            //Used for deserialisation
             CostperLevelDesc = "";
             Progression = "";
-
             _children = new List<AttributeListing>();
 
         }

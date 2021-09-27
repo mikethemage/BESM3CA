@@ -20,6 +20,9 @@ Inspired by, but **not** based on or in anyway affiliated with _[BESMCG](http://
 * [Buy BESM 3rd Edition here (PDF - DriveThruRPG)](https://www.drivethrurpg.com/product/24482/BESM-Big-Eyes-Small-Mouth-3rd-Edition)
 
 \
+Build Status:  ![build](https://github.com/mikethemage/BESM3CA/actions/workflows/main.yml/badge.svg)
+
+\
 \
 **Disclaimer:**\
 "BESM" / "Big Eyes Small Mouth" is a trademark of White Wolf Entertainment AB and licensed by Dyskami Publishing Company.  This application is not endorsed by or associated with White Wolf Entertainment AB or Dyskami Publishing Company in any way.  This is a non-profit fan-made utility intended to help players in conjuction with official source materials.

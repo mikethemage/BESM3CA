@@ -88,5 +88,15 @@ namespace BESM3CAData.Templates
             }
             return temp;
         }
+
+        public void CreateJSON(string outputPath)
+        {
+            //Code to write out JSON data files.   
+            //Should not be being called at present - debugging only:
+            string output = System.Text.Json.JsonSerializer.Serialize<TemplateData>(this);
+
+            System.IO.File.WriteAllText(outputPath, output);
+
+        }
     }
 }

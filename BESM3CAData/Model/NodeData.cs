@@ -7,10 +7,7 @@ namespace BESM3CAData.Model
 {
     public abstract class NodeData
     {
-        //Fields:
-        private string _name;
         private int _ID;
-        private string _notes;
         protected NodeData _firstChild;
         protected NodeData _Parent;
         private int _lastChildOrder;
@@ -107,17 +104,8 @@ namespace BESM3CAData.Model
             }
         }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+        public string Name { get; set; }
+
         public int ID
         {
             get
@@ -126,18 +114,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public string Notes
-        {
-            get
-            {
-                return _notes;
-            }
-            set
-            {
-
-                _notes = value;
-            }
-        }
+        public string Notes { get; set; }
 
         public NodeData Children
         {
@@ -160,9 +137,9 @@ namespace BESM3CAData.Model
         public NodeData(string attributeName, int attributeID, string notes, TemplateData templateData)
         {
             _associatedTemplate = templateData;
-            _name = attributeName;
+            Name = attributeName;
             _ID = attributeID;
-            _notes = notes;
+            Notes = notes;
 
             NodeOrder = 1;
             _firstChild = null;
@@ -293,14 +270,13 @@ namespace BESM3CAData.Model
         public void SaveXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement(GetType().Name);
-            textWriter.WriteAttributeString("Name", _name);
+            textWriter.WriteAttributeString("Name", Name);
             textWriter.WriteAttributeString("ID", _ID.ToString());
             textWriter.WriteStartElement("AdditionalData");
-            //textWriter.WriteAttributeString("Type", GetType().Name);
             SaveAdditionalXML(textWriter);
             textWriter.WriteEndElement();
             textWriter.WriteStartElement("Notes");
-            textWriter.WriteString(_notes);
+            textWriter.WriteString(Notes);
             textWriter.WriteEndElement();
             textWriter.WriteEndElement();
         }
@@ -321,7 +297,7 @@ namespace BESM3CAData.Model
                         switch (reader.Name)
                         {
                             case "Name":
-                                _name = reader.Value;
+                                Name = reader.Value;
                                 break;
                             case "ID":
                                 _ID = int.Parse(reader.Value);
@@ -338,7 +314,7 @@ namespace BESM3CAData.Model
                 {
                     if (reader.Name == "Notes")
                     {
-                        _notes = reader.ReadString();
+                        Notes = reader.ReadString();
                     }
 
                     if (reader.Name == "AdditionalData")
@@ -357,7 +333,7 @@ namespace BESM3CAData.Model
                                 switch (reader.Name)
                                 {
                                     case "Name":
-                                        _name = reader.Value;
+                                        Name = reader.Value;
                                         break;
                                     case "ID":
                                         _ID = int.Parse(reader.Value);
