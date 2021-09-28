@@ -16,6 +16,9 @@ namespace BESM3CAData.Model
         public TemplateData SelectedTemplate { get; set; }
         public CharacterData RootCharacter { get; set; }
 
+        
+        public int SelectedGenreIndex { get; set; }
+
 
         //Constructor:
         public Controller()
@@ -29,7 +32,8 @@ namespace BESM3CAData.Model
         //Public Methods:
         public void Load(string fileName)
         {
-            RootCharacter = (CharacterData)SaveLoad.DeserializeXML(fileName, SelectedTemplate);
+            SelectedGenreIndex=-1;  //Needs changing to load Genre
+            RootCharacter = (CharacterData)SaveLoad.DeserializeXML(fileName, this);
             //Need to check if successful
 
             FileName = fileName;
@@ -38,8 +42,9 @@ namespace BESM3CAData.Model
         public void ResetAll()
         {
             //Reset root character:
-            RootCharacter = new CharacterData(SelectedTemplate);
+            RootCharacter = new CharacterData(this);
             FileName = "";
+            SelectedGenreIndex = -1;
         }
 
         public void SaveAs(string fileName)
@@ -50,7 +55,7 @@ namespace BESM3CAData.Model
 
         public void Save()
         {
-            SaveLoad.SerializeXML(RootCharacter, FileName, SelectedTemplate);       
+            SaveLoad.SerializeXML(RootCharacter, FileName, this);       
         }
 
         public void ExportToText(string exportFile)

@@ -13,8 +13,9 @@ namespace BESM3CAData.Model
         private int _lastChildOrder;
         protected int _points;
         private bool _pointsUpToDate;
-        protected TemplateData _associatedTemplate;
+        //protected TemplateData _associatedTemplate;
 
+        public Controller AssociatedController;
 
         //Properties:
         public int NodeOrder { get; set; }
@@ -134,9 +135,9 @@ namespace BESM3CAData.Model
 
 
         //Constructors:
-        public NodeData(string attributeName, int attributeID, string notes, TemplateData templateData)
+        public NodeData(string attributeName, int attributeID, string notes, Controller controller)
         {
-            _associatedTemplate = templateData;
+            AssociatedController = controller;
             Name = attributeName;
             _ID = attributeID;
             Notes = notes;
@@ -260,11 +261,20 @@ namespace BESM3CAData.Model
 
         public AttributeData AddChildAttribute(string attributeName, int attributeID)
         {
-            AttributeData Temp = new AttributeData(attributeName, attributeID, "", _associatedTemplate);
+            AttributeData Temp = new AttributeData(attributeName, attributeID, "", AssociatedController);
             AddChild(Temp);
             return Temp;
         }
 
+        public virtual void InvalidateGenrePoints()
+        {
+            NodeData child = Children;
+            while(child != null)
+            {
+                child.InvalidateGenrePoints();
+                child = child.Next;
+            }
+        }
 
         //XML:
         public void SaveXML(XmlTextWriter textWriter)

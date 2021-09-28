@@ -17,6 +17,8 @@ namespace BESM3CAData.Control
 
         private const string XmlTemplateTag = "template";
 
+        private const string XmlGenreTag = "genre";
+
         //private static void SetAttributeValue(NodeData node,
         //            string propertyName, string value)
         //{
@@ -26,7 +28,7 @@ namespace BESM3CAData.Control
         //    }
         //}
 
-        public static NodeData DeserializeXML(string fileName, TemplateData templateData)
+        public static NodeData DeserializeXML(string fileName, Controller controller)
         {
             //Needs completely re-writing:
             NodeData rootNode = null;
@@ -50,6 +52,15 @@ namespace BESM3CAData.Control
                             //todo: load correct template
                         }
                     }
+                    else if (reader.Name == XmlGenreTag)
+                    {
+                        reader.Read();
+                        if (reader.NodeType == XmlNodeType.Text)
+                        {
+                            //Read genre name
+                            controller.SelectedGenreIndex = controller.SelectedTemplate.Genres.IndexOf(reader.Value);                            
+                        }
+                    }
                     else if (reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Name == XmlNodeTag)
@@ -60,7 +71,7 @@ namespace BESM3CAData.Control
                         {
                             if (reader.Name.EndsWith("CharacterData"))
                             {
-                                newNode = new CharacterData(templateData);  //todo: refactor to take reference to template
+                                newNode = new CharacterData(controller);  //todo: refactor to take reference to template
                                 newNode.LoadXML(reader);
                                 if (rootNode == null)
                                 {
@@ -77,7 +88,7 @@ namespace BESM3CAData.Control
                             }
                             else if (reader.Name.EndsWith("AttributeData"))
                             {
-                                newNode = new AttributeData("", 0, "", templateData);//todo: refactor to take reference to template
+                                newNode = new AttributeData("", 0, "", controller);//todo: refactor to take reference to template
                                 newNode.LoadXML(reader);
                                 if (parentNode != null)
                                 {
@@ -131,7 +142,7 @@ namespace BESM3CAData.Control
             return rootNode;
         }
 
-        public static void SerializeXML(NodeData rootNode, string fileName, TemplateData templateData)
+        public static void SerializeXML(NodeData rootNode, string fileName, Controller controller)
         {
             XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.UTF8);
 
@@ -139,7 +150,11 @@ namespace BESM3CAData.Control
             textWriter.WriteStartDocument();
             textWriter.WriteStartElement("root");
 
-            textWriter.WriteElementString(XmlTemplateTag, templateData.TemplateName);
+            textWriter.WriteElementString(XmlTemplateTag, controller.SelectedTemplate.TemplateName);
+            if (controller.SelectedGenreIndex > -1)
+            { 
+                textWriter.WriteElementString(XmlGenreTag, controller.SelectedTemplate.Genres[controller.SelectedGenreIndex]); 
+            }
 
             // writing the main tag that encloses all node tags
             textWriter.WriteStartElement("Data");

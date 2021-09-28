@@ -6,8 +6,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-
-
+using System;
 
 namespace BESM3CA
 {
@@ -36,6 +35,7 @@ namespace BESM3CA
             //Initialise Controller:
             CurrentController = new Controller();
 
+            
             //CurrentController.SelectedTemplate.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
 
             ResetAll();
@@ -63,6 +63,9 @@ namespace BESM3CA
             //Reset root character:
             CurrentController.ResetAll();
 
+            //Refresh Genre list:
+            RefreshGenreList();
+
             //reset Treeview             
             CharacterTreeView.Items.Clear();
 
@@ -79,6 +82,21 @@ namespace BESM3CA
 
 
 
+        }
+
+        private void RefreshGenreList()
+        {
+            if (CurrentController.SelectedTemplate.Genres != null)
+            {
+                GenreComboBox.Visibility = Visibility.Visible;             
+                GenreComboBox.ItemsSource = CurrentController.SelectedTemplate.Genres;
+                GenreComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                GenreComboBox.Visibility = Visibility.Collapsed;
+                GenreComboBox.ItemsSource = null;
+            }
         }
 
         private void RefreshFilter()
@@ -469,6 +487,11 @@ namespace BESM3CA
 
                 CurrentController.Load(openFileDialog1.FileName);
 
+                if(CurrentController.SelectedGenreIndex>-1)
+                {
+                    GenreComboBox.SelectedIndex = CurrentController.SelectedGenreIndex;
+                }
+
                 //***
                 TreeViewItem newRoot = new TreeViewItem
                 {
@@ -717,9 +740,10 @@ namespace BESM3CA
 
         private void UpdateTreeFromNodes(TreeViewItem StartingTreePoint, NodeData StartingNodeData)
         {
-            //Version for loading code:                                                     //Version for adding attribs:
-            //StartingTreePoint == tvCharacterTree.Nodes.Add()                               //StartingTreePoint == tvCharacterTree.SelectedNode
-            //StartingNodeData == RootCharacter                                              //StartingNodeData == FirstNewNodeData
+            
+            //Needs completely re-writing!!!
+
+            
 
             TreeViewItem TreeInsertionPoint = StartingTreePoint;
             NodeData CurrentNewNodeData = StartingNodeData;
@@ -751,10 +775,27 @@ namespace BESM3CA
                 {
                     CurrentNewNodeData = null; //drop out of the loop                            
                 }
-                else if (CurrentNewNodeData.Parent != StartingNodeData && CurrentNewNodeData.Parent.Next != null) // make sure we are not back to original node
+                else if (CurrentNewNodeData.Parent != StartingNodeData ) // make sure we are not back to original node
                 {
-                    CurrentNewNodeData = CurrentNewNodeData.Parent.Next;          //no children or siblings so add next sibling of the parent node
-                    TreeInsertionPoint = (TreeViewItem)((TreeViewItem)TreeInsertionPoint.Parent).Parent;        //move insertion point back up two
+
+                    //BUGS here!!!
+                    do
+                    {
+                        CurrentNewNodeData = CurrentNewNodeData.Parent;
+                        TreeInsertionPoint = (TreeViewItem)TreeInsertionPoint.Parent;
+                    } while (CurrentNewNodeData.Parent != StartingNodeData && CurrentNewNodeData.Parent.Next == null);
+
+                    if (CurrentNewNodeData.Next != null)
+                    {
+                        CurrentNewNodeData = CurrentNewNodeData.Next;          //no children or siblings so add next sibling of the parent node
+                        TreeInsertionPoint = (TreeViewItem)TreeInsertionPoint.Parent;        //move insertion point back up two
+                    }
+                    else
+                    {
+                        CurrentNewNodeData = null; //drop out of the loop
+
+                    }
+                    
                 }
                 else
                 {
@@ -762,6 +803,7 @@ namespace BESM3CA
                     CurrentNewNodeData = null; //drop out of the loop                            
                 }
             }
+            //*****
 
             RefreshTree(CharacterTreeView.Items);  //Refresh the whole tree as can have impact both up and down the tree  
         }
@@ -780,6 +822,16 @@ namespace BESM3CA
             else
             {
                 AddAttButton.IsEnabled = false;
+            }
+        }
+
+        private void GenreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GenreComboBox.SelectedIndex > -1)
+            {
+                CurrentController.SelectedGenreIndex = GenreComboBox.SelectedIndex;
+                CurrentController.RootCharacter.InvalidateGenrePoints();
+                RefreshTree(CharacterTreeView.Items);
             }
         }
     }

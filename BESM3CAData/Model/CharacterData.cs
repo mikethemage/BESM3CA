@@ -41,9 +41,9 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (_associatedTemplate != null)
+                if (AssociatedController.SelectedTemplate != null)
                 {
-                    return _associatedTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+                    return AssociatedController.SelectedTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace BESM3CAData.Model
 
 
         //Constructor:
-        public CharacterData(TemplateData useTemplate, string Notes = "") : base("Character", 0, Notes, useTemplate)
+        public CharacterData(Controller controller, string Notes = "") : base("Character", 0, Notes, controller)
         {
             _body = 1;
             _mind = 1;

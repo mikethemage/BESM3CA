@@ -30,6 +30,8 @@ namespace BESM3CAData.Templates
 
         public List<string> CustomProgression { get; set; }
 
+        public List<int> GenrePoints { get; set; }
+
         public string ChildrenList
         {
             //Used for serialisation

@@ -1,8 +1,9 @@
-﻿using System;
+﻿//using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.IO;
+
 
 namespace BESM3CAData.Templates
 {
@@ -12,7 +13,9 @@ namespace BESM3CAData.Templates
         public List<AttributeListing> AttributeList { get; set; }
         public List<VariantListing> VariantList { get; set; }
         public List<TypeListing> TypeList { get; set; }
-        public string TemplateName { get; set; }        
+        public string TemplateName { get; set; }
+
+        public List<string> Genres { get; set; }
 
         public List<Progression> ProgressionList { get; set; }
 
@@ -37,10 +40,10 @@ namespace BESM3CAData.Templates
         }
 
         //Member functions:
-        public List<String> GetTypesForFilter()
+        public List<string> GetTypesForFilter()
         {
             //LINQ Version:
-            List<String> tempList =  (from AttType in TypeList
+            List<string> tempList =  (from AttType in TypeList
                                                    orderby AttType.Name
                                                    select AttType.Name).ToList();
             tempList.Insert(0, "All");
@@ -76,7 +79,7 @@ namespace BESM3CAData.Templates
 
                                 foreach (string Child in Children)
                                 {                                    
-                                    if (Int32.TryParse(Child, out int ChildID))
+                                    if (int.TryParse(Child, out int ChildID))
                                     {
                                         Parent.AddChild(temp.AttributeList.Find(x => x.ID == ChildID));
                                     }
@@ -88,7 +91,7 @@ namespace BESM3CAData.Templates
             }
             return temp;
         }
-
+       
         public void CreateJSON(string outputPath)
         {
             //Code to write out JSON data files.   

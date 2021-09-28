@@ -5301,7 +5301,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 3, 3, 3, 2, 2, 3, 2, 3, 3, 2, 1, 3, 2, 1, 2, 3, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3 ]
     },
     {
       "ID": 116,
@@ -5320,7 +5321,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 117,
@@ -5339,7 +5341,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2, 3, 1, 2, 2, 2, 1, 1, 1, 2, 1, 1 ]
     },
     {
       "ID": 118,
@@ -5358,7 +5361,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 119,
@@ -5377,7 +5381,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 3, 1, 2, 2, 1, 1, 1, 2, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 120,
@@ -5396,7 +5401,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1 ]
     },
     {
       "ID": 121,
@@ -5415,7 +5421,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 2, 2, 2 ]
     },
     {
       "ID": 122,
@@ -5434,7 +5441,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 1, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 3, 1, 1, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 123,
@@ -5453,7 +5461,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 1, 2, 2, 2, 2 ]
     },
     {
       "ID": 124,
@@ -5472,7 +5481,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1 ]
     },
     {
       "ID": 125,
@@ -5491,7 +5501,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 1, 3, 2, 2, 2, 1, 1, 3, 2, 2, 2, 2, 0,0,0,0,0,0,0,0,0,0, 3, 3, 2, 1, 2, 2 ]
     },
     {
       "ID": 126,
@@ -5510,7 +5521,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 127,
@@ -5529,7 +5541,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 3, 3, 1, 2, 2, 1, 2, 1, 1, 2, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 128,
@@ -5548,7 +5561,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 2, 1, 2, 2, 3, 1, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 2, 2, 1, 1 ]
     },
     {
       "ID": 129,
@@ -5567,7 +5581,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 3, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1, 3 ]
     },
     {
       "ID": 130,
@@ -5586,7 +5601,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 131,
@@ -5605,7 +5621,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 3, 1, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 2, 2, 3, 2, 2, 2 ]
     },
     {
       "ID": 132,
@@ -5624,7 +5641,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 133,
@@ -5643,7 +5661,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 134,
@@ -5662,7 +5681,9 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1 ]
+
     },
     {
       "ID": 135,
@@ -5681,7 +5702,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 3, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 136,
@@ -5700,7 +5722,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 137,
@@ -5719,7 +5742,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 3, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 138,
@@ -5738,7 +5762,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 139,
@@ -5757,7 +5782,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1 ]
     },
     {
       "ID": 140,
@@ -5776,7 +5802,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1 ]
     },
     {
       "ID": 141,
@@ -5795,7 +5822,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 3, 0, 1, 1, 2, 2, 3, 2, 2, 2 ]
     },
     {
       "ID": 142,
@@ -5814,7 +5842,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 2, 1, 2, 2, 1, 1, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2 ]
     },
     {
       "ID": 143,
@@ -5833,7 +5862,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 1, 3, 2, 2, 2, 3, 2, 2, 2, 1, 3, 2, 2, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 144,
@@ -5852,7 +5882,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 145,
@@ -5871,7 +5902,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 1, 1, 2, 1, 1, 3, 2, 1, 1, 1, 2, 3, 1, 1, 2, 2, 1, 2, 2, 2, 2, 3, 2, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 146,
@@ -5890,7 +5922,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 147,
@@ -5909,7 +5942,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 3, 2, 1, 2, 2 ]
     },
     {
       "ID": 148,
@@ -5928,7 +5962,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 1, 2, 2, 2, 1, 3, 1, 1, 1, 2, 1, 3, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 2, 2, 3, 2, 2, 3 ]
     },
     {
       "ID": 149,
@@ -5947,7 +5982,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 2, 1, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 150,
@@ -5966,7 +6002,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 1, 1, 2, 3, 1, 2, 2, 1, 1, 2, 2, 2, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 2, 2, 1, 1, 1, 1 ]
     },
     {
       "ID": 151,
@@ -5985,7 +6022,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 3, 2, 2, 2, 2, 3, 1, 1, 3, 1, 2, 3, 2, 2, 2, 2, 2, 1, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 152,
@@ -6004,7 +6042,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 3, 3, 1, 2, 2, 2, 1, 1, 1, 2, 1, 1 ]
     },
     {
       "ID": 153,
@@ -6023,7 +6062,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 2, 1, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2 ]
     },
     {
       "ID": 154,
@@ -6042,7 +6082,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 155,
@@ -6061,7 +6102,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1 ]
     },
     {
       "ID": 156,
@@ -6080,7 +6122,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 2, 1, 1, 3, 2, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 ]
     },
     {
       "ID": 157,
@@ -6099,7 +6142,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 3, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 2 ]
     },
     {
       "ID": 158,
@@ -6118,7 +6162,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 1, 0, 1, 2, 3, 2, 2, 2, 2, 2 ]
     },
     {
       "ID": 159,
@@ -6137,7 +6182,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 312,
@@ -6175,7 +6221,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 161,
@@ -6194,7 +6241,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
     },
     {
       "ID": 162,
@@ -6213,7 +6261,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 3, 2, 3, 2, 2, 2, 2, 3, 2, 3, 1, 1, 1, 3, 1, 1 ]
     },
     {
       "ID": 163,
@@ -6232,7 +6281,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 1, 1, 1, 2, 1, 1 ]
     },
     {
       "ID": 164,
@@ -6251,7 +6301,8 @@
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
-      "ChildrenList": ""
+      "ChildrenList": "",
+      "GenrePoints": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1 ]
     }
   ],
   "VariantList": [
@@ -6753,6 +6804,38 @@
     }
   ],
   "TemplateName": "BESM3E",
+  "Genres": [
+    "Multi-Genre All Campaigns",
+    "Modern Day Action Adventure",
+    "Modern Day Animal Adventures",
+    "Modern Day Conspiracy",
+    "Modern Day Law Enforcement",
+    "Modern Day Loony Cartoons",
+    "Modern Day Occult / Horror",
+    "Modern Day Pulp",
+    "Modern Day Reality TV",
+    "Modern Day Romantic Comedy",
+    "Modern Day Soap Opera",
+    "Modern Day Superhero",
+    "Modern Day Urban Fantasy",
+    "Historical 20th Century War",
+    "Historical Age of Pirates",
+    "Historical Ancient China / Japan",
+    "Historical Ancient Egypt",
+    "Historical Ancient Rome / Greece",
+    "Historical Middle Ages",
+    "Historical Old West",
+    "Historical Steampunk",
+    "Historical Stone Age",
+    "Fantasy High Fantasy",
+    "Fantasy Low Fantasy",
+    "Futuristic Cyberpunk / Biopunk",
+    "Futuristic Hard SF",
+    "Futuristic Mecha",
+    "Futuristic Post Apocalyptic",
+    "Futuristic Soft SF",
+    "Futuristic Space Opera"
+  ],
   "ProgressionList": [
     {
       "ProgressionType": "Fast",
@@ -6888,7 +6971,7 @@
     },
     {
       "ProgressionType": "Targets",
-      "ProgressionList": [
+      "ProgressionsList": [
         "1 person/100 kg",
         "2 people/200 kg",
         "5 people/500 kg",
@@ -6910,12 +6993,12 @@
     },
     {
       "ProgressionType": "Growth",
-      "ProgressionList": [
+      "ProgressionsList": [
         "10x growth",
         "50x growth",
         "100x growth",
         "500x growth",
-        "1,000x growth"      
+        "1,000x growth"
       ]
     }
   ]
