@@ -44,21 +44,25 @@ namespace BESM3CAData.Control
                 {
                     if (reader.Name == XmlTemplateTag && reader.NodeType==XmlNodeType.Element)
                     {
-                        reader.Read();
-                        if (reader.NodeType == XmlNodeType.Text)
+                        if (reader.Read())
                         {
-                            //Read template name
-                            Debug.Assert(reader.Value == "BESM3E");
-                            //todo: load correct template
+                            if (reader.NodeType == XmlNodeType.Text)
+                            {
+                                //Read template name
+                                Debug.Assert(reader.Value == "BESM3E");
+                                //todo: load correct template
+                            }
                         }
                     }
                     else if (reader.Name == XmlGenreTag && reader.NodeType == XmlNodeType.Element)
                     {
-                        reader.Read();
-                        if (reader.NodeType == XmlNodeType.Text)
+                        if (reader.Read())
                         {
-                            //Read genre name
-                            controller.SelectedGenreIndex = controller.SelectedTemplate.Genres.IndexOf(reader.Value);                            
+                            if (reader.NodeType == XmlNodeType.Text)
+                            {
+                                //Read genre name
+                                controller.SelectedGenreIndex = controller.SelectedTemplate.Genres.IndexOf(reader.Value);
+                            }
                         }
                     }
                     else if (reader.NodeType == XmlNodeType.Element)
@@ -152,8 +156,8 @@ namespace BESM3CAData.Control
 
             textWriter.WriteElementString(XmlTemplateTag, controller.SelectedTemplate.TemplateName);
             if (controller.SelectedGenreIndex > -1)
-            { 
-                textWriter.WriteElementString(XmlGenreTag, controller.SelectedTemplate.Genres[controller.SelectedGenreIndex]); 
+            {
+                textWriter.WriteElementString(XmlGenreTag, controller.SelectedTemplate.Genres[controller.SelectedGenreIndex]);
             }
 
             // writing the main tag that encloses all node tags

@@ -46,7 +46,7 @@ namespace BESM3CAData.Templates
 
                 return temp;
             }
-        }               
+        }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public List<AttributeListing> Children
