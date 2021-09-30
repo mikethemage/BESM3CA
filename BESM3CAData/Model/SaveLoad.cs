@@ -42,7 +42,7 @@ namespace BESM3CAData.Control
 
                 while (reader.Read())
                 {
-                    if (reader.Name == XmlTemplateTag)
+                    if (reader.Name == XmlTemplateTag && reader.NodeType==XmlNodeType.Element)
                     {
                         reader.Read();
                         if (reader.NodeType == XmlNodeType.Text)
@@ -52,7 +52,7 @@ namespace BESM3CAData.Control
                             //todo: load correct template
                         }
                     }
-                    else if (reader.Name == XmlGenreTag)
+                    else if (reader.Name == XmlGenreTag && reader.NodeType == XmlNodeType.Element)
                     {
                         reader.Read();
                         if (reader.NodeType == XmlNodeType.Text)
