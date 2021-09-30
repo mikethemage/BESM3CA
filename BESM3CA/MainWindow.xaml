@@ -108,9 +108,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>
-                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="65"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="65"></ColumnDefinition>
                 <ColumnDefinition Width="15"></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>
@@ -132,7 +132,7 @@
             <Label x:Name="NotesLabel" Content="Notes" Margin="5,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0"/>
             <TextBox x:Name="NotesTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="1" TextWrapping="Wrap" VerticalAlignment="Stretch" LostFocus="NotesTextBox_LostFocus" />
 
-            <Label x:Name="LevelLabel" Content="Level" Visibility="Hidden" Margin="5,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1"/>
+            <Label x:Name="LevelLabel" Content="Level" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1"/>
             <TextBox x:Name="LevelTextBox" Visibility="Hidden" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" IsEnabled="False" />
 
             <Label x:Name="PointsPerLevelLabel" Content="Points Per Level" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>

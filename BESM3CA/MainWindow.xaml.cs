@@ -187,7 +187,8 @@ namespace BESM3CA
             if (CharacterTreeView.SelectedItem != null && AttributeListBox.SelectedIndex >= 0 && (int)AttributeListBox.SelectedValue > 0)
             {
                 NodeData FirstNewNodeData = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).AddChildAttribute(((ListItems)AttributeListBox.SelectedItem).Name, (int)AttributeListBox.SelectedValue);
-                UpdateTreeFromNodes((TreeViewItem)CharacterTreeView.SelectedItem, FirstNewNodeData);
+                NewUpdateTreeFromNodes((TreeViewItem)CharacterTreeView.SelectedItem, FirstNewNodeData);
+                RefreshTree(CharacterTreeView.Items);
                 RefreshTextBoxes();
             }
         }
@@ -499,7 +500,7 @@ namespace BESM3CA
                 };
 
                 CharacterTreeView.Items.Add(newRoot);
-                UpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
+                NewUpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
 
                 Title = ApplicationName + " - " + CurrentController.FileName;
                 if (CharacterTreeView.Items.Count > 0)
@@ -738,75 +739,28 @@ namespace BESM3CA
             }
         }
 
-        private void UpdateTreeFromNodes(TreeViewItem StartingTreePoint, NodeData StartingNodeData)
+        private void NewUpdateTreeFromNodes(TreeViewItem insertionPoint, NodeData nodeDataToAdd)
         {
-            
-            //Needs completely re-writing!!!
-
-            
-
-            TreeViewItem TreeInsertionPoint = StartingTreePoint;
-            NodeData CurrentNewNodeData = StartingNodeData;
-
-            while (CurrentNewNodeData != null)
+            if(nodeDataToAdd==CurrentController.RootCharacter)
             {
-                if (CurrentNewNodeData != CurrentController.RootCharacter)
-                {
-                    TreeInsertionPoint = AddNodeDataToTree(CurrentNewNodeData, TreeInsertionPoint.Items);//Add node to treeview                    
-                }
-
-                if (TreeInsertionPoint.Parent != null && TreeInsertionPoint.Parent.GetType() == typeof(TreeViewItem))
-                {
-                    ((TreeViewItem)TreeInsertionPoint.Parent).IsExpanded = true;  //.ExpandSubtree();
-                }
-
-                TreeInsertionPoint.Tag = CurrentNewNodeData;
-
-                if (CurrentNewNodeData.Children != null)
-                {
-                    CurrentNewNodeData = CurrentNewNodeData.Children;             //Now check for any children
-                }
-                else if (CurrentNewNodeData.Next != null)
-                {
-                    CurrentNewNodeData = CurrentNewNodeData.Next;                 //if no children add all siblings
-                    TreeInsertionPoint = (TreeViewItem)TreeInsertionPoint.Parent;               //move insertion point back up one
-                }
-                else if (CurrentNewNodeData.Parent == null)
-                {
-                    CurrentNewNodeData = null; //drop out of the loop                            
-                }
-                else if (CurrentNewNodeData.Parent != StartingNodeData ) // make sure we are not back to original node
-                {
-
-                    //BUGS here!!!
-                    do
-                    {
-                        CurrentNewNodeData = CurrentNewNodeData.Parent;
-                        TreeInsertionPoint = (TreeViewItem)TreeInsertionPoint.Parent;
-                    } while (CurrentNewNodeData.Parent != StartingNodeData && CurrentNewNodeData.Parent.Next == null);
-
-                    if (CurrentNewNodeData.Next != null)
-                    {
-                        CurrentNewNodeData = CurrentNewNodeData.Next;          //no children or siblings so add next sibling of the parent node
-                        TreeInsertionPoint = (TreeViewItem)TreeInsertionPoint.Parent;        //move insertion point back up two
-                    }
-                    else
-                    {
-                        CurrentNewNodeData = null; //drop out of the loop
-
-                    }
-                    
-                }
-                else
-                {
-                    //either only one node to add, or we have gone through all of the above and ended up at the last immediate child of the original new node
-                    CurrentNewNodeData = null; //drop out of the loop                            
-                }
+                insertionPoint.Tag = nodeDataToAdd;
             }
-            //*****
+            else                
+            {
+                TreeViewItem temp = new TreeViewItem() { Header = nodeDataToAdd.DisplayText, Tag = nodeDataToAdd };
+                insertionPoint.Items.Add(temp);
+                insertionPoint.IsExpanded = true;
+                insertionPoint = temp;
+            }            
+            var child = nodeDataToAdd.Children;
+            while(child!=null)
+            {
+                NewUpdateTreeFromNodes(insertionPoint, child);
+                child = child.Next;
+            }
 
-            RefreshTree(CharacterTreeView.Items);  //Refresh the whole tree as can have impact both up and down the tree  
         }
+        
 
         private void AttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
