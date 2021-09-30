@@ -247,8 +247,10 @@ namespace BESM3CAData.Control
                             tw.WriteLine(nexttabstring + "Level " + ((AttributeData)current).Level + " x " + ((AttributeData)current).PointsPerLevel + " = " + (((AttributeData)current).Level * ((AttributeData)current).PointsPerLevel));
                         }
 
-                        tw.WriteLine(nexttabstring + "Description: " + ((AttributeData)current).AttributeDescription);
-
+                        if (((AttributeData)current).AttributeDescription != "")
+                        {
+                            tw.WriteLine(nexttabstring + "Description: " + ((AttributeData)current).AttributeDescription);
+                        }
                         isAttrib = true;
                     }
                     else

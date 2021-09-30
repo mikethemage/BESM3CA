@@ -61,16 +61,19 @@ namespace BESM3CAData.Model
         public void ExportToText(string exportFile)
         {
             TextWriter tw;
-            /*try
-            {*/
-                tw = new StreamWriter(exportFile);
-                SaveLoad.ExportNode(RootCharacter, 0, tw);
-            /*}
-            catch
+            
+            tw = new StreamWriter(exportFile);
+
+            tw.WriteLine("BESM3CA Character Export");
+            tw.WriteLine("Template: " + SelectedTemplate.TemplateName);
+            if (SelectedGenreIndex > -1)
             {
-                //MessageBox.Show("Error Opening file: " + saveFileDialog1.FileName);
-                return;
-            }*/
+                tw.WriteLine("Genre: " + SelectedTemplate.Genres[SelectedGenreIndex]);
+            }
+            tw.WriteLine();
+
+            SaveLoad.ExportNode(RootCharacter, 0, tw);            
+
             //close file
             tw.Close();
         }

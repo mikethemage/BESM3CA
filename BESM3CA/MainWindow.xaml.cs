@@ -404,6 +404,10 @@ namespace BESM3CA
             {
                 RefreshList();
                 RefreshTextBoxes();
+                if(AttributeListBox.Items.Count>0)
+                {
+                    AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
+                }
 
                 if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
                 {
