@@ -376,20 +376,30 @@ namespace BESM3CA
             if ((TreeViewItem)CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() != typeof(CharacterData))  //do not allow manual deletion of Character nodes
             {
                 if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).PointAdj >= 0)  //do not delete "freebies"
-                {
-                    /*TreeViewItem tempNode;
-                    if (CharacterTreeView.SelectedNode.NextNode != null)
+                {                    
+                    ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Delete();
+
+                    int selectedIndex = ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.IndexOf(CharacterTreeView.SelectedItem);
+                    TreeViewItem newSelectedItem;
+                    if (selectedIndex>0)
                     {
-                        tempNode = CharacterTreeView.SelectedNode.NextNode;
+                        //not the first item
+                        newSelectedItem = (TreeViewItem)((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[selectedIndex - 1];
+                    }
+                    else if(selectedIndex< ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count-1)
+                    {
+                        //not the last item
+                        newSelectedItem = (TreeViewItem)((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[selectedIndex + 1];
                     }
                     else
                     {
-                        tempNode = CharacterTreeView.SelectedNode.PrevNode;
-                    }*/
+                        newSelectedItem= (TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent;
+                    }
 
-                    ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Delete();
                     ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Remove((TreeViewItem)CharacterTreeView.SelectedItem);
-                    //CharacterTreeView.SelectedNode = tempNode;
+                    
+                    newSelectedItem.IsSelected=true;
+                    
                     RefreshTree(CharacterTreeView.Items);
                     RefreshTextBoxes();
                 }
