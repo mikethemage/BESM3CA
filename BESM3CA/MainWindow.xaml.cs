@@ -35,7 +35,7 @@ namespace BESM3CA
             //Initialise Controller:
             CurrentController = new Controller();
 
-            
+
             //CurrentController.SelectedTemplate.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
 
             ResetAll();
@@ -88,7 +88,7 @@ namespace BESM3CA
         {
             if (CurrentController.SelectedTemplate.Genres != null)
             {
-                GenreComboBox.Visibility = Visibility.Visible;             
+                GenreComboBox.Visibility = Visibility.Visible;
                 GenreComboBox.ItemsSource = CurrentController.SelectedTemplate.Genres;
                 GenreComboBox.SelectedIndex = 0;
             }
@@ -371,35 +371,35 @@ namespace BESM3CA
             }
         }
 
-        private void DelAttr()   //Todo: fix code to select nearest item after deletion
+        private void DelAttr()
         {
             if ((TreeViewItem)CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() != typeof(CharacterData))  //do not allow manual deletion of Character nodes
             {
                 if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).PointAdj >= 0)  //do not delete "freebies"
-                {                    
+                {
                     ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Delete();
 
                     int selectedIndex = ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.IndexOf(CharacterTreeView.SelectedItem);
                     TreeViewItem newSelectedItem;
-                    if (selectedIndex>0)
+                    if (selectedIndex > 0)
                     {
                         //not the first item
                         newSelectedItem = (TreeViewItem)((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[selectedIndex - 1];
                     }
-                    else if(selectedIndex< ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count-1)
+                    else if (selectedIndex < ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count - 1)
                     {
                         //not the last item
                         newSelectedItem = (TreeViewItem)((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[selectedIndex + 1];
                     }
                     else
                     {
-                        newSelectedItem= (TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent;
+                        newSelectedItem = (TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent;
                     }
 
                     ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Remove((TreeViewItem)CharacterTreeView.SelectedItem);
-                    
-                    newSelectedItem.IsSelected=true;
-                    
+
+                    newSelectedItem.IsSelected = true;
+
                     RefreshTree(CharacterTreeView.Items);
                     RefreshTextBoxes();
                 }
@@ -414,7 +414,7 @@ namespace BESM3CA
             {
                 RefreshList();
                 RefreshTextBoxes();
-                if(AttributeListBox.Items.Count>0)
+                if (AttributeListBox.Items.Count > 0)
                 {
                     AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
                 }
@@ -502,7 +502,7 @@ namespace BESM3CA
 
                 CurrentController.Load(openFileDialog1.FileName);
 
-                if(CurrentController.SelectedGenreIndex>-1)
+                if (CurrentController.SelectedGenreIndex > -1)
                 {
                     GenreComboBox.SelectedIndex = CurrentController.SelectedGenreIndex;
                 }
@@ -755,26 +755,26 @@ namespace BESM3CA
 
         private void NewUpdateTreeFromNodes(TreeViewItem insertionPoint, NodeData nodeDataToAdd)
         {
-            if(nodeDataToAdd==CurrentController.RootCharacter)
+            if (nodeDataToAdd == CurrentController.RootCharacter)
             {
                 insertionPoint.Tag = nodeDataToAdd;
             }
-            else                
+            else
             {
                 TreeViewItem temp = new TreeViewItem() { Header = nodeDataToAdd.DisplayText, Tag = nodeDataToAdd };
                 insertionPoint.Items.Add(temp);
                 insertionPoint.IsExpanded = true;
                 insertionPoint = temp;
-            }            
+            }
             var child = nodeDataToAdd.Children;
-            while(child!=null)
+            while (child != null)
             {
                 NewUpdateTreeFromNodes(insertionPoint, child);
                 child = child.Next;
             }
 
         }
-        
+
 
         private void AttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
