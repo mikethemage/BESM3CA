@@ -101,9 +101,19 @@ namespace BESM3CA
 
         private void RefreshFilter()
         {
-            //Reset Attribute filter listbox:            
-            FilterComboBox.ItemsSource = CurrentController.SelectedTemplate.GetTypesForFilter();
-            FilterComboBox.SelectedIndex = 0;
+            //Reset Attribute filter listbox basded off selected node:    
+            string OriginalValue = (string)FilterComboBox.SelectedValue;
+
+            FilterComboBox.ItemsSource = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetTypesForFilter();
+
+            if (FilterComboBox.Items.Contains(OriginalValue))
+            {
+                FilterComboBox.SelectedValue = OriginalValue;
+            }
+            else
+            {
+                FilterComboBox.SelectedIndex = 0;
+            }
         }
 
         private void RefreshVariants()
@@ -412,6 +422,7 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem != null)
             {
+                RefreshFilter();
                 RefreshList();
                 RefreshTextBoxes();
                 if (AttributeListBox.Items.Count > 0)

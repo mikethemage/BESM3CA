@@ -62,5 +62,19 @@ namespace BESM3CAData.Test
             Assert.Equal(selectedAttribute.Name, foundAttribute.Name);
         }
 
+        [Theory]
+        [InlineData("All")]
+        [InlineData("Attribute")]
+        [InlineData("Defect")]
+        [InlineData("Skill")]
+        public void Character_GetTypesForFilterShouldContain(string expected)
+        {
+            Controller testController = new Controller();
+            CharacterData testCharacter = new CharacterData(testController);
+            List<string> output = testCharacter.GetTypesForFilter();
+            Assert.True(output.Count > 0);
+            Assert.Contains<string>(expected, output);
+        }
+
     }
 }

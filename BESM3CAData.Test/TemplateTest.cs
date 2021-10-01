@@ -40,14 +40,7 @@ namespace BESM3CAData.Test
             Assert.Equal(expected, output);
         }
 
-        [Fact]
-        public void Template_GetTypesForFilterShouldAlwaysContainAll()
-        {
-            TemplateData DefaultTemplate = TemplateData.JSONLoader(); 
-            List<string> output = DefaultTemplate.GetTypesForFilter();
-            Assert.True(output.Count > 0);
-            Assert.Contains<string>("All", output);
-        }
+        
 
         [Fact]
         public void Template_ShouldHaveValidVariants()

@@ -49,6 +49,18 @@ namespace BESM3CAData.Model
             get;
         }
 
+        
+        public List<string> GetTypesForFilter()
+        {
+            //LINQ Version:
+            List<string> tempList= (from AttChild in PotentialChildren
+                                    orderby AttChild.Type
+                                    select AttChild.Type).Distinct().ToList();
+            tempList.Insert(0, "All");
+            return tempList;
+        }
+
+
         public List<ListItems> GetFilteredPotentialChildren(string filter)
         {
             List<AttributeListing> SelectedAttributeChildren = PotentialChildren;
@@ -153,7 +165,7 @@ namespace BESM3CAData.Model
 
         //Member Functions:
         public abstract int GetPoints();
-        
+
         public void AddChild(NodeData child)
         {
             if (_firstChild == null)
@@ -269,7 +281,7 @@ namespace BESM3CAData.Model
         public virtual void InvalidateGenrePoints()
         {
             NodeData child = Children;
-            while(child != null)
+            while (child != null)
             {
                 child.InvalidateGenrePoints();
                 child = child.Next;
@@ -292,7 +304,7 @@ namespace BESM3CAData.Model
         }
 
         public abstract void SaveAdditionalXML(XmlTextWriter textWriter);
-        
+
         public void LoadXML(XmlTextReader reader)
         {
             while (reader.NodeType != XmlNodeType.None)
@@ -370,6 +382,6 @@ namespace BESM3CAData.Model
 
 
         //Getting stats:
-        public abstract CalcStats GetStats();      
+        public abstract CalcStats GetStats();
     }
 }

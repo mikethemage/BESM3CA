@@ -40,16 +40,6 @@ namespace BESM3CAData.Templates
         }
 
         //Member functions:
-        public List<string> GetTypesForFilter()
-        {
-            //LINQ Version:
-            List<string> tempList =  (from AttType in TypeList
-                                                   orderby AttType.Name
-                                                   select AttType.Name).ToList();
-            tempList.Insert(0, "All");
-            return tempList;
-        }
-
         public static TemplateData JSONLoader()
         {
             TemplateData temp;

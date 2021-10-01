@@ -55,5 +55,17 @@ namespace BESM3CAData.Test
             Assert.DoesNotContain("NaN", foundAttribute.AttributeDescription);
         }
 
+        [Theory]        
+        [InlineData("Alternate Form","Attribute")]
+        [InlineData("Armour","Variable")]        
+        public void Attribute_GetTypesForFilterShouldContain(string attributeName, string expected)
+        {
+            Controller testController = new Controller();
+            AttributeData testAttribute= new AttributeData(attributeName,testController.SelectedTemplate.AttributeList.Find(x => x.Name==attributeName).ID,"",testController);
+            List<string> output = testAttribute.GetTypesForFilter();
+            Assert.True(output.Count > 0);
+            Assert.Contains<string>(expected, output);
+        }
+
     }
 }
