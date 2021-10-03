@@ -16,14 +16,24 @@ jobs:
           dotnet-version: '5.0.x'
       - name: Install dependencies      
         run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal --logger trx
-      - name: Test Report
+      - name: Build Library
+        run: |
+          cd BESM3CAData
+          dotnet build --configuration Release --no-restore
+          cd ..
+      - name: Build Test Project 
+        run: |
+          cd BESM3CAData.Test
+          dotnet build --configuration Release --no-restore
+          cd ..
+      - name: Run Tests
+        run: dotnet test --no-restore --verbosity normal --logger trx        
+      - name: Produce Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
         with:
           name: xUnit Tests            # Name of the check run which will be created
           path: BESM3CAData.Test/TestResults/*.trx    # Path to test results
-          reporter: dotnet-trx        # Format of test results
+          reporter: dotnet-trx        # Format of test results          
+      - name: Build Application
+        run: dotnet build --configuration Release --no-restore         # Todo: deploy app
