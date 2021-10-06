@@ -43,9 +43,8 @@ namespace BESM3CAData.Templates
         public static TemplateData JSONLoader()
         {
             TemplateData temp;
-
-            string input = File.ReadAllText(@"Datafiles\BESM3E.json");
-            
+           
+            string input = File.ReadAllText(Path.Combine("Datafiles","BESM3E.json"));            
 
             temp = JsonSerializer.Deserialize<TemplateData>(input);
 
