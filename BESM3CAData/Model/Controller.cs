@@ -16,7 +16,7 @@ namespace BESM3CAData.Model
         public TemplateData SelectedTemplate { get; set; }
         public CharacterData RootCharacter { get; set; }
 
-        
+
         public int SelectedGenreIndex { get; set; }
 
 
@@ -28,11 +28,11 @@ namespace BESM3CAData.Model
             ResetAll();
         }
 
-       
+
         //Public Methods:
         public void Load(string fileName)
         {
-            SelectedGenreIndex=-1;  //Needs changing to load Genre
+            SelectedGenreIndex = -1;  //Needs changing to load Genre
             RootCharacter = (CharacterData)SaveLoad.DeserializeXML(fileName, this);
             //Need to check if successful
 
@@ -55,13 +55,13 @@ namespace BESM3CAData.Model
 
         public void Save()
         {
-            SaveLoad.SerializeXML(RootCharacter, FileName, this);       
+            SaveLoad.SerializeXML(RootCharacter, FileName, this);
         }
 
         public void ExportToText(string exportFile)
         {
             TextWriter tw;
-            
+
             tw = new StreamWriter(exportFile);
 
             tw.WriteLine("BESM3CA Character Export");
@@ -72,10 +72,45 @@ namespace BESM3CAData.Model
             }
             tw.WriteLine();
 
-            SaveLoad.ExportNode(RootCharacter, 0, tw);            
+            SaveLoad.ExportNode(RootCharacter, 0, tw);
 
             //close file
             tw.Close();
         }
+
+        public void ExportToHTML(string exportFile)
+        {
+            TextWriter tw;
+
+            tw = new StreamWriter(exportFile);
+
+            tw.Write("<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n<style type = \"text/css\">\n@page\n {\n size: A4; \n}\n@page :left\n {\n margin-left: 2cm;\n }\n@page :right\n {\n margin-right: 2cm;\n }\n</style>\n</head>\n<body>\n<div class=\"CharacterExport\">\n<div class=\"CharacterExportHeader\">\n");
+            tw.Write("<h1>BESM3CA Character Export</h1>\n");
+            
+            tw.Write("<p>Template: ");
+            tw.Write(SelectedTemplate.TemplateName);
+            tw.Write("</p>\n");
+
+            if (SelectedGenreIndex > -1)
+            {
+                tw.Write("<p>Genre: ");
+                tw.Write(SelectedTemplate.Genres[SelectedGenreIndex]);
+                tw.Write("</p>\n");
+            }
+            tw.Write("</div>\n");
+            tw.Write("<ul>\n");
+
+            SaveLoad.ExportHTMLNode(RootCharacter, 0, tw);
+
+            tw.Write("</ul>\n");
+
+            tw.WriteLine("</div>");
+            tw.WriteLine("</body>");
+            tw.WriteLine("</html>");
+
+            tw.Close();
+
+        }
+
     }
 }

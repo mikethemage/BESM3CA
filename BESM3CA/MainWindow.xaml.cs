@@ -813,5 +813,25 @@ namespace BESM3CA
                 RefreshTree(CharacterTreeView.Items);
             }
         }
+
+        private void ExportToHTMLMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                RestoreDirectory = false,
+                Filter = "Export Files (*.html)|*.html|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
+
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                CurrentController.ExportToHTML(saveFileDialog1.FileName);
+            }
+            else
+            {
+                return; //User Pressed Cancel
+            }
+        }
     }
 }

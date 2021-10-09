@@ -4,6 +4,7 @@ using System.Xml;
 using BESM3CAData.Templates;
 using BESM3CAData.Model;
 
+
 namespace BESM3CAData.Control
 {
     public class SaveLoad
@@ -11,22 +12,9 @@ namespace BESM3CAData.Control
         // Xml tag for node, e.g. 'node' in case of <node></node> 
         private const string XmlNodeTag = "node";
 
-        // Xml attributes for node e.g. <node text="Asia" tag="" 
-        // imageindex="1"></node>
-        //private const string XmlNodeTextAtt = "text";
-
         private const string XmlTemplateTag = "template";
 
         private const string XmlGenreTag = "genre";
-
-        //private static void SetAttributeValue(NodeData node,
-        //            string propertyName, string value)
-        //{
-        //    if (propertyName == XmlNodeTextAtt)
-        //    {
-        //        node.Name = value;
-        //    }
-        //}
 
         public static NodeData DeserializeXML(string fileName, Controller controller)
         {
@@ -42,7 +30,7 @@ namespace BESM3CAData.Control
 
                 while (reader.Read())
                 {
-                    if (reader.Name == XmlTemplateTag && reader.NodeType==XmlNodeType.Element)
+                    if (reader.Name == XmlTemplateTag && reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Read())
                         {
@@ -177,7 +165,6 @@ namespace BESM3CAData.Control
             while (node != null)
             {
                 textWriter.WriteStartElement(XmlNodeTag);
-                //textWriter.WriteAttributeString(XmlNodeTextAtt, node.DisplayText);
 
                 node.SaveXML(textWriter);
 
@@ -218,7 +205,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine(nexttabstring + "Body: " + ((CharacterData)current).Body);
                     tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current).Soul);
                     tw.WriteLine();
-                                        
+
                     CalcStats stats = current.GetStats();
 
                     tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
@@ -239,7 +226,6 @@ namespace BESM3CAData.Control
 
                         if (((AttributeData)current).Name == "Item")
                         {
-
                             tw.WriteLine(tabstring + "(");
                         }
                         else
@@ -276,6 +262,108 @@ namespace BESM3CAData.Control
                     }
                     tw.WriteLine();
                 }
+                current = current.Next;
+            }
+        }
+
+        public static void ExportHTMLNode(NodeData nodes, int tabdepth, TextWriter tw)
+        {
+            //Code to export to HTML format:
+            bool isAttrib = false;
+
+            NodeData current = nodes;
+            while (current != null)
+            {
+                if (current.GetType() == typeof(CharacterData))
+                {
+                    tw.WriteLine("<li class=\"CharacterNode\">");
+
+                    tw.WriteLine("<div class=\"CharacterStats\">");
+                    tw.WriteLine("<h2>" + current.DisplayText + "</h2>");
+
+                    tw.WriteLine("<div class=\"CoreStats\">");
+                    tw.WriteLine("<strong>Mind:</strong> " + ((CharacterData)current).Mind);
+                    tw.WriteLine("<strong>Body:</strong> " + ((CharacterData)current).Body);
+                    tw.WriteLine("<strong>Soul:</strong> " + ((CharacterData)current).Soul);
+                    tw.WriteLine("</div>");
+
+                    CalcStats stats = current.GetStats();
+
+                    tw.WriteLine("<div class=\"DerivedStats\">");
+                    tw.WriteLine("<strong>ACV:</strong> " + stats.ACV);
+                    tw.WriteLine("<strong>DCV:</strong> " + stats.DCV);
+                    tw.WriteLine("<strong>Health:</strong> " + stats.Health);
+                    tw.WriteLine("<strong>Energy:</strong> " + stats.Energy);
+                    tw.WriteLine("</div>");
+
+                    tw.WriteLine("</div>");
+
+                    if (current.Notes != "")
+                    {
+                        tw.WriteLine("<div class=\"Notes\">");
+                        tw.WriteLine("[Notes: " + current.Notes.Replace("\n", "<br>") + "]");
+                        tw.WriteLine("</div>");
+                    }
+
+                    if (current.Children != null)
+                    {
+                        tw.WriteLine("<ul class=\"AttributeList\">");
+
+                        ExportHTMLNode(current.Children, tabdepth + 1, tw);
+
+                        tw.WriteLine("</ul>");
+                    }
+
+                    tw.WriteLine("</li>");
+                }
+                else
+                {
+                    if (((AttributeData)current).AttributeType == "Attribute")
+                    {
+                        tw.WriteLine("<li class=\"AttributeNode\">");
+                        tw.WriteLine("<h3>" + current.DisplayText + "</h3>");
+
+                        if (((AttributeData)current).Name == "Item")
+                        {
+                            tw.WriteLine("(");
+                        }
+                        else
+                        {
+                            tw.WriteLine("<p>Level " + ((AttributeData)current).Level + " x " + ((AttributeData)current).PointsPerLevel + " = " + (((AttributeData)current).Level * ((AttributeData)current).PointsPerLevel) + "</p>");
+                        }
+
+                        if (((AttributeData)current).AttributeDescription != "")
+                        {
+                            tw.WriteLine("<p>Description: " + ((AttributeData)current).AttributeDescription + "</p>");
+                        }
+                        isAttrib = true;
+                    }
+                    else
+                    {
+                        tw.WriteLine("<li class=\"" + ((AttributeData)current).AttributeType + "Node\">");
+                        tw.WriteLine(current.DisplayText + " Level " + ((AttributeData)current).Level);
+                    }
+                    if (current.Notes != "")
+                    {
+                        tw.WriteLine("<p>[Notes: " + (current.Notes).Replace("\n", "<br>") + "]</p>");
+                    }
+
+                    if (current.Children != null)
+                    {
+                        tw.WriteLine("<ul class=\"AttributeList\">");
+                        ExportHTMLNode(current.Children, tabdepth + 1, tw);
+                        tw.WriteLine("</ul>");
+                    }
+                    if (isAttrib)
+                    {
+                        if (((AttributeData)current).Name == "Item")
+                        {
+                            tw.WriteLine(") / 2");
+                        }
+                    }
+                    tw.WriteLine("</li>");
+                }
+
                 current = current.Next;
             }
         }
