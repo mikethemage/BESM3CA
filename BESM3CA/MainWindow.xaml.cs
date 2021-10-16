@@ -34,10 +34,7 @@ namespace BESM3CA
         {
             //Initialise Controller:
             CurrentController = new Controller();
-
-
             //CurrentController.SelectedTemplate.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
-
             ResetAll();
         }
 
@@ -79,9 +76,6 @@ namespace BESM3CA
             //Refresh tree/data:
             RefreshTree(CharacterTreeView.Items);
             RefreshTextBoxes();
-
-
-
         }
 
         private void RefreshGenreList()
@@ -118,13 +112,6 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-
-
-
-
-
-
-
             if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData && ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasVariants)
             {
                 List<ListItems> FilteredVarList = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetVariants();
@@ -132,14 +119,6 @@ namespace BESM3CA
                 {
                     VariantListBox.Visibility = Visibility.Visible;
                     VariantLabel.Visibility = Visibility.Visible;
-
-
-
-
-
-
-
-
 
                     //VariantListBox.SelectedIndexChanged -= lbVariantList_SelectedIndexChanged;   //Temporarily disable event  - not currently needed for WPF version
                     VariantListBox.DisplayMemberPath = "Name";
@@ -161,12 +140,6 @@ namespace BESM3CA
             {
                 VariantListBox.Visibility = Visibility.Collapsed;
                 VariantLabel.Visibility = Visibility.Collapsed;
-
-
-
-
-
-
             }
         }
 
@@ -440,9 +413,7 @@ namespace BESM3CA
                 else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData )
                 {
                     DelAttButton.IsEnabled = true;
-
                     MoveDownButton.IsEnabled = true;
-
                     CheckMoveUpDown();
 
                     if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevel)
@@ -477,8 +448,6 @@ namespace BESM3CA
                 {
                     MoveUpButton.IsEnabled = true;
                 }
-
-
 
                 if (((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items[^1] == CharacterTreeView.SelectedItem)
                 {
@@ -556,8 +525,6 @@ namespace BESM3CA
             }
         }
 
-
-
         private void MindTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is CharacterData )
@@ -571,8 +538,6 @@ namespace BESM3CA
             }
         }
 
-
-
         private void SoulTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is CharacterData)
@@ -584,27 +549,7 @@ namespace BESM3CA
                     RefreshTextBoxes();
                 }
             }
-        }
-
-
-
-
-        /*Todo: check if validation code required (control should force integer value on front end???*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*******/
+        }        
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -634,48 +579,16 @@ namespace BESM3CA
             {
                 return; //User Pressed Cancel
             }
-        }
-
-        /*Todo: check if validation code required (control should force integer value on front end???*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /******/
+        }        
 
         private void AddAttButton_Click(object sender, RoutedEventArgs e)
         {
             AddAttr();
         }
-
         private void DelAttButton_Click(object sender, RoutedEventArgs e)
         {
             DelAttr();
         }
-
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)
         {
             if (CharacterTreeView.SelectedItem != CharacterTreeView.Items[0] && ((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Parent).Items.Count > 1)// && ((TreeViewItem)CharacterTreeView.SelectedItem).PrevNode != null)
@@ -785,7 +698,6 @@ namespace BESM3CA
             }
 
         }
-
 
         private void AttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
