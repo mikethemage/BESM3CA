@@ -522,7 +522,7 @@ namespace BESM3CAData.Model
                 NodeData temp = _firstChild;
                 while (temp != null)
                 {
-                    if (temp.GetType() == typeof(AttributeData))
+                    if (temp is AttributeData)
                     {
                         AttributeListing SelectedAttribute = AssociatedController.SelectedTemplate.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
                         if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
@@ -683,7 +683,7 @@ namespace BESM3CAData.Model
                 NodeData child = Children;
                 while (child != null)
                 {
-                    if (child.GetType() == typeof(AttributeData))
+                    if (child is AttributeData )
                     {
                         if (((AttributeData)child).AttributeType == "Restriction")
                         {

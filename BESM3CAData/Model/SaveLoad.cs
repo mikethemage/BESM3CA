@@ -194,7 +194,7 @@ namespace BESM3CAData.Control
             {
                 string nexttabstring;
 
-                if (current.GetType() == typeof(CharacterData))
+                if (current is CharacterData)
                 {
                     //write stuff
                     //write a line of text to the file
@@ -274,7 +274,7 @@ namespace BESM3CAData.Control
             NodeData current = nodes;
             while (current != null)
             {
-                if (current.GetType() == typeof(CharacterData))
+                if (current is CharacterData )
                 {
                     tw.WriteLine("<li class=\"CharacterNode\">");
 

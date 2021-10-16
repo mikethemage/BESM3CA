@@ -125,7 +125,7 @@ namespace BESM3CA
 
 
 
-            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData) && ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasVariants)
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData && ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasVariants)
             {
                 List<ListItems> FilteredVarList = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetVariants();
                 if (FilteredVarList != null)
@@ -271,7 +271,7 @@ namespace BESM3CA
 
                 if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasLevelStats)
                 {
-                    if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                    if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData)
                     {
                         LevelTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Level.ToString();
                         DescriptionTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).AttributeDescription;
@@ -298,7 +298,7 @@ namespace BESM3CA
 
                 if (((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).HasPointsStats)
                 {
-                    if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                    if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData )
                     {
                         PointsPerLevelTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).PointsPerLevel.ToString();
                         PointCostTextBox.Text = ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).BaseCost.ToString();
@@ -327,7 +327,7 @@ namespace BESM3CA
 
         private void RaiseLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData )
             {
                 ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).RaiseLevel();
                 RefreshTree(CharacterTreeView.Items);
@@ -336,7 +336,7 @@ namespace BESM3CA
 
         private void LowerLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData )
             {
                 ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).LowerLevel();
                 RefreshTree(CharacterTreeView.Items);
@@ -383,7 +383,7 @@ namespace BESM3CA
 
         private void DelAttr()
         {
-            if ((TreeViewItem)CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() != typeof(CharacterData))  //do not allow manual deletion of Character nodes
+            if ((TreeViewItem)CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is not CharacterData)  //do not allow manual deletion of Character nodes
             {
                 if (((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).PointAdj >= 0)  //do not delete "freebies"
                 {
@@ -430,14 +430,14 @@ namespace BESM3CA
                     AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
                 }
 
-                if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+                if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is CharacterData)
                 {
                     DisableLevelButtons();
                     DelAttButton.IsEnabled = false;
                     MoveUpButton.IsEnabled = false;
                     MoveDownButton.IsEnabled = false;
                 }
-                else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(AttributeData))
+                else if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData )
                 {
                     DelAttButton.IsEnabled = true;
 
@@ -545,7 +545,7 @@ namespace BESM3CA
 
         private void BodyTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is CharacterData )
             {
                 if (int.TryParse(BodyTextBox.Text, out int temp) && temp > 0)
                 {
@@ -560,7 +560,7 @@ namespace BESM3CA
 
         private void MindTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is CharacterData )
             {
                 if (int.TryParse(MindTextBox.Text, out int temp) && temp > 0)
                 {
@@ -575,7 +575,7 @@ namespace BESM3CA
 
         private void SoulTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag.GetType() == typeof(CharacterData))
+            if (CharacterTreeView.SelectedItem != null && ((TreeViewItem)CharacterTreeView.SelectedItem).Tag is CharacterData)
             {
                 if (int.TryParse(SoulTextBox.Text, out int temp) && temp > 0)
                 {
