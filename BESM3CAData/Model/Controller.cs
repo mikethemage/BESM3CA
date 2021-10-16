@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BESM3CAData.Control;
+﻿using BESM3CAData.Control;
 using BESM3CAData.Templates;
+using System.IO;
 
 namespace BESM3CAData.Model
 {

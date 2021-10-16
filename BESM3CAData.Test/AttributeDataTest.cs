@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BESM3CAData.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BESM3CAData.Model;
-using BESM3CAData.Templates;
 using Xunit;
 
 namespace BESM3CAData.Test

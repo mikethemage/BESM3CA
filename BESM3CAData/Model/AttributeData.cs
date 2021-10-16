@@ -1,9 +1,9 @@
-﻿using System.Xml;
-using System.Linq;
-using BESM3CAData.Templates;
-using System.Diagnostics;
-using System.Collections.Generic;
+﻿using BESM3CAData.Templates;
 using org.mariuszgromada.math.mxparser;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Xml;
 
 namespace BESM3CAData.Model
 {

@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
+﻿using BESM3CAData.Model;
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using BESM3CAData.Templates;
-using BESM3CAData.Model;
 
 
 namespace BESM3CAData.Control

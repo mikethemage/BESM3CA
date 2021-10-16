@@ -1,12 +1,10 @@
 ﻿using BESM3CAData;
 using BESM3CAData.Model;
-using BESM3CAData.Templates;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using System;
 
 namespace BESM3CA
 {
@@ -309,7 +307,7 @@ namespace BESM3CA
 
         private void LowerLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData )
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData)
             {
                 ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).LowerLevel();
                 RefreshTree(CharacterTreeView.Items);

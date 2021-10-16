@@ -1,6 +1,5 @@
-using Xunit;
 using BESM3CAData.Templates;
-using System.Collections.Generic;
+using Xunit;
 
 namespace BESM3CAData.Test
 {

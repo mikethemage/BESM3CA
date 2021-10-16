@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Xml;
-using BESM3CAData.Templates;
+﻿using BESM3CAData.Templates;
+using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace BESM3CAData.Model
 {
