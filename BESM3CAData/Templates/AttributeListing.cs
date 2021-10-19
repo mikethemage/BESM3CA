@@ -7,9 +7,6 @@ namespace BESM3CAData.Templates
 {
     public class AttributeListing
     {
-        //Fields:
-        private readonly List<AttributeListing> _children;
-
         //Properties:
         public int ID { get; set; }
         public string Name { get; set; }
@@ -36,34 +33,19 @@ namespace BESM3CAData.Templates
         {
             //Used for serialisation
             get
-            {
-                string temp = "";
+            {   
+                IEnumerable<int> ChildIDs = from child in Children
+                                                select child.ID;
 
-                var ChildIDs = from child in _children
-                               select child.ID;
-
-                temp = string.Join(",", ChildIDs);
-
+                string temp = string.Join(",", ChildIDs);
                 return temp;
             }
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public List<AttributeListing> Children
-        {
-            //Ignore for serialisation
-            get
-            {
-                return _children;
-            }
-        }
+        public List<AttributeListing> Children { get; private set; } //Ignore for serialisation
         
-        public List<VariantListing> Variants
-        {
-            get;
-            set;
-        }
-
+        public List<VariantListing> Variants { get; set;}
 
         //Constructor:
         public AttributeListing()
@@ -71,17 +53,16 @@ namespace BESM3CAData.Templates
             //Used for deserialisation
             CostperLevelDesc = "";
             Progression = "";
-            _children = new List<AttributeListing>();
-
+            Children = new List<AttributeListing>();
         }
 
 
-        //Member functions:
+        //Methods:
         public void AddChild(AttributeListing Child)
         {
             if (Child != null)
             {
-                _children.Add(Child);
+                Children.Add(Child);
             }
         }
     }

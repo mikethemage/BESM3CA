@@ -52,7 +52,7 @@ namespace BESM3CAData.Model
                     return null;
                 }
             }
-        }        
+        }
 
         public int BaseCost
         {

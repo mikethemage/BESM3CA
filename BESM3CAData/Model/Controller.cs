@@ -10,8 +10,6 @@ namespace BESM3CAData.Model
         public string FileName { get; set; }
         public TemplateData SelectedTemplate { get; set; }
         public CharacterData RootCharacter { get; set; }
-
-
         public int SelectedGenreIndex { get; set; }
 
 

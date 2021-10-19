@@ -8,7 +8,7 @@ namespace BESM3CAData.Templates
 
         public string Name { get; set; }
 
-        public int CostperLevel { get; set; }               
+        public int CostperLevel { get; set; }
 
         public string Desc { get; set; }
 
@@ -18,11 +18,11 @@ namespace BESM3CAData.Templates
         public AttributeListing Attribute { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public string FullName 
-        { 
-            get 
+        public string FullName
+        {
+            get
             {
-                return Attribute.Name + " [" + Name + "]";
+                return $"{Attribute.Name} [{Name}]";
             }
         }
 

@@ -10,7 +10,7 @@ namespace BESM3CAData.Templates
     {
         //Properties:
         public List<AttributeListing> AttributeList { get; set; }
-        
+
         public List<TypeListing> TypeList { get; set; }
         public string TemplateName { get; set; }
 
@@ -28,7 +28,7 @@ namespace BESM3CAData.Templates
         public string GetProgression(string progressionType, int rank)
         {
             Progression SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
-            if(SelectedProgression==null)
+            if (SelectedProgression == null)
             {
                 return "";
             }
@@ -42,8 +42,8 @@ namespace BESM3CAData.Templates
         public static TemplateData JSONLoader()
         {
             TemplateData temp;
-           
-            string input = File.ReadAllText(Path.Combine("Datafiles","BESM3E.json"));            
+
+            string input = File.ReadAllText(Path.Combine("Datafiles", "BESM3E.json"));
 
             //Load template:
             temp = JsonSerializer.Deserialize<TemplateData>(input);
@@ -80,7 +80,7 @@ namespace BESM3CAData.Templates
                                 AttributeListing Parent = temp.AttributeList.Find(x => x.ID == ParentID);
 
                                 foreach (string Child in Children)
-                                {                                    
+                                {
                                     if (int.TryParse(Child, out int ChildID))
                                     {
                                         Parent.AddChild(temp.AttributeList.Find(x => x.ID == ChildID));
@@ -90,11 +90,11 @@ namespace BESM3CAData.Templates
                         }
                     }
                 }
-            }            
+            }
 
             return temp;
         }
-       
+
         public void CreateJSON(string outputPath)
         {
             //Code to write out JSON data files.   

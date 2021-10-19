@@ -197,20 +197,20 @@ namespace BESM3CAData.Control
                 {
                     //write stuff
                     //write a line of text to the file
-                    tw.WriteLine(tabstring + current.DisplayText);
+                    tw.WriteLine($"{tabstring}{current.DisplayText}");
 
-                    nexttabstring = tabstring + "\t";
-                    tw.WriteLine(nexttabstring + "Mind: " + currentCharacter.Mind);
-                    tw.WriteLine(nexttabstring + "Body: " + currentCharacter.Body);
-                    tw.WriteLine(nexttabstring + "Soul: " + currentCharacter.Soul);
+                    nexttabstring = $"{tabstring}\t";
+                    tw.WriteLine($"{nexttabstring}Mind: {currentCharacter.Mind}");
+                    tw.WriteLine($"{nexttabstring}Body: {currentCharacter.Body}");
+                    tw.WriteLine($"{nexttabstring}Soul: {currentCharacter.Soul}");
                     tw.WriteLine();
 
                     CalcStats stats = current.GetStats();
 
-                    tw.WriteLine(nexttabstring + "ACV: " + stats.ACV);
-                    tw.WriteLine(nexttabstring + "DCV: " + stats.DCV);
-                    tw.WriteLine(nexttabstring + "Health: " + stats.Health);
-                    tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
+                    tw.WriteLine($"{nexttabstring}ACV: {stats.ACV}");
+                    tw.WriteLine($"{nexttabstring}DCV: {stats.DCV}");
+                    tw.WriteLine($"{nexttabstring}Health: {stats.Health}");
+                    tw.WriteLine($"{nexttabstring}Energy: {stats.Energy}");
                     tw.WriteLine();
                 }
                 else if(current is AttributeData currentAttribute)
@@ -219,22 +219,22 @@ namespace BESM3CAData.Control
                     {
                         //write stuff
                         //write a line of text to the file
-                        tw.WriteLine(tabstring + current.DisplayText);
+                        tw.WriteLine($"{tabstring}{current.DisplayText}");
 
-                        nexttabstring = tabstring + "\t";
+                        nexttabstring = $"{tabstring}\t";
 
                         if (currentAttribute.Name == "Item")
                         {
-                            tw.WriteLine(tabstring + "(");
+                            tw.WriteLine($"{tabstring}(");
                         }
                         else
                         {
-                            tw.WriteLine(nexttabstring + "Level " + currentAttribute.Level + " x " + currentAttribute.PointsPerLevel + " = " + (currentAttribute.Level * currentAttribute.PointsPerLevel));
+                            tw.WriteLine($"{nexttabstring}Level {currentAttribute.Level} x {currentAttribute.PointsPerLevel} = {currentAttribute.Level * currentAttribute.PointsPerLevel}");
                         }
 
                         if (currentAttribute.AttributeDescription != "")
                         {
-                            tw.WriteLine(nexttabstring + "Description: " + currentAttribute.AttributeDescription);
+                            tw.WriteLine($"{nexttabstring}Description: {currentAttribute.AttributeDescription}");
                         }
                         isAttrib = true;
                     }
@@ -242,8 +242,8 @@ namespace BESM3CAData.Control
                     {
                         //write stuff
                         //write a line of text to the file
-                        tw.WriteLine(tabstring + current.DisplayText + " Level " + currentAttribute.Level);
-                        nexttabstring = tabstring + "\t";
+                        tw.WriteLine($"{tabstring}{current.DisplayText} Level {currentAttribute.Level}");
+                        nexttabstring = $"{tabstring}\t";
                     }
                 }
                 else
@@ -252,18 +252,18 @@ namespace BESM3CAData.Control
                     nexttabstring = tabstring;
                 }
 
-                if (((NodeData)current).Notes != "")
+                if (current.Notes != "")
                 {
-                    tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current).Notes).Replace("\n", "\n" + nexttabstring) + "]");
+                    tw.WriteLine($"{nexttabstring}[Notes: {current.Notes.Replace("\n", "\n" + nexttabstring)}]");
                 }
 
                 ExportNode(current.FirstChild, tabdepth + 1, tw);
 
                 if (isAttrib)
                 {
-                    if (((AttributeData)current).Name == "Item")
+                    if (current.Name == "Item")
                     {
-                        tw.WriteLine(tabstring + ") / 2");
+                        tw.WriteLine($"{tabstring}) / 2");
                     }
                     tw.WriteLine();
                 }
@@ -284,21 +284,21 @@ namespace BESM3CAData.Control
                     tw.WriteLine("<li class=\"CharacterNode\">");
 
                     tw.WriteLine("<div class=\"CharacterStats\">");
-                    tw.WriteLine("<h2>" + current.DisplayText + "</h2>");
+                    tw.WriteLine($"<h2>{current.DisplayText}</h2>");
 
                     tw.WriteLine("<div class=\"CoreStats\">");
-                    tw.WriteLine("<strong>Mind:</strong> " + currentCharacter.Mind);
-                    tw.WriteLine("<strong>Body:</strong> " + currentCharacter.Body);
-                    tw.WriteLine("<strong>Soul:</strong> " + currentCharacter.Soul);
+                    tw.WriteLine($"<strong>Mind:</strong> {currentCharacter.Mind}");
+                    tw.WriteLine($"<strong>Body:</strong> {currentCharacter.Body}");
+                    tw.WriteLine($"<strong>Soul:</strong> {currentCharacter.Soul}");
                     tw.WriteLine("</div>");
 
                     CalcStats stats = current.GetStats();
 
                     tw.WriteLine("<div class=\"DerivedStats\">");
-                    tw.WriteLine("<strong>ACV:</strong> " + stats.ACV);
-                    tw.WriteLine("<strong>DCV:</strong> " + stats.DCV);
-                    tw.WriteLine("<strong>Health:</strong> " + stats.Health);
-                    tw.WriteLine("<strong>Energy:</strong> " + stats.Energy);
+                    tw.WriteLine($"<strong>ACV:</strong> {stats.ACV}");
+                    tw.WriteLine($"<strong>DCV:</strong> {stats.DCV}");
+                    tw.WriteLine($"<strong>Health:</strong> {stats.Health}");
+                    tw.WriteLine($"<strong>Energy:</strong> {stats.Energy}");
                     tw.WriteLine("</div>");
 
                     tw.WriteLine("</div>");
@@ -306,7 +306,7 @@ namespace BESM3CAData.Control
                     if (current.Notes != "")
                     {
                         tw.WriteLine("<div class=\"Notes\">");
-                        tw.WriteLine("[Notes: " + current.Notes.Replace("\n", "<br>") + "]");
+                        tw.WriteLine($"[Notes: {current.Notes.Replace("\n", "<br>")}]");
                         tw.WriteLine("</div>");
                     }
 
@@ -326,7 +326,7 @@ namespace BESM3CAData.Control
                     if (((AttributeData)current).AttributeType == "Attribute")
                     {
                         tw.WriteLine("<li class=\"AttributeNode\">");
-                        tw.WriteLine("<h3>" + current.DisplayText + "</h3>");
+                        tw.WriteLine($"<h3>{current.DisplayText}</h3>");
 
                         if (((AttributeData)current).Name == "Item")
                         {
@@ -334,23 +334,23 @@ namespace BESM3CAData.Control
                         }
                         else
                         {
-                            tw.WriteLine("<p>Level " + ((AttributeData)current).Level + " x " + ((AttributeData)current).PointsPerLevel + " = " + (((AttributeData)current).Level * ((AttributeData)current).PointsPerLevel) + "</p>");
+                            tw.WriteLine($"<p>Level {((AttributeData)current).Level} x {((AttributeData)current).PointsPerLevel} = {((AttributeData)current).Level * ((AttributeData)current).PointsPerLevel}</p>");
                         }
 
                         if (((AttributeData)current).AttributeDescription != "")
                         {
-                            tw.WriteLine("<p>Description: " + ((AttributeData)current).AttributeDescription + "</p>");
+                            tw.WriteLine($"<p>Description: {((AttributeData)current).AttributeDescription}</p>");
                         }
                         isAttrib = true;
                     }
                     else
                     {
-                        tw.WriteLine("<li class=\"" + ((AttributeData)current).AttributeType + "Node\">");
-                        tw.WriteLine(current.DisplayText + " Level " + ((AttributeData)current).Level);
+                        tw.WriteLine($"<li class=\"{((AttributeData)current).AttributeType}Node\">");
+                        tw.WriteLine($"{current.DisplayText} Level {((AttributeData)current).Level}");
                     }
                     if (current.Notes != "")
                     {
-                        tw.WriteLine("<p>[Notes: " + (current.Notes).Replace("\n", "<br>") + "]</p>");
+                        tw.WriteLine($"<p>[Notes: {current.Notes.Replace("\n", "<br>")}]</p>");
                     }
 
                     if (current.FirstChild != null)

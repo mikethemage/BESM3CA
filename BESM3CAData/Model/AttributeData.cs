@@ -23,7 +23,7 @@ namespace BESM3CAData.Model
                 {
                     if (_attributeListing.SpecialContainer || Name == "Alternate Form")
                     {
-                        return Name + " (" + GetSpecialPoints() + " Left)" + " (" + GetPoints() + " Points)";
+                        return $"{Name} ({GetSpecialPoints()} Left) ({GetPoints()} Points)";
                     }
                     else
                     {
@@ -33,7 +33,7 @@ namespace BESM3CAData.Model
                         }
                         else
                         {
-                            return Name + " (" + GetPoints() + " Points)";
+                            return $"{Name} ({GetPoints()} Points)";
                         }
                     }
                 }
@@ -228,18 +228,11 @@ namespace BESM3CAData.Model
             }
         }
 
-
-
         public int Level { get; private set; }
 
         public int PointsPerLevel { get; set; }
 
-        public int PointAdj
-        {
-            get;
-            private set
-            ;
-        }
+        public int PointAdj { get; private set; }
 
         public int BaseCost
         {
@@ -318,14 +311,14 @@ namespace BESM3CAData.Model
                     return AssociatedController.SelectedTemplate.GetProgression("Slow", i - 1 + Level).ToString();
                 }
             }
-            if (valueToParse.Contains("tn"))// Time 
+            if (valueToParse.Contains("tn")) //Time 
             {
                 if (int.TryParse(valueToParse.Replace("tn", ""), out int i))
                 {
                     return AssociatedController.SelectedTemplate.GetProgression("Time", i - 1 + Level).ToString();
                 }
             }
-            if (valueToParse.Contains("trn"))// Time Reversed
+            if (valueToParse.Contains("trn")) //Time Reversed
             {
                 if (int.TryParse(valueToParse.Replace("trn", ""), out int i))
                 {
@@ -360,7 +353,6 @@ namespace BESM3CAData.Model
                     return AssociatedController.SelectedTemplate.GetProgression("Growth", i - 1 + Level).ToString();
                 }
             }
-
 
             valueToParse = valueToParse.Replace("n", Level.ToString());
 
@@ -488,8 +480,7 @@ namespace BESM3CAData.Model
             {
                 bool isItem = Name == "Item";
                 bool isCompanion = Name == "Companion";
-                bool isAlternateAttack = false;
-                //bool isAlternateForm = Name == "Alternate Form";
+                bool isAlternateAttack = false;                
 
                 if (VariantID > 0)
                 {
