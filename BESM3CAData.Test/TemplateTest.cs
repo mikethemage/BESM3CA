@@ -38,25 +38,6 @@ namespace BESM3CAData.Test
 
             Assert.Equal(expected, output);
         }
-
-        
-
-        [Fact]
-        public void Template_ShouldHaveValidVariants()
-        {
-            TemplateData DefaultTemplate = TemplateData.JSONLoader();
-            if(DefaultTemplate.VariantList.Count>0)
-            {
-                int attID = DefaultTemplate.VariantList[0].AttributeID;
-                Assert.True(attID > 0);
-                AttributeListing linkedAttribute = DefaultTemplate.AttributeList.Find(x => x.ID == attID);
-                Assert.NotNull(linkedAttribute);
-            }
-            else
-            {
-                AttributeListing attributeWithVariants = DefaultTemplate.AttributeList.Find(x => x.RequiresVariant == true);
-                Assert.Null(attributeWithVariants);
-            }
-        }
+                
     }
 }

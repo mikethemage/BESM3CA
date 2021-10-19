@@ -9,15 +9,10 @@ namespace BESM3CAData.Model
 {
     public class AttributeData : NodeData
     {
-        //Fields:
-        int _Level;
-        bool _HasLevel;
-        int _Variant = 0;
-        int _PointAdj = 0;
-        int _SpecialPointsUsed = 0;
+        //Fields:             
+        private int _specialPointsUsed = 0;
         private AttributeListing _attributeListing;
         private VariantListing _variantListing;
-
 
         //Properties:
         public override string DisplayText
@@ -145,6 +140,160 @@ namespace BESM3CAData.Model
             }
         }
 
+        public string AttributeType
+        {
+            get
+            {
+                return _attributeListing.Type;
+            }
+        }
+
+        public override List<AttributeListing> PotentialChildren
+        {
+            get
+            {
+                return _attributeListing.Children;
+            }
+        }
+
+        public bool HasVariants
+        {
+            get
+            {
+                if (_variantListing != null)
+                {
+                    return true;
+                }
+
+                if (_attributeListing != null && _attributeListing.RequiresVariant)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public bool HasLevel
+        {
+            get; private set;
+        }
+
+        public int VariantID
+        {
+            get
+            {
+                if (_variantListing == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return _variantListing.ID;
+                }
+            }
+            set
+            {
+                if (_attributeListing.Variants != null && value > 0)
+                {
+                    Variant = _attributeListing.Variants.First(n => n.ID == value);
+                }
+
+                PointsUpToDate = false;
+            }
+        }
+
+        public VariantListing Variant
+        {
+            get
+            {
+                return _variantListing;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _variantListing = value;
+                    Name = _variantListing.FullName;
+                    PointsPerLevel = _variantListing.CostperLevel;
+                }
+                else
+                {
+                    _variantListing = null;
+                    Name = _attributeListing.Name;
+                    PointsPerLevel = _attributeListing.CostperLevel;
+                }
+                PointsUpToDate = false;
+
+            }
+        }
+
+
+
+        public int Level { get; private set; }
+
+        public int PointsPerLevel { get; set; }
+
+        public int PointAdj
+        {
+            get;
+            private set
+            ;
+        }
+
+        public int BaseCost
+        {
+            get
+            {
+                return (PointsPerLevel * Level) + PointAdj;
+            }
+        }
+
+
+        //Constructors:   
+        public AttributeData(Controller controller, string Notes = "") : base("", 0, Notes, controller)
+        {
+            //Default constructor for data loading only
+        }
+
+        public AttributeData(AttributeListing attribute, string notes, Controller controller, int level = 1, int pointAdj = 0) : base(attribute.Name, attribute.ID, notes, controller)
+        {
+            Debug.Assert(controller.SelectedTemplate != null);  //Check if we have a template...
+
+            if (attribute.Name == "Item")
+            {
+                HasLevel = false;
+            }
+            else
+            {
+                HasLevel = true;
+                if (attribute.Name == "Weapon")
+                {
+                    Level = 0;
+                }
+            }
+
+            PointAdj = pointAdj;
+            Level = level;
+
+            _attributeListing = attribute;
+
+            UpdatePointsPerLevel();
+
+            _variantListing = null;
+
+            if (attribute.Name == "Companion")
+            {
+                AddChild(new CharacterData(AssociatedController));
+            }
+            if (attribute.Name == "Mind Control")
+            {
+                AddChild(new AttributeData(AssociatedController.SelectedTemplate.AttributeList.Find(n => n.Name == "Range"), "", AssociatedController, 3, -3));
+            }
+        }
+
+
+        //Methods:
         private string ProcessDescriptionValue(string valueToParse)
         {
             //Substitute "n" for Level:
@@ -220,151 +369,6 @@ namespace BESM3CAData.Model
             return e.calculate().ToString();
         }
 
-
-
-        public string AttributeType
-        {
-            get
-            {
-                return _attributeListing.Type;
-            }
-        }
-
-        public override List<AttributeListing> PotentialChildren
-        {
-            get
-            {
-                return AssociatedController.SelectedTemplate.AttributeList.Where(n => n.ID == ID).First().Children;
-            }
-        }
-
-        public bool HasVariants
-        {
-            get
-            {
-                if (_Variant != 0)
-                {
-                    return true;
-                }
-
-                if (_attributeListing != null && _attributeListing.RequiresVariant)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        public bool HasLevel
-        {
-            get
-            {
-                return _HasLevel;
-            }
-        }
-
-        public int Variant
-        {
-            get
-            {
-                return _Variant;
-            }
-            set
-            {
-                if (AssociatedController.SelectedTemplate != null)
-                {
-                    _variantListing = AssociatedController.SelectedTemplate.VariantList.Where(n => n.ID == value).First();
-                    PointsPerLevel = _variantListing.CostperLevel;
-                }
-                else
-                {
-                    _variantListing = null;
-                }
-
-                PointsUpToDate = false;
-                _Variant = value;
-            }
-        }
-
-        public int AttributeID
-        {
-            get
-            {
-                return ID;
-            }
-        }
-
-        public int Level
-        {
-            get
-            {
-                return _Level;
-            }
-        }
-
-        public int PointsPerLevel { get; set; }
-
-        public int PointAdj
-        {
-            get
-            {
-                return _PointAdj;
-            }
-            set
-            {
-                _PointAdj = value;
-            }
-        }
-
-        public int BaseCost
-        {
-            get
-            {
-                return (PointsPerLevel * Level) + _PointAdj;
-            }
-        }
-
-
-        //Constructors:         
-        public AttributeData(string attributeName, int attributeID, string notes, Controller controller, int level = 1, int pointAdj = 0) : base(attributeName, attributeID, notes, controller)
-        {
-            Debug.Assert(controller.SelectedTemplate != null);  //Check if we have a template...
-
-            if (attributeName == "Item")
-            {
-                _HasLevel = false;
-            }
-            else
-            {
-                _HasLevel = true;
-                if (attributeName == "Weapon")
-                {
-                    _Level = 0;
-                }
-            }
-
-            _PointAdj = pointAdj;
-            _Level = level;
-
-            if (attributeID != 0)
-            {
-                _attributeListing = AssociatedController.SelectedTemplate.AttributeList.Find(n => n.ID == attributeID);
-
-                UpdatePointsPerLevel();
-            }
-            _variantListing = null;
-
-            if (attributeName == "Companion")
-            {
-                AddChild(new CharacterData(AssociatedController/*, ""*/));
-            }
-            if (attributeName == "Mind Control")
-            {
-                AddChild(new AttributeData("Range", 167, "", AssociatedController, 3, -3));
-            }
-        }
-
         private void UpdatePointsPerLevel()
         {
             if (AssociatedController.SelectedGenreIndex > -1 && _attributeListing.GenrePoints != null && _attributeListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
@@ -377,12 +381,9 @@ namespace BESM3CAData.Model
             }
         }
 
-
-        //Member Functions:
-
         public override void InvalidateGenrePoints()
         {
-            if(_attributeListing.GenrePoints!=null)
+            if (_attributeListing.GenrePoints != null)
             {
                 PointsUpToDate = false;
                 UpdatePointsPerLevel();
@@ -399,11 +400,9 @@ namespace BESM3CAData.Model
                 altform = true;
             }
 
-            AttributeListing SelectedAttribute = AssociatedController.SelectedTemplate.AttributeList.Where(n => n.ID == ID).First();
-
             int specialpoints = 0;
 
-            if (SelectedAttribute.SpecialContainer || altform)
+            if (_attributeListing.SpecialContainer || altform)
             {
                 if (PointsUpToDate == false)
                 {
@@ -419,7 +418,7 @@ namespace BESM3CAData.Model
                     specialpoints = Level;
                 }
 
-                specialpoints -= _SpecialPointsUsed;
+                specialpoints -= _specialPointsUsed;
             }
 
             return specialpoints;
@@ -429,12 +428,12 @@ namespace BESM3CAData.Model
         {
             if (_attributeListing.EnforceMaxLevel == false || (_attributeListing.MaxLevel != int.MaxValue && _attributeListing.MaxLevel > Level)) //need to check maxlevel
             {
-                if (_HasLevel == true)
+                if (HasLevel == true)
                 {
-                    _Level++;
+                    Level++;
                     PointsUpToDate = false;
                 }
-                return _HasLevel;
+                return HasLevel;
             }
             else
             {
@@ -446,23 +445,23 @@ namespace BESM3CAData.Model
         {
             if (Level > 1 || (Level > 0 && _attributeListing.Name == "Weapon"))
             {
-                if (_HasLevel == true)
+                if (HasLevel == true)
                 {
-                    if (_PointAdj < 0)
+                    if (PointAdj < 0)
                     {
-                        if ((_Level * PointsPerLevel) + _PointAdj > 0)
+                        if ((Level * PointsPerLevel) + PointAdj > 0)
                         {
-                            _Level--;
+                            Level--;
                             PointsUpToDate = false;
                         }
                     }
                     else
                     {
-                        _Level--;
+                        Level--;
                         PointsUpToDate = false;
                     }
                 }
-                return _HasLevel;
+                return HasLevel;
             }
             else
             {
@@ -470,23 +469,12 @@ namespace BESM3CAData.Model
             }
         }
 
-        public List<ListItems> GetVariants()
+        public List<VariantListing> GetVariants()
         {
             if (HasVariants)
             {
                 //LINQ Version:
-                List<ListItems> FilteredVarList = (from Att in AssociatedController.SelectedTemplate.AttributeList
-                                                   where Att.ID == AttributeID
-                                                   from Vari in AssociatedController.SelectedTemplate.VariantList
-                                                   where Att.ID == Vari.AttributeID
-                                                   orderby Vari.DefaultVariant descending, Vari.Name
-                                                   select new ListItems
-                                                   (
-                                                       Att.Name + " [" + Vari.Name + "]",
-                                                       Vari.ID
-                                                   )).ToList();
-
-                return FilteredVarList;
+                return _attributeListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
             }
             else
             {
@@ -496,21 +484,16 @@ namespace BESM3CAData.Model
 
         public override int GetPoints()
         {
-            if (PointsUpToDate == false || _firstChild == null)
+            if (PointsUpToDate == false || FirstChild == null)
             {
-                bool isItem = false;
-                bool isCompanion = false;
+                bool isItem = Name == "Item";
+                bool isCompanion = Name == "Companion";
                 bool isAlternateAttack = false;
-                bool isAlternateForm = false;
+                //bool isAlternateForm = Name == "Alternate Form";
 
-                isItem = (Name == "Item");
-                isCompanion = (Name == "Companion");
-                isAlternateForm = (Name == "Alternate Form");
-                if (Variant > 0)
+                if (VariantID > 0)
                 {
-                    VariantListing SelectedVariant = AssociatedController.SelectedTemplate.VariantList.Where(n => n.ID == Variant).First();
-
-                    if (SelectedVariant.Name == "Alternate Attack")
+                    if (_variantListing.Name == "Alternate Attack")
                     {
                         isAlternateAttack = true;
                     }
@@ -519,13 +502,12 @@ namespace BESM3CAData.Model
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
 
-                NodeData temp = _firstChild;
+                NodeData temp = FirstChild;
                 while (temp != null)
                 {
-                    if (temp is AttributeData)
+                    if (temp is AttributeData tempAttribute)
                     {
-                        AttributeListing SelectedAttribute = AssociatedController.SelectedTemplate.AttributeList.Where(n => n.ID == ((AttributeData)temp).ID).First();
-                        if (SelectedAttribute.Type == "Restriction" || SelectedAttribute.Type == "Variable")
+                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
                         {
                             VariablesOrRestrictions += temp.GetPoints();
                         }
@@ -547,7 +529,7 @@ namespace BESM3CAData.Model
                 _points += VariablesOrRestrictions;
 
                 //Update special points used counter while recalculating points:
-                _SpecialPointsUsed = ChildPoints;
+                _specialPointsUsed = ChildPoints;
 
                 if (isCompanion)
                 {
@@ -586,75 +568,6 @@ namespace BESM3CAData.Model
             return _points;
         }
 
-
-        //XML:
-        public override void SaveAdditionalXML(XmlTextWriter textWriter)
-        {
-            textWriter.WriteStartElement("AttributeStats");
-            textWriter.WriteAttributeString("Level", _Level.ToString());
-            textWriter.WriteAttributeString("Variant", _Variant.ToString());
-            textWriter.WriteAttributeString("HasLevel", _HasLevel.ToString());
-            textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
-            textWriter.WriteAttributeString("PointAdj", _PointAdj.ToString());
-            textWriter.WriteEndElement();
-        }
-
-        public override void LoadAdditionalXML(XmlTextReader reader)
-        {
-            while (reader.NodeType != XmlNodeType.None)
-            {
-                reader.Read();
-
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    if (reader.Name == "AttributeStats")
-                    {
-                        // loading node attributes
-                        int attributeCount = reader.AttributeCount;
-                        if (attributeCount > 0)
-                        {
-                            for (int i = 0; i < attributeCount; i++)
-                            {
-                                reader.MoveToAttribute(i);
-                                switch (reader.Name)
-                                {
-                                    case "HasLevel":
-                                        _HasLevel = bool.Parse(reader.Value);
-                                        break;
-                                    case "Level":
-                                        _Level = int.Parse(reader.Value);
-                                        break;
-                                    case "Variant":
-                                        _Variant = int.Parse(reader.Value);
-                                        break;
-                                    case "Points":
-                                        PointsPerLevel = int.Parse(reader.Value);
-                                        break;
-                                    case "PointAdj":
-                                        _PointAdj = int.Parse(reader.Value);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            break;
-                        }
-                    }
-                }
-                else if (reader.NodeType == XmlNodeType.EndElement)
-                {
-                    if (reader.Name == "AttributeStats")
-                    {
-                        break;
-                    }
-                }
-            }
-            if (AssociatedController.SelectedTemplate != null)
-            {
-                _attributeListing = AssociatedController.SelectedTemplate.AttributeList.Find(n => n.ID == AttributeID);
-            }
-        }
-
         public override CalcStats GetStats()
         {
             CalcStats stats;
@@ -680,16 +593,13 @@ namespace BESM3CAData.Model
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
-                NodeData child = Children;
+                NodeData child = FirstChild;
                 while (child != null)
                 {
-                    if (child is AttributeData )
+                    if (child is AttributeData childAttribute && childAttribute.AttributeType == "Restriction")
                     {
-                        if (((AttributeData)child).AttributeType == "Restriction")
-                        {
-                            stats = new CalcStats(0, 0, 0, 0);
-                            break;
-                        }
+                        stats = new CalcStats(0, 0, 0, 0);
+                        break;
                     }
                     child = child.Next;
                 }
@@ -698,5 +608,75 @@ namespace BESM3CAData.Model
             return stats;
         }
 
+
+        //XML:
+        public override void SaveAdditionalXML(XmlTextWriter textWriter)
+        {
+            textWriter.WriteStartElement("AttributeStats");
+            textWriter.WriteAttributeString("Level", Level.ToString());
+            textWriter.WriteAttributeString("Variant", VariantID.ToString());
+            textWriter.WriteAttributeString("HasLevel", HasLevel.ToString());
+            textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
+            textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
+            textWriter.WriteEndElement();
+        }
+
+        public override void LoadAdditionalXML(XmlTextReader reader)
+        {
+            if (AssociatedController.SelectedTemplate != null)
+            {
+                _attributeListing = AssociatedController.SelectedTemplate.AttributeList.Find(n => n.ID == ID);
+            }
+
+            while (reader.NodeType != XmlNodeType.None)
+            {
+                reader.Read();
+
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    if (reader.Name == "AttributeStats")
+                    {
+                        // loading node attributes
+                        int attributeCount = reader.AttributeCount;
+                        if (attributeCount > 0)
+                        {
+                            for (int i = 0; i < attributeCount; i++)
+                            {
+                                reader.MoveToAttribute(i);
+                                switch (reader.Name)
+                                {
+                                    case "HasLevel":
+                                        HasLevel = bool.Parse(reader.Value);
+                                        break;
+                                    case "Level":
+                                        Level = int.Parse(reader.Value);
+                                        break;
+                                    case "Variant":
+                                        VariantID = int.Parse(reader.Value);
+                                        break;
+                                    case "Points":
+                                        PointsPerLevel = int.Parse(reader.Value);
+                                        break;
+                                    case "PointAdj":
+                                        PointAdj = int.Parse(reader.Value);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+                else if (reader.NodeType == XmlNodeType.EndElement)
+                {
+                    if (reader.Name == "AttributeStats")
+                    {
+                        break;
+                    }
+                }
+            }
+
+        }
     }
 }

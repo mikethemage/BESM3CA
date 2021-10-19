@@ -98,8 +98,20 @@
                     <Label Content="Filter: " Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
                     <ComboBox x:Name="FilterComboBox" Margin="10,10,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectionChanged="FilterComboBox_SelectionChanged" Grid.Column="1"/>
                 </Grid>
-                
-                <ListBox x:Name="AttributeListBox" Margin="10,5,10,10" Grid.Row="3" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" SelectionChanged="AttributeListBox_SelectionChanged" />
+
+                <ListBox x:Name="AttributeListBox" Margin="10,5,10,10" Grid.Row="3" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" SelectionChanged="AttributeListBox_SelectionChanged" >
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="textBlock" FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                    
+                    
+                </ListBox>
 
             </Grid>
 

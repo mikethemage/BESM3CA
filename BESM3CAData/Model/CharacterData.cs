@@ -7,12 +7,14 @@ namespace BESM3CAData.Model
 {
     public class CharacterData : NodeData
     {
-        //Internal Variables:
-        int _body;
-        int _mind;
-        int _soul;
+        //Fields:
+        private int _body;
+        private int _mind;
+        private int _soul;
 
         //Properties:
+        public string CharacterName { get; set; }
+
         public override bool HasCharacterStats
         {
             get
@@ -50,8 +52,7 @@ namespace BESM3CAData.Model
                     return null;
                 }
             }
-        }
-        public string CharacterName { get; set; }
+        }        
 
         public int BaseCost
         {
@@ -143,13 +144,13 @@ namespace BESM3CAData.Model
         }
 
 
-        //Member functions:
+        //Methods:
         public override int GetPoints()
         {
-            if (PointsUpToDate == false || _firstChild == null)
+            if (PointsUpToDate == false || FirstChild == null)
             {
                 _points = BaseCost;
-                NodeData temp = _firstChild;
+                NodeData temp = FirstChild;
                 while (temp != null)
                 {
                     _points += temp.GetPoints();
@@ -161,6 +162,26 @@ namespace BESM3CAData.Model
             return _points;
         }
 
+        //Stat calculation:
+        public override CalcStats GetStats()
+        {
+            CalcStats stats;
+
+            stats = new CalcStats(BaseHealth,
+                    BaseEnergy,
+                    BaseCV,
+                    BaseCV);
+
+            NodeData child = FirstChild;
+            while (child != null)
+            {
+                CalcStats temp = child.GetStats();
+                stats += temp;
+                child = child.Next;
+            }
+
+            return stats;
+        }
 
         //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
@@ -216,27 +237,6 @@ namespace BESM3CAData.Model
                     }
                 }
             }
-        }
-
-
-        public override CalcStats GetStats()
-        {
-            CalcStats stats;
-
-            stats = new CalcStats(BaseHealth,
-                    BaseEnergy,
-                    BaseCV,
-                    BaseCV);
-
-            NodeData child = Children;
-            while (child != null)
-            {
-                CalcStats temp = child.GetStats();
-                stats += temp;
-                child = child.Next;
-            }
-
-            return stats;
         }
     }
 }

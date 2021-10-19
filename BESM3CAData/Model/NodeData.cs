@@ -7,99 +7,35 @@ namespace BESM3CAData.Model
 {
     public abstract class NodeData
     {
-        private int _ID;
-        protected NodeData _firstChild;
-        protected NodeData _Parent;
+        //Fields:
         private int _lastChildOrder;
         protected int _points;
         private bool _pointsUpToDate;
-        //protected TemplateData _associatedTemplate;
-
-        public Controller AssociatedController;
 
         //Properties:
+        public Controller AssociatedController { get; set; }
+        public int ID { get; private set; }
+        public string Name { get; set; }
+        public string Notes { get; set; }
+
+        public NodeData FirstChild { get; private set; }
+        public NodeData Parent { get; private set; }
         public int NodeOrder { get; set; }
-        public NodeData Next { get; set; }
-        public NodeData Prev { get; set; }
+        public NodeData Next { get; private set; }
+        public NodeData Prev { get; private set; }
 
         public virtual string DisplayText
         {
             get
             {
-                return Name + " (" + GetPoints() + " Points)";
+                return $"{Name} ({GetPoints()} Points)";
             }
         }
 
-        public abstract bool HasCharacterStats
-        {
-            get;
-        }
-        public abstract bool HasLevelStats
-        {
-            get;
-        }
-
-        public abstract bool HasPointsStats
-        {
-            get;
-        }
-
-        public abstract List<AttributeListing> PotentialChildren
-        {
-            get;
-        }
-
-        
-        public List<string> GetTypesForFilter()
-        {
-            //LINQ Version:
-            List<string> tempList= (from AttChild in PotentialChildren
-                                    orderby AttChild.Type
-                                    select AttChild.Type).Distinct().ToList();
-            tempList.Insert(0, "All");
-            return tempList;
-        }
-
-
-        public List<ListItems> GetFilteredPotentialChildren(string filter)
-        {
-            List<AttributeListing> SelectedAttributeChildren = PotentialChildren;
-            if (SelectedAttributeChildren != null)
-            {
-                //LINQ Version:
-                List<ListItems> FilteredAttList = (from Att in SelectedAttributeChildren
-                                                   where Att.ID > 0 &&
-                                                   (filter == "All" || filter == "" || Att.Type == filter)
-
-                                                   orderby Att.Type, Att.Name
-                                                   select new ListItems(Att.Name, Att.ID, Att.Type)).ToList();
-
-                //Add dividers:
-                string Type = "";
-                for (int i = 0; i < FilteredAttList.Count; i++)
-                {
-                    if (Type != FilteredAttList[i].Type)
-                    {
-                        if (Type != "")
-                        {
-                            FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
-                            i++;
-                        }
-                        Type = FilteredAttList[i].Type;
-                        FilteredAttList.Insert(i, new ListItems(Type + ":", 0));
-                        i++;
-                        FilteredAttList.Insert(i, new ListItems("-------------------------", 0));
-                        i++;
-                    }
-                }
-
-                return FilteredAttList;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        public abstract bool HasCharacterStats { get; }
+        public abstract bool HasLevelStats { get; }
+        public abstract bool HasPointsStats { get; }
+        public abstract List<AttributeListing> PotentialChildren { get; }
 
         public bool PointsUpToDate
         {
@@ -110,71 +46,73 @@ namespace BESM3CAData.Model
             protected set
             {
                 _pointsUpToDate = value;
-                if (value == false && _Parent != null)
+                if (value == false && Parent != null)
                 {
-                    _Parent.PointsUpToDate = false;
+                    Parent.PointsUpToDate = false;
                 }
             }
         }
-
-        public string Name { get; set; }
-
-        public int ID
-        {
-            get
-            {
-                return _ID;
-            }
-        }
-
-        public string Notes { get; set; }
-
-        public NodeData Children
-        {
-            get
-            {
-                return _firstChild;
-            }
-        }
-
-        public NodeData Parent
-        {
-            get
-            {
-                return _Parent;
-            }
-        }
-
 
         //Constructors:
         public NodeData(string attributeName, int attributeID, string notes, Controller controller)
         {
             AssociatedController = controller;
             Name = attributeName;
-            _ID = attributeID;
+            ID = attributeID;
             Notes = notes;
 
             NodeOrder = 1;
-            _firstChild = null;
-            _Parent = null;
+            FirstChild = null;
+            Parent = null;
             _lastChildOrder = 0;
             Next = null;
             Prev = null;
             _pointsUpToDate = false;
         }
 
-        //Member Functions:
+
+        //Methods:
+        public List<string> GetTypesForFilter()
+        {
+            //LINQ Version:
+            List<string> tempList = (from AttChild in PotentialChildren
+                                     orderby AttChild.Type
+                                     select AttChild.Type).Distinct().ToList();
+            tempList.Insert(0, "All");
+            return tempList;
+        }
+
+        public List<AttributeListing> GetFilteredPotentialChildren(string filter)
+        {
+            List<AttributeListing> selectedAttributeChildren = PotentialChildren;
+            if (selectedAttributeChildren != null)
+            {
+                //LINQ Version:
+                List<AttributeListing> filteredAttList = selectedAttributeChildren
+                    .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
+                    .OrderBy(a => a.Type)
+                    .ThenBy(a => a.Name)
+                    .ToList();
+
+                return filteredAttList;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public abstract int GetPoints();
 
         public void AddChild(NodeData child)
         {
-            if (_firstChild == null)
+            if (FirstChild == null)
             {
-                _firstChild = child;
+                FirstChild = child;
             }
             else
             {
-                NodeData temp = _firstChild;
+                NodeData temp = FirstChild;
                 while (temp.Next != null)
                 {
                     temp = temp.Next;
@@ -183,7 +121,7 @@ namespace BESM3CAData.Model
                 child.Prev = temp;
             }
 
-            child._Parent = this;
+            child.Parent = this;
             _lastChildOrder++;
             child.NodeOrder = _lastChildOrder;
             _pointsUpToDate = false;
@@ -193,9 +131,9 @@ namespace BESM3CAData.Model
         {
             if (Parent != null)
             {
-                if (Parent._firstChild == this)
+                if (Parent.FirstChild == this)
                 {
-                    Parent._firstChild = Next;
+                    Parent.FirstChild = Next;
                 }
                 if (Next != null)
                 {
@@ -207,7 +145,7 @@ namespace BESM3CAData.Model
                 }
                 Parent.PointsUpToDate = false;
 
-                _Parent = null;
+                Parent = null;
             }
         }
 
@@ -217,9 +155,9 @@ namespace BESM3CAData.Model
             {
                 NodeData temp = Prev;
 
-                if (temp.Parent._firstChild == temp)
+                if (temp.Parent.FirstChild == temp)
                 {
-                    temp.Parent._firstChild = this;
+                    temp.Parent.FirstChild = this;
                 }
 
                 if (Next != null)
@@ -247,9 +185,9 @@ namespace BESM3CAData.Model
             {
                 NodeData temp = Next;
 
-                if (Parent._firstChild == this)
+                if (Parent.FirstChild == this)
                 {
-                    Parent._firstChild = temp;
+                    Parent.FirstChild = temp;
                 }
 
                 if (Prev != null)
@@ -271,16 +209,16 @@ namespace BESM3CAData.Model
             }
         }
 
-        public AttributeData AddChildAttribute(string attributeName, int attributeID)
+        public AttributeData AddChildAttribute(AttributeListing attribute)
         {
-            AttributeData Temp = new AttributeData(attributeName, attributeID, "", AssociatedController);
+            AttributeData Temp = new AttributeData(attribute, "", AssociatedController);
             AddChild(Temp);
             return Temp;
         }
 
         public virtual void InvalidateGenrePoints()
         {
-            NodeData child = Children;
+            NodeData child = FirstChild;
             while (child != null)
             {
                 child.InvalidateGenrePoints();
@@ -288,12 +226,15 @@ namespace BESM3CAData.Model
             }
         }
 
+        //Getting stats:
+        public abstract CalcStats GetStats();
+
         //XML:
         public void SaveXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement(GetType().Name);
             textWriter.WriteAttributeString("Name", Name);
-            textWriter.WriteAttributeString("ID", _ID.ToString());
+            textWriter.WriteAttributeString("ID", ID.ToString());
             textWriter.WriteStartElement("AdditionalData");
             SaveAdditionalXML(textWriter);
             textWriter.WriteEndElement();
@@ -322,7 +263,7 @@ namespace BESM3CAData.Model
                                 Name = reader.Value;
                                 break;
                             case "ID":
-                                _ID = int.Parse(reader.Value);
+                                ID = int.Parse(reader.Value);
                                 break;
                             default:
                                 break;
@@ -358,7 +299,7 @@ namespace BESM3CAData.Model
                                         Name = reader.Value;
                                         break;
                                     case "ID":
-                                        _ID = int.Parse(reader.Value);
+                                        ID = int.Parse(reader.Value);
 
                                         break;
                                     default:
@@ -379,9 +320,5 @@ namespace BESM3CAData.Model
         }
 
         public abstract void LoadAdditionalXML(XmlTextReader reader);
-
-
-        //Getting stats:
-        public abstract CalcStats GetStats();
     }
 }

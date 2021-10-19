@@ -79,7 +79,7 @@ namespace BESM3CAData.Control
                             }
                             else if (reader.Name.EndsWith("AttributeData"))
                             {
-                                newNode = new AttributeData("", 0, "", controller);//todo: refactor to take reference to template
+                                newNode = new AttributeData(controller); //todo: refactor to take reference to template
                                 newNode.LoadXML(reader);
                                 if (parentNode != null)
                                 {
@@ -167,9 +167,9 @@ namespace BESM3CAData.Control
 
                 node.SaveXML(textWriter);
 
-                if (node.Children != null)
+                if (node.FirstChild != null)
                 {
-                    SaveNodes(node.Children, textWriter);
+                    SaveNodes(node.FirstChild, textWriter);
                 }
 
                 textWriter.WriteEndElement();
@@ -193,16 +193,16 @@ namespace BESM3CAData.Control
             {
                 string nexttabstring;
 
-                if (current is CharacterData)
+                if (current is CharacterData currentCharacter)
                 {
                     //write stuff
                     //write a line of text to the file
                     tw.WriteLine(tabstring + current.DisplayText);
 
                     nexttabstring = tabstring + "\t";
-                    tw.WriteLine(nexttabstring + "Mind: " + ((CharacterData)current).Mind);
-                    tw.WriteLine(nexttabstring + "Body: " + ((CharacterData)current).Body);
-                    tw.WriteLine(nexttabstring + "Soul: " + ((CharacterData)current).Soul);
+                    tw.WriteLine(nexttabstring + "Mind: " + currentCharacter.Mind);
+                    tw.WriteLine(nexttabstring + "Body: " + currentCharacter.Body);
+                    tw.WriteLine(nexttabstring + "Soul: " + currentCharacter.Soul);
                     tw.WriteLine();
 
                     CalcStats stats = current.GetStats();
@@ -213,9 +213,9 @@ namespace BESM3CAData.Control
                     tw.WriteLine(nexttabstring + "Energy: " + stats.Energy);
                     tw.WriteLine();
                 }
-                else
+                else if(current is AttributeData currentAttribute)
                 {
-                    if (((AttributeData)current).AttributeType == "Attribute")
+                    if (currentAttribute.AttributeType == "Attribute")
                     {
                         //write stuff
                         //write a line of text to the file
@@ -223,18 +223,18 @@ namespace BESM3CAData.Control
 
                         nexttabstring = tabstring + "\t";
 
-                        if (((AttributeData)current).Name == "Item")
+                        if (currentAttribute.Name == "Item")
                         {
                             tw.WriteLine(tabstring + "(");
                         }
                         else
                         {
-                            tw.WriteLine(nexttabstring + "Level " + ((AttributeData)current).Level + " x " + ((AttributeData)current).PointsPerLevel + " = " + (((AttributeData)current).Level * ((AttributeData)current).PointsPerLevel));
+                            tw.WriteLine(nexttabstring + "Level " + currentAttribute.Level + " x " + currentAttribute.PointsPerLevel + " = " + (currentAttribute.Level * currentAttribute.PointsPerLevel));
                         }
 
-                        if (((AttributeData)current).AttributeDescription != "")
+                        if (currentAttribute.AttributeDescription != "")
                         {
-                            tw.WriteLine(nexttabstring + "Description: " + ((AttributeData)current).AttributeDescription);
+                            tw.WriteLine(nexttabstring + "Description: " + currentAttribute.AttributeDescription);
                         }
                         isAttrib = true;
                     }
@@ -242,16 +242,22 @@ namespace BESM3CAData.Control
                     {
                         //write stuff
                         //write a line of text to the file
-                        tw.WriteLine(tabstring + current.DisplayText + " Level " + ((AttributeData)current).Level);
+                        tw.WriteLine(tabstring + current.DisplayText + " Level " + currentAttribute.Level);
                         nexttabstring = tabstring + "\t";
                     }
                 }
+                else
+                {
+                    //Should never get here
+                    nexttabstring = tabstring;
+                }
+
                 if (((NodeData)current).Notes != "")
                 {
                     tw.WriteLine(nexttabstring + "[Notes: " + (((NodeData)current).Notes).Replace("\n", "\n" + nexttabstring) + "]");
                 }
 
-                ExportNode(current.Children, tabdepth + 1, tw);
+                ExportNode(current.FirstChild, tabdepth + 1, tw);
 
                 if (isAttrib)
                 {
@@ -273,7 +279,7 @@ namespace BESM3CAData.Control
             NodeData current = nodes;
             while (current != null)
             {
-                if (current is CharacterData )
+                if (current is CharacterData currentCharacter)
                 {
                     tw.WriteLine("<li class=\"CharacterNode\">");
 
@@ -281,9 +287,9 @@ namespace BESM3CAData.Control
                     tw.WriteLine("<h2>" + current.DisplayText + "</h2>");
 
                     tw.WriteLine("<div class=\"CoreStats\">");
-                    tw.WriteLine("<strong>Mind:</strong> " + ((CharacterData)current).Mind);
-                    tw.WriteLine("<strong>Body:</strong> " + ((CharacterData)current).Body);
-                    tw.WriteLine("<strong>Soul:</strong> " + ((CharacterData)current).Soul);
+                    tw.WriteLine("<strong>Mind:</strong> " + currentCharacter.Mind);
+                    tw.WriteLine("<strong>Body:</strong> " + currentCharacter.Body);
+                    tw.WriteLine("<strong>Soul:</strong> " + currentCharacter.Soul);
                     tw.WriteLine("</div>");
 
                     CalcStats stats = current.GetStats();
@@ -304,11 +310,11 @@ namespace BESM3CAData.Control
                         tw.WriteLine("</div>");
                     }
 
-                    if (current.Children != null)
+                    if (current.FirstChild != null)
                     {
                         tw.WriteLine("<ul class=\"AttributeList\">");
 
-                        ExportHTMLNode(current.Children, tabdepth + 1, tw);
+                        ExportHTMLNode(current.FirstChild, tabdepth + 1, tw);
 
                         tw.WriteLine("</ul>");
                     }
@@ -347,10 +353,10 @@ namespace BESM3CAData.Control
                         tw.WriteLine("<p>[Notes: " + (current.Notes).Replace("\n", "<br>") + "]</p>");
                     }
 
-                    if (current.Children != null)
+                    if (current.FirstChild != null)
                     {
                         tw.WriteLine("<ul class=\"AttributeList\">");
-                        ExportHTMLNode(current.Children, tabdepth + 1, tw);
+                        ExportHTMLNode(current.FirstChild, tabdepth + 1, tw);
                         tw.WriteLine("</ul>");
                     }
                     if (isAttrib)

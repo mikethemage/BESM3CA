@@ -9,13 +9,7 @@ namespace BESM3CAData.Templates
 
         public List<string> ProgressionsList { get; set; }
 
-        private int MinRank
-        { 
-            get 
-            { 
-                return 0;                              
-            } 
-        }
+        private const int MinRank = 0;        
 
         private int MaxRank
         {

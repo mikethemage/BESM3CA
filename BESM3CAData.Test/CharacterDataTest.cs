@@ -1,4 +1,5 @@
 ﻿using BESM3CAData.Model;
+using BESM3CAData.Templates;
 using System.Collections.Generic;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace BESM3CAData.Test
         public void Character_ShouldHavePotentialChildren()
         {
             Controller testController = new Controller();
-            List<ListItems> foundPotentialChildren = testController.RootCharacter.GetFilteredPotentialChildren("All");
+            List<AttributeListing> foundPotentialChildren = testController.RootCharacter.GetFilteredPotentialChildren("All");
             Assert.True(foundPotentialChildren.Count > 0);
         }
 
@@ -50,10 +51,10 @@ namespace BESM3CAData.Test
         public void Character_AddChildAttributeShouldExist(int attributePosition)
         {
             Controller testController = new Controller();
-            ListItems selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
-            testController.RootCharacter.AddChildAttribute(selectedAttribute.Name, selectedAttribute.ID);
+            AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
+            testController.RootCharacter.AddChildAttribute(selectedAttribute);
 
-            AttributeData foundAttribute = (AttributeData)testController.RootCharacter.Children;
+            AttributeData foundAttribute = (AttributeData)testController.RootCharacter.FirstChild;
 
             Assert.Equal(selectedAttribute.ID, foundAttribute.ID);
             Assert.Equal(selectedAttribute.Name, foundAttribute.Name);

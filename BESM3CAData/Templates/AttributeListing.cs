@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
@@ -8,7 +9,6 @@ namespace BESM3CAData.Templates
     {
         //Fields:
         private readonly List<AttributeListing> _children;
-
 
         //Properties:
         public int ID { get; set; }
@@ -56,6 +56,12 @@ namespace BESM3CAData.Templates
             {
                 return _children;
             }
+        }
+        
+        public List<VariantListing> Variants
+        {
+            get;
+            set;
         }
 
 

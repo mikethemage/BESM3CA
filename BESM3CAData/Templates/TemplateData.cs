@@ -10,7 +10,7 @@ namespace BESM3CAData.Templates
     {
         //Properties:
         public List<AttributeListing> AttributeList { get; set; }
-        public List<VariantListing> VariantList { get; set; }
+        
         public List<TypeListing> TypeList { get; set; }
         public string TemplateName { get; set; }
 
@@ -45,8 +45,22 @@ namespace BESM3CAData.Templates
            
             string input = File.ReadAllText(Path.Combine("Datafiles","BESM3E.json"));            
 
+            //Load template:
             temp = JsonSerializer.Deserialize<TemplateData>(input);
 
+            //Linkback for Variants:
+            foreach (AttributeListing attribute in temp.AttributeList)
+            {
+                if (attribute.Variants != null)
+                {
+                    foreach (VariantListing variant in attribute.Variants)
+                    {
+                        variant.Attribute = attribute;
+                    }
+                }
+            }
+
+            //parse attribute children into lists:
             using (JsonDocument document = JsonDocument.Parse(input))
             {
                 JsonElement root = document.RootElement;
@@ -76,7 +90,8 @@ namespace BESM3CAData.Templates
                         }
                     }
                 }
-            }
+            }            
+
             return temp;
         }
        
