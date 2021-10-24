@@ -1,23 +1,23 @@
-﻿using BESM3CAData.Control;
-using BESM3CAData.Templates;
+﻿using BESM3CAData.Listings;
+using BESM3CAData.Model;
 using System.IO;
 
-namespace BESM3CAData.Model
+namespace BESM3CAData.Control
 {
-    public class Controller
+    public class DataController
     {
         //Properties:
         public string FileName { get; set; }
-        public TemplateData SelectedTemplate { get; set; }
-        public CharacterData RootCharacter { get; set; }
+        public ListingData SelectedListingData { get; set; }
+        public CharacterNode RootCharacter { get; set; }
         public int SelectedGenreIndex { get; set; }
 
 
         //Constructor:
-        public Controller()
+        public DataController()
         {
-            //Load template from file:
-            SelectedTemplate = TemplateData.JSONLoader();
+            //Load listing from file:
+            SelectedListingData = ListingData.JSONLoader();
             ResetAll();
         }
 
@@ -26,7 +26,7 @@ namespace BESM3CAData.Model
         public void Load(string fileName)
         {
             SelectedGenreIndex = -1;  //Needs changing to load Genre
-            RootCharacter = (CharacterData)SaveLoad.DeserializeXML(fileName, this);
+            RootCharacter = (CharacterNode)SaveLoad.DeserializeXML(fileName, this);
             //Need to check if successful
 
             FileName = fileName;
@@ -35,7 +35,7 @@ namespace BESM3CAData.Model
         public void ResetAll()
         {
             //Reset root character:
-            RootCharacter = new CharacterData(this);
+            RootCharacter = new CharacterNode(this);
             FileName = "";
             SelectedGenreIndex = -1;
         }
@@ -58,10 +58,10 @@ namespace BESM3CAData.Model
             tw = new StreamWriter(exportFile);
 
             tw.WriteLine("BESM3CA Character Export");
-            tw.WriteLine("Template: " + SelectedTemplate.TemplateName);
+            tw.WriteLine("Using points listings: " + SelectedListingData.ListingName);
             if (SelectedGenreIndex > -1)
             {
-                tw.WriteLine("Genre: " + SelectedTemplate.Genres[SelectedGenreIndex]);
+                tw.WriteLine("Genre: " + SelectedListingData.Genres[SelectedGenreIndex]);
             }
             tw.WriteLine();
 
@@ -80,14 +80,14 @@ namespace BESM3CAData.Model
             tw.Write("<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n<style type = \"text/css\">\n@page\n {\n size: A4; \n}\n@page :left\n {\n margin-left: 2cm;\n }\n@page :right\n {\n margin-right: 2cm;\n }\n</style>\n</head>\n<body>\n<div class=\"CharacterExport\">\n<div class=\"CharacterExportHeader\">\n");
             tw.Write("<h1>BESM3CA Character Export</h1>\n");
             
-            tw.Write("<p>Template: ");
-            tw.Write(SelectedTemplate.TemplateName);
+            tw.Write("<p>Using points listings: ");
+            tw.Write(SelectedListingData.ListingName);
             tw.Write("</p>\n");
 
             if (SelectedGenreIndex > -1)
             {
                 tw.Write("<p>Genre: ");
-                tw.Write(SelectedTemplate.Genres[SelectedGenreIndex]);
+                tw.Write(SelectedListingData.Genres[SelectedGenreIndex]);
                 tw.Write("</p>\n");
             }
             tw.Write("</div>\n");

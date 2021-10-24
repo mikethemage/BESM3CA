@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BESM3CAData.Templates
+namespace BESM3CAData.Listings
 {
-    public class Progression
+    public class ProgressionListing
     {
         public string ProgressionType { get; set; }
 
@@ -26,12 +26,12 @@ namespace BESM3CAData.Templates
             }
         }
 
-        public Progression()
+        public ProgressionListing()
         {
             //Default Constructor for loading
         }
 
-        public Progression(string progressionType, string[] progressionArray)
+        public ProgressionListing(string progressionType, string[] progressionArray)
         {
             ProgressionType = progressionType;
             ProgressionsList = progressionArray.ToList<string>();

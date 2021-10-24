@@ -1,31 +1,32 @@
 ﻿using BESM3CAData.Model;
-using BESM3CAData.Templates;
+using BESM3CAData.Listings;
+using BESM3CAData.Control;
 using System.Collections.Generic;
 using Xunit;
 
 namespace BESM3CAData.Test
 {
-    public class CharacterDataTest
+    public class CharacterNodeTest
     {
         [Fact]
         public void RootNode_ShouldBeCharacter()
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             Assert.NotNull(testController.RootCharacter);
-            Assert.IsType<CharacterData>(testController.RootCharacter);
+            Assert.IsType<CharacterNode>(testController.RootCharacter);
         }
 
         [Fact]
         public void Character_NameShouldBeCharacter()
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             Assert.Equal("Character", testController.RootCharacter.Name);
         }
 
         [Fact]
         public void Character_ShouldHavePotentialChildren()
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             List<AttributeListing> foundPotentialChildren = testController.RootCharacter.GetFilteredPotentialChildren("All");
             Assert.True(foundPotentialChildren.Count > 0);
         }
@@ -36,7 +37,7 @@ namespace BESM3CAData.Test
         [InlineData(3, 10, 5)]
         public void Character_BasePointsShouldBeCorrect(int body, int mind, int soul)
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             testController.RootCharacter.Body = body;
             testController.RootCharacter.Mind = mind;
             testController.RootCharacter.Soul = soul;
@@ -50,11 +51,11 @@ namespace BESM3CAData.Test
         [InlineData(2)]
         public void Character_AddChildAttributeShouldExist(int attributePosition)
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
 
-            AttributeData foundAttribute = (AttributeData)testController.RootCharacter.FirstChild;
+            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
 
             Assert.Equal(selectedAttribute.ID, foundAttribute.ID);
             Assert.Equal(selectedAttribute.Name, foundAttribute.Name);
@@ -67,8 +68,8 @@ namespace BESM3CAData.Test
         [InlineData("Skill")]
         public void Character_GetTypesForFilterShouldContain(string expected)
         {
-            Controller testController = new Controller();
-            CharacterData testCharacter = new CharacterData(testController);
+            DataController testController = new DataController();
+            CharacterNode testCharacter = new CharacterNode(testController);
             List<string> output = testCharacter.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);

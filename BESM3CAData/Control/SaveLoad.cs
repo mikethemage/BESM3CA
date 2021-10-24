@@ -11,33 +11,34 @@ namespace BESM3CAData.Control
         // Xml tag for node, e.g. 'node' in case of <node></node> 
         private const string XmlNodeTag = "node";
 
-        private const string XmlTemplateTag = "template";
+        private const string XmlListingTag = "listing";
+        private const string OldXmlListingTag = "template";
 
         private const string XmlGenreTag = "genre";
 
-        public static NodeData DeserializeXML(string fileName, Controller controller)
+        public static BaseNode DeserializeXML(string fileName, DataController controller)
         {
             //Needs completely re-writing:
-            NodeData rootNode = null;
+            BaseNode rootNode = null;
 
             XmlTextReader reader = null;
             try
             {
                 reader = new XmlTextReader(fileName);
-                NodeData parentNode = null;
-                NodeData newNode = null;
+                BaseNode parentNode = null;
+                BaseNode newNode = null;
 
                 while (reader.Read())
                 {
-                    if (reader.Name == XmlTemplateTag && reader.NodeType == XmlNodeType.Element)
+                    if ((reader.Name == XmlListingTag || reader.Name == OldXmlListingTag) && reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Read())
                         {
                             if (reader.NodeType == XmlNodeType.Text)
                             {
-                                //Read template name
+                                //Read Listing name
                                 Debug.Assert(reader.Value == "BESM3E");
-                                //todo: load correct template
+                                //todo: load correct Listing
                             }
                         }
                     }
@@ -48,7 +49,7 @@ namespace BESM3CAData.Control
                             if (reader.NodeType == XmlNodeType.Text)
                             {
                                 //Read genre name
-                                controller.SelectedGenreIndex = controller.SelectedTemplate.Genres.IndexOf(reader.Value);
+                                controller.SelectedGenreIndex = controller.SelectedListingData.Genres.IndexOf(reader.Value);
                             }
                         }
                     }
@@ -60,9 +61,9 @@ namespace BESM3CAData.Control
                         }
                         else
                         {
-                            if (reader.Name.EndsWith("CharacterData"))
+                            if (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode"))
                             {
-                                newNode = new CharacterData(controller);  //todo: refactor to take reference to template
+                                newNode = new CharacterNode(controller);  //todo: refactor to take reference to listing
                                 newNode.LoadXML(reader);
                                 if (rootNode == null)
                                 {
@@ -77,9 +78,9 @@ namespace BESM3CAData.Control
 
                                 parentNode = newNode;
                             }
-                            else if (reader.Name.EndsWith("AttributeData"))
+                            else if (reader.Name.EndsWith("AttributeData") || reader.Name.EndsWith("AttributeNode"))
                             {
-                                newNode = new AttributeData(controller); //todo: refactor to take reference to template
+                                newNode = new AttributeNode(controller); //todo: refactor to take reference to listing
                                 newNode.LoadXML(reader);
                                 if (parentNode != null)
                                 {
@@ -133,7 +134,7 @@ namespace BESM3CAData.Control
             return rootNode;
         }
 
-        public static void SerializeXML(NodeData rootNode, string fileName, Controller controller)
+        public static void SerializeXML(BaseNode rootNode, string fileName, DataController controller)
         {
             XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.UTF8);
 
@@ -141,10 +142,10 @@ namespace BESM3CAData.Control
             textWriter.WriteStartDocument();
             textWriter.WriteStartElement("root");
 
-            textWriter.WriteElementString(XmlTemplateTag, controller.SelectedTemplate.TemplateName);
+            textWriter.WriteElementString(XmlListingTag, controller.SelectedListingData.ListingName);
             if (controller.SelectedGenreIndex > -1)
             {
-                textWriter.WriteElementString(XmlGenreTag, controller.SelectedTemplate.Genres[controller.SelectedGenreIndex]);
+                textWriter.WriteElementString(XmlGenreTag, controller.SelectedListingData.Genres[controller.SelectedGenreIndex]);
             }
 
             // writing the main tag that encloses all node tags
@@ -158,9 +159,9 @@ namespace BESM3CAData.Control
             textWriter.Close();
         }
 
-        private static void SaveNodes(NodeData nodesCollection, XmlTextWriter textWriter)
+        private static void SaveNodes(BaseNode nodesCollection, XmlTextWriter textWriter)
         {
-            NodeData node = nodesCollection;
+            BaseNode node = nodesCollection;
             while (node != null)
             {
                 textWriter.WriteStartElement(XmlNodeTag);
@@ -178,7 +179,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public static void ExportNode(NodeData nodes, int tabdepth, TextWriter tw)
+        public static void ExportNode(BaseNode nodes, int tabdepth, TextWriter tw)
         {
             //Code to export to Text format:
             string tabstring = "";
@@ -188,12 +189,12 @@ namespace BESM3CAData.Control
             }
             bool isAttrib = false;
 
-            NodeData current = nodes;
+            BaseNode current = nodes;
             while (current != null)
             {
                 string nexttabstring;
 
-                if (current is CharacterData currentCharacter)
+                if (current is CharacterNode currentCharacter)
                 {
                     //write stuff
                     //write a line of text to the file
@@ -213,7 +214,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine($"{nexttabstring}Energy: {stats.Energy}");
                     tw.WriteLine();
                 }
-                else if(current is AttributeData currentAttribute)
+                else if(current is AttributeNode currentAttribute)
                 {
                     if (currentAttribute.AttributeType == "Attribute")
                     {
@@ -271,15 +272,15 @@ namespace BESM3CAData.Control
             }
         }
 
-        public static void ExportHTMLNode(NodeData nodes, int tabdepth, TextWriter tw)
+        public static void ExportHTMLNode(BaseNode nodes, int tabdepth, TextWriter tw)
         {
             //Code to export to HTML format:
             bool isAttrib = false;
 
-            NodeData current = nodes;
+            BaseNode current = nodes;
             while (current != null)
             {
-                if (current is CharacterData currentCharacter)
+                if (current is CharacterNode currentCharacter)
                 {
                     tw.WriteLine("<li class=\"CharacterNode\">");
 
@@ -323,30 +324,30 @@ namespace BESM3CAData.Control
                 }
                 else
                 {
-                    if (((AttributeData)current).AttributeType == "Attribute")
+                    if (((AttributeNode)current).AttributeType == "Attribute")
                     {
                         tw.WriteLine("<li class=\"AttributeNode\">");
                         tw.WriteLine($"<h3>{current.DisplayText}</h3>");
 
-                        if (((AttributeData)current).Name == "Item")
+                        if (((AttributeNode)current).Name == "Item")
                         {
                             tw.WriteLine("(");
                         }
                         else
                         {
-                            tw.WriteLine($"<p>Level {((AttributeData)current).Level} x {((AttributeData)current).PointsPerLevel} = {((AttributeData)current).Level * ((AttributeData)current).PointsPerLevel}</p>");
+                            tw.WriteLine($"<p>Level {((AttributeNode)current).Level} x {((AttributeNode)current).PointsPerLevel} = {((AttributeNode)current).Level * ((AttributeNode)current).PointsPerLevel}</p>");
                         }
 
-                        if (((AttributeData)current).AttributeDescription != "")
+                        if (((AttributeNode)current).AttributeDescription != "")
                         {
-                            tw.WriteLine($"<p>Description: {((AttributeData)current).AttributeDescription}</p>");
+                            tw.WriteLine($"<p>Description: {((AttributeNode)current).AttributeDescription}</p>");
                         }
                         isAttrib = true;
                     }
                     else
                     {
-                        tw.WriteLine($"<li class=\"{((AttributeData)current).AttributeType}Node\">");
-                        tw.WriteLine($"{current.DisplayText} Level {((AttributeData)current).Level}");
+                        tw.WriteLine($"<li class=\"{((AttributeNode)current).AttributeType}Node\">");
+                        tw.WriteLine($"{current.DisplayText} Level {((AttributeNode)current).Level}");
                     }
                     if (current.Notes != "")
                     {
@@ -361,7 +362,7 @@ namespace BESM3CAData.Control
                     }
                     if (isAttrib)
                     {
-                        if (((AttributeData)current).Name == "Item")
+                        if (((AttributeNode)current).Name == "Item")
                         {
                             tw.WriteLine(") / 2");
                         }

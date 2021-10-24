@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BESM3CAData.Templates
+namespace BESM3CAData.Listings
 {
     public class VariantListing
     {

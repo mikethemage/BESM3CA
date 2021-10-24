@@ -1,4 +1,5 @@
-﻿using BESM3CAData.Templates;
+﻿using BESM3CAData.Listings;
+using BESM3CAData.Control;
 using org.mariuszgromada.math.mxparser;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +8,7 @@ using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public class AttributeData : NodeData
+    public class AttributeNode : BaseNode
     {
         //Fields:             
         private int _specialPointsUsed = 0;
@@ -244,14 +245,14 @@ namespace BESM3CAData.Model
 
 
         //Constructors:   
-        public AttributeData(Controller controller, string Notes = "") : base("", 0, Notes, controller)
+        public AttributeNode(DataController controller, string Notes = "") : base("", 0, Notes, controller)
         {
             //Default constructor for data loading only
         }
 
-        public AttributeData(AttributeListing attribute, string notes, Controller controller, int level = 1, int pointAdj = 0) : base(attribute.Name, attribute.ID, notes, controller)
+        public AttributeNode(AttributeListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute.Name, attribute.ID, notes, controller)
         {
-            Debug.Assert(controller.SelectedTemplate != null);  //Check if we have a template...
+            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
             if (attribute.Name == "Item")
             {
@@ -277,11 +278,11 @@ namespace BESM3CAData.Model
 
             if (attribute.Name == "Companion")
             {
-                AddChild(new CharacterData(AssociatedController));
+                AddChild(new CharacterNode(AssociatedController));
             }
             if (attribute.Name == "Mind Control")
             {
-                AddChild(new AttributeData(AssociatedController.SelectedTemplate.AttributeList.Find(n => n.Name == "Range"), "", AssociatedController, 3, -3));
+                AddChild(new AttributeNode(AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == "Range"), "", AssociatedController, 3, -3));
             }
         }
 
@@ -294,63 +295,63 @@ namespace BESM3CAData.Model
             {
                 if (int.TryParse(valueToParse.Replace("fn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Fast", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Fast", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("mn"))
             {
                 if (int.TryParse(valueToParse.Replace("mn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Medium", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Medium", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("sn"))
             {
                 if (int.TryParse(valueToParse.Replace("sn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Slow", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Slow", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("tn")) //Time 
             {
                 if (int.TryParse(valueToParse.Replace("tn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Time", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Time", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("trn")) //Time Reversed
             {
                 if (int.TryParse(valueToParse.Replace("trn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Time", i - (Level - 1));
+                    return AssociatedController.SelectedListingData.GetProgression("Time", i - (Level - 1));
                 }
             }
             if (valueToParse.Contains("an"))
             {
                 if (int.TryParse(valueToParse.Replace("an", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Area", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Area", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("rn"))
             {
                 if (int.TryParse(valueToParse.Replace("rn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Range", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Range", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("tgn"))
             {
                 if (int.TryParse(valueToParse.Replace("tgn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Targets", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Targets", i - 1 + Level).ToString();
                 }
             }
             if (valueToParse.Contains("grn"))
             {
                 if (int.TryParse(valueToParse.Replace("grn", ""), out int i))
                 {
-                    return AssociatedController.SelectedTemplate.GetProgression("Growth", i - 1 + Level).ToString();
+                    return AssociatedController.SelectedListingData.GetProgression("Growth", i - 1 + Level).ToString();
                 }
             }
 
@@ -493,10 +494,10 @@ namespace BESM3CAData.Model
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
 
-                NodeData temp = FirstChild;
+                BaseNode temp = FirstChild;
                 while (temp != null)
                 {
-                    if (temp is AttributeData tempAttribute)
+                    if (temp is AttributeNode tempAttribute)
                     {
                         if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
                         {
@@ -584,10 +585,10 @@ namespace BESM3CAData.Model
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
-                NodeData child = FirstChild;
+                BaseNode child = FirstChild;
                 while (child != null)
                 {
-                    if (child is AttributeData childAttribute && childAttribute.AttributeType == "Restriction")
+                    if (child is AttributeNode childAttribute && childAttribute.AttributeType == "Restriction")
                     {
                         stats = new CalcStats(0, 0, 0, 0);
                         break;
@@ -614,9 +615,9 @@ namespace BESM3CAData.Model
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
-            if (AssociatedController.SelectedTemplate != null)
+            if (AssociatedController.SelectedListingData != null)
             {
-                _attributeListing = AssociatedController.SelectedTemplate.AttributeList.Find(n => n.ID == ID);
+                _attributeListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
             }
 
             while (reader.NodeType != XmlNodeType.None)

@@ -4,30 +4,30 @@ using System.IO;
 using System.Text.Json;
 
 
-namespace BESM3CAData.Templates
+namespace BESM3CAData.Listings
 {
-    public class TemplateData
+    public class ListingData
     {
         //Properties:
         public List<AttributeListing> AttributeList { get; set; }
 
         public List<TypeListing> TypeList { get; set; }
-        public string TemplateName { get; set; }
+        public string ListingName { get; set; }
 
         public List<string> Genres { get; set; }
 
-        public List<Progression> ProgressionList { get; set; }
+        public List<ProgressionListing> ProgressionList { get; set; }
 
 
         //Constructors:
-        public TemplateData()
+        public ListingData()
         {
             //Default Constructor for loading
         }
 
         public string GetProgression(string progressionType, int rank)
         {
-            Progression SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
+            ProgressionListing SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
             if (SelectedProgression == null)
             {
                 return "";
@@ -39,14 +39,14 @@ namespace BESM3CAData.Templates
         }
 
         //Member functions:
-        public static TemplateData JSONLoader()
+        public static ListingData JSONLoader()
         {
-            TemplateData temp;
+            ListingData temp;
 
             string input = File.ReadAllText(Path.Combine("Datafiles", "BESM3E.json"));
 
-            //Load template:
-            temp = JsonSerializer.Deserialize<TemplateData>(input);
+            //Load listing:
+            temp = JsonSerializer.Deserialize<ListingData>(input);
 
             //Linkback for Variants:
             foreach (AttributeListing attribute in temp.AttributeList)
@@ -99,7 +99,7 @@ namespace BESM3CAData.Templates
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-            string output = System.Text.Json.JsonSerializer.Serialize<TemplateData>(this);
+            string output = System.Text.Json.JsonSerializer.Serialize<ListingData>(this);
 
             System.IO.File.WriteAllText(outputPath, output);
 

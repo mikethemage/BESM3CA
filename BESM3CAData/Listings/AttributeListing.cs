@@ -1,9 +1,9 @@
-﻿using System;
+﻿//using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
-namespace BESM3CAData.Templates
+namespace BESM3CAData.Listings
 {
     public class AttributeListing
     {

@@ -1,22 +1,23 @@
 ﻿using BESM3CAData.Model;
-using BESM3CAData.Templates;
+using BESM3CAData.Listings;
+using BESM3CAData.Control;
 using System.Collections.Generic;
 using Xunit;
 
 namespace BESM3CAData.Test
 {
-    public class AttributeDataTest
+    public class AttributeNodeTest
     {
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]
-        public void AttributeData_DisplayTextContainsAttributeName(int attributePosition)
+        public void AttributeNode_DisplayTextContainsAttributeName(int attributePosition)
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
-            AttributeData foundAttribute = (AttributeData)testController.RootCharacter.FirstChild;
+            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
             Assert.Contains(foundAttribute.Name, foundAttribute.DisplayText);
         }
 
@@ -24,12 +25,12 @@ namespace BESM3CAData.Test
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]
-        public void AttributeData_DisplayTextContainsPoints(int attributePosition)
+        public void AttributeNode_DisplayTextContainsPoints(int attributePosition)
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
-            AttributeData foundAttribute = (AttributeData)testController.RootCharacter.FirstChild;
+            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
             Assert.Contains(foundAttribute.GetPoints().ToString() + " Points", foundAttribute.DisplayText);
         }
 
@@ -38,12 +39,12 @@ namespace BESM3CAData.Test
         [InlineData(6,1)]
         [InlineData(8,1)]
         [InlineData(12,12)]
-        public void AttributeData_DescriptionCalculationShouldNotFail(int attributePosition, int level)
+        public void AttributeNode_DescriptionCalculationShouldNotFail(int attributePosition, int level)
         {
-            Controller testController = new Controller();
+            DataController testController = new DataController();
             AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
-            AttributeData foundAttribute = (AttributeData)testController.RootCharacter.FirstChild;
+            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
             for (int i = 1; i < level; i++)
             {
                 foundAttribute.RaiseLevel();
@@ -57,8 +58,8 @@ namespace BESM3CAData.Test
         [InlineData("Armour","Variable")]        
         public void Attribute_GetTypesForFilterShouldContain(string attributeName, string expected)
         {
-            Controller testController = new Controller();
-            AttributeData testAttribute= new AttributeData(testController.SelectedTemplate.AttributeList.Find(x => x.Name==attributeName),"",testController);
+            DataController testController = new DataController();
+            AttributeNode testAttribute= new AttributeNode(testController.SelectedListingData.AttributeList.Find(x => x.Name==attributeName),"",testController);
             List<string> output = testAttribute.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);

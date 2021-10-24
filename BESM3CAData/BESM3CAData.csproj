@@ -11,14 +11,10 @@
 
   <ItemGroup>
     <None Remove="Datafiles\BESM3E.json" />
-    <None Remove="Datafiles\datafile-schema.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Datafiles\BESM3E.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Datafiles\datafile-schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

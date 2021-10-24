@@ -1,0 +1,43 @@
+using BESM3CAData.Listings;
+using Xunit;
+
+namespace BESM3CAData.Test
+{
+    public class ListingDataTest
+    {
+        [Fact]
+        public void ListingData_ShouldLoadDefault()
+        {
+            ListingData DefaultListing = ListingData.JSONLoader();
+            Assert.NotNull(DefaultListing);
+        }
+
+        [Fact]
+        public void ListingData_ShouldHaveAttributes()
+        {
+            ListingData DefaultListing = ListingData.JSONLoader();
+            Assert.True(DefaultListing.AttributeList.Count > 0);
+        }
+
+        [Fact]
+        public void ListingData_ShouldHaveTypes()
+        {
+            ListingData DefaultListing = ListingData.JSONLoader();
+            Assert.True(DefaultListing.TypeList.Count > 0);
+        }
+
+        [Theory]
+        [InlineData("Fast", 4,"1,000")]
+        [InlineData("Time", 16, "Permanent")]
+        [InlineData("Time", 17, "ERROR")]
+        public void ListingData_GetProgressionShouldWork(string progressionType, int rank, string expected)
+        {
+            ListingData DefaultListing = ListingData.JSONLoader();
+
+            string output = DefaultListing.GetProgression(progressionType, rank);
+
+            Assert.Equal(expected, output);
+        }
+                
+    }
+}

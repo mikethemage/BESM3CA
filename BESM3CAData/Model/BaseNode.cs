@@ -1,11 +1,12 @@
-﻿using BESM3CAData.Templates;
+﻿using BESM3CAData.Listings;
+using BESM3CAData.Control;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public abstract class NodeData
+    public abstract class BaseNode
     {
         //Fields:
         private int _lastChildOrder;
@@ -13,16 +14,16 @@ namespace BESM3CAData.Model
         private bool _pointsUpToDate;
 
         //Properties:
-        public Controller AssociatedController { get; set; }
+        public DataController AssociatedController { get; set; }
         public int ID { get; private set; }
         public string Name { get; set; }
         public string Notes { get; set; }
 
-        public NodeData FirstChild { get; private set; }
-        public NodeData Parent { get; private set; }
+        public BaseNode FirstChild { get; private set; }
+        public BaseNode Parent { get; private set; }
         public int NodeOrder { get; set; }
-        public NodeData Next { get; private set; }
-        public NodeData Prev { get; private set; }
+        public BaseNode Next { get; private set; }
+        public BaseNode Prev { get; private set; }
 
         public virtual string DisplayText
         {
@@ -54,7 +55,7 @@ namespace BESM3CAData.Model
         }
 
         //Constructors:
-        public NodeData(string attributeName, int attributeID, string notes, Controller controller)
+        public BaseNode(string attributeName, int attributeID, string notes, DataController controller)
         {
             AssociatedController = controller;
             Name = attributeName;
@@ -104,7 +105,7 @@ namespace BESM3CAData.Model
 
         public abstract int GetPoints();
 
-        public void AddChild(NodeData child)
+        public void AddChild(BaseNode child)
         {
             if (FirstChild == null)
             {
@@ -112,7 +113,7 @@ namespace BESM3CAData.Model
             }
             else
             {
-                NodeData temp = FirstChild;
+                BaseNode temp = FirstChild;
                 while (temp.Next != null)
                 {
                     temp = temp.Next;
@@ -153,7 +154,7 @@ namespace BESM3CAData.Model
         {
             if (Prev != null)
             {
-                NodeData temp = Prev;
+                BaseNode temp = Prev;
 
                 if (temp.Parent.FirstChild == temp)
                 {
@@ -183,7 +184,7 @@ namespace BESM3CAData.Model
         {
             if (Next != null)
             {
-                NodeData temp = Next;
+                BaseNode temp = Next;
 
                 if (Parent.FirstChild == this)
                 {
@@ -209,16 +210,16 @@ namespace BESM3CAData.Model
             }
         }
 
-        public AttributeData AddChildAttribute(AttributeListing attribute)
+        public AttributeNode AddChildAttribute(AttributeListing attribute)
         {
-            AttributeData Temp = new AttributeData(attribute, "", AssociatedController);
+            AttributeNode Temp = new AttributeNode(attribute, "", AssociatedController);
             AddChild(Temp);
             return Temp;
         }
 
         public virtual void InvalidateGenrePoints()
         {
-            NodeData child = FirstChild;
+            BaseNode child = FirstChild;
             while (child != null)
             {
                 child.InvalidateGenrePoints();
@@ -311,7 +312,7 @@ namespace BESM3CAData.Model
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {
-                    if (reader.Name.EndsWith(GetType().Name))
+                    if (reader.Name.EndsWith(GetType().Name) || reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("AttributeData"))
                     {
                         break;
                     }

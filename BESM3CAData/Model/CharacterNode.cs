@@ -1,11 +1,12 @@
-﻿using BESM3CAData.Templates;
+﻿using BESM3CAData.Listings;
+using BESM3CAData.Control;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public class CharacterData : NodeData
+    public class CharacterNode : BaseNode
     {
         //Fields:
         private int _body;
@@ -43,9 +44,9 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (AssociatedController.SelectedTemplate != null)
+                if (AssociatedController.SelectedListingData != null)
                 {
-                    return AssociatedController.SelectedTemplate.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+                    return AssociatedController.SelectedListingData.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
                 }
                 else
                 {
@@ -136,7 +137,7 @@ namespace BESM3CAData.Model
 
 
         //Constructor:
-        public CharacterData(Controller controller, string Notes = "") : base("Character", 0, Notes, controller)
+        public CharacterNode(DataController controller, string Notes = "") : base("Character", 0, Notes, controller)
         {
             _body = 1;
             _mind = 1;
@@ -150,7 +151,7 @@ namespace BESM3CAData.Model
             if (PointsUpToDate == false || FirstChild == null)
             {
                 _points = BaseCost;
-                NodeData temp = FirstChild;
+                BaseNode temp = FirstChild;
                 while (temp != null)
                 {
                     _points += temp.GetPoints();
@@ -172,7 +173,7 @@ namespace BESM3CAData.Model
                     BaseCV,
                     BaseCV);
 
-            NodeData child = FirstChild;
+            BaseNode child = FirstChild;
             while (child != null)
             {
                 CalcStats temp = child.GetStats();

@@ -1,5 +1,6 @@
 ﻿using BESM3CAData.Model;
-using BESM3CAData.Templates;
+using BESM3CAData.Listings;
+using BESM3CAData.Control;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,7 @@ namespace BESM3CA
         private const string ApplicationName = "BESM3CA";
 
         //Data:        
-        private Controller CurrentController;
+        private DataController CurrentController;
 
 
         //Constructor:
@@ -33,14 +34,14 @@ namespace BESM3CA
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Initialise Controller:
-            CurrentController = new Controller();
-            //CurrentController.SelectedTemplate.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
+            CurrentController = new DataController();
+            //CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
             ResetAll();
         }
 
 
         //UI methods:
-        private static TreeViewItem AddNodeDataToTree(NodeData nodeData, ItemCollection insertionPoint)
+        private static TreeViewItem AddNodeDataToTree(BaseNode nodeData, ItemCollection insertionPoint)
         {
             TreeViewItem AddedNode = new TreeViewItem
             {
@@ -80,10 +81,10 @@ namespace BESM3CA
 
         private void RefreshGenreList()
         {
-            if (CurrentController.SelectedTemplate.Genres != null)
+            if (CurrentController.SelectedListingData.Genres != null)
             {
                 GenreComboBox.Visibility = Visibility.Visible;
-                GenreComboBox.ItemsSource = CurrentController.SelectedTemplate.Genres;
+                GenreComboBox.ItemsSource = CurrentController.SelectedListingData.Genres;
                 GenreComboBox.SelectedIndex = 0;
             }
             else
@@ -98,7 +99,7 @@ namespace BESM3CA
             //Reset Attribute filter listbox basded off selected node:    
             string OriginalValue = (string)FilterComboBox.SelectedValue;
 
-            FilterComboBox.ItemsSource = ((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetTypesForFilter();
+            FilterComboBox.ItemsSource = ((BaseNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetTypesForFilter();
 
             if (FilterComboBox.Items.Contains(OriginalValue))
             {
@@ -112,12 +113,12 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-            AttributeData selectedAttribute = null;
+            AttributeNode selectedAttribute = null;
             if (CharacterTreeView.SelectedItem != null)
             {
                 if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode)
                 {
-                    selectedAttribute = selectedTreeNode.Tag as AttributeData;
+                    selectedAttribute = selectedTreeNode.Tag as AttributeNode;
                 }
             }
 
@@ -167,7 +168,7 @@ namespace BESM3CA
 
             if (CharacterTreeView.SelectedItem != null)
             {
-                ICollectionView view = CollectionViewSource.GetDefaultView(((NodeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetFilteredPotentialChildren(Filter));
+                ICollectionView view = CollectionViewSource.GetDefaultView(((BaseNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetFilteredPotentialChildren(Filter));
                 view.GroupDescriptions.Add(new PropertyGroupDescription("Type"));
                 AttributeListBox.ItemsSource = view;
             }
@@ -177,7 +178,7 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem is TreeViewItem SelectedTreeNode && AttributeListBox.SelectedIndex >= 0 && AttributeListBox.SelectedValue != null)
             {
-                NodeData FirstNewNodeData = ((NodeData)SelectedTreeNode.Tag).AddChildAttribute((AttributeListing)AttributeListBox.SelectedItem);
+                BaseNode FirstNewNodeData = ((BaseNode)SelectedTreeNode.Tag).AddChildAttribute((AttributeListing)AttributeListBox.SelectedItem);
                 NewUpdateTreeFromNodes(SelectedTreeNode, FirstNewNodeData);
                 RefreshTree(CharacterTreeView.Items);
                 RefreshTextBoxes();
@@ -201,9 +202,9 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode)
             {
-                NotesTextBox.Text = ((NodeData)selectedTreeNode.Tag).Notes;
+                NotesTextBox.Text = ((BaseNode)selectedTreeNode.Tag).Notes;
 
-                if (selectedTreeNode.Tag is CharacterData selectedCharacter)
+                if (selectedTreeNode.Tag is CharacterNode selectedCharacter)
                 {
                     //Get Character Stats:
                     CalcStats stats = selectedCharacter.GetStats();
@@ -251,9 +252,9 @@ namespace BESM3CA
                     DCVTextBox.Visibility = Visibility.Hidden;
                 }
 
-                if (((NodeData)selectedTreeNode.Tag).HasLevelStats)
+                if (((BaseNode)selectedTreeNode.Tag).HasLevelStats)
                 {
-                    if (selectedTreeNode.Tag is AttributeData selectedAttribute)
+                    if (selectedTreeNode.Tag is AttributeNode selectedAttribute)
                     {
                         LevelTextBox.Text = selectedAttribute.Level.ToString();
                         DescriptionTextBox.Text = selectedAttribute.AttributeDescription;
@@ -278,9 +279,9 @@ namespace BESM3CA
                     DescriptionLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (((NodeData)selectedTreeNode.Tag).HasPointsStats)
+                if (((BaseNode)selectedTreeNode.Tag).HasPointsStats)
                 {
-                    if (selectedTreeNode.Tag is AttributeData selectedAttribute)
+                    if (selectedTreeNode.Tag is AttributeNode selectedAttribute)
                     {
                         PointsPerLevelTextBox.Text = selectedAttribute.PointsPerLevel.ToString();
                         PointCostTextBox.Text = selectedAttribute.BaseCost.ToString();
@@ -309,7 +310,7 @@ namespace BESM3CA
 
         private void RaiseLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData selectedAttribute)
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeNode selectedAttribute)
             {
                 if (selectedAttribute.RaiseLevel())
                 {
@@ -320,7 +321,7 @@ namespace BESM3CA
 
         private void LowerLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeData selectedAttribute)
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeNode selectedAttribute)
             {
                 if (selectedAttribute.LowerLevel())
                 {
@@ -362,17 +363,17 @@ namespace BESM3CA
             foreach (TreeViewItem Node in Nodes)
             {
                 RefreshTree(Node.Items);
-                Node.Header = ((NodeData)Node.Tag).DisplayText;
+                Node.Header = ((BaseNode)Node.Tag).DisplayText;
             }
         }
 
         private void DelAttr()
         {
-            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is not CharacterData)  //do not allow manual deletion of Character nodes
+            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is not CharacterNode)  //do not allow manual deletion of Character nodes
             {
-                if (((AttributeData)selectedTreeNode.Tag).PointAdj >= 0)  //do not delete "freebies"
+                if (((AttributeNode)selectedTreeNode.Tag).PointAdj >= 0)  //do not delete "freebies"
                 {
-                    ((NodeData)selectedTreeNode.Tag).Delete();
+                    ((BaseNode)selectedTreeNode.Tag).Delete();
                     TreeViewItem selectedParent = (TreeViewItem)selectedTreeNode.Parent;
                     int selectedIndex = selectedParent.Items.IndexOf(selectedTreeNode);
                     TreeViewItem newSelectedItem;
@@ -439,14 +440,14 @@ namespace BESM3CA
                     AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
                 }
 
-                if (selectedTreeNode.Tag is CharacterData)
+                if (selectedTreeNode.Tag is CharacterNode)
                 {
                     DisableLevelButtons();
                     DelAttButton.IsEnabled = false;
                     MoveUpButton.IsEnabled = false;
                     MoveDownButton.IsEnabled = false;
                 }
-                else if (selectedTreeNode.Tag is AttributeData selectedAttribute)
+                else if (selectedTreeNode.Tag is AttributeNode selectedAttribute)
                 {
                     DelAttButton.IsEnabled = true;
                     MoveDownButton.IsEnabled = true;
@@ -522,7 +523,7 @@ namespace BESM3CA
 
         private void BodyTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is CharacterData selectedCharacter)
+            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is CharacterNode selectedCharacter)
             {
                 if (int.TryParse(BodyTextBox.Text, out int temp) && temp > 0)
                 {
@@ -535,7 +536,7 @@ namespace BESM3CA
 
         private void MindTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is CharacterData selectedCharacter)
+            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is CharacterNode selectedCharacter)
             {
                 if (int.TryParse(MindTextBox.Text, out int temp) && temp > 0)
                 {
@@ -548,7 +549,7 @@ namespace BESM3CA
 
         private void SoulTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is CharacterData selectedCharacter)
+            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is CharacterNode selectedCharacter)
             {
                 if (int.TryParse(SoulTextBox.Text, out int temp) && temp > 0)
                 {
@@ -602,7 +603,7 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem != CharacterTreeView.Items[0] && CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Parent is TreeViewItem selectedParent && selectedParent.Items.Count > 1)
             {
-                ((NodeData)selectedTreeNode.Tag).MoveUp();
+                ((BaseNode)selectedTreeNode.Tag).MoveUp();
 
                 selectedParent.Items.SortDescriptions.Clear();
                 selectedParent.Items.SortDescriptions.Add(new SortDescription("Tag.NodeOrder", ListSortDirection.Ascending));
@@ -619,7 +620,7 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem != CharacterTreeView.Items[0] && CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Parent is TreeViewItem selectedParent && selectedParent.Items.Count > 1)
             {
-                ((NodeData)selectedTreeNode.Tag).MoveDown();
+                ((BaseNode)selectedTreeNode.Tag).MoveDown();
 
                 selectedParent.Items.SortDescriptions.Clear();
                 selectedParent.Items.SortDescriptions.Add(new SortDescription("Tag.NodeOrder", ListSortDirection.Ascending));
@@ -648,7 +649,7 @@ namespace BESM3CA
         {
             if (VariantListBox.SelectedValue is VariantListing selectedVariant)
             {
-                ((AttributeData)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = selectedVariant;
+                ((AttributeNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = selectedVariant;
 
                 RefreshTree(CharacterTreeView.Items);
                 RefreshTextBoxes();
@@ -678,11 +679,11 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode)
             {
-                ((NodeData)selectedTreeNode.Tag).Notes = NotesTextBox.Text;
+                ((BaseNode)selectedTreeNode.Tag).Notes = NotesTextBox.Text;
             }
         }
 
-        private void NewUpdateTreeFromNodes(TreeViewItem insertionPoint, NodeData nodeDataToAdd)
+        private void NewUpdateTreeFromNodes(TreeViewItem insertionPoint, BaseNode nodeDataToAdd)
         {
             if (nodeDataToAdd == CurrentController.RootCharacter)
             {
@@ -695,7 +696,7 @@ namespace BESM3CA
                 insertionPoint.IsExpanded = true;
                 insertionPoint = temp;                
             }
-            NodeData child = nodeDataToAdd.FirstChild;
+            BaseNode child = nodeDataToAdd.FirstChild;
             while (child != null)
             {
                 NewUpdateTreeFromNodes(insertionPoint, child);
