@@ -1,0 +1,20 @@
+{
+  "AvailableListings": [
+    {
+      "ListingName": "BESM3E",
+      "BuiltIn": true,
+      "ListingPathArray": [
+        "Datafiles",
+        "BESM3E.json"
+      ]
+    },
+    {
+      "ListingName": "BESM4E",
+      "BuiltIn": true,
+      "ListingPathArray": [
+        "Datafiles",
+        "BESM4E.json"
+      ]
+    }
+  ]
+}

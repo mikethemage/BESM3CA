@@ -1,4 +1,5 @@
 ﻿using BESM3CAData.Model;
+using BESM3CAData.Listings;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
@@ -36,9 +37,15 @@ namespace BESM3CAData.Control
                         {
                             if (reader.NodeType == XmlNodeType.Text)
                             {
-                                //Read Listing name
-                                Debug.Assert(reader.Value == "BESM3E");
-                                //todo: load correct Listing
+                                //Read Listing name      
+                                ListingLocation selectedListing = controller.ListingDirectory.AvailableListings.Find(x => (x.ListingName == reader.Value));
+
+                                //Only need to reload listings if different:
+                                if (controller.SelectedListingData.ListingName != selectedListing.ListingName)
+                                {
+                                    //Load listing from file:
+                                    controller.SelectedListingData = ListingData.JSONLoader(selectedListing);
+                                }
                             }
                         }
                     }
@@ -63,7 +70,7 @@ namespace BESM3CAData.Control
                         {
                             if (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode"))
                             {
-                                newNode = new CharacterNode(controller);  //todo: refactor to take reference to listing
+                                newNode = new CharacterNode(controller);  
                                 newNode.LoadXML(reader);
                                 if (rootNode == null)
                                 {
@@ -80,7 +87,7 @@ namespace BESM3CAData.Control
                             }
                             else if (reader.Name.EndsWith("AttributeData") || reader.Name.EndsWith("AttributeNode"))
                             {
-                                newNode = new AttributeNode(controller); //todo: refactor to take reference to listing
+                                newNode = new AttributeNode(controller); 
                                 newNode.LoadXML(reader);
                                 if (parentNode != null)
                                 {

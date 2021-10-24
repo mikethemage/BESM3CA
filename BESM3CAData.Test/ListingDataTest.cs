@@ -8,21 +8,36 @@ namespace BESM3CAData.Test
         [Fact]
         public void ListingData_ShouldLoadDefault()
         {
-            ListingData DefaultListing = ListingData.JSONLoader();
+            ListingData DefaultListing = ListingData.JSONLoader( new ListingLocation
+                {
+                    BuiltIn = true,
+                    ListingName = "BESM3E",
+                    ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+                });
             Assert.NotNull(DefaultListing);
         }
 
         [Fact]
         public void ListingData_ShouldHaveAttributes()
         {
-            ListingData DefaultListing = ListingData.JSONLoader();
+            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            {
+                BuiltIn = true,
+                ListingName = "BESM3E",
+                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+            });
             Assert.True(DefaultListing.AttributeList.Count > 0);
         }
 
         [Fact]
         public void ListingData_ShouldHaveTypes()
         {
-            ListingData DefaultListing = ListingData.JSONLoader();
+            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            {
+                BuiltIn = true,
+                ListingName = "BESM3E",
+                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+            });
             Assert.True(DefaultListing.TypeList.Count > 0);
         }
 
@@ -32,7 +47,12 @@ namespace BESM3CAData.Test
         [InlineData("Time", 17, "ERROR")]
         public void ListingData_GetProgressionShouldWork(string progressionType, int rank, string expected)
         {
-            ListingData DefaultListing = ListingData.JSONLoader();
+            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            {
+                BuiltIn = true,
+                ListingName = "BESM3E",
+                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+            });
 
             string output = DefaultListing.GetProgression(progressionType, rank);
 

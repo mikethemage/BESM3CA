@@ -39,11 +39,11 @@ namespace BESM3CAData.Listings
         }
 
         //Member functions:
-        public static ListingData JSONLoader()
+        public static ListingData JSONLoader(ListingLocation listingLocation)
         {
             ListingData temp;
 
-            string input = File.ReadAllText(Path.Combine("Datafiles", "BESM3E.json"));
+            string input = File.ReadAllText(listingLocation.ListingPath);
 
             //Load listing:
             temp = JsonSerializer.Deserialize<ListingData>(input);
