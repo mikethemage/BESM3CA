@@ -6,7 +6,7 @@
     <RootNamespace>BESM3CA</RootNamespace>
     <UseWPF>true</UseWPF>
     <StartupObject>BESM3CA.App</StartupObject>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Description>BESM 3rd Edition Character Assistant</Description>
     <Product>BESM3CA</Product>
     <Company>MD2000</Company>
