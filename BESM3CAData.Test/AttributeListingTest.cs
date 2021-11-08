@@ -9,9 +9,9 @@ namespace BESM3CAData.Test
         public void Attribute_AddChildShouldWork()
         {
             AttributeListing testParent = new AttributeListing { ID = 1, Name = "Test Parent" };
-            AttributeListing testChild1 = new AttributeListing { ID = 2, Name = "Test Child1" };            
+            AttributeListing testChild1 = new AttributeListing { ID = 2, Name = "Test Child1" };
 
-            testParent.AddChild(testChild1);            
+            testParent.AddChild(testChild1);
 
             Assert.Contains<AttributeListing>(testChild1, testParent.Children);
         }

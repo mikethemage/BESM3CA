@@ -1,6 +1,6 @@
-﻿using BESM3CAData.Model;
+﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using BESM3CAData.Control;
+using BESM3CAData.Model;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +19,7 @@ namespace BESM3CA
         //Title bar:
         private const string ApplicationName = "BESM3CA";
 
-        //Data:        
+        //Data:
         private DataController CurrentController;
 
 
@@ -694,7 +694,7 @@ namespace BESM3CA
                 TreeViewItem temp = new TreeViewItem() { Header = nodeDataToAdd.DisplayText, Tag = nodeDataToAdd };
                 insertionPoint.Items.Add(temp);
                 insertionPoint.IsExpanded = true;
-                insertionPoint = temp;                
+                insertionPoint = temp;
             }
             BaseNode child = nodeDataToAdd.FirstChild;
             while (child != null)

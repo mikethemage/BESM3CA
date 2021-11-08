@@ -9,7 +9,7 @@ namespace BESM3CAData.Listings
 
         public List<string> ProgressionsList { get; set; }
 
-        private const int MinRank = 0;        
+        private const int MinRank = 0;
 
         private int MaxRank
         {
@@ -21,7 +21,7 @@ namespace BESM3CAData.Listings
                 }
                 else
                 {
-                    return ProgressionsList.Count-1;
+                    return ProgressionsList.Count - 1;
                 }
             }
         }

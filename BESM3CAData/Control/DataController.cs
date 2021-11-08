@@ -86,7 +86,7 @@ namespace BESM3CAData.Control
 
             tw.Write("<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n<style type = \"text/css\">\n@page\n {\n size: A4; \n}\n@page :left\n {\n margin-left: 2cm;\n }\n@page :right\n {\n margin-right: 2cm;\n }\n</style>\n</head>\n<body>\n<div class=\"CharacterExport\">\n<div class=\"CharacterExportHeader\">\n");
             tw.Write("<h1>BESM3CA Character Export</h1>\n");
-            
+
             tw.Write("<p>Using points listings: ");
             tw.Write(SelectedListingData.ListingName);
             tw.Write("</p>\n");

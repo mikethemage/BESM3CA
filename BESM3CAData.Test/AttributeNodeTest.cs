@@ -1,6 +1,6 @@
-﻿using BESM3CAData.Model;
+﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using BESM3CAData.Control;
+using BESM3CAData.Model;
 using System.Collections.Generic;
 using Xunit;
 
@@ -35,10 +35,10 @@ namespace BESM3CAData.Test
         }
 
         [Theory]
-        [InlineData(2,2)]
-        [InlineData(6,1)]
-        [InlineData(8,1)]
-        [InlineData(12,12)]
+        [InlineData(2, 2)]
+        [InlineData(6, 1)]
+        [InlineData(8, 1)]
+        [InlineData(12, 12)]
         public void AttributeNode_DescriptionCalculationShouldNotFail(int attributePosition, int level)
         {
             DataController testController = new DataController();
@@ -53,13 +53,13 @@ namespace BESM3CAData.Test
             Assert.DoesNotContain("NaN", foundAttribute.AttributeDescription);
         }
 
-        [Theory]        
-        [InlineData("Alternate Form","Attribute")]
-        [InlineData("Armour","Variable")]        
+        [Theory]
+        [InlineData("Alternate Form", "Attribute")]
+        [InlineData("Armour", "Variable")]
         public void Attribute_GetTypesForFilterShouldContain(string attributeName, string expected)
         {
             DataController testController = new DataController();
-            AttributeNode testAttribute= new AttributeNode(testController.SelectedListingData.AttributeList.Find(x => x.Name==attributeName),"",testController);
+            AttributeNode testAttribute = new AttributeNode(testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName), "", testController);
             List<string> output = testAttribute.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);

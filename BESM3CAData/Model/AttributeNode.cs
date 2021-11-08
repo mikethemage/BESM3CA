@@ -1,5 +1,5 @@
-﻿using BESM3CAData.Listings;
-using BESM3CAData.Control;
+﻿using BESM3CAData.Control;
+using BESM3CAData.Listings;
 using org.mariuszgromada.math.mxparser;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -481,7 +481,7 @@ namespace BESM3CAData.Model
             {
                 bool isItem = Name == "Item";
                 bool isCompanion = Name == "Companion";
-                bool isAlternateAttack = false;                
+                bool isAlternateAttack = false;
 
                 if (VariantID > 0)
                 {

@@ -1,6 +1,6 @@
-﻿using BESM3CAData.Model;
+﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using BESM3CAData.Control;
+using BESM3CAData.Model;
 using System.Collections.Generic;
 using Xunit;
 

@@ -1,6 +1,5 @@
-﻿using BESM3CAData.Model;
-using BESM3CAData.Listings;
-using System.Diagnostics;
+﻿using BESM3CAData.Listings;
+using BESM3CAData.Model;
 using System.IO;
 using System.Xml;
 
@@ -70,7 +69,7 @@ namespace BESM3CAData.Control
                         {
                             if (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode"))
                             {
-                                newNode = new CharacterNode(controller);  
+                                newNode = new CharacterNode(controller);
                                 newNode.LoadXML(reader);
                                 if (rootNode == null)
                                 {
@@ -87,7 +86,7 @@ namespace BESM3CAData.Control
                             }
                             else if (reader.Name.EndsWith("AttributeData") || reader.Name.EndsWith("AttributeNode"))
                             {
-                                newNode = new AttributeNode(controller); 
+                                newNode = new AttributeNode(controller);
                                 newNode.LoadXML(reader);
                                 if (parentNode != null)
                                 {
@@ -221,7 +220,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine($"{nexttabstring}Energy: {stats.Energy}");
                     tw.WriteLine();
                 }
-                else if(current is AttributeNode currentAttribute)
+                else if (current is AttributeNode currentAttribute)
                 {
                     if (currentAttribute.AttributeType == "Attribute")
                     {

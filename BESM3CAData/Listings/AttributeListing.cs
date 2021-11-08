@@ -33,9 +33,9 @@ namespace BESM3CAData.Listings
         {
             //Used for serialisation
             get
-            {   
+            {
                 IEnumerable<int> ChildIDs = from child in Children
-                                                select child.ID;
+                                            select child.ID;
 
                 string temp = string.Join(",", ChildIDs);
                 return temp;
@@ -44,8 +44,8 @@ namespace BESM3CAData.Listings
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public List<AttributeListing> Children { get; private set; } //Ignore for serialisation
-        
-        public List<VariantListing> Variants { get; set;}
+
+        public List<VariantListing> Variants { get; set; }
 
         //Constructor:
         public AttributeListing()
