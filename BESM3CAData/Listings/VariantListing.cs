@@ -8,9 +8,9 @@ namespace BESM3CAData.Listings
         public string Name { get; set; }
         public int CostperLevel { get; set; }
         public string Desc { get; set; }
-        public bool DefaultVariant { get; set; }        
+        public bool DefaultVariant { get; set; }
         public AttributeListing Attribute { get; set; }
-               
+
         public string FullName
         {
             get
@@ -22,7 +22,7 @@ namespace BESM3CAData.Listings
 
         public VariantListingSerialized Serialize()
         {
-            return new VariantListingSerialized { ID=this.ID, Name=this.Name, CostperLevel=this.CostperLevel, Desc=this.Desc,DefaultVariant=this.DefaultVariant };
+            return new VariantListingSerialized { ID = this.ID, Name = this.Name, CostperLevel = this.CostperLevel, Desc = this.Desc, DefaultVariant = this.DefaultVariant };
         }
 
     }

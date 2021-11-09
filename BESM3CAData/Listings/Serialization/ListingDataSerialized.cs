@@ -23,7 +23,7 @@ namespace BESM3CAData.Listings.Serialization
             string input = File.ReadAllText(listingLocation.ListingPath);
 
             //Load listing:
-            temp = JsonSerializer.Deserialize<ListingDataSerialized>(input);            
+            temp = JsonSerializer.Deserialize<ListingDataSerialized>(input);
 
             return temp;
         }

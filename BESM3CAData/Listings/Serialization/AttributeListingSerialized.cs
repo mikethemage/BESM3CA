@@ -1,7 +1,5 @@
 ﻿//using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace BESM3CAData.Listings.Serialization
 {
@@ -29,10 +27,10 @@ namespace BESM3CAData.Listings.Serialization
 
         public List<int> GenrePoints { get; set; }
 
-        public string ChildrenList{ get; set; }
-        
+        public string ChildrenList { get; set; }
 
-        public List<VariantListingSerialized> Variants { get; set; }       
-        
+
+        public List<VariantListingSerialized> Variants { get; set; }
+
     }
 }

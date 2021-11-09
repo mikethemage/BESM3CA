@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace BESM3CAData.Listings.Serialization
+﻿namespace BESM3CAData.Listings.Serialization
 {
     public class VariantListingSerialized
     {

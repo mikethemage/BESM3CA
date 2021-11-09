@@ -35,7 +35,7 @@ namespace BESM3CAData.Test
             testParent.AddChild(testChild1);
             testParent.AddChild(testChild2);
 
-            AttributeListingSerialized testParentDeserialized= testParent.Serialize();
+            AttributeListingSerialized testParentDeserialized = testParent.Serialize();
 
             Assert.Equal("2,3", testParentDeserialized.ChildrenList);
         }

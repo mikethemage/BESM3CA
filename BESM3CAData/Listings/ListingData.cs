@@ -8,7 +8,7 @@ namespace BESM3CAData.Listings
     {
         public ListingDataSerialized Serialize()
         {
-            ListingDataSerialized result = new ListingDataSerialized { ListingName = this.ListingName, Genres = this.Genres, AttributeList = new List<AttributeListingSerialized>(),TypeList=new List<TypeListingSerialized>(),ProgressionList=new List<ProgressionListingSerialized>() };
+            ListingDataSerialized result = new ListingDataSerialized { ListingName = this.ListingName, Genres = this.Genres, AttributeList = new List<AttributeListingSerialized>(), TypeList = new List<TypeListingSerialized>(), ProgressionList = new List<ProgressionListingSerialized>() };
 
             foreach (AttributeListing attribute in AttributeList)
             {
@@ -38,7 +38,7 @@ namespace BESM3CAData.Listings
 
         public List<ProgressionListing> ProgressionList { get; set; }
 
-        
+
 
         public string GetProgression(string progressionType, int rank)
         {

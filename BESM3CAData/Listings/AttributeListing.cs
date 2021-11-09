@@ -5,35 +5,35 @@ using System.Linq;
 namespace BESM3CAData.Listings
 {
     public class AttributeListing
-    {        
+    {
         //Properties:
         public int ID { get; private set; }
-        public string Name { get; private set; }        
-        public int MaxLevel { get; private set; }     
-        public string Type { get; private set; }       
+        public string Name { get; private set; }
+        public int MaxLevel { get; private set; }
+        public string Type { get; private set; }
         public int CostperLevel { get; private set; }
-        public bool RequiresVariant { get; private set; }        
+        public bool RequiresVariant { get; private set; }
         public bool SpecialContainer { get; private set; }
         public bool EnforceMaxLevel { get; private set; }
         public string Description { get; private set; }
         public List<string> CustomProgression { get; private set; }
         public List<int> GenrePoints { get; private set; }
-        public List<AttributeListing> Children { get; private set; } 
+        public List<AttributeListing> Children { get; private set; }
         public List<VariantListing> Variants { get; set; }
 
         //To check if still needed:
         private string CostperLevelDesc { get; set; }
         private string Progression { get; set; }
         private string Stat { get; set; }
-        private string Page { get; set; } 
-        private bool Human { get; set; } 
+        private string Page { get; set; }
+        private bool Human { get; set; }
         private bool Container { get; set; }
         private int SpecialPointsPerLevel { get; set; }
 
 
         //Constructor:
         public AttributeListing()
-        {            
+        {
             CostperLevelDesc = "";
             Progression = "";
             Children = new List<AttributeListing>();

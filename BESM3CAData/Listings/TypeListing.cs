@@ -1,5 +1,4 @@
 ﻿using BESM3CAData.Listings.Serialization;
-using System;
 
 namespace BESM3CAData.Listings
 {
