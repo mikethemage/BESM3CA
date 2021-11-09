@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-
+using System.Text.Json.Serialization;
 
 namespace BESM3CAData.Listings.Serialization
 {
@@ -14,6 +14,7 @@ namespace BESM3CAData.Listings.Serialization
         public List<string> Genres { get; set; }
         public List<ProgressionListingSerialized> ProgressionList { get; set; }
 
+        private static JsonSerializerOptions serializerOptions = new JsonSerializerOptions { DefaultIgnoreCondition=JsonIgnoreCondition.WhenWritingNull, WriteIndented=true };   
 
         //Member functions:
         public static ListingDataSerialized JSONLoader(ListingLocation listingLocation)
@@ -32,7 +33,7 @@ namespace BESM3CAData.Listings.Serialization
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-            string output = System.Text.Json.JsonSerializer.Serialize<ListingDataSerialized>(this);
+            string output = JsonSerializer.Serialize<ListingDataSerialized>(this, serializerOptions);
 
             System.IO.File.WriteAllText(outputPath, output);
 

@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Datafiles\BESM4E.json">
+    <EmbeddedResource Include="Datafiles\BESM3E.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Datafiles\BESM3E.json">
+    <EmbeddedResource Include="Datafiles\BESM4E.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Datafiles\ListingDirectory.json">

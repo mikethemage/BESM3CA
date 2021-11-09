@@ -35,7 +35,7 @@ namespace BESM3CA
         {
             //Initialise Controller:
             CurrentController = new DataController();
-            CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\TestBESM.json");
+            CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\BESM3E.json");
             ResetAll();
         }
 
