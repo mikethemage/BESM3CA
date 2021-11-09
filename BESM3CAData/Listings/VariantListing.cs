@@ -5,18 +5,12 @@ namespace BESM3CAData.Listings
     public class VariantListing
     {
         public int ID { get; set; }
-
         public string Name { get; set; }
-
         public int CostperLevel { get; set; }
-
         public string Desc { get; set; }
-
-        public bool DefaultVariant { get; set; }
-        
+        public bool DefaultVariant { get; set; }        
         public AttributeListing Attribute { get; set; }
-
-       
+               
         public string FullName
         {
             get
@@ -24,6 +18,7 @@ namespace BESM3CAData.Listings
                 return $"{Attribute.Name} [{Name}]";
             }
         }
+
 
         public VariantListingSerialized Serialize()
         {

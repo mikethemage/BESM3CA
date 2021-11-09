@@ -18,6 +18,7 @@ namespace BESM3CAData.Listings
             }
         }
 
+
         public ListingData LoadListing()
         {
             return ListingData.JSONLoader(this);

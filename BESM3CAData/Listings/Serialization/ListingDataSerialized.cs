@@ -9,13 +9,11 @@ namespace BESM3CAData.Listings.Serialization
     {
         //Properties:
         public List<AttributeListingSerialized> AttributeList { get; set; }
-
         public List<TypeListingSerialized> TypeList { get; set; }
         public string ListingName { get; set; }
-
         public List<string> Genres { get; set; }
-
         public List<ProgressionListingSerialized> ProgressionList { get; set; }
+
 
         //Member functions:
         public static ListingDataSerialized JSONLoader(ListingLocation listingLocation)
