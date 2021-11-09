@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using BESM3CAData.Listings.Serialization;
 
 namespace BESM3CAData.Listings
 {
@@ -13,17 +13,21 @@ namespace BESM3CAData.Listings
         public string Desc { get; set; }
 
         public bool DefaultVariant { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        
         public AttributeListing Attribute { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+       
         public string FullName
         {
             get
             {
                 return $"{Attribute.Name} [{Name}]";
             }
+        }
+
+        public VariantListingSerialized Serialize()
+        {
+            return new VariantListingSerialized { ID=this.ID, Name=this.Name, CostperLevel=this.CostperLevel, Desc=this.Desc,DefaultVariant=this.DefaultVariant };
         }
 
     }

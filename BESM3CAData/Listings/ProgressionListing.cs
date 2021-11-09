@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BESM3CAData.Listings.Serialization;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BESM3CAData.Listings
@@ -35,6 +36,18 @@ namespace BESM3CAData.Listings
         {
             ProgressionType = progressionType;
             ProgressionsList = progressionArray.ToList<string>();
+        }
+
+        public ProgressionListingSerialized Serialize()
+        {
+            return new ProgressionListingSerialized { ProgressionType = this.ProgressionType, ProgressionsList = this.ProgressionsList };
+        }
+
+        public static ProgressionListing Deserialize(ProgressionListingSerialized progression)
+        {
+            ProgressionListing result = new ProgressionListing { ProgressionsList = progression.ProgressionsList, ProgressionType = progression.ProgressionType };
+
+            return result;
         }
 
         public string GetProgressionValue(int rank)
