@@ -1,9 +1,8 @@
-﻿//using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BESM3CAData.Listings.Serialization
 {
-    public class AttributeListingSerialized
+    public class DataListingSerialized
     {
         //Properties:
         public int ID { get; set; }
@@ -22,15 +21,9 @@ namespace BESM3CAData.Listings.Serialization
         public bool SpecialContainer { get; set; }
         public bool EnforceMaxLevel { get; set; }
         public string Description { get; set; }
-
         public List<string> CustomProgression { get; set; }
-
         public List<int> GenrePoints { get; set; }
-
         public string ChildrenList { get; set; }
-
-
         public List<VariantListingSerialized> Variants { get; set; }
-
     }
 }

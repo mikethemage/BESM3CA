@@ -36,7 +36,7 @@ namespace BESM3CAData.Model
         public abstract bool HasCharacterStats { get; }
         public abstract bool HasLevelStats { get; }
         public abstract bool HasPointsStats { get; }
-        public abstract List<AttributeListing> PotentialChildren { get; }
+        public abstract List<DataListing> PotentialChildren { get; }
 
         public bool PointsUpToDate
         {
@@ -83,13 +83,13 @@ namespace BESM3CAData.Model
             return tempList;
         }
 
-        public List<AttributeListing> GetFilteredPotentialChildren(string filter)
+        public List<DataListing> GetFilteredPotentialChildren(string filter)
         {
-            List<AttributeListing> selectedAttributeChildren = PotentialChildren;
+            List<DataListing> selectedAttributeChildren = PotentialChildren;
             if (selectedAttributeChildren != null)
             {
                 //LINQ Version:
-                List<AttributeListing> filteredAttList = selectedAttributeChildren
+                List<DataListing> filteredAttList = selectedAttributeChildren
                     .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
                     .OrderBy(a => a.Type)
                     .ThenBy(a => a.Name)
@@ -210,7 +210,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public AttributeNode AddChildAttribute(AttributeListing attribute)
+        public AttributeNode AddChildAttribute(DataListing attribute)
         {
             AttributeNode Temp = new AttributeNode(attribute, "", AssociatedController);
             AddChild(Temp);

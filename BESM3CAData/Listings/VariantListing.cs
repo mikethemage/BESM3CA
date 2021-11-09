@@ -9,7 +9,7 @@ namespace BESM3CAData.Listings
         public int CostperLevel { get; set; }
         public string Desc { get; set; }
         public bool DefaultVariant { get; set; }
-        public AttributeListing Attribute { get; set; }
+        public DataListing Attribute { get; set; }
 
         public string FullName
         {

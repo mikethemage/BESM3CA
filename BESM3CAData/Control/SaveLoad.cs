@@ -43,7 +43,7 @@ namespace BESM3CAData.Control
                                 if (controller.SelectedListingData.ListingName != selectedListing.ListingName)
                                 {
                                     //Load listing from file:
-                                    controller.SelectedListingData = ListingData.JSONLoader(selectedListing);
+                                    controller.SelectedListingData = MasterListing.JSONLoader(selectedListing);
                                 }
                             }
                         }

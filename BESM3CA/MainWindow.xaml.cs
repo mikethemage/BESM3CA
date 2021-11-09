@@ -178,7 +178,7 @@ namespace BESM3CA
         {
             if (CharacterTreeView.SelectedItem is TreeViewItem SelectedTreeNode && AttributeListBox.SelectedIndex >= 0 && AttributeListBox.SelectedValue != null)
             {
-                BaseNode FirstNewNodeData = ((BaseNode)SelectedTreeNode.Tag).AddChildAttribute((AttributeListing)AttributeListBox.SelectedItem);
+                BaseNode FirstNewNodeData = ((BaseNode)SelectedTreeNode.Tag).AddChildAttribute((DataListing)AttributeListBox.SelectedItem);
                 NewUpdateTreeFromNodes(SelectedTreeNode, FirstNewNodeData);
                 RefreshTree(CharacterTreeView.Items);
                 RefreshTextBoxes();
@@ -711,7 +711,7 @@ namespace BESM3CA
 
         private void CheckValidAttributeForAddButton()
         {
-            if (CharacterTreeView.SelectedItem is TreeViewItem && AttributeListBox.SelectedValue is AttributeListing)
+            if (CharacterTreeView.SelectedItem is TreeViewItem && AttributeListBox.SelectedValue is DataListing)
             {
                 AddAttButton.IsEnabled = true;
             }

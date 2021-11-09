@@ -9,33 +9,33 @@ namespace BESM3CAData.Test
         [Fact]
         public void Attribute_AddChildShouldWork()
         {
-            AttributeListingSerialized testParentSerialized = new AttributeListingSerialized { ID = 1, Name = "Test Parent" };
-            AttributeListingSerialized testChild1Serialized = new AttributeListingSerialized { ID = 2, Name = "Test Child1" };
+            DataListingSerialized testParentSerialized = new DataListingSerialized { ID = 1, Name = "Test Parent" };
+            DataListingSerialized testChild1Serialized = new DataListingSerialized { ID = 2, Name = "Test Child1" };
 
-            AttributeListing testParent = AttributeListing.Deserialize(testParentSerialized);
-            AttributeListing testChild1 = AttributeListing.Deserialize(testChild1Serialized);
+            DataListing testParent = new DataListing(testParentSerialized);
+            DataListing testChild1 = new DataListing(testChild1Serialized);
 
             testParent.AddChild(testChild1);
 
-            Assert.Contains<AttributeListing>(testChild1, testParent.Children);
+            Assert.Contains<DataListing>(testChild1, testParent.Children);
         }
 
         [Fact]
         public void Attribute_GetChildrenListShouldWork()
         {
 
-            AttributeListingSerialized testParentSerialized = new AttributeListingSerialized { ID = 1, Name = "Test Parent" };
-            AttributeListingSerialized testChild1Serialized = new AttributeListingSerialized { ID = 2, Name = "Test Child1" };
-            AttributeListingSerialized testChild2Serialized = new AttributeListingSerialized { ID = 3, Name = "Test Child2" };
+            DataListingSerialized testParentSerialized = new DataListingSerialized { ID = 1, Name = "Test Parent" };
+            DataListingSerialized testChild1Serialized = new DataListingSerialized { ID = 2, Name = "Test Child1" };
+            DataListingSerialized testChild2Serialized = new DataListingSerialized { ID = 3, Name = "Test Child2" };
 
-            AttributeListing testParent = AttributeListing.Deserialize(testParentSerialized);
-            AttributeListing testChild1 = AttributeListing.Deserialize(testChild1Serialized);
-            AttributeListing testChild2 = AttributeListing.Deserialize(testChild2Serialized);
+            DataListing testParent = new DataListing(testParentSerialized);
+            DataListing testChild1 = new DataListing(testChild1Serialized);
+            DataListing testChild2 = new DataListing(testChild2Serialized);
 
             testParent.AddChild(testChild1);
             testParent.AddChild(testChild2);
 
-            AttributeListingSerialized testParentDeserialized = testParent.Serialize();
+            DataListingSerialized testParentDeserialized = testParent.Serialize();
 
             Assert.Equal("2,3", testParentDeserialized.ChildrenList);
         }

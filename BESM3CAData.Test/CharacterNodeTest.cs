@@ -27,7 +27,7 @@ namespace BESM3CAData.Test
         public void Character_ShouldHavePotentialChildren()
         {
             DataController testController = new DataController();
-            List<AttributeListing> foundPotentialChildren = testController.RootCharacter.GetFilteredPotentialChildren("All");
+            List<DataListing> foundPotentialChildren = testController.RootCharacter.GetFilteredPotentialChildren("All");
             Assert.True(foundPotentialChildren.Count > 0);
         }
 
@@ -52,7 +52,7 @@ namespace BESM3CAData.Test
         public void Character_AddChildAttributeShouldExist(int attributePosition)
         {
             DataController testController = new DataController();
-            AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
+            DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
 
             AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;

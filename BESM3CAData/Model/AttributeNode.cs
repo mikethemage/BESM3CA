@@ -12,7 +12,7 @@ namespace BESM3CAData.Model
     {
         //Fields:             
         private int _specialPointsUsed = 0;
-        private AttributeListing _attributeListing;
+        private DataListing _dataListing;
         private VariantListing _variantListing;
 
         //Properties:
@@ -20,9 +20,9 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (_attributeListing != null)
+                if (_dataListing !=null)
                 {
-                    if (_attributeListing.SpecialContainer || Name == "Alternate Form")
+                    if (_dataListing is AttributeDataListing attributeListing && (attributeListing.SpecialContainer || Name == "Alternate Form"))
                     {
                         return $"{Name} ({GetSpecialPoints()} Left) ({GetPoints()} Points)";
                     }
@@ -95,13 +95,13 @@ namespace BESM3CAData.Model
             get
             {
                 //Need to process attribute description to calculate numeric components
-                string baseDescription = _attributeListing.Description;
+                string baseDescription = _dataListing.Description;
 
                 if (baseDescription == "Custom")
                 {
-                    if (Level >= 1 && Level <= _attributeListing.CustomProgression.Count)
+                    if (Level >= 1 && Level <= _dataListing.CustomProgression.Count)
                     {
-                        baseDescription = _attributeListing.CustomProgression[(Level - 1)];
+                        baseDescription = _dataListing.CustomProgression[(Level - 1)];
                     }
                 }
                 else if (baseDescription == "Variant" && _variantListing != null && _variantListing.Desc != "")
@@ -145,15 +145,15 @@ namespace BESM3CAData.Model
         {
             get
             {
-                return _attributeListing.Type;
+                return _dataListing.Type;
             }
         }
 
-        public override List<AttributeListing> PotentialChildren
+        public override List<DataListing> PotentialChildren
         {
             get
             {
-                return _attributeListing.Children;
+                return _dataListing.Children;
             }
         }
 
@@ -166,7 +166,7 @@ namespace BESM3CAData.Model
                     return true;
                 }
 
-                if (_attributeListing != null && _attributeListing.RequiresVariant)
+                if (_dataListing != null && _dataListing.RequiresVariant)
                 {
                     return true;
                 }
@@ -195,9 +195,9 @@ namespace BESM3CAData.Model
             }
             set
             {
-                if (_attributeListing.Variants != null && value > 0)
+                if (_dataListing.Variants != null && value > 0)
                 {
-                    Variant = _attributeListing.Variants.First(n => n.ID == value);
+                    Variant = _dataListing.Variants.First(n => n.ID == value);
                 }
 
                 PointsUpToDate = false;
@@ -221,8 +221,8 @@ namespace BESM3CAData.Model
                 else
                 {
                     _variantListing = null;
-                    Name = _attributeListing.Name;
-                    PointsPerLevel = _attributeListing.CostperLevel;
+                    Name = _dataListing.Name;
+                    PointsPerLevel = _dataListing.CostperLevel;
                 }
                 PointsUpToDate = false;
 
@@ -250,7 +250,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public AttributeNode(AttributeListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute.Name, attribute.ID, notes, controller)
+        public AttributeNode(DataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute.Name, attribute.ID, notes, controller)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
@@ -270,7 +270,7 @@ namespace BESM3CAData.Model
             PointAdj = pointAdj;
             Level = level;
 
-            _attributeListing = attribute;
+            _dataListing = attribute;
 
             UpdatePointsPerLevel();
 
@@ -364,19 +364,19 @@ namespace BESM3CAData.Model
 
         private void UpdatePointsPerLevel()
         {
-            if (AssociatedController.SelectedGenreIndex > -1 && _attributeListing.GenrePoints != null && _attributeListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
+            if (AssociatedController.SelectedGenreIndex > -1 && _dataListing is SkillDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
             {
-                PointsPerLevel = _attributeListing.GenrePoints[AssociatedController.SelectedGenreIndex];
+                PointsPerLevel = skillDataListing.GenrePoints[AssociatedController.SelectedGenreIndex];
             }
             else
             {
-                PointsPerLevel = _attributeListing.CostperLevel;
+                PointsPerLevel = _dataListing.CostperLevel;
             }
         }
 
         public override void InvalidateGenrePoints()
         {
-            if (_attributeListing.GenrePoints != null)
+            if (_dataListing is SkillDataListing skillDataListing && skillDataListing.GenrePoints != null)
             {
                 PointsUpToDate = false;
                 UpdatePointsPerLevel();
@@ -386,32 +386,35 @@ namespace BESM3CAData.Model
         }
 
         public int GetSpecialPoints()
-        {
-            bool altform = false;
-            if (Name == "Alternate Form")
-            {
-                altform = true;
-            }
-
+        {   
             int specialpoints = 0;
 
-            if (_attributeListing.SpecialContainer || altform)
+            if (_dataListing is AttributeDataListing attributeListing)
             {
-                if (PointsUpToDate == false)
+                bool altform = false;
+                if (Name == "Alternate Form")
                 {
-                    GetPoints();
+                    altform = true;
                 }
 
-                if (altform)
+                if (attributeListing.SpecialContainer || altform)
                 {
-                    specialpoints = Level * 10;
-                }
-                else
-                {
-                    specialpoints = Level;
-                }
+                    if (PointsUpToDate == false)
+                    {
+                        GetPoints();
+                    }
 
-                specialpoints -= _specialPointsUsed;
+                    if (altform)
+                    {
+                        specialpoints = Level * 10;
+                    }
+                    else
+                    {
+                        specialpoints = Level;
+                    }
+
+                    specialpoints -= _specialPointsUsed;
+                }
             }
 
             return specialpoints;
@@ -419,7 +422,7 @@ namespace BESM3CAData.Model
 
         public bool RaiseLevel()
         {
-            if (_attributeListing.EnforceMaxLevel == false || (_attributeListing.MaxLevel != int.MaxValue && _attributeListing.MaxLevel > Level)) //need to check maxlevel
+            if (_dataListing.EnforceMaxLevel == false || (_dataListing.MaxLevel != int.MaxValue && _dataListing.MaxLevel > Level)) //need to check maxlevel
             {
                 if (HasLevel == true)
                 {
@@ -436,7 +439,7 @@ namespace BESM3CAData.Model
 
         public bool LowerLevel()
         {
-            if (Level > 1 || (Level > 0 && _attributeListing.Name == "Weapon"))
+            if (Level > 1 || (Level > 0 && _dataListing.Name == "Weapon"))
             {
                 if (HasLevel == true)
                 {
@@ -467,7 +470,7 @@ namespace BESM3CAData.Model
             if (HasVariants)
             {
                 //LINQ Version:
-                return _attributeListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+                return _dataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
             }
             else
             {
@@ -617,7 +620,7 @@ namespace BESM3CAData.Model
         {
             if (AssociatedController.SelectedListingData != null)
             {
-                _attributeListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
+                _dataListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
             }
 
             while (reader.NodeType != XmlNodeType.None)

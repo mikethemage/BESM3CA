@@ -8,7 +8,7 @@ namespace BESM3CAData.Test
         [Fact]
         public void ListingData_ShouldLoadDefault()
         {
-            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM3E",
@@ -20,7 +20,7 @@ namespace BESM3CAData.Test
         [Fact]
         public void ListingData_ShouldHaveAttributes()
         {
-            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM3E",
@@ -32,7 +32,7 @@ namespace BESM3CAData.Test
         [Fact]
         public void ListingData_ShouldHaveTypes()
         {
-            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM3E",
@@ -47,7 +47,7 @@ namespace BESM3CAData.Test
         [InlineData("Time", 17, "ERROR")]
         public void ListingData_GetProgressionShouldWork(string progressionType, int rank, string expected)
         {
-            ListingData DefaultListing = ListingData.JSONLoader(new ListingLocation
+            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM3E",

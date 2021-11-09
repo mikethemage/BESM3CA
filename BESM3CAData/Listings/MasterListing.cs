@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace BESM3CAData.Listings
 {
-    public class ListingData
+    public class MasterListing
     {
-        public ListingDataSerialized Serialize()
+        public MasterListingSerialized Serialize()
         {
-            ListingDataSerialized result = new ListingDataSerialized { ListingName = this.ListingName, Genres = this.Genres, AttributeList = new List<AttributeListingSerialized>(), TypeList = new List<TypeListingSerialized>(), ProgressionList = new List<ProgressionListingSerialized>() };
+            MasterListingSerialized result = new MasterListingSerialized { ListingName = this.ListingName, Genres = this.Genres, AttributeList = new List<DataListingSerialized>(), TypeList = new List<TypeListingSerialized>(), ProgressionList = new List<ProgressionListingSerialized>() };
 
-            foreach (AttributeListing attribute in AttributeList)
+            foreach (DataListing attribute in AttributeList)
             {
                 result.AttributeList.Add(attribute.Serialize());
             }
@@ -29,7 +29,7 @@ namespace BESM3CAData.Listings
         }
 
         //Properties:
-        public List<AttributeListing> AttributeList { get; set; }
+        public List<DataListing> AttributeList { get; set; }
 
         public List<TypeListing> TypeList { get; set; }
         public string ListingName { get; set; }
@@ -54,13 +54,13 @@ namespace BESM3CAData.Listings
         }
 
         //Member functions:
-        public static ListingData JSONLoader(ListingLocation listingLocation)
+        public static MasterListing JSONLoader(ListingLocation listingLocation)
         {
             //Load JSON data to temp object:
-            ListingDataSerialized temp = ListingDataSerialized.JSONLoader(listingLocation);
+            MasterListingSerialized temp = MasterListingSerialized.JSONLoader(listingLocation);
 
             //Create new listing data object:
-            ListingData result = new ListingData { ListingName = temp.ListingName, Genres = temp.Genres, ProgressionList = new List<ProgressionListing>(), AttributeList = new List<AttributeListing>(), TypeList = new List<TypeListing>() };
+            MasterListing result = new MasterListing { ListingName = temp.ListingName, Genres = temp.Genres, ProgressionList = new List<ProgressionListing>(), AttributeList = new List<DataListing>(), TypeList = new List<TypeListing>() };
 
             //Deserialize Type Listings:
             foreach (TypeListingSerialized typeListing in temp.TypeList)
@@ -75,19 +75,44 @@ namespace BESM3CAData.Listings
             }
 
             //Deserialize raw attribute data:
-            foreach (AttributeListingSerialized attribute in temp.AttributeList)
+            foreach (DataListingSerialized data in temp.AttributeList)
             {
-                AttributeListing newAttribute = AttributeListing.Deserialize(attribute);
-                result.AttributeList.Add(newAttribute);
+                DataListing newData;
+                switch (data.Type)
+                {
+                    case "Attribute":
+                        newData = new AttributeDataListing(data);
+                        break;
+                    case "Defect":
+                        newData = new DefectDataListing(data);
+                        break;
+                    case "Skill":
+                        newData = new SkillDataListing(data);
+                        break;
+
+                    case "Restriction":
+                        newData = new RestrictionDataListing(data);
+                        break;
+
+                    case "Variable":
+                        newData = new VariableDataListing(data);
+                        break;
+
+                    default:
+                        newData = new DataListing(data);
+                        break;
+                }
+                
+                result.AttributeList.Add(newData);
             }
 
             //Link children:
-            foreach (AttributeListingSerialized attribute in temp.AttributeList)
+            foreach (DataListingSerialized attribute in temp.AttributeList)
             {
                 string[] Children = attribute.ChildrenList.Split(',');
                 if (Children.Length > 0)
                 {
-                    AttributeListing Parent = result.AttributeList.Find(x => x.ID == attribute.ID);
+                    DataListing Parent = result.AttributeList.Find(x => x.ID == attribute.ID);
                     foreach (string Child in Children)
                     {
                         if (int.TryParse(Child, out int ChildID))
@@ -105,7 +130,7 @@ namespace BESM3CAData.Listings
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-            ListingDataSerialized output = Serialize();
+            MasterListingSerialized output = Serialize();
             output.CreateJSON(outputPath);
         }
     }

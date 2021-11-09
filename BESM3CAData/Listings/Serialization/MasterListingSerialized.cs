@@ -5,10 +5,10 @@ using System.Text.Json.Serialization;
 
 namespace BESM3CAData.Listings.Serialization
 {
-    public class ListingDataSerialized
+    public class MasterListingSerialized
     {
         //Properties:
-        public List<AttributeListingSerialized> AttributeList { get; set; }
+        public List<DataListingSerialized> AttributeList { get; set; }
         public List<TypeListingSerialized> TypeList { get; set; }
         public string ListingName { get; set; }
         public List<string> Genres { get; set; }
@@ -17,14 +17,14 @@ namespace BESM3CAData.Listings.Serialization
         private static JsonSerializerOptions serializerOptions = new JsonSerializerOptions { DefaultIgnoreCondition=JsonIgnoreCondition.WhenWritingNull, WriteIndented=true };   
 
         //Member functions:
-        public static ListingDataSerialized JSONLoader(ListingLocation listingLocation)
+        public static MasterListingSerialized JSONLoader(ListingLocation listingLocation)
         {
-            ListingDataSerialized temp;
+            MasterListingSerialized temp;
 
             string input = File.ReadAllText(listingLocation.ListingPath);
 
             //Load listing:
-            temp = JsonSerializer.Deserialize<ListingDataSerialized>(input);
+            temp = JsonSerializer.Deserialize<MasterListingSerialized>(input);
 
             return temp;
         }
@@ -33,7 +33,7 @@ namespace BESM3CAData.Listings.Serialization
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-            string output = JsonSerializer.Serialize<ListingDataSerialized>(this, serializerOptions);
+            string output = JsonSerializer.Serialize<MasterListingSerialized>(this, serializerOptions);
 
             System.IO.File.WriteAllText(outputPath, output);
 

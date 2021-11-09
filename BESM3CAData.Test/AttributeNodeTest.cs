@@ -15,7 +15,7 @@ namespace BESM3CAData.Test
         public void AttributeNode_DisplayTextContainsAttributeName(int attributePosition)
         {
             DataController testController = new DataController();
-            AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
+            DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
             AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
             Assert.Contains(foundAttribute.Name, foundAttribute.DisplayText);
@@ -28,7 +28,7 @@ namespace BESM3CAData.Test
         public void AttributeNode_DisplayTextContainsPoints(int attributePosition)
         {
             DataController testController = new DataController();
-            AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
+            DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
             AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
             Assert.Contains(foundAttribute.GetPoints().ToString() + " Points", foundAttribute.DisplayText);
@@ -42,7 +42,7 @@ namespace BESM3CAData.Test
         public void AttributeNode_DescriptionCalculationShouldNotFail(int attributePosition, int level)
         {
             DataController testController = new DataController();
-            AttributeListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
+            DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
             AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
             for (int i = 1; i < level; i++)

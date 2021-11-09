@@ -19,9 +19,9 @@ namespace BESM3CAData.Listings
         }
 
 
-        public ListingData LoadListing()
+        public MasterListing LoadListing()
         {
-            return ListingData.JSONLoader(this);
+            return MasterListing.JSONLoader(this);
         }
     }
 }

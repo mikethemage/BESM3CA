@@ -8,7 +8,7 @@ namespace BESM3CAData.Control
     {
         //Properties:
         public string FileName { get; set; }
-        public ListingData SelectedListingData { get; set; }
+        public MasterListing SelectedListingData { get; set; }
         public CharacterNode RootCharacter { get; set; }
         public int SelectedGenreIndex { get; set; }
 

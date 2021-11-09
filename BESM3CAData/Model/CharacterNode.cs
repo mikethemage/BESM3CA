@@ -40,13 +40,13 @@ namespace BESM3CAData.Model
             }
         }
 
-        public override List<AttributeListing> PotentialChildren
+        public override List<DataListing> PotentialChildren
         {
             get
             {
                 if (AssociatedController.SelectedListingData != null)
                 {
-                    return AssociatedController.SelectedListingData.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
+                    return AssociatedController.SelectedListingData.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<DataListing>();
                 }
                 else
                 {
