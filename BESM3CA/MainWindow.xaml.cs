@@ -168,9 +168,23 @@ namespace BESM3CA
 
             if (CharacterTreeView.SelectedItem != null)
             {
+                object OriginalSelection = AttributeListBox.SelectedItem;
                 ICollectionView view = CollectionViewSource.GetDefaultView(((BaseNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetFilteredPotentialChildren(Filter));
                 view.GroupDescriptions.Add(new PropertyGroupDescription("Type"));
                 AttributeListBox.ItemsSource = view;
+                if(OriginalSelection!=null && AttributeListBox.Items.Contains(OriginalSelection))
+                {
+                    //Keep selected item in view:
+                    AttributeListBox.ScrollIntoView(OriginalSelection);
+                }
+                else
+                {
+                    //go back to top of the list:
+                    if(AttributeListBox.Items.Count > 0)
+                    {
+                        AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
+                    }
+                }
             }
         }
 

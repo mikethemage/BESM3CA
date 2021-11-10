@@ -7,19 +7,23 @@ using System.Threading.Tasks;
 
 namespace BESM3CAData.Listings
 {
-    public class SkillDataListing : DataListing
+    public class MultiGenreDataListing : LevelableDataListing
     {
         public List<int> GenrePoints { get; private set; }
 
-        public SkillDataListing(DataListingSerialized data) : base(data)
+        public override bool MultiGenre
+        {
+            get { return true; }
+        }
+
+        public MultiGenreDataListing(DataListingSerialized data) : base(data)
         {
             GenrePoints = data.GenrePoints;
         }
 
-        
         public override DataListingSerialized Serialize()
         {
-            DataListingSerialized result=base.Serialize();
+            DataListingSerialized result = base.Serialize();
             result.GenrePoints = GenrePoints;
             return result;
         }

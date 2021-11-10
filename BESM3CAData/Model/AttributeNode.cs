@@ -20,9 +20,9 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (_dataListing !=null)
+                if (_dataListing != null)
                 {
-                    if (_dataListing is AttributeDataListing attributeListing && (attributeListing.SpecialContainer || Name == "Alternate Form"))
+                    if (_dataListing is SpecialContainerWithVariantDataListing attributeListing && (attributeListing.SpecialContainer))
                     {
                         return $"{Name} ({GetSpecialPoints()} Left) ({GetPoints()} Points)";
                     }
@@ -57,14 +57,7 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (Name == "Item")
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                return _dataListing.HasLevel;
             }
         }
 
@@ -72,7 +65,7 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (Name == "Item")
+                if (_dataListing.HasLevel)
                 {
                     return false;
                 }
@@ -99,9 +92,9 @@ namespace BESM3CAData.Model
 
                 if (baseDescription == "Custom")
                 {
-                    if (Level >= 1 && Level <= _dataListing.CustomProgression.Count)
+                    if (Level >= 1 && _dataListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
                     {
-                        baseDescription = _dataListing.CustomProgression[(Level - 1)];
+                        baseDescription = levelableDataListing.CustomProgression[(Level - 1)];
                     }
                 }
                 else if (baseDescription == "Variant" && _variantListing != null && _variantListing.Desc != "")
@@ -166,7 +159,7 @@ namespace BESM3CAData.Model
                     return true;
                 }
 
-                if (_dataListing != null && _dataListing.RequiresVariant)
+                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.RequiresVariant)
                 {
                     return true;
                 }
@@ -195,9 +188,9 @@ namespace BESM3CAData.Model
             }
             set
             {
-                if (_dataListing.Variants != null && value > 0)
+                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.Variants != null && value > 0)
                 {
-                    Variant = _dataListing.Variants.First(n => n.ID == value);
+                    Variant = variantDataListing.Variants.First(n => n.ID == value);
                 }
 
                 PointsUpToDate = false;
@@ -222,7 +215,16 @@ namespace BESM3CAData.Model
                 {
                     _variantListing = null;
                     Name = _dataListing.Name;
-                    PointsPerLevel = _dataListing.CostperLevel;
+
+                    if (_dataListing is LevelableDataListing levelableDataListing)
+                    {
+                        PointsPerLevel = levelableDataListing.CostperLevel;
+                    }
+                    else
+                    {
+                        PointsPerLevel = 0;
+                    }
+
                 }
                 PointsUpToDate = false;
 
@@ -254,7 +256,9 @@ namespace BESM3CAData.Model
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
-            if (attribute.Name == "Item")
+            _dataListing = attribute;
+
+            if (_dataListing.HasLevel)
             {
                 HasLevel = false;
             }
@@ -270,7 +274,7 @@ namespace BESM3CAData.Model
             PointAdj = pointAdj;
             Level = level;
 
-            _dataListing = attribute;
+
 
             UpdatePointsPerLevel();
 
@@ -364,19 +368,23 @@ namespace BESM3CAData.Model
 
         private void UpdatePointsPerLevel()
         {
-            if (AssociatedController.SelectedGenreIndex > -1 && _dataListing is SkillDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
+            if (AssociatedController.SelectedGenreIndex > -1 && _dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
             {
                 PointsPerLevel = skillDataListing.GenrePoints[AssociatedController.SelectedGenreIndex];
             }
+            else if (_dataListing is LevelableDataListing levelableDataListing)
+            {
+                PointsPerLevel = levelableDataListing.CostperLevel;
+            }
             else
             {
-                PointsPerLevel = _dataListing.CostperLevel;
+                PointsPerLevel = 0;
             }
         }
 
         public override void InvalidateGenrePoints()
         {
-            if (_dataListing is SkillDataListing skillDataListing && skillDataListing.GenrePoints != null)
+            if (_dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)
             {
                 PointsUpToDate = false;
                 UpdatePointsPerLevel();
@@ -386,32 +394,19 @@ namespace BESM3CAData.Model
         }
 
         public int GetSpecialPoints()
-        {   
+        {
             int specialpoints = 0;
 
-            if (_dataListing is AttributeDataListing attributeListing)
+            if (_dataListing is SpecialContainerWithVariantDataListing attributeListing)
             {
-                bool altform = false;
-                if (Name == "Alternate Form")
-                {
-                    altform = true;
-                }
-
-                if (attributeListing.SpecialContainer || altform)
+                if (attributeListing.SpecialContainer)//|| altform)
                 {
                     if (PointsUpToDate == false)
                     {
                         GetPoints();
                     }
 
-                    if (altform)
-                    {
-                        specialpoints = Level * 10;
-                    }
-                    else
-                    {
-                        specialpoints = Level;
-                    }
+                    specialpoints = Level * attributeListing.SpecialPointsPerLevel;
 
                     specialpoints -= _specialPointsUsed;
                 }
@@ -422,14 +417,21 @@ namespace BESM3CAData.Model
 
         public bool RaiseLevel()
         {
-            if (_dataListing.EnforceMaxLevel == false || (_dataListing.MaxLevel != int.MaxValue && _dataListing.MaxLevel > Level)) //need to check maxlevel
+            if (_dataListing is LevelableDataListing levelableDataListing)
             {
-                if (HasLevel == true)
+                if (levelableDataListing.EnforceMaxLevel == false || (levelableDataListing.MaxLevel != int.MaxValue && levelableDataListing.MaxLevel > Level))
                 {
-                    Level++;
-                    PointsUpToDate = false;
+                    if (HasLevel == true)
+                    {
+                        Level++;
+                        PointsUpToDate = false;
+                    }
+                    return HasLevel;
                 }
-                return HasLevel;
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -467,10 +469,10 @@ namespace BESM3CAData.Model
 
         public List<VariantListing> GetVariants()
         {
-            if (HasVariants)
+            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
             {
                 //LINQ Version:
-                return _dataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
             }
             else
             {

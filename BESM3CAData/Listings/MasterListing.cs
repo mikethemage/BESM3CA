@@ -78,31 +78,35 @@ namespace BESM3CAData.Listings
             foreach (DataListingSerialized data in temp.AttributeList)
             {
                 DataListing newData;
-                switch (data.Type)
+
+                if (data.SpecialContainer)
                 {
-                    case "Attribute":
-                        newData = new AttributeDataListing(data);
-                        break;
-                    case "Defect":
-                        newData = new DefectDataListing(data);
-                        break;
-                    case "Skill":
-                        newData = new SkillDataListing(data);
-                        break;
-
-                    case "Restriction":
-                        newData = new RestrictionDataListing(data);
-                        break;
-
-                    case "Variable":
-                        newData = new VariableDataListing(data);
-                        break;
-
-                    default:
-                        newData = new DataListing(data);
-                        break;
+                    if (data.RequiresVariant)
+                    {
+                        newData = new SpecialContainerWithVariantDataListing(data);
+                    }
+                    else
+                    {
+                        newData = new SpecialContainerDataListing(data);
+                    }
                 }
-                
+                else if (data.RequiresVariant)
+                {
+                    newData = new LevelableWithVariantDataListing(data);
+                }
+                else if (data.MultiGenre)
+                {
+                    newData = new MultiGenreDataListing(data);
+                }
+                else if (data.HasLevel)
+                {
+                    newData = new LevelableDataListing(data);
+                }
+                else
+                {
+                    newData = new DataListing(data);
+                }
+
                 result.AttributeList.Add(newData);
             }
 

@@ -76,9 +76,14 @@ namespace BESM3CAData.Model
         public List<string> GetTypesForFilter()
         {
             //LINQ Version:
-            List<string> tempList = (from AttChild in PotentialChildren
-                                     orderby AttChild.Type
-                                     select AttChild.Type).Distinct().ToList();
+            List<string> tempList = (
+                
+                                     from AttChild in PotentialChildren
+                                     join TypeValue in AssociatedController.SelectedListingData.TypeList on AttChild.Type equals TypeValue.Name 
+                                     orderby TypeValue.TypeOrder
+                                     select AttChild.Type
+                                     
+                                     ).Distinct().ToList();
             tempList.Insert(0, "All");
             return tempList;
         }

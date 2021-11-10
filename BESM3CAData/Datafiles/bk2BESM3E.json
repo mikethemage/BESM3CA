@@ -22,8 +22,7 @@
         "Does not age at all"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 274,
@@ -43,8 +42,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character never loses his or her balance, even when running on a narrow rope or beam.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 238,
@@ -64,8 +62,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character does not suffer normal penalties associated with attacking or defending with melee weapons or while unarmed in poor light, absolute darkness, or against an invisible opponent.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 239,
@@ -85,8 +82,7 @@
       "EnforceMaxLevel": false,
       "Description": "The character suffers reduced normal penalties associated with attacking with ranged weapons in poor light, absolute darkness, or against an invisible opponent. All penalties are reduced by [n] grade(s).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 240,
@@ -106,8 +102,7 @@
       "EnforceMaxLevel": true,
       "Description": "Increases unarmed attacks to Weapon Level [n].",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 275,
@@ -127,13 +122,14 @@
       "EnforceMaxLevel": true,
       "Description": "The character will take half damage (round down) from most falls and always lands on his or her feet.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 0,
       "Name": "Character",
-      "MaxLevel": 0,
+      "CostperLevelDesc": "",
+      "Progression": "",
+      "MaxLevel": 2147483647,
       "Stat": "",
       "Page": "9",
       "Human": true,
@@ -146,8 +142,7 @@
       "EnforceMaxLevel": false,
       "Description": "Dummy listing for character nodes",
       "ChildrenList": "80,115,116,1,2,117,118,119,3,120,288,4,5,81,82,121,83,6,122,123,124,7,8,9,125,84,85,126,127,86,10,11,12,128,14,13,129,15,130,131,16,87,17,132,18,19,20,133,21,23,22,24,25,26,27,134,135,136,88,28,29,30,89,31,90,91,92,93,32,137,138,33,94,95,34,35,36,139,140,96,97,37,141,142,38,39,40,143,41,42,43,144,98,99,44,145,45,100,146,101,102,147,148,46,47,149,150,48,49,151,50,51,52,103,105,104,53,54,55,152,153,56,106,57,107,58,59,108,154,155,61,62,63,109,156,157,158,64,65,66,67,159,68,69,70,71,72,73,74,110,75,111,312,76,160,161,112,113,77,114,78,79,162,163,164",
-      "HasLevel": false,
-      "MultiGenre": false
+      "HasLevel": false
     },
     {
       "ID": 241,
@@ -167,8 +162,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character\uFFFDs weapons will not be noticed by anything short of an actual physical search (at -6 penalty).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 242,
@@ -188,8 +182,7 @@
       "EnforceMaxLevel": true,
       "Description": "Increases critical hit damages to triple damage and quadruple damage respectively.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 243,
@@ -209,8 +202,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character is adept at attacking fast targets, which greatly reduces the penalties a character normally suffers. All penalties are reduced by one grade.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 244,
@@ -230,8 +222,7 @@
       "EnforceMaxLevel": true,
       "Description": "With a successful defence roll, the character can \u0027stand his or ground\u0027 and deflect a ranged attack away harmlessly.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 261,
@@ -255,8 +246,7 @@
         "Total resistance"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 245,
@@ -276,8 +266,7 @@
       "EnforceMaxLevel": true,
       "Description": "Double the effective, medium, and long ranges of ranged weapons",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 246,
@@ -297,8 +286,7 @@
       "EnforceMaxLevel": true,
       "Description": "When using a ranged attack, reduce the total penalties associated with firing a weapon at medium or long range by one grade.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 276,
@@ -318,8 +306,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character\uFFFDs Body Stat is doubled for each assignment of this Attribute when calculating running speed.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 262,
@@ -343,8 +330,7 @@
         "Total resistance"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 263,
@@ -368,8 +354,7 @@
         "Cannot freeze"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 264,
@@ -393,8 +378,7 @@
         "Cannot freeze"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 247,
@@ -414,8 +398,7 @@
       "EnforceMaxLevel": false,
       "Description": "The character\uFFFDs Shock Value is increased by \u002B[n*10]. This may not increase Shock Value to a higher value than one-half the Health Points total.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 269,
@@ -439,8 +422,7 @@
         "Survive crushing pressures"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 248,
@@ -460,8 +442,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can judge his or her opponent\u0027s approximate Combat Value and weapon Skill Levels from the foe\u0027s attitude and posture even without actually seeing him or her fight. Additionally, the character can accurately estimate the opponent\u0027s remaining Health Points.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 265,
@@ -485,8 +466,7 @@
         "Does not breathe air"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 266,
@@ -510,8 +490,7 @@
         "Ignore starvation"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 267,
@@ -535,8 +514,7 @@
         "Ignore total dehydration"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 249,
@@ -556,8 +534,7 @@
       "EnforceMaxLevel": true,
       "Description": "Any time the character has a higher Initiative than their opponent and is free to move, they may attempt a leaping attack. If the strike is successful, the character gets an extra \u002B1 to their Damage Multiplier. If the character fails to hit, however, the character is off balance and receives a significant (-3) penalty to any defence rolls until their turn to act in the following round",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 250,
@@ -577,8 +554,7 @@
       "EnforceMaxLevel": true,
       "Description": "Inflict normal damage with unarmed attacks.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 277,
@@ -598,8 +574,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can skim over sand, snow, or ice at full speed.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 251,
@@ -619,8 +594,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n*3] bonus to all Initiative rolls",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 268,
@@ -644,8 +618,7 @@
         "Survive in vacuum"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 252,
@@ -665,8 +638,7 @@
       "EnforceMaxLevel": true,
       "Description": "When attacking using the Multiple Targets with One Attack rules, the penalties for doing so reduced by one grade.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 270,
@@ -690,8 +662,7 @@
         "Cannot overheat"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 271,
@@ -715,8 +686,7 @@
         "Total resistance"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 253,
@@ -736,8 +706,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character will always have easy access to any weapon required for a particular task. The actual weapons and accessories must still be acquired via the Items Attribute.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 254,
@@ -757,8 +726,7 @@
       "EnforceMaxLevel": true,
       "Description": "Increase the Aim or Wait bonus for pinpoint attacks to a significant (\u002B3) bonus",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 255,
@@ -778,8 +746,7 @@
       "EnforceMaxLevel": true,
       "Description": "If the character has the Deflection Combat Technique and makes both a successful Deflection defence and a successful attack roll, they can reflect a ranged attack towards any target within range.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 272,
@@ -803,8 +770,7 @@
         "Never need to sleep"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 278,
@@ -824,8 +790,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can slither along the ground at normal walking/running speeds.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 273,
@@ -849,8 +814,7 @@
         "Extreme (\u002B6) bonus to Stat rolls"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 256,
@@ -870,8 +834,7 @@
       "EnforceMaxLevel": true,
       "Description": "All penalties for attacking while in motion are reduced by one grade.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 279,
@@ -891,8 +854,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can swing through forests and cities using vines / ropes / webbing or simply his or her arms.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 257,
@@ -912,8 +874,7 @@
       "EnforceMaxLevel": true,
       "Description": "Can recall the vital statistics and important quirks of practically all opponents that have fought in one type of tournament.  \u002B3 bonus on Judge Opponent rolls.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 258,
@@ -933,8 +894,7 @@
       "EnforceMaxLevel": false,
       "Description": "When attacking using the Two Weapons rules, the penalties for doing so reduced by one grade.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 280,
@@ -954,8 +914,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character never leaves footprints or tracks when he or she walks or runs.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 281,
@@ -975,8 +934,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can move at regular walking speed without touching the ground by bounding back and forth between nearby vertical surfaces (walls).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 282,
@@ -996,8 +954,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can cling to walls or ceilings as though they were on the ground or floor.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 283,
@@ -1017,8 +974,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character can walk or run over water as if he or she was on land.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 259,
@@ -1038,8 +994,7 @@
       "EnforceMaxLevel": true,
       "Description": "Can recall the vital statistics and important quirks of practically all known commercially available weapons.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 284,
@@ -1059,8 +1014,7 @@
       "EnforceMaxLevel": true,
       "Description": "When the character opens his or her mind to the natural world, he or she will always move in the \uFFFDright\uFFFD direction.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 169,
@@ -1080,8 +1034,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus to Attack Combat Value",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 291,
@@ -1101,8 +1054,7 @@
       "EnforceMaxLevel": true,
       "Description": "Prevents the passage of gas molecules",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 165,
@@ -1122,8 +1074,7 @@
       "EnforceMaxLevel": true,
       "Description": "[an1]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 170,
@@ -1143,8 +1094,7 @@
       "EnforceMaxLevel": false,
       "Description": "Anyone touching/entering aura suffers the effect of level [n] version of this weapon attack.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 171,
@@ -1164,8 +1114,7 @@
       "EnforceMaxLevel": true,
       "Description": "Score one extra hit for every three the attack roll is above the minimum needed to succeed.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 172,
@@ -1185,8 +1134,7 @@
       "EnforceMaxLevel": false,
       "Description": "Target suffers double damage if they do not make a successful Body Stat roll TN:[(n\u002B2)*3] to resist its effects.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 292,
@@ -1206,8 +1154,7 @@
       "EnforceMaxLevel": true,
       "Description": "Prevents the passage of Insubstantial characters.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 294,
@@ -1227,8 +1174,7 @@
       "EnforceMaxLevel": true,
       "Description": "Characters cannot teleport in or out.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 173,
@@ -1252,8 +1198,7 @@
         "Only brief contact required."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 174,
@@ -1273,8 +1218,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to resist contagion.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 175,
@@ -1317,8 +1261,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 176,
@@ -1338,8 +1281,7 @@
       "EnforceMaxLevel": false,
       "Description": "Reduces specified stat of victim by [n]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 310,
@@ -1359,8 +1301,7 @@
       "EnforceMaxLevel": true,
       "Description": "Created items can be permanent.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 166,
@@ -1380,8 +1321,7 @@
       "EnforceMaxLevel": true,
       "Description": "[tn1]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 177,
@@ -1401,8 +1341,7 @@
       "EnforceMaxLevel": false,
       "Description": "Victim loses [5*n] Energy Points",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 305,
@@ -1422,8 +1361,7 @@
       "EnforceMaxLevel": false,
       "Description": "Gain [n] additional sensory component(s).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 293,
@@ -1443,8 +1381,7 @@
       "EnforceMaxLevel": true,
       "Description": "Can be used to interpenetrate other Force Fields while making attacks.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 178,
@@ -1464,8 +1401,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] penalty to resist",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 179,
@@ -1485,8 +1421,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to defend",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 308,
@@ -1506,8 +1441,7 @@
       "EnforceMaxLevel": false,
       "Description": "[grn1]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 180,
@@ -1527,8 +1461,7 @@
       "EnforceMaxLevel": true,
       "Description": "Allows both passengers and the driver or pilot to fire.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 181,
@@ -1548,8 +1481,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus to attack roll.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 237,
@@ -1569,8 +1501,7 @@
       "EnforceMaxLevel": true,
       "Description": "Called shots cannot bypass armour.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 182,
@@ -1590,8 +1521,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty equal to resist.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 183,
@@ -1616,8 +1546,7 @@
         "No healing or other recovery is possible at all until some exotic event or treatment has occurred."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 184,
@@ -1642,8 +1571,7 @@
         "No minimum range."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 186,
@@ -1663,8 +1591,7 @@
       "EnforceMaxLevel": true,
       "Description": "Weapon damage completely bypasses any normal Armour Rating.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 185,
@@ -1684,8 +1611,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to resist.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 187,
@@ -1705,8 +1631,7 @@
       "EnforceMaxLevel": true,
       "Description": "Attack is attached to another Weapon attack.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 188,
@@ -1726,8 +1651,7 @@
       "EnforceMaxLevel": true,
       "Description": "Attack has normal effect on individuals who are Insubstantial",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 306,
@@ -1747,8 +1671,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n\u002B1] illusions total",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 189,
@@ -1768,8 +1691,7 @@
       "EnforceMaxLevel": true,
       "Description": "Gain the Superstrength benefits when appropriate.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 295,
@@ -1789,8 +1711,7 @@
       "EnforceMaxLevel": true,
       "Description": "Delivers a powerful electric or energy shockto anyone who touches it.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 190,
@@ -1810,8 +1731,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[4*n] damage blocked by Armour/Shields",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 191,
@@ -1831,8 +1751,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[8*n] damage blocked by Force Fields",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 311,
@@ -1852,8 +1771,7 @@
       "EnforceMaxLevel": false,
       "Description": "Armour Rating: [2*(n\u002B1)]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 192,
@@ -1873,8 +1791,7 @@
       "EnforceMaxLevel": true,
       "Description": "Ignore the Armour Ratings of Armour, Shields, and Force Fields, and it affect Insubstantial characters normally.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 193,
@@ -1894,8 +1811,7 @@
       "EnforceMaxLevel": false,
       "Description": "Create [n] m deep fissure.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 167,
@@ -1915,8 +1831,7 @@
       "EnforceMaxLevel": true,
       "Description": "[rn1]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 194,
@@ -1936,8 +1851,7 @@
       "EnforceMaxLevel": true,
       "Description": "Win initiative against shorter melee weapons.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 296,
@@ -1957,8 +1871,7 @@
       "EnforceMaxLevel": true,
       "Description": "Regain one lost Level of effectiveness per action spent.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 195,
@@ -1978,8 +1891,7 @@
       "EnforceMaxLevel": true,
       "Description": "Can specify who is or is not affected.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 196,
@@ -1999,8 +1911,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to defence roll. [2^(n-1)] Possible adjacent targets.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 197,
@@ -2020,8 +1931,7 @@
       "EnforceMaxLevel": true,
       "Description": "Inflicts temporary damage that shorts out electronics and renders people unconscious.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 232,
@@ -2041,8 +1951,7 @@
       "EnforceMaxLevel": false,
       "Description": "Entanglement has [n*5] health points.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 233,
@@ -2067,8 +1976,7 @@
         "Affects a common race or condition"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 168,
@@ -2088,8 +1996,7 @@
       "EnforceMaxLevel": true,
       "Description": "[tgn1]",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 234,
@@ -2109,8 +2016,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to detect",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 235,
@@ -2130,8 +2036,7 @@
       "EnforceMaxLevel": true,
       "Description": "Provides no indication that it is about to strike, and does not reveal the identity of the attacker.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 313,
@@ -2151,8 +2056,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 285,
@@ -2172,8 +2076,7 @@
       "EnforceMaxLevel": true,
       "Description": "Can teleport to unknown destinations.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 236,
@@ -2209,8 +2112,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 198,
@@ -2238,8 +2140,7 @@
         "As above, except the character must instead spend an hour preparing the Attribute before it is used. The Extra Actions Attribute does not reduce this time."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 220,
@@ -2265,8 +2166,7 @@
         "Destroyed after a single use."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 199,
@@ -2294,8 +2194,7 @@
         "A huge group (10,000 or more) is required."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 221,
@@ -2319,8 +2218,7 @@
         "Affects a 1-2 metre radius that includes the user"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 200,
@@ -2345,8 +2243,7 @@
         "The backlash occurs if the character fails the roll by a slight (1 or more) margin, and on any dice roll of 2."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 297,
@@ -2366,8 +2263,7 @@
       "EnforceMaxLevel": true,
       "Description": "Blocks attacks moving in any direction.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 201,
@@ -2392,8 +2288,7 @@
         "The character can only use the Attribute once a day."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 202,
@@ -2418,8 +2313,7 @@
         "The Attribute requires full concentration. The character cannot do anything else while using the Attribute; he or she must remain still and devote full attention to the Attribute."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 203,
@@ -2444,8 +2338,7 @@
         "The focus is extremely hard to replace."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 204,
@@ -2470,8 +2363,7 @@
         "The effect of the Attribute does not take place until a few days to a few weeks after it is used."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 205,
@@ -2491,8 +2383,7 @@
       "EnforceMaxLevel": false,
       "Description": "The Dependent Attribute cannot work until [n] other Attribute(s) are activated.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 206,
@@ -2512,8 +2403,7 @@
       "EnforceMaxLevel": false,
       "Description": "Drains -[10*n] Energy Points from the user every time an instant use ability is attempted.  If used with Attributes that are normally ongoing, such as Armour, Flight, or Mind Control, reduce the Energy Points as follows: 1 every 10 minutes (- 1), 1 every 5 minutes (-2), 1 every minute (- 3), 1 every two rounds (-4), 1/round (-5), 2/round (- 6), 5/round (-7), 10/round (-8), 20/round (-9), or 50/round (-10).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 207,
@@ -2538,8 +2428,7 @@
         "The Attribute\uFFFDs use can be detected using 6-9 methods."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 208,
@@ -2564,8 +2453,7 @@
         "The Attribute requires an extreme emotional involvement."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 289,
@@ -2585,8 +2473,7 @@
       "EnforceMaxLevel": true,
       "Description": "Provides double protection against the particular attack form and only half protection against other forms of damage.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 209,
@@ -2611,8 +2498,7 @@
         "Adventures rarely take place in the environment"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 210,
@@ -2637,8 +2523,7 @@
         "The equipment is static, such as a large workshop or lab."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 222,
@@ -2663,8 +2548,7 @@
         "Limited to a single individual."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 301,
@@ -2684,8 +2568,7 @@
       "EnforceMaxLevel": true,
       "Description": "Can only become airborne if launched from a high place, gain speed by diving, gain altitude via thermals.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 309,
@@ -2709,8 +2592,7 @@
         "Limited to a specific type of plant."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 223,
@@ -2730,8 +2612,7 @@
       "EnforceMaxLevel": true,
       "Description": "Requires two hands to operate or wield properly.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 211,
@@ -2756,8 +2637,7 @@
         "The character can imbue 1 person with the Attribute."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 224,
@@ -2777,8 +2657,7 @@
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to all attack rolls",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 225,
@@ -2798,8 +2677,7 @@
       "EnforceMaxLevel": true,
       "Description": "Must be ingested by the target in order to have an effect.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 298,
@@ -2819,8 +2697,7 @@
       "EnforceMaxLevel": true,
       "Description": "Only usable inside a specific building or other structure.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 212,
@@ -2845,8 +2722,7 @@
         "As above, but the process takes several days."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 299,
@@ -2870,8 +2746,7 @@
         "The field has a large limitation."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 302,
@@ -2891,8 +2766,7 @@
       "EnforceMaxLevel": true,
       "Description": "Requires smooth surface or running start for landing and take off, must maintain a minimum speed once airborne.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 213,
@@ -2912,8 +2786,7 @@
       "EnforceMaxLevel": false,
       "Description": "The character cannot use up to Level [n] of the Attribute. The Attribute must be at Level [n\u002B1] or higher.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 226,
@@ -2933,8 +2806,7 @@
       "EnforceMaxLevel": true,
       "Description": "Any Armour, Mind Shield, or Force Field Attribute stops an additional [n*4] damage (Armour) or [n*8] damage (Force Fields) but this additional damage cannot exceed the Armour Rating of the Armour or Force Field.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 214,
@@ -2959,8 +2831,7 @@
         "The Item\uFFFDs Attribute hardly provides any benefit to the character."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 290,
@@ -2980,8 +2851,7 @@
       "EnforceMaxLevel": true,
       "Description": "Provides double protection against the particular attack form and no protection against other forms of damage.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 215,
@@ -3006,8 +2876,7 @@
         "The Attribute affects a tiny part of the body (one hand, face, one foot, groin, knee, etc.)."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 216,
@@ -3027,8 +2896,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 217,
@@ -3048,8 +2916,7 @@
       "EnforceMaxLevel": true,
       "Description": "For every 1 minute the character uses the Attribute, they must wait [tn3] minute(s) before the Attribute functions once again.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 307,
@@ -3073,8 +2940,7 @@
         "Cannot be used on a rough surface."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 227,
@@ -3094,8 +2960,7 @@
       "EnforceMaxLevel": true,
       "Description": "Must turn off all Force Fields before using the attack, until following round.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 303,
@@ -3115,8 +2980,7 @@
       "EnforceMaxLevel": true,
       "Description": "Limited to skimming no more than a metre or two off the ground or water.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 287,
@@ -3136,8 +3000,7 @@
       "EnforceMaxLevel": true,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 304,
@@ -3157,8 +3020,7 @@
       "EnforceMaxLevel": true,
       "Description": "Requires plenty of free space surrounding to fly.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 300,
@@ -3178,8 +3040,7 @@
       "EnforceMaxLevel": true,
       "Description": "Character cannot move when generating the field.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 228,
@@ -3199,8 +3060,7 @@
       "EnforceMaxLevel": false,
       "Description": "[2^(n-1)] rounds to stop weapon.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 229,
@@ -3224,8 +3084,7 @@
         "Non-living material or characters who have the appropriate Special Defence Attributes are completely immune to the effects.  In addition, a subject who is expecting the attack can render his or herself immune for at least one round."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 314,
@@ -3245,8 +3104,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 218,
@@ -3271,8 +3129,7 @@
         "The character must succeed with a challenging roll (Target Number 18). In non-combat situations, the character cannot attempt to use the Attribute again for 30 minutes \uFFFD 2 hours."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 230,
@@ -3292,8 +3149,7 @@
       "EnforceMaxLevel": true,
       "Description": "Burns out on attack roll of a natural 2 or 3.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 286,
@@ -3313,8 +3169,7 @@
       "EnforceMaxLevel": true,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 1,
@@ -3334,8 +3189,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[10*n] Character Points",
       "ChildrenList": "80,2,3,199,4,5,81,200,82,83,6,7,9,202,84,85,203,86,10,11,12,204,205,206,207,14,13,15,16,87,17,208,18,19,209,20,210,21,23,22,24,25,26,27,88,28,29,30,89,31,90,91,92,93,32,33,94,212,95,35,36,96,97,37,38,39,40,41,42,43,98,99,44,214,45,100,215,101,102,46,47,48,49,50,51,52,217,103,105,104,53,54,55,56,106,57,107,58,59,108,287,61,62,63,109,64,65,66,67,68,69,70,71,72,73,74,110,75,111,314,313,76,218,286,112,113,77,114,78,79",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 2,
@@ -3355,8 +3209,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Identities",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 3,
@@ -3376,8 +3229,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[2*n] Armour",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,289,209,210,237,211,214,290,215,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 288,
@@ -3397,8 +3249,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "314,313",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 4,
@@ -3418,8 +3269,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Attack Combat Value",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 5,
@@ -3439,8 +3289,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 6,
@@ -3476,8 +3325,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 7,
@@ -3497,8 +3345,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] Techniques",
       "ChildrenList": "199,200,238,239,240,241,202,203,242,243,244,204,205,206,207,208,209,210,245,246,247,248,249,250,251,252,214,253,254,217,255,287,256,257,258,314,313,218,286,259",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 8,
@@ -3518,8 +3365,7 @@
       "EnforceMaxLevel": false,
       "Description": "[sn1] Companions",
       "ChildrenList": "0,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 9,
@@ -3539,8 +3385,7 @@
       "EnforceMaxLevel": false,
       "Description": "[fn2] cm Radius",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 10,
@@ -3590,8 +3435,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 11,
@@ -3627,8 +3471,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 12,
@@ -3648,8 +3491,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Defence Combat Value",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 14,
@@ -3669,8 +3511,7 @@
       "EnforceMaxLevel": false,
       "Description": "Time required: [trn10]",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 13,
@@ -3690,8 +3531,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] Dimensions",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 15,
@@ -3711,8 +3551,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] re-rolls per game session",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 16,
@@ -3755,8 +3594,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 17,
@@ -3776,8 +3614,7 @@
       "EnforceMaxLevel": false,
       "Description": "[mn3] cm",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,213,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 18,
@@ -3797,8 +3634,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[5*n] Energy Points",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 19,
@@ -3818,8 +3654,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Stat",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 20,
@@ -3839,8 +3674,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] Environments",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 21,
@@ -3860,8 +3694,7 @@
       "EnforceMaxLevel": false,
       "Description": "Used to reverse the results of the Mind Control Attribute.",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 23,
@@ -3881,8 +3714,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Actions per round",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 22,
@@ -3902,8 +3734,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[sn1] Arms",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 24,
@@ -3923,8 +3754,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Defences per round",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 25,
@@ -3944,8 +3774,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Features",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 26,
@@ -3965,8 +3794,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[mn3] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,301,302,213,214,217,303,287,304,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 27,
@@ -3986,8 +3814,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[4*n] Armour Rating",
       "ChildrenList": "291,165,199,200,292,294,297,202,203,204,205,206,207,166,208,209,210,293,298,299,214,295,216,167,217,296,287,300,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 28,
@@ -4007,8 +3834,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[10*n] Restored Health",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 29,
@@ -4028,8 +3854,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Bonus",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 30,
@@ -4049,8 +3874,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B3 bonus to [n] senses",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 31,
@@ -4070,8 +3894,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[fn2] cm Radius",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,305,213,306,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 32,
@@ -4103,8 +3926,7 @@
         "Energy (including Force Fields)"
       ],
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,213,214,215,216,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 33,
@@ -4124,13 +3946,14 @@
       "EnforceMaxLevel": false,
       "Description": "Invisible to [n] senses",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,214,215,216,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 34,
       "Name": "Item",
-      "MaxLevel": 0,
+      "CostperLevelDesc": "Special",
+      "Progression": "Special",
+      "MaxLevel": 2147483647,
       "Stat": "-",
       "Page": "37",
       "Human": true,
@@ -4143,8 +3966,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "80,115,116,2,117,118,119,3,120,199,4,5,81,200,82,121,83,6,122,123,124,7,9,125,202,84,85,203,126,127,86,10,11,12,204,128,205,206,14,13,129,15,130,131,16,87,17,132,208,18,19,209,20,210,133,21,23,22,24,25,26,27,134,135,136,88,28,29,30,89,31,90,91,92,93,32,137,138,33,94,95,35,36,139,140,96,97,37,141,142,38,39,40,143,41,42,43,144,98,99,44,214,145,45,100,146,101,102,147,148,46,47,149,150,48,49,151,50,51,52,217,103,105,104,53,54,55,152,153,56,106,57,107,58,59,108,154,155,287,61,62,63,109,156,157,158,64,65,66,67,159,68,69,70,71,72,73,74,110,75,111,314,313,76,218,160,286,161,112,113,77,114,78,79,162,163,164",
-      "HasLevel": false,
-      "MultiGenre": false
+      "HasLevel": false
     },
     {
       "ID": 35,
@@ -4164,8 +3986,7 @@
       "EnforceMaxLevel": false,
       "Description": "[mn2] times normal distance",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 36,
@@ -4185,8 +4006,7 @@
       "EnforceMaxLevel": false,
       "Description": "[sn4] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,213,214,217,307,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 37,
@@ -4236,8 +4056,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 38,
@@ -4257,8 +4076,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] ACV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 39,
@@ -4278,8 +4096,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] DCV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 40,
@@ -4322,8 +4139,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 41,
@@ -4359,8 +4175,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 42,
@@ -4417,8 +4232,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 43,
@@ -4438,8 +4252,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] to resist Mind Stat rolls",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 44,
@@ -4489,8 +4302,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 45,
@@ -4522,8 +4334,7 @@
         "Extraplanetary Authority"
       ],
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 46,
@@ -4543,8 +4354,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[fn2] cm Radius",
       "ChildrenList": "199,200,202,203,204,205,206,207,166,208,209,210,309,308,213,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 47,
@@ -4564,8 +4374,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[fn2] cm Radius",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 48,
@@ -4608,8 +4417,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 49,
@@ -4629,8 +4437,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Attributes",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 50,
@@ -4650,8 +4457,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[mn3]",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,213,214,167,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 51,
@@ -4671,8 +4477,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] ACV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 52,
@@ -4692,8 +4497,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] DCV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 53,
@@ -4729,8 +4533,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 54,
@@ -4766,8 +4569,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 55,
@@ -4787,8 +4589,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] to Body/Soul to resist",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 56,
@@ -4808,8 +4609,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Blocked senses",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 57,
@@ -4829,8 +4629,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] to DCV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,311,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 58,
@@ -4850,8 +4649,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Sixth senses",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 59,
@@ -4887,8 +4685,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 61,
@@ -4908,8 +4705,7 @@
       "EnforceMaxLevel": true,
       "Description": "[fn3] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 62,
@@ -4929,8 +4725,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] special defence slot(s).",
       "ChildrenList": "260,199,200,202,203,204,205,206,207,261,208,209,210,262,263,264,269,211,265,266,267,268,214,270,215,271,217,272,287,273,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 63,
@@ -4950,8 +4745,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] special movement type(s).",
       "ChildrenList": "199,200,274,275,202,203,204,205,206,207,208,209,210,276,211,277,214,217,278,287,279,314,313,218,280,286,281,282,283,284",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 64,
@@ -4971,8 +4765,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 65,
@@ -4992,8 +4785,7 @@
       "EnforceMaxLevel": false,
       "Description": "[mn5] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 66,
@@ -5013,8 +4805,7 @@
       "EnforceMaxLevel": false,
       "Description": "Can lift [sn1] tonne(s), \u002B[n] to unarmed Damage Multiplier, \u002B[2*n] bonus to strength-based Body stat rolls.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,215,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 67,
@@ -5034,8 +4825,7 @@
       "EnforceMaxLevel": false,
       "Description": "[n] critters for every current Health point.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 68,
@@ -5071,8 +4861,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 69,
@@ -5115,8 +4904,7 @@
           "DefaultVariant": false
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 70,
@@ -5136,8 +4924,7 @@
       "EnforceMaxLevel": false,
       "Description": "Teleport up to [fn2] m",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,213,214,167,217,287,168,314,313,285,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 71,
@@ -5157,8 +4944,7 @@
       "EnforceMaxLevel": false,
       "Description": "\u002B[5*n] Health points.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 72,
@@ -5201,8 +4987,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 73,
@@ -5259,8 +5044,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 74,
@@ -5280,8 +5064,7 @@
       "EnforceMaxLevel": false,
       "Description": "[mn3] m per hour",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 75,
@@ -5301,8 +5084,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 76,
@@ -5322,8 +5104,7 @@
       "EnforceMaxLevel": false,
       "Description": "[ceil(1.5*n)] points to spend",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 77,
@@ -5343,8 +5124,7 @@
       "EnforceMaxLevel": false,
       "Description": "[mn2] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,210,213,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 78,
@@ -5364,8 +5144,7 @@
       "EnforceMaxLevel": false,
       "Description": "$[mn6],000",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 79,
@@ -5401,8 +5180,7 @@
           "DefaultVariant": true
         }
       ],
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 80,
@@ -5427,8 +5205,7 @@
         "The attack form is common."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 81,
@@ -5460,8 +5237,7 @@
         "Height: 1,000 \uFFFD 2,000 metres, Mass: 2 M \uFFFD 125 M tonnes"
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 82,
@@ -5481,8 +5257,7 @@
       "EnforceMaxLevel": true,
       "Description": "[20*n] damage points per round of exposure",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 83,
@@ -5507,8 +5282,7 @@
         "Initiating the Blind Fury is easy; reverting to normal emotional state is difficult."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 84,
@@ -5533,8 +5307,7 @@
         "Severe conditions are imposed on the objects\uFFFD ownership and usage."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 85,
@@ -5559,8 +5332,7 @@
         "Restricted to a tiny area (100 m radius), such as a small village or single building."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 86,
@@ -5585,8 +5357,7 @@
         "The character suffers from a severe disadvantage."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 87,
@@ -5611,8 +5382,7 @@
         "The character is distracted by several infrequent triggers, or by one trigger that is encountered constantly."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 88,
@@ -5637,8 +5407,7 @@
         "Swarms of girls/guys may be after the character; a new one appears nearly every adventure."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 89,
@@ -5663,8 +5432,7 @@
         "The constant attention the character receives is severely inconvenient."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 90,
@@ -5689,8 +5457,7 @@
         "The character has no useable arms. He or she cannot carry hand-held weapons, grab or push objects, or punch enemies in combat. This rank includes animals with no manipulative ability, such as horses, fish, or snakes."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 91,
@@ -5715,8 +5482,7 @@
         "The character is completely mute with no way to verbally communicate."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 92,
@@ -5736,8 +5502,7 @@
       "EnforceMaxLevel": false,
       "Description": "The character\uFFFDs Attack Combat Value is decreased by [n] Point(s).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 93,
@@ -5757,8 +5522,7 @@
       "EnforceMaxLevel": false,
       "Description": "The character\uFFFDs DCV is decreased by [n] Point(s).",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 94,
@@ -5783,8 +5547,7 @@
         "It is easy to trigger the Involuntary Change."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 95,
@@ -5809,8 +5572,7 @@
         "The character experiences a severe degree of discrimination."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 96,
@@ -5830,8 +5592,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 97,
@@ -5856,8 +5617,7 @@
         "Under most circumstances, the mark cannot be concealed because it affects the character\uFFFDs entire body."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 98,
@@ -5882,8 +5642,7 @@
         "The Nemesis will always harm the character given the opportunity, and/or interferes constantly."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 99,
@@ -5903,8 +5662,7 @@
       "EnforceMaxLevel": true,
       "Description": "The character\uFFFDs Health Points are decreased by [5*n] Points.",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 100,
@@ -5929,8 +5687,7 @@
         "The organisation has total ownership of the character; the character is subject to severe punishment for opposing the owners."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 101,
@@ -5955,8 +5712,7 @@
         "The character has a severe phobia or one that is encountered constantly."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 102,
@@ -5981,8 +5737,7 @@
         "The impairment is a severe inconvenience to the character."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 103,
@@ -6007,8 +5762,7 @@
         "The nightmares occur constantly and have a severe effect on the character\uFFFDs lifestyle."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 105,
@@ -6033,8 +5787,7 @@
         "The Red Tape impedes a character before, after, and during a major action, and/or is extremely difficult to manage most of the time."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 104,
@@ -6059,8 +5812,7 @@
         "The character\uFFFDs Damage Multiplier (page 105) is reduced by 1."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 106,
@@ -6085,8 +5837,7 @@
         "The character has completely lost a primary sense (sight or hearing) and multiple secondary senses."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 107,
@@ -6111,8 +5862,7 @@
         "The S.O. is always placed in grave danger and appears constantly."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 108,
@@ -6137,8 +5887,7 @@
         "The Skeleton is very easy to discover, and/or the consequences of discovery are severe, and/or the character\uFFFDs reputation will be devastated."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 109,
@@ -6163,8 +5912,7 @@
         "The Special Requirement is extremely difficult to obtain and/or needed constantly."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 110,
@@ -6189,8 +5937,7 @@
         "The character is severely unappealing."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 111,
@@ -6210,8 +5957,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 112,
@@ -6236,8 +5982,7 @@
         "The character cannot use any Attributes when affected by the Vulnerability."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 113,
@@ -6262,8 +6007,7 @@
         "The reward, contract, or other incentive offered to hunt the character is extreme."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 114,
@@ -6288,8 +6032,7 @@
         "The weak point is large (-1 slight Called Shot penalty)."
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": false
+      "HasLevel": true
     },
     {
       "ID": 115,
@@ -6341,8 +6084,7 @@
         3
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 116,
@@ -6394,8 +6136,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 117,
@@ -6447,8 +6188,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 118,
@@ -6500,8 +6240,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 119,
@@ -6553,8 +6292,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 120,
@@ -6606,8 +6344,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 121,
@@ -6659,8 +6396,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 122,
@@ -6712,8 +6448,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 123,
@@ -6765,8 +6500,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 124,
@@ -6818,8 +6552,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 125,
@@ -6871,8 +6604,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 126,
@@ -6924,8 +6656,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 127,
@@ -6977,8 +6708,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 128,
@@ -7030,8 +6760,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 129,
@@ -7083,8 +6812,7 @@
         3
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 130,
@@ -7136,8 +6864,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 131,
@@ -7189,8 +6916,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 132,
@@ -7242,8 +6968,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 133,
@@ -7295,8 +7020,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 134,
@@ -7348,8 +7072,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 135,
@@ -7401,8 +7124,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 136,
@@ -7454,8 +7176,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 137,
@@ -7507,8 +7228,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 138,
@@ -7560,8 +7280,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 139,
@@ -7613,8 +7332,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 140,
@@ -7666,8 +7384,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 141,
@@ -7719,8 +7436,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 142,
@@ -7772,8 +7488,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 143,
@@ -7825,8 +7540,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 144,
@@ -7878,8 +7592,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 145,
@@ -7931,8 +7644,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 146,
@@ -7984,8 +7696,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 147,
@@ -8037,8 +7748,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 148,
@@ -8090,8 +7800,7 @@
         3
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 149,
@@ -8143,8 +7852,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 150,
@@ -8196,8 +7904,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 151,
@@ -8249,8 +7956,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 152,
@@ -8302,8 +8008,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 153,
@@ -8355,8 +8060,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 154,
@@ -8408,8 +8112,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 155,
@@ -8461,8 +8164,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 156,
@@ -8514,8 +8216,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 157,
@@ -8567,8 +8268,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 158,
@@ -8620,8 +8320,7 @@
         2
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 159,
@@ -8673,8 +8372,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 312,
@@ -8694,8 +8392,7 @@
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 160,
@@ -8747,8 +8444,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 161,
@@ -8800,8 +8496,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 162,
@@ -8853,8 +8548,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 163,
@@ -8906,8 +8600,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     },
     {
       "ID": 164,
@@ -8959,8 +8652,7 @@
         1
       ],
       "ChildrenList": "",
-      "HasLevel": true,
-      "MultiGenre": true
+      "HasLevel": true
     }
   ],
   "TypeList": [
