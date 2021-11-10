@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public class LevelableWithVariantDataNode : LevelableDataNode
+    public class LevelableWithVariantDataNode : LevelableDataNode, IVariantDataNode
     {
 
         private VariantListing _variantListing;

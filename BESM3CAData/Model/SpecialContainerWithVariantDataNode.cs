@@ -9,7 +9,7 @@ using BESM3CAData.Control;
 
 namespace BESM3CAData.Model
 {
-    public class SpecialContainerWithVariantDataNode : LevelableDataNode
+    public class SpecialContainerWithVariantDataNode : LevelableDataNode, IVariantDataNode
     {
         private VariantListing _variantListing;
 
@@ -35,7 +35,7 @@ namespace BESM3CAData.Model
             }
         }
 
-       
+
 
         public override bool HasVariants
         {
@@ -53,35 +53,9 @@ namespace BESM3CAData.Model
 
                 return false;
             }
-        } 
-        
-        
-        /*public virtual VariantListing Variant
-       {
-           get
-           {
-               return _variantListing;
-           }
-           set
-           {
-               if (value != null)
-               {
-                   _variantListing = value;
-                   Name = _variantListing.FullName;
-
-               }
-               else
-               {
-                   _variantListing = null;
-                   Name = _dataListing.Name;
+        }
 
 
-
-               }
-               PointsUpToDate = false;
-
-           }
-       }*/
 
         public VariantListing Variant
         {

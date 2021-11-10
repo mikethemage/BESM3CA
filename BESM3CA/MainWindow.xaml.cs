@@ -133,7 +133,7 @@ namespace BESM3CA
                     VariantListBox.DisplayMemberPath = "FullName";
                     VariantListBox.ItemsSource = FilteredVarList;
 
-                    if (selectedAttribute is IVariantDataListing variantDataListing && variantDataListing.Variant != null)
+                    if (selectedAttribute is IVariantDataNode variantDataListing && variantDataListing.Variant != null)
                     {
                         VariantListBox.SelectedValue = variantDataListing.Variant;  //Load in saved variant
                     }
@@ -674,7 +674,7 @@ namespace BESM3CA
         {
             if (VariantListBox.SelectedValue is VariantListing selectedVariant)
             {
-                ((IVariantDataListing)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = selectedVariant;
+                ((IVariantDataNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = selectedVariant;
 
                 RefreshTree(CharacterTreeView.Items);
                 RefreshTextBoxes();

@@ -18,7 +18,7 @@ namespace BESM3CAData.Listings
         public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
         {
             return new LevelableWithVariantDataNode(this, notes, controller, level, pointAdj);
-        }
+        }        
 
         public LevelableWithVariantDataListing(DataListingSerialized data) : base(data)
         {
