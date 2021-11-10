@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BESM3CAData.Model;
+using BESM3CAData.Control;
 
 namespace BESM3CAData.Listings
 {
-    public class LevelableWithVariantDataListing : LevelableDataListing
+    public class LevelableWithVariantDataListing : LevelableDataListing, IVariantDataListing
     {
         //Only things with Variants:
         public bool RequiresVariant { get; private set; }
         public List<VariantListing> Variants { get; set; }
 
+        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new LevelableWithVariantDataNode(this, notes, controller, level, pointAdj);
+        }
 
         public LevelableWithVariantDataListing(DataListingSerialized data) : base(data)
         {
@@ -31,8 +37,8 @@ namespace BESM3CAData.Listings
 
         public override DataListingSerialized Serialize()
         {
-            DataListingSerialized result=base.Serialize();
-            
+            DataListingSerialized result = base.Serialize();
+
             result.RequiresVariant = this.RequiresVariant;
 
             if (Variants != null)

@@ -17,7 +17,7 @@ namespace BESM3CAData.Test
             DataController testController = new DataController();
             DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
-            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
+            DataNode foundAttribute = (DataNode)testController.RootCharacter.FirstChild;
             Assert.Contains(foundAttribute.Name, foundAttribute.DisplayText);
         }
 
@@ -30,7 +30,7 @@ namespace BESM3CAData.Test
             DataController testController = new DataController();
             DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
-            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
+            DataNode foundAttribute = (DataNode)testController.RootCharacter.FirstChild;
             Assert.Contains(foundAttribute.GetPoints().ToString() + " Points", foundAttribute.DisplayText);
         }
 
@@ -42,9 +42,9 @@ namespace BESM3CAData.Test
         public void AttributeNode_DescriptionCalculationShouldNotFail(int attributePosition, int level)
         {
             DataController testController = new DataController();
-            DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
+            LevelableDataListing selectedAttribute = (LevelableDataListing)testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
-            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
+            LevelableDataNode foundAttribute = (LevelableDataNode)testController.RootCharacter.FirstChild;
             for (int i = 1; i < level; i++)
             {
                 foundAttribute.RaiseLevel();
@@ -59,7 +59,7 @@ namespace BESM3CAData.Test
         public void Attribute_GetTypesForFilterShouldContain(string attributeName, string expected)
         {
             DataController testController = new DataController();
-            AttributeNode testAttribute = new AttributeNode(testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName), "", testController);
+            DataNode testAttribute = new DataNode(testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName), "", testController);
             List<string> output = testAttribute.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);

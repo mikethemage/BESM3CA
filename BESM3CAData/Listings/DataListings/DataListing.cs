@@ -1,6 +1,8 @@
 ﻿using BESM3CAData.Listings.Serialization;
+using BESM3CAData.Model;
 using System.Collections.Generic;
 using System.Linq;
+using BESM3CAData.Control;
 
 namespace BESM3CAData.Listings
 {
@@ -30,6 +32,11 @@ namespace BESM3CAData.Listings
             {
                 return false;
             }
+        }
+
+        public virtual DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new DataNode(this, notes, controller);
         }
 
 

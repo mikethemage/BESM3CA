@@ -86,7 +86,7 @@ namespace BESM3CAData.Control
                             }
                             else if (reader.Name.EndsWith("AttributeData") || reader.Name.EndsWith("AttributeNode"))
                             {
-                                newNode = new AttributeNode(controller);
+                                newNode = new DataNode(controller);
                                 newNode.LoadXML(reader);
                                 if (parentNode != null)
                                 {
@@ -220,7 +220,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine($"{nexttabstring}Energy: {stats.Energy}");
                     tw.WriteLine();
                 }
-                else if (current is AttributeNode currentAttribute)
+                else if (current is DataNode currentAttribute)
                 {
                     if (currentAttribute.AttributeType == "Attribute")
                     {
@@ -230,13 +230,16 @@ namespace BESM3CAData.Control
 
                         nexttabstring = $"{tabstring}\t";
 
-                        if (currentAttribute.Name == "Item")
+                        if (currentAttribute is LevelableDataNode levelableDataNode)
                         {
-                            tw.WriteLine($"{tabstring}(");
+                            tw.WriteLine($"{nexttabstring}Level {levelableDataNode.Level} x {levelableDataNode.PointsPerLevel} = {levelableDataNode.Level * levelableDataNode.PointsPerLevel}");
                         }
                         else
                         {
-                            tw.WriteLine($"{nexttabstring}Level {currentAttribute.Level} x {currentAttribute.PointsPerLevel} = {currentAttribute.Level * currentAttribute.PointsPerLevel}");
+                            if (currentAttribute.Name == "Item")
+                            {
+                                tw.WriteLine($"{tabstring}(");
+                            }
                         }
 
                         if (currentAttribute.AttributeDescription != "")
@@ -249,7 +252,10 @@ namespace BESM3CAData.Control
                     {
                         //write stuff
                         //write a line of text to the file
-                        tw.WriteLine($"{tabstring}{current.DisplayText} Level {currentAttribute.Level}");
+                        if (currentAttribute is LevelableDataNode levelableDataNode)
+                        {
+                            tw.WriteLine($"{tabstring}{current.DisplayText} Level {levelableDataNode.Level}");
+                        }
                         nexttabstring = $"{tabstring}\t";
                     }
                 }
@@ -330,30 +336,45 @@ namespace BESM3CAData.Control
                 }
                 else
                 {
-                    if (((AttributeNode)current).AttributeType == "Attribute")
+                    if (((DataNode)current).AttributeType == "Attribute")
                     {
                         tw.WriteLine("<li class=\"AttributeNode\">");
                         tw.WriteLine($"<h3>{current.DisplayText}</h3>");
 
-                        if (((AttributeNode)current).Name == "Item")
-                        {
-                            tw.WriteLine("(");
+
+
+
+
+
+                        if (current is LevelableDataNode levelableDataNode)
+                        {                         
+                            
+                            tw.WriteLine($"<p>Level {(levelableDataNode).Level} x {(levelableDataNode).PointsPerLevel} = {(levelableDataNode).Level * (levelableDataNode).PointsPerLevel}</p>");
                         }
                         else
                         {
-                            tw.WriteLine($"<p>Level {((AttributeNode)current).Level} x {((AttributeNode)current).PointsPerLevel} = {((AttributeNode)current).Level * ((AttributeNode)current).PointsPerLevel}</p>");
-                        }
+                            if (((DataNode)current).Name == "Item")
+                            {                                
+                                tw.WriteLine("(");
+                            }
+                        }                        
 
-                        if (((AttributeNode)current).AttributeDescription != "")
+                        if (((DataNode)current).AttributeDescription != "")
                         {
-                            tw.WriteLine($"<p>Description: {((AttributeNode)current).AttributeDescription}</p>");
+                            tw.WriteLine($"<p>Description: {((DataNode)current).AttributeDescription}</p>");
                         }
                         isAttrib = true;
                     }
                     else
                     {
-                        tw.WriteLine($"<li class=\"{((AttributeNode)current).AttributeType}Node\">");
-                        tw.WriteLine($"{current.DisplayText} Level {((AttributeNode)current).Level}");
+                        tw.WriteLine($"<li class=\"{((DataNode)current).AttributeType}Node\">");
+
+                        if (current is LevelableDataNode levelableDataNode)
+                        {   
+                            tw.WriteLine($"{current.DisplayText} Level {levelableDataNode.Level}");
+                        }
+
+                       
                     }
                     if (current.Notes != "")
                     {
@@ -368,7 +389,7 @@ namespace BESM3CAData.Control
                     }
                     if (isAttrib)
                     {
-                        if (((AttributeNode)current).Name == "Item")
+                        if (((DataNode)current).Name == "Item")
                         {
                             tw.WriteLine(") / 2");
                         }

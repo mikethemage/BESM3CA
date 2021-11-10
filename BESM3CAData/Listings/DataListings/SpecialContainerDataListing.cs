@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BESM3CAData.Model;
+using BESM3CAData.Control;
 
 namespace BESM3CAData.Listings
 {
@@ -11,6 +13,11 @@ namespace BESM3CAData.Listings
     {        
         public int SpecialPointsPerLevel { get; set; }
         public bool SpecialContainer { get; private set; }
+
+        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new SpecialContainerDataNode(this, notes, controller, level, pointAdj);
+        }
 
         public SpecialContainerDataListing(DataListingSerialized data) : base(data)
         {

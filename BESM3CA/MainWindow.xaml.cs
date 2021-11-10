@@ -113,12 +113,12 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-            AttributeNode selectedAttribute = null;
+            DataNode selectedAttribute = null;
             if (CharacterTreeView.SelectedItem != null)
             {
                 if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode)
                 {
-                    selectedAttribute = selectedTreeNode.Tag as AttributeNode;
+                    selectedAttribute = selectedTreeNode.Tag as DataNode;
                 }
             }
 
@@ -133,9 +133,9 @@ namespace BESM3CA
                     VariantListBox.DisplayMemberPath = "FullName";
                     VariantListBox.ItemsSource = FilteredVarList;
 
-                    if (selectedAttribute.Variant != null)
+                    if (selectedAttribute is IVariantDataListing variantDataListing && variantDataListing.Variant != null)
                     {
-                        VariantListBox.SelectedValue = selectedAttribute.Variant;  //Load in saved variant
+                        VariantListBox.SelectedValue = variantDataListing.Variant;  //Load in saved variant
                     }
                     else
                     {
@@ -268,10 +268,15 @@ namespace BESM3CA
 
                 if (((BaseNode)selectedTreeNode.Tag).HasLevelStats)
                 {
-                    if (selectedTreeNode.Tag is AttributeNode selectedAttribute)
+                    if (selectedTreeNode.Tag is LevelableDataNode levelableDataNode)
                     {
-                        LevelTextBox.Text = selectedAttribute.Level.ToString();
-                        DescriptionTextBox.Text = selectedAttribute.AttributeDescription;
+                        LevelTextBox.Text = levelableDataNode.Level.ToString();
+                        DescriptionTextBox.Text = levelableDataNode.AttributeDescription;
+                    }
+                    else if (selectedTreeNode.Tag is DataNode dataNode)
+                    {
+                        LevelTextBox.Text = "";
+                        DescriptionTextBox.Text = dataNode.AttributeDescription;
                     }
                     else
                     {
@@ -295,15 +300,20 @@ namespace BESM3CA
 
                 if (((BaseNode)selectedTreeNode.Tag).HasPointsStats)
                 {
-                    if (selectedTreeNode.Tag is AttributeNode selectedAttribute)
+                    if (selectedTreeNode.Tag is LevelableDataNode levelableDataNode)
                     {
-                        PointsPerLevelTextBox.Text = selectedAttribute.PointsPerLevel.ToString();
-                        PointCostTextBox.Text = selectedAttribute.BaseCost.ToString();
+                        PointsPerLevelTextBox.Text = levelableDataNode.PointsPerLevel.ToString();
+                        PointCostTextBox.Text = levelableDataNode.BaseCost.ToString();
+                    }
+                    else if (selectedTreeNode.Tag is DataNode dataNode)
+                    {
+                        PointsPerLevelTextBox.Text = "";
+                        PointCostTextBox.Text = dataNode.BaseCost.ToString();
                     }
                     else
                     {
-                        LevelTextBox.Text = "";
-                        DescriptionTextBox.Text = "";
+                        PointsPerLevelTextBox.Text = "";
+                        PointCostTextBox.Text = "";
                     }
                     PointsPerLevelTextBox.Visibility = Visibility.Visible;
                     PointCostTextBox.Visibility = Visibility.Visible;
@@ -324,7 +334,7 @@ namespace BESM3CA
 
         private void RaiseLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeNode selectedAttribute)
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is LevelableDataNode selectedAttribute)
             {
                 if (selectedAttribute.RaiseLevel())
                 {
@@ -335,7 +345,7 @@ namespace BESM3CA
 
         private void LowerLevel()
         {
-            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is AttributeNode selectedAttribute)
+            if (((TreeViewItem)CharacterTreeView.SelectedItem).Tag is LevelableDataNode selectedAttribute)
             {
                 if (selectedAttribute.LowerLevel())
                 {
@@ -383,9 +393,10 @@ namespace BESM3CA
 
         private void DelAttr()
         {
-            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is not CharacterNode)  //do not allow manual deletion of Character nodes
+            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is DataNode dataNode)  //do not allow manual deletion of Character nodes
             {
-                if (((AttributeNode)selectedTreeNode.Tag).PointAdj >= 0)  //do not delete "freebies"
+
+                if(selectedTreeNode.Tag is not LevelableDataNode || (selectedTreeNode.Tag is LevelableDataNode levelableDataNode && levelableDataNode.PointAdj>=0))//do not delete "freebies"                
                 {
                     ((BaseNode)selectedTreeNode.Tag).Delete();
                     TreeViewItem selectedParent = (TreeViewItem)selectedTreeNode.Parent;
@@ -461,7 +472,7 @@ namespace BESM3CA
                     MoveUpButton.IsEnabled = false;
                     MoveDownButton.IsEnabled = false;
                 }
-                else if (selectedTreeNode.Tag is AttributeNode selectedAttribute)
+                else if (selectedTreeNode.Tag is DataNode selectedAttribute)
                 {
                     DelAttButton.IsEnabled = true;
                     MoveDownButton.IsEnabled = true;
@@ -663,7 +674,7 @@ namespace BESM3CA
         {
             if (VariantListBox.SelectedValue is VariantListing selectedVariant)
             {
-                ((AttributeNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = selectedVariant;
+                ((IVariantDataListing)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).Variant = selectedVariant;
 
                 RefreshTree(CharacterTreeView.Items);
                 RefreshTextBoxes();

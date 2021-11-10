@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BESM3CAData.Model;
+using BESM3CAData.Control;
+
 
 namespace BESM3CAData.Listings
 {
@@ -12,8 +15,8 @@ namespace BESM3CAData.Listings
         public override bool HasLevel
         {
             get
-            { 
-                return true; 
+            {
+                return true;
             }
         }
 
@@ -26,6 +29,11 @@ namespace BESM3CAData.Listings
         //  To check if still needed: 
         private string CostperLevelDesc { get; set; }
         private string Progression { get; set; }
+
+        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new LevelableDataNode(this, notes, controller, level, pointAdj);
+        }
 
 
         public override DataListingSerialized Serialize()

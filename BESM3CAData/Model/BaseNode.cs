@@ -215,9 +215,9 @@ namespace BESM3CAData.Model
             }
         }
 
-        public AttributeNode AddChildAttribute(DataListing attribute)
+        public DataNode AddChildAttribute(DataListing attribute)
         {
-            AttributeNode Temp = new AttributeNode(attribute, "", AssociatedController);
+            DataNode Temp = attribute.CreateNode("", AssociatedController);
             AddChild(Temp);
             return Temp;
         }

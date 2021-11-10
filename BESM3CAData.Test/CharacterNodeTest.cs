@@ -55,7 +55,7 @@ namespace BESM3CAData.Test
             DataListing selectedAttribute = testController.RootCharacter.GetFilteredPotentialChildren("All")[attributePosition];
             testController.RootCharacter.AddChildAttribute(selectedAttribute);
 
-            AttributeNode foundAttribute = (AttributeNode)testController.RootCharacter.FirstChild;
+            DataNode foundAttribute = (DataNode)testController.RootCharacter.FirstChild;
 
             Assert.Equal(selectedAttribute.ID, foundAttribute.ID);
             Assert.Equal(selectedAttribute.Name, foundAttribute.Name);
