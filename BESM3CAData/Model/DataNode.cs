@@ -9,6 +9,12 @@ namespace BESM3CAData.Model
 {
     public class DataNode : BaseNode
     {
+        public override int GetPoints()
+        {
+            //TODO: fix!
+            return 0;
+        }
+
         //Fields:           
         protected DataListing _dataListing;
         
@@ -35,31 +41,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public override bool HasCharacterStats
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public override bool HasLevelStats
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public override bool HasPointsStats
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public virtual string baseDescription
+        protected virtual string BaseDescription
         {
             get
             {
@@ -73,7 +55,7 @@ namespace BESM3CAData.Model
             get
             {
                 //Need to process attribute description to calculate numeric components
-                string description = baseDescription;
+                string description = BaseDescription;
 
                 string completedDescription = "";
 
@@ -123,29 +105,6 @@ namespace BESM3CAData.Model
             }
         }
 
-        public virtual bool HasVariants
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public virtual bool HasLevel
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public virtual int BaseCost
-        {
-            get
-            {
-                return 0;
-            }
-        }
 
         //Constructors:   
         public DataNode(DataController controller, string Notes = "") : base("", 0, Notes, controller)
@@ -165,15 +124,7 @@ namespace BESM3CAData.Model
             }
             if (attribute.Name == "Mind Control")
             {
-                AddChild(
-
-
-                        
-
-                        AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == "Range").CreateNode("", AssociatedController, 3, -3)
-
-
-                    ); ;
+                AddChild(AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == "Range").CreateNode("", AssociatedController, 3, -3)); ;
             }
         }
 
@@ -183,81 +134,6 @@ namespace BESM3CAData.Model
             return valueToParse;
         }
 
-        public List<VariantListing> GetVariants()
-        {
-            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
-            {
-                //LINQ Version:
-                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public override int GetPoints()
-        {
-            if (PointsUpToDate == false || FirstChild == null)
-            {
-                bool isItem = Name == "Item";
-                bool isCompanion = Name == "Companion";
-                bool isAlternateAttack = false;
-                
-
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
-
-                BaseNode temp = FirstChild;
-                while (temp != null)
-                {
-                    if (temp is DataNode tempAttribute)
-                    {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
-                    }
-                    else
-                    {
-                        ChildPoints += temp.GetPoints();
-                    }
-
-                    temp = temp.Next;
-                }
-
-                //Points should equal BaseCost +- any restrictions or variables
-                _points = BaseCost;
-                _points += VariablesOrRestrictions;
-                                
-                if (isItem)
-                {
-                    //item point cost calc:
-                    if (ChildPoints < 2)
-                    {
-                        _points += 0;
-                    }
-                    else
-                    {
-                        _points += ChildPoints / 2;
-                    }
-                }
-
-                //if alternate weapon attack half points:
-                if (isAlternateAttack)
-                {
-                    _points /= 2;
-                }
-
-                PointsUpToDate = true;
-            }
-
-            return _points;
-        }
 
         public override CalcStats GetStats()
         {
@@ -286,9 +162,7 @@ namespace BESM3CAData.Model
         //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
-            textWriter.WriteStartElement("AttributeStats");           
-            textWriter.WriteAttributeString("HasLevel", HasLevel.ToString());
-            textWriter.WriteEndElement();
+            //Todo: remove method
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
@@ -316,6 +190,7 @@ namespace BESM3CAData.Model
                                 switch (reader.Name)
                                 {
                                     default:
+                                        //Todo: remove method
                                     break;
                                 }
                             }

@@ -15,7 +15,20 @@ namespace BESM3CAData.Model
 
         private VariantListing _variantListing;
 
-        public override string baseDescription
+        public List<VariantListing> GetVariants()
+        {
+            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
+            {
+                //LINQ Version:
+                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected override string BaseDescription
         {
             get
             {
@@ -36,24 +49,7 @@ namespace BESM3CAData.Model
                 return result;
             }
         }
-
-        public override bool HasVariants
-        {
-            get
-            {
-                if (_variantListing != null)
-                {
-                    return true;
-                }
-
-                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.RequiresVariant)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
+               
 
         public VariantListing Variant
         {
@@ -94,7 +90,7 @@ namespace BESM3CAData.Model
             if (PointsUpToDate == false || FirstChild == null)
             {
                 bool isItem = Name == "Item";
-                bool isCompanion = Name == "Companion";
+                
                 bool isAlternateAttack = false;
 
                 if (VariantID > 0)
@@ -164,8 +160,7 @@ namespace BESM3CAData.Model
         {
             textWriter.WriteStartElement("AttributeStats");
             textWriter.WriteAttributeString("Level", Level.ToString());
-            textWriter.WriteAttributeString("Variant", VariantID.ToString());
-            textWriter.WriteAttributeString("HasLevel", HasLevel.ToString());
+            textWriter.WriteAttributeString("Variant", VariantID.ToString());            
             textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
             textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
             textWriter.WriteEndElement();
@@ -257,16 +252,12 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller)
+        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
-            
-
             _variantListing = null;
-
-            
+                        
         }
-
     }
 }

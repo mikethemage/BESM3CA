@@ -29,5 +29,7 @@ namespace BESM3CAData.Listings.Serialization
         public bool HasLevel { get; set; }
 
         public bool MultiGenre { get; set; }
+        public bool PointsContainer { get; set; }
+        public int PointScale { get; set; }
     }
 }

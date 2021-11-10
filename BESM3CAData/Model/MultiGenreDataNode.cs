@@ -20,5 +20,32 @@ namespace BESM3CAData.Model
         {
 
         }
+
+        public override void InvalidateGenrePoints()
+        {
+            if (_dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)
+            {
+                PointsUpToDate = false;
+                UpdatePointsPerLevel();
+            }
+
+            base.InvalidateGenrePoints();
+        }
+
+        protected override void UpdatePointsPerLevel()
+        {
+            if (AssociatedController.SelectedGenreIndex > -1 && _dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
+            {
+                PointsPerLevel = skillDataListing.GenrePoints[AssociatedController.SelectedGenreIndex];
+            }
+            else if (_dataListing is LevelableDataListing levelableDataListing)
+            {
+                PointsPerLevel = levelableDataListing.CostperLevel;
+            }
+            else
+            {
+                PointsPerLevel = 0;
+            }
+        }
     }
 }

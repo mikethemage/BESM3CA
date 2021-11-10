@@ -59,7 +59,8 @@ namespace BESM3CAData.Test
         public void Attribute_GetTypesForFilterShouldContain(string attributeName, string expected)
         {
             DataController testController = new DataController();
-            DataNode testAttribute = new DataNode(testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName), "", testController);
+                       
+            DataNode testAttribute = testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName).CreateNode("", testController);
             List<string> output = testAttribute.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);

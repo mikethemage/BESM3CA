@@ -12,8 +12,8 @@ namespace BESM3CAData.Test
             DataListingSerialized testParentSerialized = new DataListingSerialized { ID = 1, Name = "Test Parent" };
             DataListingSerialized testChild1Serialized = new DataListingSerialized { ID = 2, Name = "Test Child1" };
 
-            DataListing testParent = new DataListing(testParentSerialized);
-            DataListing testChild1 = new DataListing(testChild1Serialized);
+            DataListing testParent = new LevelableDataListing(testParentSerialized);
+            DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
 
             testParent.AddChild(testChild1);
 
@@ -28,9 +28,9 @@ namespace BESM3CAData.Test
             DataListingSerialized testChild1Serialized = new DataListingSerialized { ID = 2, Name = "Test Child1" };
             DataListingSerialized testChild2Serialized = new DataListingSerialized { ID = 3, Name = "Test Child2" };
 
-            DataListing testParent = new DataListing(testParentSerialized);
-            DataListing testChild1 = new DataListing(testChild1Serialized);
-            DataListing testChild2 = new DataListing(testChild2Serialized);
+            DataListing testParent = new LevelableDataListing(testParentSerialized);
+            DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
+            DataListing testChild2 = new LevelableDataListing(testChild2Serialized);
 
             testParent.AddChild(testChild1);
             testParent.AddChild(testChild2);

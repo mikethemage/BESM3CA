@@ -113,18 +113,9 @@ namespace BESM3CA
 
         private void RefreshVariants()
         {
-            DataNode selectedAttribute = null;
-            if (CharacterTreeView.SelectedItem != null)
+            if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is IVariantDataNode selectedVariantNode)
             {
-                if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode)
-                {
-                    selectedAttribute = selectedTreeNode.Tag as DataNode;
-                }
-            }
-
-            if (selectedAttribute != null && selectedAttribute.HasVariants)
-            {
-                List<VariantListing> FilteredVarList = selectedAttribute.GetVariants();
+                List<VariantListing> FilteredVarList = selectedVariantNode.GetVariants();
                 if (FilteredVarList != null)
                 {
                     VariantListBox.Visibility = Visibility.Visible;
@@ -133,9 +124,9 @@ namespace BESM3CA
                     VariantListBox.DisplayMemberPath = "FullName";
                     VariantListBox.ItemsSource = FilteredVarList;
 
-                    if (selectedAttribute is IVariantDataNode variantDataListing && variantDataListing.Variant != null)
+                    if (selectedVariantNode.Variant != null)
                     {
-                        VariantListBox.SelectedValue = variantDataListing.Variant;  //Load in saved variant
+                        VariantListBox.SelectedValue = selectedVariantNode.Variant;  //Load in saved variant
                     }
                     else
                     {
@@ -172,7 +163,7 @@ namespace BESM3CA
                 ICollectionView view = CollectionViewSource.GetDefaultView(((BaseNode)((TreeViewItem)CharacterTreeView.SelectedItem).Tag).GetFilteredPotentialChildren(Filter));
                 view.GroupDescriptions.Add(new PropertyGroupDescription("Type"));
                 AttributeListBox.ItemsSource = view;
-                if(OriginalSelection!=null && AttributeListBox.Items.Contains(OriginalSelection))
+                if (OriginalSelection != null && AttributeListBox.Items.Contains(OriginalSelection))
                 {
                     //Keep selected item in view:
                     AttributeListBox.ScrollIntoView(OriginalSelection);
@@ -180,7 +171,7 @@ namespace BESM3CA
                 else
                 {
                     //go back to top of the list:
-                    if(AttributeListBox.Items.Count > 0)
+                    if (AttributeListBox.Items.Count > 0)
                     {
                         AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
                     }
@@ -266,68 +257,60 @@ namespace BESM3CA
                     DCVTextBox.Visibility = Visibility.Hidden;
                 }
 
-                if (((BaseNode)selectedTreeNode.Tag).HasLevelStats)
+                if (selectedTreeNode.Tag is LevelableDataNode levelableDataNode)
                 {
-                    if (selectedTreeNode.Tag is LevelableDataNode levelableDataNode)
-                    {
-                        LevelTextBox.Text = levelableDataNode.Level.ToString();
-                        DescriptionTextBox.Text = levelableDataNode.AttributeDescription;
-                    }
-                    else if (selectedTreeNode.Tag is DataNode dataNode)
-                    {
-                        LevelTextBox.Text = "";
-                        DescriptionTextBox.Text = dataNode.AttributeDescription;
-                    }
-                    else
-                    {
-                        LevelTextBox.Text = "";
-                        DescriptionTextBox.Text = "";
-                    }
+                    LevelTextBox.Text = levelableDataNode.Level.ToString();
+                    DescriptionTextBox.Text = levelableDataNode.AttributeDescription;
                     LevelTextBox.Visibility = Visibility.Visible;
                     DescriptionTextBox.Visibility = Visibility.Visible;
                     LevelLabel.Visibility = Visibility.Visible;
                     DescriptionLabel.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    LevelTextBox.Text = "";
-                    DescriptionTextBox.Text = "";
-                    LevelTextBox.Visibility = Visibility.Hidden;
-                    DescriptionTextBox.Visibility = Visibility.Hidden;
-                    LevelLabel.Visibility = Visibility.Hidden;
-                    DescriptionLabel.Visibility = Visibility.Hidden;
-                }
-
-                if (((BaseNode)selectedTreeNode.Tag).HasPointsStats)
-                {
-                    if (selectedTreeNode.Tag is LevelableDataNode levelableDataNode)
-                    {
+                    //if (levelableDataNode.HasPointsStats)
+                    //{
                         PointsPerLevelTextBox.Text = levelableDataNode.PointsPerLevel.ToString();
                         PointCostTextBox.Text = levelableDataNode.BaseCost.ToString();
-                    }
-                    else if (selectedTreeNode.Tag is DataNode dataNode)
-                    {
-                        PointsPerLevelTextBox.Text = "";
-                        PointCostTextBox.Text = dataNode.BaseCost.ToString();
-                    }
+                        PointsPerLevelTextBox.Visibility = Visibility.Visible;
+                        PointCostTextBox.Visibility = Visibility.Visible;
+                        PointsPerLevelLabel.Visibility = Visibility.Visible;
+                        PointCostLabel.Visibility = Visibility.Visible;
+                    /*}
                     else
                     {
                         PointsPerLevelTextBox.Text = "";
                         PointCostTextBox.Text = "";
-                    }
-                    PointsPerLevelTextBox.Visibility = Visibility.Visible;
-                    PointCostTextBox.Visibility = Visibility.Visible;
-                    PointsPerLevelLabel.Visibility = Visibility.Visible;
-                    PointCostLabel.Visibility = Visibility.Visible;
+                        PointsPerLevelTextBox.Visibility = Visibility.Hidden;
+                        PointCostTextBox.Visibility = Visibility.Hidden;
+                        PointsPerLevelLabel.Visibility = Visibility.Hidden;
+                        PointCostLabel.Visibility = Visibility.Hidden;
+                    }*/
                 }
                 else
                 {
+                    DescriptionTextBox.Text = "";
+                    DescriptionTextBox.Visibility = Visibility.Hidden;
+                    DescriptionLabel.Visibility = Visibility.Hidden;
+
+                    LevelTextBox.Text = "";
+                    LevelTextBox.Visibility = Visibility.Hidden;
+                    LevelLabel.Visibility = Visibility.Hidden;
+
                     PointsPerLevelTextBox.Text = "";
-                    PointCostTextBox.Text = "";
                     PointsPerLevelTextBox.Visibility = Visibility.Hidden;
-                    PointCostTextBox.Visibility = Visibility.Hidden;
                     PointsPerLevelLabel.Visibility = Visibility.Hidden;
-                    PointCostLabel.Visibility = Visibility.Hidden;
+
+                    //TODO: check if this should be using base cost or not?:
+                    /*if (selectedTreeNode.Tag is LevelableDataNode dataNode)
+                    {
+                        PointCostTextBox.Text = dataNode.BaseCost.ToString();
+                        PointCostTextBox.Visibility = Visibility.Visible;
+                        PointCostLabel.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {*/
+                        PointCostTextBox.Text = "";
+                        PointCostTextBox.Visibility = Visibility.Hidden;
+                        PointCostLabel.Visibility = Visibility.Hidden;
+                    //}
                 }
             }
         }
@@ -396,9 +379,9 @@ namespace BESM3CA
             if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is DataNode dataNode)  //do not allow manual deletion of Character nodes
             {
 
-                if(selectedTreeNode.Tag is not LevelableDataNode || (selectedTreeNode.Tag is LevelableDataNode levelableDataNode && levelableDataNode.PointAdj>=0))//do not delete "freebies"                
+                if (dataNode is not LevelableDataNode || (dataNode is LevelableDataNode levelableDataNode && levelableDataNode.PointAdj >= 0))//do not delete "freebies"                
                 {
-                    ((BaseNode)selectedTreeNode.Tag).Delete();
+                    dataNode.Delete();
                     TreeViewItem selectedParent = (TreeViewItem)selectedTreeNode.Parent;
                     int selectedIndex = selectedParent.Items.IndexOf(selectedTreeNode);
                     TreeViewItem newSelectedItem;
@@ -478,7 +461,7 @@ namespace BESM3CA
                     MoveDownButton.IsEnabled = true;
                     CheckMoveUpDown();
 
-                    if (selectedAttribute.HasLevel)
+                    if (selectedAttribute is LevelableDataNode)
                     {
                         EnableLevelButtons();
                     }
@@ -517,23 +500,32 @@ namespace BESM3CA
 
                 CurrentController.Load(openFileDialog1.FileName);
 
-                if (CurrentController.SelectedGenreIndex > -1)
+                if (CurrentController.RootCharacter == null)
                 {
-                    GenreComboBox.SelectedIndex = CurrentController.SelectedGenreIndex;
+                    //load failed, reset:
+                    ResetAll();
+                    MessageBox.Show("Unable to load file: invalid format", "Error loading file", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
-                TreeViewItem newRoot = new TreeViewItem
+                else
                 {
-                    Header = CurrentController.RootCharacter.DisplayText
-                };
+                    if (CurrentController.SelectedGenreIndex > -1)
+                    {
+                        GenreComboBox.SelectedIndex = CurrentController.SelectedGenreIndex;
+                    }
 
-                CharacterTreeView.Items.Add(newRoot);
-                NewUpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
+                    TreeViewItem newRoot = new TreeViewItem
+                    {
+                        Header = CurrentController.RootCharacter.DisplayText
+                    };
 
-                Title = ApplicationName + " - " + CurrentController.FileName;
-                if (CharacterTreeView.Items.Count > 0)
-                {
-                    ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected = true;
+                    CharacterTreeView.Items.Add(newRoot);
+                    NewUpdateTreeFromNodes(newRoot, CurrentController.RootCharacter);
+
+                    Title = ApplicationName + " - " + CurrentController.FileName;
+                    if (CharacterTreeView.Items.Count > 0)
+                    {
+                        ((TreeViewItem)CharacterTreeView.Items[0]).IsSelected = true;
+                    }
                 }
             }
         }

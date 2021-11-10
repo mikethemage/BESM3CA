@@ -33,9 +33,6 @@ namespace BESM3CAData.Model
             }
         }
 
-        public abstract bool HasCharacterStats { get; }
-        public abstract bool HasLevelStats { get; }
-        public abstract bool HasPointsStats { get; }
         public abstract List<DataListing> PotentialChildren { get; }
 
         public bool PointsUpToDate

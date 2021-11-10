@@ -14,31 +14,7 @@ namespace BESM3CAData.Model
         private int _soul;
 
         //Properties:
-        public string CharacterName { get; set; }
-
-        public override bool HasCharacterStats
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        public override bool HasLevelStats
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public override bool HasPointsStats
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public string CharacterName { get; set; }               
 
         public override List<DataListing> PotentialChildren
         {

@@ -20,7 +20,6 @@ namespace BESM3CAData.Model
 
         public SpecialContainerDataNode(SpecialContainerDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
-
      
         }
 
@@ -80,7 +79,7 @@ namespace BESM3CAData.Model
         {
             if (PointsUpToDate == false || FirstChild == null)
             {
-                bool isItem = Name == "Item";
+                
                 bool isCompanion = Name == "Companion";
                 bool isAlternateAttack = false;
 
@@ -128,19 +127,7 @@ namespace BESM3CAData.Model
                         _points += 2 * Level;
                     }
                 }
-
-                if (isItem)
-                {
-                    //item point cost calc:
-                    if (ChildPoints < 2)
-                    {
-                        _points += 0;
-                    }
-                    else
-                    {
-                        _points += ChildPoints / 2;
-                    }
-                }
+                                
 
                 //if alternate weapon attack half points:
                 if (isAlternateAttack)

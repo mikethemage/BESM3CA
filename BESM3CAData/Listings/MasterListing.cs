@@ -77,9 +77,13 @@ namespace BESM3CAData.Listings
             //Deserialize raw attribute data:
             foreach (DataListingSerialized data in temp.AttributeList)
             {
-                DataListing newData;
+                DataListing newData = null;
 
-                if (data.SpecialContainer)
+                if (data.PointsContainer)
+                {
+                    newData = new PointsContainerDataListing(data);
+                }
+                else if (data.SpecialContainer)
                 {
                     if (data.RequiresVariant)
                     {
@@ -104,10 +108,13 @@ namespace BESM3CAData.Listings
                 }
                 else
                 {
+                    
                     newData = new DataListing(data);
                 }
-
-                result.AttributeList.Add(newData);
+                if (newData != null)
+                {
+                    result.AttributeList.Add(newData);
+                }
             }
 
             //Link children:

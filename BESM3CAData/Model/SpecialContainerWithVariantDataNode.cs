@@ -13,7 +13,20 @@ namespace BESM3CAData.Model
     {
         private VariantListing _variantListing;
 
-        public override string baseDescription
+        public List<VariantListing> GetVariants()
+        {
+            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
+            {
+                //LINQ Version:
+                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected override string BaseDescription
         {
             get
             {
@@ -32,26 +45,6 @@ namespace BESM3CAData.Model
                 }
 
                 return result;
-            }
-        }
-
-
-
-        public override bool HasVariants
-        {
-            get
-            {
-                if (_variantListing != null)
-                {
-                    return true;
-                }
-
-                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.RequiresVariant)
-                {
-                    return true;
-                }
-
-                return false;
             }
         }
 

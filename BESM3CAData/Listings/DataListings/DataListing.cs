@@ -10,12 +10,16 @@ namespace BESM3CAData.Listings
     {
         //Properties:
 
+
+
         //Everything should have:
         public int ID { get; private set; }
         public string Name { get; private set; }
         public string Type { get; private set; }
         public string Description { get; private set; }
         public List<DataListing> Children { get; private set; }
+
+
         //  To check if still needed:        
         private string Stat { get; set; }
         private string Page { get; set; }

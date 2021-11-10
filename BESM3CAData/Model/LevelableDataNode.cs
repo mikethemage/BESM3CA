@@ -11,8 +11,67 @@ using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public class LevelableDataNode : DataNode
+    public class LevelableDataNode : DataNode, IPointsDataNode
     {
+        public override int GetPoints()
+        {
+            if (PointsUpToDate == false || FirstChild == null)
+            {
+                bool isCompanion = Name == "Companion";
+                bool isAlternateAttack = false;
+
+                int VariablesOrRestrictions = 0;
+                int ChildPoints = 0;
+
+                BaseNode temp = FirstChild;
+                while (temp != null)
+                {
+                    if (temp is DataNode tempAttribute)
+                    {
+                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
+                        {
+                            VariablesOrRestrictions += temp.GetPoints();
+                        }
+                        else
+                        {
+                            ChildPoints += temp.GetPoints();
+                        }
+                    }
+                    else
+                    {
+                        ChildPoints += temp.GetPoints();
+                    }
+
+                    temp = temp.Next;
+                }
+
+                //Points should equal BaseCost +- any restrictions or variables
+                _points = BaseCost;
+                _points += VariablesOrRestrictions;
+
+                if (isCompanion)
+                {
+                    if (ChildPoints > 120)
+                    {
+                        _points += (2 + ((ChildPoints - 120) / 10)) * Level;
+                    }
+                    else
+                    {
+                        _points += 2 * Level;
+                    }
+                }
+
+                //if alternate weapon attack half points:
+                if (isAlternateAttack)
+                {
+                    _points /= 2;
+                }
+
+                PointsUpToDate = true;
+            }
+
+            return _points;
+        }
 
 
         public int Level { get; protected set; }
@@ -138,85 +197,10 @@ namespace BESM3CAData.Model
         }
 
 
-        public override int GetPoints()
-        {
-            if (PointsUpToDate == false || FirstChild == null)
-            {
-                bool isItem = Name == "Item";
-                bool isCompanion = Name == "Companion";
-                bool isAlternateAttack = false;
-
-
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
-
-                BaseNode temp = FirstChild;
-                while (temp != null)
-                {
-                    if (temp is DataNode tempAttribute)
-                    {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
-                    }
-                    else
-                    {
-                        ChildPoints += temp.GetPoints();
-                    }
-
-                    temp = temp.Next;
-                }
-
-                //Points should equal BaseCost +- any restrictions or variables
-                _points = BaseCost;
-                _points += VariablesOrRestrictions;
 
 
 
-                if (isCompanion)
-                {
-                    if (ChildPoints > 120)
-                    {
-                        _points += (2 + ((ChildPoints - 120) / 10)) * Level;
-                    }
-                    else
-                    {
-                        _points += 2 * Level;
-                    }
-                }
-
-                if (isItem)
-                {
-                    //item point cost calc:
-                    if (ChildPoints < 2)
-                    {
-                        _points += 0;
-                    }
-                    else
-                    {
-                        _points += ChildPoints / 2;
-                    }
-                }
-
-                //if alternate weapon attack half points:
-                if (isAlternateAttack)
-                {
-                    _points /= 2;
-                }
-
-                PointsUpToDate = true;
-            }
-
-            return _points;
-        }
-
-
-        public override string baseDescription
+        protected override string BaseDescription
         {
             get
             {
@@ -235,30 +219,10 @@ namespace BESM3CAData.Model
             }
         }
 
-        public override string DisplayText
-        {
-            get
-            {
-                if (_dataListing != null)
-                {
-                    if (AttributeType == "Special")
-                    {
-                        return Name;
-                    }
-                    else
-                    {
-                        return $"{Name} ({GetPoints()} Points)";
-                    }
-                }
-                else
-                {
-                    return "";
-                }
-            }
-        }
 
 
-        public override int BaseCost
+
+        public virtual int BaseCost
         {
             get
             {
@@ -267,51 +231,9 @@ namespace BESM3CAData.Model
         }
 
 
-        public override bool HasLevel
+        protected virtual void UpdatePointsPerLevel()
         {
-            get
-            {
-                return true;
-            }
-        }
-
-        public override bool HasLevelStats
-        {
-            get
-            {
-                return _dataListing.HasLevel;
-            }
-        }
-
-        public override bool HasPointsStats
-        {
-            get
-            {
-                if (_dataListing.HasLevel)
-                {
-                    return false;
-                }
-                else
-                {
-                    if (Name == "Companion")
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        protected void UpdatePointsPerLevel()
-        {
-            if (AssociatedController.SelectedGenreIndex > -1 && _dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
-            {
-                PointsPerLevel = skillDataListing.GenrePoints[AssociatedController.SelectedGenreIndex];
-            }
-            else if (_dataListing is LevelableDataListing levelableDataListing)
+            if (_dataListing is LevelableDataListing levelableDataListing)
             {
                 PointsPerLevel = levelableDataListing.CostperLevel;
             }
@@ -321,18 +243,6 @@ namespace BESM3CAData.Model
             }
         }
 
-        public override void InvalidateGenrePoints()
-        {
-            if (_dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)
-            {
-                PointsUpToDate = false;
-                UpdatePointsPerLevel();
-            }
-
-            base.InvalidateGenrePoints();
-        }
-
-
 
         public bool RaiseLevel()
         {
@@ -340,12 +250,9 @@ namespace BESM3CAData.Model
             {
                 if (levelableDataListing.EnforceMaxLevel == false || (levelableDataListing.MaxLevel != int.MaxValue && levelableDataListing.MaxLevel > Level))
                 {
-                    if (HasLevel == true)
-                    {
-                        Level++;
-                        PointsUpToDate = false;
-                    }
-                    return HasLevel;
+                    Level++;
+                    PointsUpToDate = false;
+                    return true;
                 }
                 else
                 {
@@ -362,23 +269,21 @@ namespace BESM3CAData.Model
         {
             if (Level > 1 || (Level > 0 && _dataListing.Name == "Weapon"))
             {
-                if (HasLevel == true)
+                if (PointAdj < 0)
                 {
-                    if (PointAdj < 0)
-                    {
-                        if ((Level * PointsPerLevel) + PointAdj > 0)
-                        {
-                            Level--;
-                            PointsUpToDate = false;
-                        }
-                    }
-                    else
+                    if ((Level * PointsPerLevel) + PointAdj > 0)
                     {
                         Level--;
                         PointsUpToDate = false;
                     }
                 }
-                return HasLevel;
+                else
+                {
+                    Level--;
+                    PointsUpToDate = false;
+                }
+
+                return true;
             }
             else
             {
@@ -390,8 +295,6 @@ namespace BESM3CAData.Model
         {
             textWriter.WriteStartElement("AttributeStats");
             textWriter.WriteAttributeString("Level", Level.ToString());
-
-            textWriter.WriteAttributeString("HasLevel", HasLevel.ToString());
             textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
             textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
             textWriter.WriteEndElement();
@@ -455,33 +358,22 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller)
+        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
-
-            _dataListing = attribute;
 
             if (attribute.Name == "Weapon")
             {
                 Level = 0;
             }
+            else
+            {
+                Level = level;
+            }
 
             PointAdj = pointAdj;
-            Level = level;
-
 
             UpdatePointsPerLevel();
-
-
-
-            if (attribute.Name == "Companion")
-            {
-                AddChild(new CharacterNode(AssociatedController));
-            }
-            if (attribute.Name == "Mind Control")
-            {
-                AddChild(new DataNode(AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == "Range"), "", AssociatedController, 3, -3));
-            }
         }
 
     }
