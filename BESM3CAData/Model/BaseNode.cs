@@ -13,12 +13,12 @@ namespace BESM3CAData.Model
         protected int _points;
         private bool _pointsUpToDate;
 
+
         //Properties:
         public DataController AssociatedController { get; set; }
         public int ID { get; private set; }
         public string Name { get; set; }
         public string Notes { get; set; }
-
         public BaseNode FirstChild { get; private set; }
         public BaseNode Parent { get; private set; }
         public int NodeOrder { get; set; }
@@ -51,6 +51,7 @@ namespace BESM3CAData.Model
             }
         }
 
+
         //Constructors:
         public BaseNode(string attributeName, int attributeID, string notes, DataController controller)
         {
@@ -70,16 +71,18 @@ namespace BESM3CAData.Model
 
 
         //Methods:
+        public abstract int GetPoints();
+
         public List<string> GetTypesForFilter()
         {
             //LINQ Version:
             List<string> tempList = (
-                
+
                                      from AttChild in PotentialChildren
-                                     join TypeValue in AssociatedController.SelectedListingData.TypeList on AttChild.Type equals TypeValue.Name 
+                                     join TypeValue in AssociatedController.SelectedListingData.TypeList on AttChild.Type equals TypeValue.Name
                                      orderby TypeValue.TypeOrder
                                      select AttChild.Type
-                                     
+
                                      ).Distinct().ToList();
             tempList.Insert(0, "All");
             return tempList;
@@ -104,8 +107,6 @@ namespace BESM3CAData.Model
                 return null;
             }
         }
-
-        public abstract int GetPoints();
 
         public void AddChild(BaseNode child)
         {

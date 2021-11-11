@@ -1,9 +1,12 @@
 ﻿namespace BESM3CAData.Model
 {
     public interface IPointsDataNode
-    {        
-        string DisplayText { get; }        
+    {
+        //Properties:
+        string DisplayText { get; }
         int PointAdj { get; }
+
+        //Methods:
         int GetPoints();
     }
 }

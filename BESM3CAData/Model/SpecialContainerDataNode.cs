@@ -1,29 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using System.Xml;
-using BESM3CAData.Control;
 
 namespace BESM3CAData.Model
 {
     public class SpecialContainerDataNode : LevelableDataNode
     {
+        //Fields:
         private int _specialPointsUsed = 0;
 
-        public SpecialContainerDataNode(DataController controller, string Notes = "") : base(controller, Notes)
-        {
 
-        }
-
-        public SpecialContainerDataNode(SpecialContainerDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
-        {
-     
-        }
-
-
+        //Properties:
         public override string DisplayText
         {
             get
@@ -53,6 +39,20 @@ namespace BESM3CAData.Model
             }
         }
 
+
+        //Constructors:
+        public SpecialContainerDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        {
+
+        }
+
+        public SpecialContainerDataNode(SpecialContainerDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        {
+
+        }
+
+
+        //Methods:
         public int GetSpecialPoints()
         {
             int specialpoints = 0;
@@ -79,10 +79,8 @@ namespace BESM3CAData.Model
         {
             if (PointsUpToDate == false || FirstChild == null)
             {
-                
                 bool isCompanion = Name == "Companion";
                 bool isAlternateAttack = false;
-
 
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
@@ -127,7 +125,6 @@ namespace BESM3CAData.Model
                         _points += 2 * Level;
                     }
                 }
-                                
 
                 //if alternate weapon attack half points:
                 if (isAlternateAttack)

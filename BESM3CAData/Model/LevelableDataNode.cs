@@ -1,18 +1,69 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using org.mariuszgromada.math.mxparser;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
     public class LevelableDataNode : DataNode, IPointsDataNode
     {
+        //Properties:
+        public int Level { get; protected set; }
+        public int PointsPerLevel { get; set; }
+        public int PointAdj { get; protected set; }
+        public virtual int BaseCost
+        {
+            get
+            {
+                return (PointsPerLevel * Level) + PointAdj;
+            }
+        }
+        protected override string BaseDescription
+        {
+            get
+            {
+                string result = _dataListing.Description;
+
+                if (result == "Custom")
+                {
+                    if (Level >= 1 && _dataListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
+                    {
+                        result = levelableDataListing.CustomProgression[(Level - 1)];
+                    }
+                }
+
+                return result;
+            }
+        }
+
+
+        //Constructors:
+        public LevelableDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        {
+            //Default constructor for data loading only
+        }
+
+        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        {
+            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
+
+            if (attribute.Name == "Weapon")
+            {
+                Level = 0;
+            }
+            else
+            {
+                Level = level;
+            }
+
+            PointAdj = pointAdj;
+
+            UpdatePointsPerLevel();
+        }
+
+
+        //Methods:
         public override int GetPoints()
         {
             if (PointsUpToDate == false || FirstChild == null)
@@ -73,13 +124,6 @@ namespace BESM3CAData.Model
             return _points;
         }
 
-
-        public int Level { get; protected set; }
-
-        public int PointsPerLevel { get; set; }
-
-        public int PointAdj { get; protected set; }
-
         public override CalcStats GetStats()
         {
             CalcStats stats;
@@ -119,8 +163,6 @@ namespace BESM3CAData.Model
 
             return stats;
         }
-
-
 
         protected override string ProcessDescriptionValue(string valueToParse)
         {
@@ -196,41 +238,6 @@ namespace BESM3CAData.Model
             return e.calculate().ToString();
         }
 
-
-
-
-
-        protected override string BaseDescription
-        {
-            get
-            {
-                string result = _dataListing.Description;
-
-                if (result == "Custom")
-                {
-                    if (Level >= 1 && _dataListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
-                    {
-                        result = levelableDataListing.CustomProgression[(Level - 1)];
-                    }
-                }
-
-
-                return result;
-            }
-        }
-
-
-
-
-        public virtual int BaseCost
-        {
-            get
-            {
-                return (PointsPerLevel * Level) + PointAdj;
-            }
-        }
-
-
         protected virtual void UpdatePointsPerLevel()
         {
             if (_dataListing is LevelableDataListing levelableDataListing)
@@ -242,7 +249,6 @@ namespace BESM3CAData.Model
                 PointsPerLevel = 0;
             }
         }
-
 
         public bool RaiseLevel()
         {
@@ -291,6 +297,8 @@ namespace BESM3CAData.Model
             }
         }
 
+
+        //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("AttributeStats");
@@ -352,29 +360,5 @@ namespace BESM3CAData.Model
             }
 
         }
-
-        public LevelableDataNode(DataController controller, string Notes = "") : base(controller, Notes)
-        {
-            //Default constructor for data loading only
-        }
-
-        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
-        {
-            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
-
-            if (attribute.Name == "Weapon")
-            {
-                Level = 0;
-            }
-            else
-            {
-                Level = level;
-            }
-
-            PointAdj = pointAdj;
-
-            UpdatePointsPerLevel();
-        }
-
     }
 }

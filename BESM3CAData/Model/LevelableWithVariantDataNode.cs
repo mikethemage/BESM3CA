@@ -1,33 +1,19 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
     public class LevelableWithVariantDataNode : LevelableDataNode, IVariantDataNode
     {
-
+        //Fields:
         private VariantListing _variantListing;
 
-        public List<VariantListing> GetVariants()
-        {
-            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
-            {
-                //LINQ Version:
-                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
-            }
-            else
-            {
-                return null;
-            }
-        }
 
+        //Properties:
         protected override string BaseDescription
         {
             get
@@ -49,7 +35,6 @@ namespace BESM3CAData.Model
                 return result;
             }
         }
-               
 
         public VariantListing Variant
         {
@@ -85,12 +70,63 @@ namespace BESM3CAData.Model
             }
         }
 
+        public int VariantID
+        {
+            get
+            {
+                if (_variantListing == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return _variantListing.ID;
+                }
+            }
+            set
+            {
+                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.Variants != null && value > 0)
+                {
+                    Variant = variantDataListing.Variants.First(n => n.ID == value);
+                }
+
+                PointsUpToDate = false;
+            }
+        }
+
+
+        //Constructors:
+        public LevelableWithVariantDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        {
+            //Default constructor for data loading only
+        }
+
+        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        {
+            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
+
+            _variantListing = null;
+        }
+
+
+        //Methods:
+        public List<VariantListing> GetVariants()
+        {
+            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
+            {
+                //LINQ Version:
+                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public override int GetPoints()
         {
             if (PointsUpToDate == false || FirstChild == null)
             {
-                bool isItem = Name == "Item";
-                
                 bool isAlternateAttack = false;
 
                 if (VariantID > 0)
@@ -130,20 +166,6 @@ namespace BESM3CAData.Model
                 _points = BaseCost;
                 _points += VariablesOrRestrictions;
 
-
-                if (isItem)
-                {
-                    //item point cost calc:
-                    if (ChildPoints < 2)
-                    {
-                        _points += 0;
-                    }
-                    else
-                    {
-                        _points += ChildPoints / 2;
-                    }
-                }
-
                 //if alternate weapon attack half points:
                 if (isAlternateAttack)
                 {
@@ -156,11 +178,13 @@ namespace BESM3CAData.Model
             return _points;
         }
 
+
+        //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("AttributeStats");
             textWriter.WriteAttributeString("Level", Level.ToString());
-            textWriter.WriteAttributeString("Variant", VariantID.ToString());            
+            textWriter.WriteAttributeString("Variant", VariantID.ToString());
             textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
             textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
             textWriter.WriteEndElement();
@@ -219,45 +243,6 @@ namespace BESM3CAData.Model
                 }
             }
 
-        }
-
-        public int VariantID
-        {
-            get
-            {
-                if (_variantListing == null)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return _variantListing.ID;
-                }
-            }
-            set
-            {
-                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.Variants != null && value > 0)
-                {
-                    Variant = variantDataListing.Variants.First(n => n.ID == value);
-                }
-
-                PointsUpToDate = false;
-            }
-        }
-
-        
-
-        public LevelableWithVariantDataNode(DataController controller, string Notes = "") : base(controller, Notes)
-        {
-            //Default constructor for data loading only
-        }
-
-        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
-        {
-            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
-
-            _variantListing = null;
-                        
         }
     }
 }

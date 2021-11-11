@@ -1,31 +1,16 @@
-﻿using System;
+﻿using BESM3CAData.Control;
+using BESM3CAData.Listings;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BESM3CAData.Listings;
-using System.Xml;
-using BESM3CAData.Control;
 
 namespace BESM3CAData.Model
 {
     public class SpecialContainerWithVariantDataNode : LevelableDataNode, IVariantDataNode
     {
+        //Fields:
         private VariantListing _variantListing;
 
-        public List<VariantListing> GetVariants()
-        {
-            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
-            {
-                //LINQ Version:
-                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
+        //Properties:
         protected override string BaseDescription
         {
             get
@@ -47,8 +32,6 @@ namespace BESM3CAData.Model
                 return result;
             }
         }
-
-
 
         public VariantListing Variant
         {
@@ -84,6 +67,8 @@ namespace BESM3CAData.Model
             }
         }
 
+
+        //Constructors:
         public SpecialContainerWithVariantDataNode(DataController controller, string Notes = "") : base(controller, Notes)
         {
 
@@ -92,6 +77,21 @@ namespace BESM3CAData.Model
         public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
 
+        }
+
+
+        //Methods:
+        public List<VariantListing> GetVariants()
+        {
+            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
+            {
+                //LINQ Version:
+                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

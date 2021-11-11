@@ -1,18 +1,20 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using org.mariuszgromada.math.mxparser;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace BESM3CAData.Model
 {
     public class PointsContainerDataNode : DataNode, IPointsDataNode
     {
+        //Properties:
+        public int PointAdj
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        //Constructors:
         public PointsContainerDataNode(DataController controller, string Notes = "") : base(controller, Notes)
         {
             //Default constructor for data loading only
@@ -23,14 +25,8 @@ namespace BESM3CAData.Model
             _dataListing = attribute;
         }
 
-        public int PointAdj
-        {
-            get
-            {
-                return 0;
-            }
-        }
 
+        //Methods:
         public override int GetPoints()
         {
             if (PointsUpToDate == false || FirstChild == null)
@@ -59,11 +55,11 @@ namespace BESM3CAData.Model
 
                     temp = temp.Next;
                 }
-                                               
+
                 _points = VariablesOrRestrictions;
 
                 //container point cost calc:
-                if (((PointsContainerDataListing)_dataListing).PointScale==0 || ChildPoints < ((PointsContainerDataListing)_dataListing).PointScale)
+                if (((PointsContainerDataListing)_dataListing).PointScale == 0 || ChildPoints < ((PointsContainerDataListing)_dataListing).PointScale)
                 {
                     _points += 0;
                 }

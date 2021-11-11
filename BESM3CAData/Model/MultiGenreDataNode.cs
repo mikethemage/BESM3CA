@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
-using System.Xml;
-using BESM3CAData.Control;
 
 namespace BESM3CAData.Model
 {
     public class MultiGenreDataNode : LevelableDataNode
     {
+        //Constructors:
         public MultiGenreDataNode(DataController controller, string Notes = "") : base(controller, Notes)
         {
 
@@ -21,6 +16,8 @@ namespace BESM3CAData.Model
 
         }
 
+
+        //Methods:
         public override void InvalidateGenrePoints()
         {
             if (_dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)

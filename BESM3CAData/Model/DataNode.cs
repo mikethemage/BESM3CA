@@ -2,22 +2,15 @@
 using BESM3CAData.Listings;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
     public class DataNode : BaseNode
     {
-        public override int GetPoints()
-        {
-            //TODO: fix!
-            return 0;
-        }
-
         //Fields:           
         protected DataListing _dataListing;
-        
+
         //Properties:
         public override string DisplayText
         {
@@ -116,7 +109,7 @@ namespace BESM3CAData.Model
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
-            _dataListing = attribute;            
+            _dataListing = attribute;
 
             if (attribute.Name == "Companion")
             {
@@ -128,18 +121,24 @@ namespace BESM3CAData.Model
             }
         }
 
+
         //Methods:
         protected virtual string ProcessDescriptionValue(string valueToParse)
         {
             return valueToParse;
         }
 
+        public override int GetPoints()
+        {
+            //TODO: fix!
+            return 0;
+        }
 
         public override CalcStats GetStats()
         {
             CalcStats stats;
 
-            stats = new CalcStats(0, 0, 0, 0);                    
+            stats = new CalcStats(0, 0, 0, 0);
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
@@ -191,7 +190,7 @@ namespace BESM3CAData.Model
                                 {
                                     default:
                                         //Todo: remove method
-                                    break;
+                                        break;
                                 }
                             }
                             break;
@@ -206,7 +205,6 @@ namespace BESM3CAData.Model
                     }
                 }
             }
-
         }
     }
 }
