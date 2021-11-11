@@ -6,17 +6,14 @@ using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public class DataNode : BaseNode
+    public abstract class DataNode : BaseNode
     {
-        //Fields:           
-        protected DataListing _dataListing;
-
         //Properties:
         public override string DisplayText
         {
             get
             {
-                if (_dataListing != null)
+                if (AssociatedListing != null)
                 {
                     if (AttributeType == "Special")
                     {
@@ -38,7 +35,7 @@ namespace BESM3CAData.Model
         {
             get
             {
-                string result = _dataListing.Description;
+                string result = AssociatedListing.Description;
                 return result;
             }
         }
@@ -86,39 +83,21 @@ namespace BESM3CAData.Model
         {
             get
             {
-                return _dataListing.Type;
-            }
-        }
-
-        public override List<DataListing> PotentialChildren
-        {
-            get
-            {
-                return _dataListing.Children;
+                return AssociatedListing.Type;
             }
         }
 
 
         //Constructors:   
-        public DataNode(DataController controller, string Notes = "") : base("", 0, Notes, controller)
+        public DataNode(DataController controller, string notes = "") : base(controller,notes )
         {
             //Default constructor for data loading only
         }
 
-        public DataNode(DataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute.Name, attribute.ID, notes, controller)
+        public DataNode(DataListing attribute, string notes, DataController controller) : base(attribute, controller,notes)
         {
-            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
-
-            _dataListing = attribute;
-
-            if (attribute.Name == "Companion")
-            {
-                AddChild(new CharacterNode(AssociatedController));
-            }
-            if (attribute.Name == "Mind Control")
-            {
-                AddChild(AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == "Range").CreateNode("", AssociatedController, 3, -3)); ;
-            }
+           //Pass parameters to base constructor
+           
         }
 
 
@@ -127,12 +106,7 @@ namespace BESM3CAData.Model
         {
             return valueToParse;
         }
-
-        public override int GetPoints()
-        {
-            //TODO: fix!
-            return 0;
-        }
+       
 
         public override CalcStats GetStats()
         {
@@ -158,46 +132,37 @@ namespace BESM3CAData.Model
         }
 
 
-        //XML:
-        public override void SaveAdditionalXML(XmlTextWriter textWriter)
-        {
-            //Todo: remove method
-        }
-
+        //XML:     
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
-            if (AssociatedController.SelectedListingData != null)
-            {
-                _dataListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
-            }
-
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();
 
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    if (reader.Name == "AttributeStats")
-                    {
-                        // loading node attributes
-                        int attributeCount = reader.AttributeCount;
-                        if (attributeCount > 0)
-                        {
-                            for (int i = 0; i < attributeCount; i++)
-                            {
-                                reader.MoveToAttribute(i);
-                                switch (reader.Name)
-                                {
-                                    default:
-                                        //Todo: remove method
-                                        break;
-                                }
-                            }
-                            break;
-                        }
-                    }
-                }
-                else if (reader.NodeType == XmlNodeType.EndElement)
+                //if (reader.NodeType == XmlNodeType.Element)
+                //{
+                    //if (reader.Name == "AttributeStats")
+                    //{
+                        //// loading node attributes
+                        //int attributeCount = reader.AttributeCount;
+                        //if (attributeCount > 0)
+                        //{
+                        //    for (int i = 0; i < attributeCount; i++)
+                        //    {
+                        //        reader.MoveToAttribute(i);
+                        //        switch (reader.Name)
+                        //        {
+                        //            default:
+                        //                //Todo: remove method
+                        //                break;
+                        //        }
+                        //    }
+                        //    break;
+                        //}
+                    //}
+                //}
+                //else
+                if (reader.NodeType == XmlNodeType.EndElement)
                 {
                     if (reader.Name == "AttributeStats")
                     {

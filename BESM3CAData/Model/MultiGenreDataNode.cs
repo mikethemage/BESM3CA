@@ -20,7 +20,7 @@ namespace BESM3CAData.Model
         //Methods:
         public override void InvalidateGenrePoints()
         {
-            if (_dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)
+            if (AssociatedListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)
             {
                 PointsUpToDate = false;
                 UpdatePointsPerLevel();
@@ -31,11 +31,11 @@ namespace BESM3CAData.Model
 
         protected override void UpdatePointsPerLevel()
         {
-            if (AssociatedController.SelectedGenreIndex > -1 && _dataListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
+            if (AssociatedController.SelectedGenreIndex > -1 && AssociatedListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null && skillDataListing.GenrePoints.Count > AssociatedController.SelectedGenreIndex)
             {
                 PointsPerLevel = skillDataListing.GenrePoints[AssociatedController.SelectedGenreIndex];
             }
-            else if (_dataListing is LevelableDataListing levelableDataListing)
+            else if (AssociatedListing is LevelableDataListing levelableDataListing)
             {
                 PointsPerLevel = levelableDataListing.CostperLevel;
             }

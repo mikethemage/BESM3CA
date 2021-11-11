@@ -10,7 +10,7 @@ namespace BESM3CAData.Model
     public class LevelableWithVariantDataNode : LevelableDataNode, IVariantDataNode
     {
         //Fields:
-        private VariantListing _variantListing;
+        protected VariantListing _variantListing;
 
 
         //Properties:
@@ -18,11 +18,11 @@ namespace BESM3CAData.Model
         {
             get
             {
-                string result = _dataListing.Description;
+                string result = AssociatedListing.Description;
 
                 if (result == "Custom")
                 {
-                    if (Level >= 1 && _dataListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
+                    if (Level >= 1 && AssociatedListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
                     {
                         result = levelableDataListing.CustomProgression[(Level - 1)];
                     }
@@ -53,9 +53,9 @@ namespace BESM3CAData.Model
                 else
                 {
                     _variantListing = null;
-                    Name = _dataListing.Name;
+                    Name = AssociatedListing.Name;
 
-                    if (_dataListing is LevelableDataListing levelableDataListing)
+                    if (AssociatedListing is LevelableDataListing levelableDataListing)
                     {
                         PointsPerLevel = levelableDataListing.CostperLevel;
                     }
@@ -85,7 +85,7 @@ namespace BESM3CAData.Model
             }
             set
             {
-                if (_dataListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.Variants != null && value > 0)
+                if (AssociatedListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.Variants != null && value > 0)
                 {
                     Variant = variantDataListing.Variants.First(n => n.ID == value);
                 }
@@ -112,7 +112,7 @@ namespace BESM3CAData.Model
         //Methods:
         public List<VariantListing> GetVariants()
         {
-            if (_dataListing is LevelableWithVariantDataListing variantDataListing)
+            if (AssociatedListing is IVariantDataListing variantDataListing)
             {
                 //LINQ Version:
                 return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
@@ -191,12 +191,7 @@ namespace BESM3CAData.Model
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
-        {
-            if (AssociatedController.SelectedListingData != null)
-            {
-                _dataListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
-            }
-
+        {   
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();

@@ -25,11 +25,14 @@ namespace BESM3CAData.Listings.Serialization
         public List<int> GenrePoints { get; set; }
         public string ChildrenList { get; set; }
         public List<VariantListingSerialized> Variants { get; set; }
-
         public bool HasLevel { get; set; }
-
         public bool MultiGenre { get; set; }
         public bool PointsContainer { get; set; }
         public int PointScale { get; set; }
+        public bool Companion { get; set; }
+        public bool HasFreebie { get; set; }
+        public int SubAttributeID { get; set; }
+        public int SubAttributeLevel { get; set; }
+        public int SubAttributePointsAdj { get; set; }
     }
 }

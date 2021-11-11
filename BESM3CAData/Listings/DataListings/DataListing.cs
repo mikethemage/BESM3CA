@@ -6,53 +6,36 @@ using BESM3CAData.Control;
 
 namespace BESM3CAData.Listings
 {
-    public class DataListing
+    public abstract class DataListing
     {
         //Properties:
-
-
-
         //Everything should have:
         public int ID { get; private set; }
         public string Name { get; private set; }
         public string Type { get; private set; }
-        public string Description { get; private set; }
+        public string Description { get; private set; }  //Character doesn't need description really
         public List<DataListing> Children { get; private set; }
 
-
         //  To check if still needed:        
-        private string Stat { get; set; }
+        /*private string Stat { get; set; }
         private string Page { get; set; }
         private bool Human { get; set; }
-
-        public virtual bool MultiGenre
-        {
-            get { return false; }
-        }
-
-        public virtual bool HasLevel
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public virtual DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
-        {
-            return new DataNode(this, notes, controller);
-        }
-
+        */
+                            
 
         //Constructor:
         public DataListing()
         {
-
             Children = new List<DataListing>();
         }
 
 
         //Methods:
+        public abstract BaseNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0);
+        //{
+        //    return new DataNode(this, notes, controller);
+        //}
+
         public void AddChild(DataListing Child)
         {
             if (Child != null)
@@ -69,13 +52,16 @@ namespace BESM3CAData.Listings
             {
                 ID = this.ID,
                 Name = this.Name,
-                Stat = this.Stat,
+                /*Stat = this.Stat,
                 Page = this.Page,
-                Human = this.Human,
+                Human = this.Human,*/
                 Type = this.Type,
                 Description = this.Description,
-                HasLevel = this.HasLevel,
-                MultiGenre=this.MultiGenre
+                PointsContainer = false,
+                SpecialContainer = false,
+                RequiresVariant = false,
+                MultiGenre = false,
+                HasLevel = false
             };
 
             //Convert childrenlist to string:
@@ -87,14 +73,13 @@ namespace BESM3CAData.Listings
             return result;
         }
 
-
         public DataListing(DataListingSerialized data)
         {
             ID = data.ID;
             Name = data.Name;
-            Stat = data.Stat;
+            /*Stat = data.Stat;
             Page = data.Page;
-            Human = data.Human;
+            Human = data.Human;*/
             Type = data.Type;
             Description = data.Description;
 

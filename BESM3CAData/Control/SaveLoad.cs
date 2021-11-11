@@ -140,8 +140,15 @@ namespace BESM3CAData.Control
                                     case "SpecialContainerWithVariantDataNode":
                                         newNode = new SpecialContainerWithVariantDataNode(controller);
                                         break;
-                                    default:
+                                    case "CompanionDataNode":
+                                        newNode = new CompanionDataNode(controller);
                                         break;
+                                    case "LevelableWithFreebieWithVariantDataNode":
+                                        newNode = new LevelableWithFreebieWithVariantDataNode(controller);
+                                        break;
+                                    default:
+                                        throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");
+                                        //break;
                                 }
                                 if (newNode != null)
                                 {

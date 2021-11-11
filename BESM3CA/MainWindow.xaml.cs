@@ -81,7 +81,7 @@ namespace BESM3CA
 
         private void RefreshGenreList()
         {
-            if (CurrentController.SelectedListingData.Genres != null)
+            if (CurrentController.SelectedListingData.Genres != null && CurrentController.SelectedListingData.Genres.Count > 0)
             {
                 GenreComboBox.Visibility = Visibility.Visible;
                 GenreComboBox.ItemsSource = CurrentController.SelectedListingData.Genres;
@@ -265,24 +265,13 @@ namespace BESM3CA
                     DescriptionTextBox.Visibility = Visibility.Visible;
                     LevelLabel.Visibility = Visibility.Visible;
                     DescriptionLabel.Visibility = Visibility.Visible;
-                    //if (levelableDataNode.HasPointsStats)
-                    //{
-                        PointsPerLevelTextBox.Text = levelableDataNode.PointsPerLevel.ToString();
-                        PointCostTextBox.Text = levelableDataNode.BaseCost.ToString();
-                        PointsPerLevelTextBox.Visibility = Visibility.Visible;
-                        PointCostTextBox.Visibility = Visibility.Visible;
-                        PointsPerLevelLabel.Visibility = Visibility.Visible;
-                        PointCostLabel.Visibility = Visibility.Visible;
-                    /*}
-                    else
-                    {
-                        PointsPerLevelTextBox.Text = "";
-                        PointCostTextBox.Text = "";
-                        PointsPerLevelTextBox.Visibility = Visibility.Hidden;
-                        PointCostTextBox.Visibility = Visibility.Hidden;
-                        PointsPerLevelLabel.Visibility = Visibility.Hidden;
-                        PointCostLabel.Visibility = Visibility.Hidden;
-                    }*/
+
+                    PointsPerLevelTextBox.Text = levelableDataNode.PointsPerLevel.ToString();
+                    PointCostTextBox.Text = levelableDataNode.BaseCost.ToString();
+                    PointsPerLevelTextBox.Visibility = Visibility.Visible;
+                    PointCostTextBox.Visibility = Visibility.Visible;
+                    PointsPerLevelLabel.Visibility = Visibility.Visible;
+                    PointCostLabel.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -298,19 +287,9 @@ namespace BESM3CA
                     PointsPerLevelTextBox.Visibility = Visibility.Hidden;
                     PointsPerLevelLabel.Visibility = Visibility.Hidden;
 
-                    //TODO: check if this should be using base cost or not?:
-                    /*if (selectedTreeNode.Tag is LevelableDataNode dataNode)
-                    {
-                        PointCostTextBox.Text = dataNode.BaseCost.ToString();
-                        PointCostTextBox.Visibility = Visibility.Visible;
-                        PointCostLabel.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {*/
-                        PointCostTextBox.Text = "";
-                        PointCostTextBox.Visibility = Visibility.Hidden;
-                        PointCostLabel.Visibility = Visibility.Hidden;
-                    //}
+                    PointCostTextBox.Text = "";
+                    PointCostTextBox.Visibility = Visibility.Hidden;
+                    PointCostLabel.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -379,33 +358,37 @@ namespace BESM3CA
             if (CharacterTreeView.SelectedItem is TreeViewItem selectedTreeNode && selectedTreeNode.Tag is DataNode dataNode)  //do not allow manual deletion of Character nodes
             {
 
-                if (dataNode is not LevelableDataNode || (dataNode is LevelableDataNode levelableDataNode && levelableDataNode.PointAdj >= 0))//do not delete "freebies"                
+                if (dataNode is not LevelableDataNode || (dataNode is LevelableDataNode levelableDataNode && levelableDataNode.PointAdj >= 0)) //do not delete "freebies"                
                 {
-                    dataNode.Delete();
-                    TreeViewItem selectedParent = (TreeViewItem)selectedTreeNode.Parent;
-                    int selectedIndex = selectedParent.Items.IndexOf(selectedTreeNode);
-                    TreeViewItem newSelectedItem;
-                    if (selectedIndex > 0)
+                    if (selectedTreeNode.Parent is TreeViewItem selectedParent)  //Do not delete root nodes regardless of type
                     {
-                        //not the first item
-                        newSelectedItem = (TreeViewItem)selectedParent.Items[selectedIndex - 1];
-                    }
-                    else if (selectedIndex < selectedParent.Items.Count - 1)
-                    {
-                        //not the last item
-                        newSelectedItem = (TreeViewItem)selectedParent.Items[selectedIndex + 1];
-                    }
-                    else
-                    {
-                        newSelectedItem = selectedParent;
-                    }
+                        dataNode.Delete();
 
-                    selectedParent.Items.Remove(selectedTreeNode);
+                        int selectedIndex = selectedParent.Items.IndexOf(selectedTreeNode);
+                        TreeViewItem newSelectedItem;
+                        if (selectedIndex > 0)
+                        {
+                            //not the first item - therefore select previous
+                            newSelectedItem = (TreeViewItem)selectedParent.Items[selectedIndex - 1];
+                        }
+                        else if (selectedIndex < selectedParent.Items.Count - 1)
+                        {
+                            //not the last item - therefore select next
+                            newSelectedItem = (TreeViewItem)selectedParent.Items[selectedIndex + 1];
+                        }
+                        else
+                        {
+                            //all siblings have been deleted, select parent
+                            newSelectedItem = selectedParent;
+                        }
 
-                    newSelectedItem.IsSelected = true;
+                        selectedParent.Items.Remove(selectedTreeNode);
 
-                    RefreshTree(CharacterTreeView.Items);
-                    RefreshTextBoxes();
+                        newSelectedItem.IsSelected = true;
+
+                        RefreshTree(CharacterTreeView.Items);
+                        RefreshTextBoxes();
+                    }
                 }
             }
         }
@@ -457,9 +440,18 @@ namespace BESM3CA
                 }
                 else if (selectedTreeNode.Tag is DataNode selectedAttribute)
                 {
-                    DelAttButton.IsEnabled = true;
-                    MoveDownButton.IsEnabled = true;
-                    CheckMoveUpDown();
+                    if (selectedTreeNode.Parent != null)
+                    {
+                        DelAttButton.IsEnabled = true;
+                        CheckMoveUpDown();
+                    }
+                    else
+                    {
+                        //Do not allow deletion/moving of root node regardless:
+                        DelAttButton.IsEnabled = false;
+                        MoveUpButton.IsEnabled = false;
+                        MoveDownButton.IsEnabled = false;
+                    }                                        
 
                     if (selectedAttribute is LevelableDataNode)
                     {

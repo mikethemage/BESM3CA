@@ -11,26 +11,27 @@ namespace BESM3CAData.Listings
 {
     public class MultiGenreDataListing : LevelableDataListing
     {
+        //Properties:
         public List<int> GenrePoints { get; private set; }
 
-        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
-        {
-            return new MultiGenreDataNode(this, notes, controller, level, pointAdj);
-        }
 
-        public override bool MultiGenre
-        {
-            get { return true; }
-        }
-
+        //Constructors:
         public MultiGenreDataListing(DataListingSerialized data) : base(data)
         {
             GenrePoints = data.GenrePoints;
         }
 
+
+        //Methods:
+        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new MultiGenreDataNode(this, notes, controller, level, pointAdj);
+        }
+
         public override DataListingSerialized Serialize()
         {
             DataListingSerialized result = base.Serialize();
+            result.MultiGenre = true;
             result.GenrePoints = GenrePoints;
             return result;
         }

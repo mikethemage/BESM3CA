@@ -11,8 +11,8 @@ namespace BESM3CAData.Listings
 {
     public class LevelableWithVariantDataListing : LevelableDataListing, IVariantDataListing
     {
-        //Only things with Variants:
-        public bool RequiresVariant { get; private set; }
+        //Properties:
+        //Only things with Variants:        
         public List<VariantListing> Variants { get; set; }
 
         public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
@@ -20,10 +20,10 @@ namespace BESM3CAData.Listings
             return new LevelableWithVariantDataNode(this, notes, controller, level, pointAdj);
         }        
 
+
+        //Constructors:
         public LevelableWithVariantDataListing(DataListingSerialized data) : base(data)
         {
-            RequiresVariant = data.RequiresVariant;
-
             //Add variants and link back:
             if (data.Variants != null)
             {
@@ -35,11 +35,13 @@ namespace BESM3CAData.Listings
             }
         }
 
+
+        //Methods:
         public override DataListingSerialized Serialize()
         {
             DataListingSerialized result = base.Serialize();
 
-            result.RequiresVariant = this.RequiresVariant;
+            result.RequiresVariant = true;
 
             if (Variants != null)
             {

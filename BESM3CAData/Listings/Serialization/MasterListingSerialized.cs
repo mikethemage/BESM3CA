@@ -14,9 +14,12 @@ namespace BESM3CAData.Listings.Serialization
         public List<string> Genres { get; set; }
         public List<ProgressionListingSerialized> ProgressionList { get; set; }
 
+
+        //Fields:
         private static readonly JsonSerializerOptions serializerOptions = new JsonSerializerOptions { DefaultIgnoreCondition=JsonIgnoreCondition.WhenWritingNull, WriteIndented=true };   
 
-        //Member functions:
+
+        //Methods:
         public static MasterListingSerialized JSONLoader(ListingLocation listingLocation)
         {
             MasterListingSerialized temp;

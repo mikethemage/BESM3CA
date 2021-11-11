@@ -1,6 +1,7 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml;
 
@@ -12,16 +13,19 @@ namespace BESM3CAData.Model
         private int _lastChildOrder;
         protected int _points;
         private bool _pointsUpToDate;
+        
+
+        public DataListing AssociatedListing { get; private set; }
 
 
         //Properties:
-        public DataController AssociatedController { get; set; }
+        public DataController AssociatedController { get; private set; }
         public int ID { get; private set; }
         public string Name { get; set; }
         public string Notes { get; set; }
         public BaseNode FirstChild { get; private set; }
         public BaseNode Parent { get; private set; }
-        public int NodeOrder { get; set; }
+        public int NodeOrder { get; private set; }
         public BaseNode Next { get; private set; }
         public BaseNode Prev { get; private set; }
 
@@ -33,7 +37,20 @@ namespace BESM3CAData.Model
             }
         }
 
-        public abstract List<DataListing> PotentialChildren { get; }
+        public List<DataListing> PotentialChildren
+        {
+            get
+            {
+                if (AssociatedListing != null)
+                {
+                    return AssociatedListing.Children;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public bool PointsUpToDate
         {
@@ -51,15 +68,36 @@ namespace BESM3CAData.Model
             }
         }
 
+        public bool Useable { get; private set; }
 
         //Constructors:
-        public BaseNode(string attributeName, int attributeID, string notes, DataController controller)
+        public BaseNode(DataController controller,string notes = "")
         {
+            //Default constructor for data loading only
             AssociatedController = controller;
-            Name = attributeName;
-            ID = attributeID;
+            //Need to set attribute seperately in order to use this!
+            Useable = false;
             Notes = notes;
+            NodeOrder = 1;
+            FirstChild = null;
+            Parent = null;
+            _lastChildOrder = 0;
+            Next = null;
+            Prev = null;
+            _pointsUpToDate = false;
+        }
 
+
+        public BaseNode(DataListing attribute, DataController controller, string notes="")
+        {
+            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
+
+            AssociatedController = controller;
+            AssociatedListing = attribute;
+            Name = attribute.Name;
+            ID = attribute.ID;
+            Useable = true;
+            Notes = notes;
             NodeOrder = 1;
             FirstChild = null;
             Parent = null;
@@ -213,9 +251,9 @@ namespace BESM3CAData.Model
             }
         }
 
-        public DataNode AddChildAttribute(DataListing attribute)
+        public BaseNode AddChildAttribute(DataListing attribute)
         {
-            DataNode Temp = attribute.CreateNode("", AssociatedController);
+            BaseNode Temp = attribute.CreateNode("", AssociatedController);
             AddChild(Temp);
             return Temp;
         }
@@ -268,6 +306,11 @@ namespace BESM3CAData.Model
                                 break;
                             case "ID":
                                 ID = int.Parse(reader.Value);
+                                if (AssociatedController.SelectedListingData != null)
+                                {
+                                    AssociatedListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
+                                    Useable = true;
+                                }
                                 break;
                             default:
                                 break;
@@ -288,30 +331,7 @@ namespace BESM3CAData.Model
                     {
                         LoadAdditionalXML(reader);
                     }
-                    else
-                    {
-                        // loading node attributes
-                        attributeCount = reader.AttributeCount;
-                        if (attributeCount > 0)
-                        {
-                            for (int i = 0; i < attributeCount; i++)
-                            {
-                                reader.MoveToAttribute(i);
-                                switch (reader.Name)
-                                {
-                                    case "Name":
-                                        Name = reader.Value;
-                                        break;
-                                    case "ID":
-                                        ID = int.Parse(reader.Value);
-
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
+                    
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {

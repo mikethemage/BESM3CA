@@ -13,23 +13,10 @@ namespace BESM3CAData.Model
         private int _mind;
         private int _soul;
 
+
         //Properties:
         public string CharacterName { get; set; }               
-
-        public override List<DataListing> PotentialChildren
-        {
-            get
-            {
-                if (AssociatedController.SelectedListingData != null)
-                {
-                    return AssociatedController.SelectedListingData.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<DataListing>();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+               
 
         public int BaseCost
         {
@@ -112,9 +99,14 @@ namespace BESM3CAData.Model
         }
 
 
-        //Constructor:
-        public CharacterNode(DataController controller, string Notes = "") : base("Character", 0, Notes, controller)
+        //Constructors:  
+        public CharacterNode(DataController controller, string notes = "") : base( controller,notes)
         {
+            //Default constructor for data loading only
+        }
+
+        public CharacterNode(CharacterDataListing attribute, string notes, DataController controller) : base(attribute,  controller,notes)
+        {   
             _body = 1;
             _mind = 1;
             _soul = 1;
@@ -171,7 +163,9 @@ namespace BESM3CAData.Model
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
-        {
+        { 
+            
+
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();

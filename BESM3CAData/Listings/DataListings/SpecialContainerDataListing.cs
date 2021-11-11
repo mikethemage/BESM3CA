@@ -9,28 +9,31 @@ using BESM3CAData.Control;
 
 namespace BESM3CAData.Listings
 {
-    public class SpecialContainerDataListing : LevelableDataListing
+    public class SpecialContainerDataListing : LevelableDataListing, ISpecialContainerDataListing
     {        
+        //Properties:
         public int SpecialPointsPerLevel { get; set; }
-        public bool SpecialContainer { get; private set; }
 
-        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
-        {
-            return new SpecialContainerDataNode(this, notes, controller, level, pointAdj);
-        }
 
+        //Constructors:
         public SpecialContainerDataListing(DataListingSerialized data) : base(data)
         {
             SpecialPointsPerLevel = data.SpecialPointsPerLevel;
-            SpecialContainer = data.SpecialContainer;            
+        }
+
+
+        //Methods:
+        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new SpecialContainerDataNode(this, notes, controller, level, pointAdj);
         }
 
         public override DataListingSerialized Serialize()
         {
             DataListingSerialized result=base.Serialize();
             
-            result.SpecialPointsPerLevel = this.SpecialPointsPerLevel;
-            result.SpecialContainer = this.SpecialContainer;
+            result.SpecialPointsPerLevel = SpecialPointsPerLevel;
+            result.SpecialContainer = true;
             return result;
         }
     }

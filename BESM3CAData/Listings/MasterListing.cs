@@ -1,4 +1,5 @@
 ﻿using BESM3CAData.Listings.Serialization;
+using System;
 using System.Collections.Generic;
 
 
@@ -79,7 +80,15 @@ namespace BESM3CAData.Listings
             {
                 DataListing newData = null;
 
-                if (data.PointsContainer)
+                if(data.Type=="Character")
+                {
+                    newData = new CharacterDataListing(data);
+                }
+                else if(data.Companion)
+                {
+                    newData = new CompanionDataListing(data);
+                }
+                else if (data.PointsContainer)
                 {
                     newData = new PointsContainerDataListing(data);
                 }
@@ -96,7 +105,14 @@ namespace BESM3CAData.Listings
                 }
                 else if (data.RequiresVariant)
                 {
-                    newData = new LevelableWithVariantDataListing(data);
+                    if (data.HasFreebie)
+                    {
+                        newData = new LevelableWithFreebieWithVariantDataListing(data);
+                    }
+                    else
+                    {
+                        newData = new LevelableWithVariantDataListing(data);
+                    }
                 }
                 else if (data.MultiGenre)
                 {
@@ -108,28 +124,39 @@ namespace BESM3CAData.Listings
                 }
                 else
                 {
-                    
-                    newData = new DataListing(data);
+                    throw new Exception("Unexpected data listing");
                 }
+
+
                 if (newData != null)
                 {
                     result.AttributeList.Add(newData);
                 }
             }
 
-            //Link children:
+            //Link children and freebies:
             foreach (DataListingSerialized attribute in temp.AttributeList)
             {
-                string[] Children = attribute.ChildrenList.Split(',');
-                if (Children.Length > 0)
+                if (attribute.ChildrenList != "" || attribute.HasFreebie)
                 {
                     DataListing Parent = result.AttributeList.Find(x => x.ID == attribute.ID);
-                    foreach (string Child in Children)
+
+                    //Link Children:
+                    string[] Children = attribute.ChildrenList.Split(',');
+                    if (Children.Length > 0)
                     {
-                        if (int.TryParse(Child, out int ChildID))
+                        foreach (string Child in Children)
                         {
-                            Parent.AddChild(result.AttributeList.Find(x => x.ID == ChildID));
+                            if (int.TryParse(Child, out int ChildID))
+                            {
+                                Parent.AddChild(result.AttributeList.Find(x => x.ID == ChildID));
+                            }
                         }
+                    }
+
+                    if(Parent is IFreebieDataListing freebieDataListing)
+                    {
+                        freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.ID == attribute.SubAttributeID);
                     }
                 }
             }

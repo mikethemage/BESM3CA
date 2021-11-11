@@ -38,9 +38,9 @@ namespace BESM3CAData.Test
         public void Character_BasePointsShouldBeCorrect(int body, int mind, int soul)
         {
             DataController testController = new DataController();
-            testController.RootCharacter.Body = body;
-            testController.RootCharacter.Mind = mind;
-            testController.RootCharacter.Soul = soul;
+            ((CharacterNode)testController.RootCharacter).Body = body;
+            ((CharacterNode)testController.RootCharacter).Mind = mind;
+            ((CharacterNode)testController.RootCharacter).Soul = soul;
             int expectedPoints = (body + mind + soul) * 10;
             Assert.Equal(expectedPoints, testController.RootCharacter.GetPoints());
         }
@@ -69,10 +69,16 @@ namespace BESM3CAData.Test
         public void Character_GetTypesForFilterShouldContain(string expected)
         {
             DataController testController = new DataController();
-            CharacterNode testCharacter = new CharacterNode(testController);
-            List<string> output = testCharacter.GetTypesForFilter();
+            List<string> output = null;
+            if (testController.SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
+            {
+                CharacterNode testCharacter = new CharacterNode(characterDataListing, "", testController);
+                output = testCharacter.GetTypesForFilter();
+
+            }
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);
+
         }
 
     }

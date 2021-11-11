@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BESM3CAData.Model;
 using BESM3CAData.Control;
 
@@ -11,15 +9,8 @@ using BESM3CAData.Control;
 namespace BESM3CAData.Listings
 {
     public class LevelableDataListing : DataListing
-    {
-        public override bool HasLevel
-        {
-            get
-            {
-                return true;
-            }
-        }
-
+    {       
+        //Properties:
         //Only things with Levels:
         public int MaxLevel { get; private set; }
         public int CostperLevel { get; private set; }
@@ -30,11 +21,20 @@ namespace BESM3CAData.Listings
         private string CostperLevelDesc { get; set; }
         private string Progression { get; set; }
 
+
+        //Constructors:
+        public LevelableDataListing()
+        {
+            CostperLevelDesc = "";
+            Progression = "";
+        }
+
+
+        //Methods:
         public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
         {
             return new LevelableDataNode(this, notes, controller, level, pointAdj);
         }
-
 
         public override DataListingSerialized Serialize()
         {
@@ -46,14 +46,8 @@ namespace BESM3CAData.Listings
             result.MaxLevel = MaxLevel;
             result.EnforceMaxLevel = this.EnforceMaxLevel;
             result.CustomProgression = this.CustomProgression;
-
+            result.HasLevel = true;
             return result;
-        }
-
-        public LevelableDataListing()
-        {
-            CostperLevelDesc = "";
-            Progression = "";
         }
 
         public LevelableDataListing(DataListingSerialized data) : base(data)
@@ -63,7 +57,7 @@ namespace BESM3CAData.Listings
             Progression = data.Progression;
             MaxLevel = data.MaxLevel;
             EnforceMaxLevel = data.EnforceMaxLevel;
-            CustomProgression = data.CustomProgression;
+            CustomProgression = data.CustomProgression;            
         }
     }
 }

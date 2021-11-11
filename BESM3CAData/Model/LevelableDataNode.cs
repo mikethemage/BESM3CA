@@ -23,11 +23,11 @@ namespace BESM3CAData.Model
         {
             get
             {
-                string result = _dataListing.Description;
+                string result = AssociatedListing.Description;
 
                 if (result == "Custom")
                 {
-                    if (Level >= 1 && _dataListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
+                    if (Level >= 1 && AssociatedListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
                     {
                         result = levelableDataListing.CustomProgression[(Level - 1)];
                     }
@@ -44,7 +44,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
@@ -67,10 +67,7 @@ namespace BESM3CAData.Model
         public override int GetPoints()
         {
             if (PointsUpToDate == false || FirstChild == null)
-            {
-                bool isCompanion = Name == "Companion";
-                bool isAlternateAttack = false;
-
+            {           
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
 
@@ -98,25 +95,7 @@ namespace BESM3CAData.Model
 
                 //Points should equal BaseCost +- any restrictions or variables
                 _points = BaseCost;
-                _points += VariablesOrRestrictions;
-
-                if (isCompanion)
-                {
-                    if (ChildPoints > 120)
-                    {
-                        _points += (2 + ((ChildPoints - 120) / 10)) * Level;
-                    }
-                    else
-                    {
-                        _points += 2 * Level;
-                    }
-                }
-
-                //if alternate weapon attack half points:
-                if (isAlternateAttack)
-                {
-                    _points /= 2;
-                }
+                _points += VariablesOrRestrictions;   
 
                 PointsUpToDate = true;
             }
@@ -154,6 +133,7 @@ namespace BESM3CAData.Model
                 {
                     if (child is DataNode childAttribute && childAttribute.AttributeType == "Restriction")
                     {
+                        //If any child restrictions are present then don't automatically add the current attribute to the Character's stats as they do not always apply
                         stats = new CalcStats(0, 0, 0, 0);
                         break;
                     }
@@ -240,7 +220,7 @@ namespace BESM3CAData.Model
 
         protected virtual void UpdatePointsPerLevel()
         {
-            if (_dataListing is LevelableDataListing levelableDataListing)
+            if (AssociatedListing is LevelableDataListing levelableDataListing)
             {
                 PointsPerLevel = levelableDataListing.CostperLevel;
             }
@@ -252,7 +232,7 @@ namespace BESM3CAData.Model
 
         public bool RaiseLevel()
         {
-            if (_dataListing is LevelableDataListing levelableDataListing)
+            if (AssociatedListing is LevelableDataListing levelableDataListing)
             {
                 if (levelableDataListing.EnforceMaxLevel == false || (levelableDataListing.MaxLevel != int.MaxValue && levelableDataListing.MaxLevel > Level))
                 {
@@ -273,7 +253,7 @@ namespace BESM3CAData.Model
 
         public bool LowerLevel()
         {
-            if (Level > 1 || (Level > 0 && _dataListing.Name == "Weapon"))
+            if (Level > 1 || (Level > 0 && AssociatedListing.Name == "Weapon"))
             {
                 if (PointAdj < 0)
                 {
@@ -310,11 +290,6 @@ namespace BESM3CAData.Model
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
-            if (AssociatedController.SelectedListingData != null)
-            {
-                _dataListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
-            }
-
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();
@@ -339,9 +314,11 @@ namespace BESM3CAData.Model
                                     case "Points":
                                         PointsPerLevel = int.Parse(reader.Value);
                                         break;
+
                                     case "PointAdj":
                                         PointAdj = int.Parse(reader.Value);
                                         break;
+
                                     default:
                                         break;
                                 }

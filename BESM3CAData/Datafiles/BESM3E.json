@@ -137,7 +137,7 @@
       "Stat": "",
       "Page": "9",
       "Human": true,
-      "Type": "Special",
+      "Type": "Character",
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": false,
@@ -3519,7 +3519,12 @@
       "Description": "[sn1] Companions",
       "ChildrenList": "0,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false
+      "MultiGenre": false,
+      "Companion": true,
+      "HasFreebie": true,
+      "SubAttributeID": 0,
+      "SubAttributeLevel": 0,
+      "SubAttributePointsAdj": 0
     },
     {
       "ID": 9,
@@ -4420,7 +4425,11 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false
+      "MultiGenre": false,
+      "HasFreebie":  true,
+      "SubAttributeID": 167,
+      "SubAttributeLevel": 3,
+      "SubAttributePointsAdj": -3
     },
     {
       "ID": 43,

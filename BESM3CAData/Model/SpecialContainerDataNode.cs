@@ -3,7 +3,7 @@ using BESM3CAData.Listings;
 
 namespace BESM3CAData.Model
 {
-    public class SpecialContainerDataNode : LevelableDataNode
+    public class SpecialContainerDataNode : LevelableDataNode, ISpecialContainerDataNode
     {
         //Fields:
         private int _specialPointsUsed = 0;
@@ -14,12 +14,12 @@ namespace BESM3CAData.Model
         {
             get
             {
-                if (_dataListing != null)
+                if (AssociatedListing != null)
                 {
-                    if (_dataListing is SpecialContainerWithVariantDataListing attributeListing && (attributeListing.SpecialContainer))
-                    {
-                        return $"{Name} ({GetSpecialPoints()} Left) ({GetPoints()} Points)";
-                    }
+                    //if (_dataListing is SpecialContainerDataListing attributeListing )
+                    //{
+                    return $"{Name} ({GetSpecialPoints()} Left) ({GetPoints()} Points)";
+                    /*}
                     else
                     {
                         if (AttributeType == "Special")
@@ -30,7 +30,7 @@ namespace BESM3CAData.Model
                         {
                             return $"{Name} ({GetPoints()} Points)";
                         }
-                    }
+                    }*/
                 }
                 else
                 {
@@ -57,19 +57,18 @@ namespace BESM3CAData.Model
         {
             int specialpoints = 0;
 
-            if (_dataListing is SpecialContainerWithVariantDataListing attributeListing)
+            if (AssociatedListing is ISpecialContainerDataListing attributeListing)
             {
-                if (attributeListing.SpecialContainer)//|| altform)
+
+                if (PointsUpToDate == false)
                 {
-                    if (PointsUpToDate == false)
-                    {
-                        GetPoints();
-                    }
-
-                    specialpoints = Level * attributeListing.SpecialPointsPerLevel;
-
-                    specialpoints -= _specialPointsUsed;
+                    GetPoints();
                 }
+
+                specialpoints = Level * attributeListing.SpecialPointsPerLevel;
+
+                specialpoints -= _specialPointsUsed;
+
             }
 
             return specialpoints;
@@ -79,9 +78,6 @@ namespace BESM3CAData.Model
         {
             if (PointsUpToDate == false || FirstChild == null)
             {
-                bool isCompanion = Name == "Companion";
-                bool isAlternateAttack = false;
-
                 int VariablesOrRestrictions = 0;
                 int ChildPoints = 0;
 
@@ -113,24 +109,6 @@ namespace BESM3CAData.Model
 
                 //Update special points used counter while recalculating points:
                 _specialPointsUsed = ChildPoints;
-
-                if (isCompanion)
-                {
-                    if (ChildPoints > 120)
-                    {
-                        _points += (2 + ((ChildPoints - 120) / 10)) * Level;
-                    }
-                    else
-                    {
-                        _points += 2 * Level;
-                    }
-                }
-
-                //if alternate weapon attack half points:
-                if (isAlternateAttack)
-                {
-                    _points /= 2;
-                }
 
                 PointsUpToDate = true;
             }

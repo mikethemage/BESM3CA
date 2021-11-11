@@ -9,20 +9,23 @@ using BESM3CAData.Control;
 
 namespace BESM3CAData.Listings
 {
-    public class SpecialContainerWithVariantDataListing : LevelableWithVariantDataListing, IVariantDataListing
+    public class SpecialContainerWithVariantDataListing : LevelableWithVariantDataListing, IVariantDataListing, ISpecialContainerDataListing
     {        
+        //Properties:
         public int SpecialPointsPerLevel { get; set; }
-        public bool SpecialContainer { get; private set; }
 
-        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
-        {
-            return new SpecialContainerWithVariantDataNode(this, notes, controller, level, pointAdj);
-        }
 
+        //Constructors:
         public SpecialContainerWithVariantDataListing(DataListingSerialized data) : base(data)
         {
             SpecialPointsPerLevel = data.SpecialPointsPerLevel;
-            SpecialContainer = data.SpecialContainer;            
+        }
+
+
+        //Methods:
+        public override DataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        {
+            return new SpecialContainerWithVariantDataNode(this, notes, controller, level, pointAdj);
         }
 
         public override DataListingSerialized Serialize()
@@ -30,7 +33,7 @@ namespace BESM3CAData.Listings
             DataListingSerialized result=base.Serialize();
             
             result.SpecialPointsPerLevel = this.SpecialPointsPerLevel;
-            result.SpecialContainer = this.SpecialContainer;
+            result.SpecialContainer = true;
             return result;
         }
     }

@@ -9,7 +9,7 @@ namespace BESM3CAData.Control
         //Properties:
         public string FileName { get; set; }
         public MasterListing SelectedListingData { get; set; }
-        public CharacterNode RootCharacter { get; set; }
+        public BaseNode RootCharacter { get; set; }
         public int SelectedGenreIndex { get; set; }
 
         //Fields:
@@ -33,7 +33,7 @@ namespace BESM3CAData.Control
         public void Load(string fileName)
         {
             SelectedGenreIndex = -1;  //Needs changing to load Genre
-            RootCharacter = (CharacterNode)SaveLoad.DeserializeXML(fileName, this);
+            RootCharacter = SaveLoad.DeserializeXML(fileName, this);
             //Need to check if successful
 
             FileName = fileName;
@@ -42,9 +42,19 @@ namespace BESM3CAData.Control
         public void ResetAll()
         {
             //Reset root character:
-            RootCharacter = new CharacterNode(this);
-            FileName = "";
-            SelectedGenreIndex = -1;
+
+            //Get Character data listing:
+            if (SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
+            {
+                RootCharacter = characterDataListing.CreateNode("", this);
+
+                FileName = "";
+                SelectedGenreIndex = -1;
+            }
+            else
+            {
+                throw new InvalidDataException("No valid Character data");
+            }
         }
 
         public void SaveAs(string fileName)

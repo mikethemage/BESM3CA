@@ -8,8 +8,18 @@ namespace BESM3CAData.Listings
 {
     public class PointsContainerDataListing : DataListing
     {
+        //Properties:
         public int PointScale { get; set; }
 
+
+        //Constructors:
+        public PointsContainerDataListing(DataListingSerialized data) : base(data)
+        {
+            PointScale = data.PointScale;
+        }
+
+
+        //Methods:
         public override DataListingSerialized Serialize()
         {
             DataListingSerialized result = base.Serialize();
@@ -22,12 +32,7 @@ namespace BESM3CAData.Listings
 
         public override PointsContainerDataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
         {
-            return new PointsContainerDataNode(this, notes, controller, level, pointAdj);
-        }
-
-        public PointsContainerDataListing(DataListingSerialized data) : base(data)
-        {
-            PointScale = data.PointScale;
+            return new PointsContainerDataNode(this, notes, controller);
         }
     }
 }
