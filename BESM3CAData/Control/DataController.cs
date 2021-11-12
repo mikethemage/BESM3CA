@@ -1,5 +1,6 @@
 ﻿using BESM3CAData.Listings;
 using BESM3CAData.Model;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace BESM3CAData.Control
@@ -9,7 +10,11 @@ namespace BESM3CAData.Control
         //Properties:
         public string FileName { get; set; }
         public MasterListing SelectedListingData { get; set; }
-        public BaseNode RootCharacter { get; set; }
+        
+        public BaseNode RootCharacter { get; private set; }
+
+        public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();
+
         public int SelectedGenreIndex { get; set; }
 
         //Fields:
@@ -34,6 +39,8 @@ namespace BESM3CAData.Control
         {
             SelectedGenreIndex = -1;  //Needs changing to load Genre
             RootCharacter = SaveLoad.DeserializeXML(fileName, this);
+            Root.Clear();
+            Root.Add(RootCharacter);
             //Need to check if successful
 
             FileName = fileName;
@@ -47,6 +54,8 @@ namespace BESM3CAData.Control
             if (SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
                 RootCharacter = characterDataListing.CreateNode("", this);
+                Root.Clear();
+                Root.Add(RootCharacter);
 
                 FileName = "";
                 SelectedGenreIndex = -1;

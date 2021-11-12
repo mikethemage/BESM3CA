@@ -1,7 +1,7 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
@@ -33,7 +33,7 @@ namespace BESM3CAData.Model
         public BaseNode Next { get; private set; }
         public BaseNode Prev { get; private set; }
 
-        
+        public ObservableCollection<BaseNode> Children { get; private set; } = new ObservableCollection<BaseNode>();
 
 
         public virtual string DisplayText
@@ -173,6 +173,7 @@ namespace BESM3CAData.Model
             child.Parent = this;
             _lastChildOrder++;
             child.NodeOrder = _lastChildOrder;
+            Children.Add(child);
             _pointsUpToDate = false;
         }
 
@@ -192,6 +193,9 @@ namespace BESM3CAData.Model
                 {
                     Prev.Next = null;
                 }
+
+                Parent.Children.Remove(this);
+
                 Parent.PointsUpToDate = false;
 
                 Parent = null;
