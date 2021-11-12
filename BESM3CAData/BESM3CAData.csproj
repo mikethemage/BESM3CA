@@ -31,4 +31,10 @@
     <PackageReference Include="MathParser.org-mXparser" Version="4.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Datafiles\bkBESM3E.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

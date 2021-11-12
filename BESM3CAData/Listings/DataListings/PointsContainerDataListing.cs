@@ -15,7 +15,7 @@ namespace BESM3CAData.Listings
         //Constructors:
         public PointsContainerDataListing(DataListingSerialized data) : base(data)
         {
-            PointScale = data.PointScale;
+            PointScale = data.PointScale ?? 1;
         }
 
 

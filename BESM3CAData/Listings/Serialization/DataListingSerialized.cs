@@ -17,7 +17,7 @@ namespace BESM3CAData.Listings.Serialization
         public bool Container { get; set; }
         public int CostperLevel { get; set; }
         public bool RequiresVariant { get; set; }
-        public int SpecialPointsPerLevel { get; set; }
+        public int? SpecialPointsPerLevel { get; set; }
         public bool SpecialContainer { get; set; }
         public bool EnforceMaxLevel { get; set; }
         public string Description { get; set; }
@@ -28,11 +28,11 @@ namespace BESM3CAData.Listings.Serialization
         public bool HasLevel { get; set; }
         public bool MultiGenre { get; set; }
         public bool PointsContainer { get; set; }
-        public int PointScale { get; set; }
+        public int? PointScale { get; set; }
         public bool Companion { get; set; }
         public bool HasFreebie { get; set; }
-        public int SubAttributeID { get; set; }
-        public int SubAttributeLevel { get; set; }
-        public int SubAttributePointsAdj { get; set; }
+        public int? SubAttributeID { get; set; }
+        public int? SubAttributeLevel { get; set; }
+        public int? SubAttributePointsAdj { get; set; }
     }
 }

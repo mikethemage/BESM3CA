@@ -18,7 +18,7 @@ namespace BESM3CAData.Listings
         //Constructors:
         public SpecialContainerWithVariantDataListing(DataListingSerialized data) : base(data)
         {
-            SpecialPointsPerLevel = data.SpecialPointsPerLevel;
+            SpecialPointsPerLevel = data.SpecialPointsPerLevel ?? 1;
         }
 
 

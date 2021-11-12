@@ -16,8 +16,8 @@ namespace BESM3CAData.Listings
         public LevelableWithFreebieWithVariantDataListing(DataListingSerialized data) : base(data)
         {
             
-            SubAttributeLevel = data.SubAttributeLevel;
-            SubAttributePointsAdj = data.SubAttributePointsAdj;
+            SubAttributeLevel = data.SubAttributeLevel ?? 0;
+            SubAttributePointsAdj = data.SubAttributePointsAdj ?? 0;
         }
 
 

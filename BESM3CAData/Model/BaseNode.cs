@@ -1,6 +1,7 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using System.Collections.Generic;
+
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
@@ -23,11 +24,17 @@ namespace BESM3CAData.Model
         public int ID { get; private set; }
         public string Name { get; set; }
         public string Notes { get; set; }
+
+
+        //Tree structure properties:
         public BaseNode FirstChild { get; private set; }
         public BaseNode Parent { get; private set; }
         public int NodeOrder { get; private set; }
         public BaseNode Next { get; private set; }
         public BaseNode Prev { get; private set; }
+
+        
+
 
         public virtual string DisplayText
         {

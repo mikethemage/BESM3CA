@@ -13,6 +13,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -22,10 +23,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 274,
@@ -40,15 +38,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character never loses his or her balance, even when running on a narrow rope or beam.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 238,
@@ -63,15 +59,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character does not suffer normal penalties associated with attacking or defending with melee weapons or while unarmed in poor light, absolute darkness, or against an invisible opponent.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 239,
@@ -86,15 +80,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "The character suffers reduced normal penalties associated with attacking with ranged weapons in poor light, absolute darkness, or against an invisible opponent. All penalties are reduced by [n] grade(s).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 240,
@@ -109,15 +101,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Increases unarmed attacks to Weapon Level [n].",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 275,
@@ -132,15 +122,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character will take half damage (round down) from most falls and always lands on his or her feet.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 0,
@@ -153,15 +141,13 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Dummy listing for character nodes",
       "ChildrenList": "80,115,116,1,2,117,118,119,3,120,288,4,5,81,82,121,83,6,122,123,124,7,8,9,125,84,85,126,127,86,10,11,12,128,14,13,129,15,130,131,16,87,17,132,18,19,20,133,21,23,22,24,25,26,27,134,135,136,88,28,29,30,89,31,90,91,92,93,32,137,138,33,94,95,34,35,36,139,140,96,97,37,141,142,38,39,40,143,41,42,43,144,98,99,44,145,45,100,146,101,102,147,148,46,47,149,150,48,49,151,50,51,52,103,105,104,53,54,55,152,153,56,106,57,107,58,59,108,154,155,61,62,63,109,156,157,158,64,65,66,67,159,68,69,70,71,72,73,74,110,75,111,312,76,160,161,112,113,77,114,78,79,162,163,164",
       "HasLevel": false,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 241,
@@ -176,15 +162,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character\uFFFDs weapons will not be noticed by anything short of an actual physical search (at -6 penalty).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 242,
@@ -199,15 +183,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Increases critical hit damages to triple damage and quadruple damage respectively.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 243,
@@ -222,15 +204,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character is adept at attacking fast targets, which greatly reduces the penalties a character normally suffers. All penalties are reduced by one grade.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 244,
@@ -245,15 +225,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "With a successful defence roll, the character can \u0027stand his or ground\u0027 and deflect a ranged attack away harmlessly.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 261,
@@ -268,6 +246,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -277,10 +256,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 245,
@@ -295,15 +271,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Double the effective, medium, and long ranges of ranged weapons",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 246,
@@ -318,15 +292,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "When using a ranged attack, reduce the total penalties associated with firing a weapon at medium or long range by one grade.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 276,
@@ -341,15 +313,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character\uFFFDs Body Stat is doubled for each assignment of this Attribute when calculating running speed.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 262,
@@ -364,6 +334,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -373,10 +344,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 263,
@@ -391,6 +359,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -400,10 +369,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 264,
@@ -418,6 +384,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -427,10 +394,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 247,
@@ -445,15 +409,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "The character\uFFFDs Shock Value is increased by \u002B[n*10]. This may not increase Shock Value to a higher value than one-half the Health Points total.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 269,
@@ -468,6 +430,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -477,10 +440,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 248,
@@ -495,15 +455,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can judge his or her opponent\u0027s approximate Combat Value and weapon Skill Levels from the foe\u0027s attitude and posture even without actually seeing him or her fight. Additionally, the character can accurately estimate the opponent\u0027s remaining Health Points.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 265,
@@ -518,6 +476,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -527,10 +486,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 266,
@@ -545,6 +501,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -554,10 +511,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 267,
@@ -572,6 +526,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -581,10 +536,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 249,
@@ -599,15 +551,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Any time the character has a higher Initiative than their opponent and is free to move, they may attempt a leaping attack. If the strike is successful, the character gets an extra \u002B1 to their Damage Multiplier. If the character fails to hit, however, the character is off balance and receives a significant (-3) penalty to any defence rolls until their turn to act in the following round",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 250,
@@ -622,15 +572,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Inflict normal damage with unarmed attacks.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 277,
@@ -645,15 +593,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can skim over sand, snow, or ice at full speed.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 251,
@@ -668,15 +614,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n*3] bonus to all Initiative rolls",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 268,
@@ -691,6 +635,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -700,10 +645,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 252,
@@ -718,15 +660,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "When attacking using the Multiple Targets with One Attack rules, the penalties for doing so reduced by one grade.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 270,
@@ -741,6 +681,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -750,10 +691,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 271,
@@ -768,6 +706,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -777,10 +716,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 253,
@@ -795,15 +731,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character will always have easy access to any weapon required for a particular task. The actual weapons and accessories must still be acquired via the Items Attribute.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 254,
@@ -818,15 +752,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Increase the Aim or Wait bonus for pinpoint attacks to a significant (\u002B3) bonus",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 255,
@@ -841,15 +773,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "If the character has the Deflection Combat Technique and makes both a successful Deflection defence and a successful attack roll, they can reflect a ranged attack towards any target within range.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 272,
@@ -864,6 +794,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -873,10 +804,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 278,
@@ -891,15 +819,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can slither along the ground at normal walking/running speeds.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 273,
@@ -914,6 +840,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -923,10 +850,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 256,
@@ -941,15 +865,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "All penalties for attacking while in motion are reduced by one grade.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 279,
@@ -964,15 +886,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can swing through forests and cities using vines / ropes / webbing or simply his or her arms.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 257,
@@ -987,15 +907,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Can recall the vital statistics and important quirks of practically all opponents that have fought in one type of tournament.  \u002B3 bonus on Judge Opponent rolls.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 258,
@@ -1010,15 +928,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "When attacking using the Two Weapons rules, the penalties for doing so reduced by one grade.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 280,
@@ -1033,15 +949,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character never leaves footprints or tracks when he or she walks or runs.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 281,
@@ -1056,15 +970,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can move at regular walking speed without touching the ground by bounding back and forth between nearby vertical surfaces (walls).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 282,
@@ -1079,15 +991,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can cling to walls or ceilings as though they were on the ground or floor.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 283,
@@ -1102,15 +1012,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character can walk or run over water as if he or she was on land.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 259,
@@ -1125,15 +1033,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Can recall the vital statistics and important quirks of practically all known commercially available weapons.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 284,
@@ -1148,15 +1054,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "When the character opens his or her mind to the natural world, he or she will always move in the \uFFFDright\uFFFD direction.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 169,
@@ -1171,15 +1075,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus to Attack Combat Value",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 291,
@@ -1194,15 +1096,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Prevents the passage of gas molecules",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 165,
@@ -1217,15 +1117,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "[an1]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 170,
@@ -1240,15 +1138,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Anyone touching/entering aura suffers the effect of level [n] version of this weapon attack.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 171,
@@ -1263,15 +1159,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Score one extra hit for every three the attack roll is above the minimum needed to succeed.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 172,
@@ -1286,15 +1180,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Target suffers double damage if they do not make a successful Body Stat roll TN:[(n\u002B2)*3] to resist its effects.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 292,
@@ -1309,15 +1201,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Prevents the passage of Insubstantial characters.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 294,
@@ -1332,15 +1222,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Characters cannot teleport in or out.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 173,
@@ -1355,6 +1243,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -1364,10 +1253,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 174,
@@ -1382,15 +1268,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to resist contagion.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 175,
@@ -1405,6 +1289,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Variant",
@@ -1433,10 +1318,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 176,
@@ -1451,15 +1333,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Reduces specified stat of victim by [n]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 310,
@@ -1474,15 +1354,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Created items can be permanent.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 166,
@@ -1497,15 +1375,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "[tn1]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 177,
@@ -1520,15 +1396,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Victim loses [5*n] Energy Points",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 305,
@@ -1543,15 +1417,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Gain [n] additional sensory component(s).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 293,
@@ -1566,15 +1438,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Can be used to interpenetrate other Force Fields while making attacks.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 178,
@@ -1589,15 +1459,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[n] penalty to resist",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 179,
@@ -1612,15 +1480,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to defend",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 308,
@@ -1635,15 +1501,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[grn1]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 180,
@@ -1658,15 +1522,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Allows both passengers and the driver or pilot to fire.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 181,
@@ -1681,15 +1543,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus to attack roll.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 237,
@@ -1704,15 +1564,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Called shots cannot bypass armour.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 182,
@@ -1727,15 +1585,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty equal to resist.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 183,
@@ -1750,6 +1606,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -1760,10 +1617,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 184,
@@ -1778,6 +1632,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -1788,10 +1643,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 186,
@@ -1806,15 +1658,13 @@
       "Container": false,
       "CostperLevel": 5,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Weapon damage completely bypasses any normal Armour Rating.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 185,
@@ -1829,15 +1679,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to resist.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 187,
@@ -1852,15 +1700,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Attack is attached to another Weapon attack.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 188,
@@ -1875,15 +1721,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Attack has normal effect on individuals who are Insubstantial",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 306,
@@ -1898,15 +1742,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[n\u002B1] illusions total",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 189,
@@ -1921,15 +1763,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Gain the Superstrength benefits when appropriate.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 295,
@@ -1944,15 +1784,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Delivers a powerful electric or energy shockto anyone who touches it.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 190,
@@ -1967,15 +1805,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[4*n] damage blocked by Armour/Shields",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 191,
@@ -1990,15 +1826,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[8*n] damage blocked by Force Fields",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 311,
@@ -2013,15 +1847,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Armour Rating: [2*(n\u002B1)]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 192,
@@ -2036,15 +1868,13 @@
       "Container": false,
       "CostperLevel": 6,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Ignore the Armour Ratings of Armour, Shields, and Force Fields, and it affect Insubstantial characters normally.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 193,
@@ -2059,15 +1889,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Create [n] m deep fissure.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 167,
@@ -2082,15 +1910,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "[rn1]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 194,
@@ -2105,15 +1931,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Win initiative against shorter melee weapons.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 296,
@@ -2128,15 +1952,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Regain one lost Level of effectiveness per action spent.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 195,
@@ -2151,15 +1973,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Can specify who is or is not affected.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 196,
@@ -2174,15 +1994,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to defence roll. [2^(n-1)] Possible adjacent targets.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 197,
@@ -2197,15 +2015,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Inflicts temporary damage that shorts out electronics and renders people unconscious.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 232,
@@ -2220,15 +2036,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Entanglement has [n*5] health points.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 233,
@@ -2243,6 +2057,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2253,10 +2068,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 168,
@@ -2271,15 +2083,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "[tgn1]",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 234,
@@ -2294,15 +2104,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to detect",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 235,
@@ -2317,15 +2125,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Provides no indication that it is about to strike, and does not reveal the identity of the attacker.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 313,
@@ -2340,15 +2146,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 285,
@@ -2363,15 +2167,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Can teleport to unknown destinations.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 236,
@@ -2386,6 +2188,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Variant",
@@ -2407,10 +2210,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 198,
@@ -2425,6 +2225,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -2438,10 +2239,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 220,
@@ -2456,6 +2254,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2467,10 +2266,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 199,
@@ -2485,6 +2281,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2498,10 +2295,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 221,
@@ -2516,6 +2310,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2525,10 +2320,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 200,
@@ -2543,6 +2335,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2553,10 +2346,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 297,
@@ -2571,15 +2361,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Blocks attacks moving in any direction.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 201,
@@ -2594,6 +2382,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2604,10 +2393,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 202,
@@ -2622,6 +2408,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2632,10 +2419,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 203,
@@ -2650,6 +2434,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2660,10 +2445,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 204,
@@ -2678,6 +2460,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2688,10 +2471,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 205,
@@ -2706,15 +2486,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "The Dependent Attribute cannot work until [n] other Attribute(s) are activated.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 206,
@@ -2729,15 +2507,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Drains -[10*n] Energy Points from the user every time an instant use ability is attempted.  If used with Attributes that are normally ongoing, such as Armour, Flight, or Mind Control, reduce the Energy Points as follows: 1 every 10 minutes (- 1), 1 every 5 minutes (-2), 1 every minute (- 3), 1 every two rounds (-4), 1/round (-5), 2/round (- 6), 5/round (-7), 10/round (-8), 20/round (-9), or 50/round (-10).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 207,
@@ -2752,6 +2528,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2762,10 +2539,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 208,
@@ -2780,6 +2554,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2790,10 +2565,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 289,
@@ -2808,15 +2580,13 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Provides double protection against the particular attack form and only half protection against other forms of damage.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 209,
@@ -2831,6 +2601,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2841,10 +2612,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 210,
@@ -2859,6 +2627,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2869,10 +2638,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 222,
@@ -2887,6 +2653,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2897,10 +2664,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 301,
@@ -2915,15 +2679,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Can only become airborne if launched from a high place, gain speed by diving, gain altitude via thermals.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 309,
@@ -2938,6 +2700,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2947,10 +2710,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 223,
@@ -2965,15 +2725,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Requires two hands to operate or wield properly.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 211,
@@ -2988,6 +2746,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -2998,10 +2757,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 224,
@@ -3016,15 +2772,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to all attack rolls",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 225,
@@ -3039,15 +2793,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Must be ingested by the target in order to have an effect.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 298,
@@ -3062,15 +2814,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Only usable inside a specific building or other structure.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 212,
@@ -3085,6 +2835,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -3095,10 +2846,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 299,
@@ -3113,6 +2861,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -3122,10 +2871,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 302,
@@ -3140,15 +2886,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Requires smooth surface or running start for landing and take off, must maintain a minimum speed once airborne.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 213,
@@ -3163,15 +2907,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "The character cannot use up to Level [n] of the Attribute. The Attribute must be at Level [n\u002B1] or higher.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 226,
@@ -3186,15 +2928,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Any Armour, Mind Shield, or Force Field Attribute stops an additional [n*4] damage (Armour) or [n*8] damage (Force Fields) but this additional damage cannot exceed the Armour Rating of the Armour or Force Field.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 214,
@@ -3209,6 +2949,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -3219,10 +2960,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 290,
@@ -3237,15 +2975,13 @@
       "Container": false,
       "CostperLevel": -4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Provides double protection against the particular attack form and no protection against other forms of damage.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 215,
@@ -3260,6 +2996,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -3270,10 +3007,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 216,
@@ -3288,15 +3022,13 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 217,
@@ -3311,15 +3043,13 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "For every 1 minute the character uses the Attribute, they must wait [tn3] minute(s) before the Attribute functions once again.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 307,
@@ -3334,6 +3064,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -3343,10 +3074,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 227,
@@ -3361,15 +3089,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Must turn off all Force Fields before using the attack, until following round.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 303,
@@ -3384,15 +3110,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Limited to skimming no more than a metre or two off the ground or water.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 287,
@@ -3407,15 +3131,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 304,
@@ -3430,15 +3152,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Requires plenty of free space surrounding to fly.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 300,
@@ -3453,15 +3173,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Character cannot move when generating the field.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 228,
@@ -3476,15 +3194,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[2^(n-1)] rounds to stop weapon.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 229,
@@ -3499,6 +3215,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -3508,10 +3225,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 314,
@@ -3526,15 +3240,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 218,
@@ -3549,6 +3261,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -3559,10 +3272,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 230,
@@ -3577,15 +3287,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Burns out on attack roll of a natural 2 or 3.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 286,
@@ -3600,15 +3308,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 1,
@@ -3629,10 +3335,7 @@
       "Description": "\u002B[10*n] Character Points",
       "ChildrenList": "80,2,3,199,4,5,81,200,82,83,6,7,9,202,84,85,203,86,10,11,12,204,205,206,207,14,13,15,16,87,17,208,18,19,209,20,210,21,23,22,24,25,26,27,88,28,29,30,89,31,90,91,92,93,32,33,94,212,95,35,36,96,97,37,38,39,40,41,42,43,98,99,44,214,45,100,215,101,102,46,47,48,49,50,51,52,217,103,105,104,53,54,55,56,106,57,107,58,59,108,287,61,62,63,109,64,65,66,67,68,69,70,71,72,73,74,110,75,111,314,313,76,218,286,112,113,77,114,78,79",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 2,
@@ -3647,15 +3350,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Identities",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 3,
@@ -3670,15 +3371,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[2*n] Armour",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,289,209,210,237,211,214,290,215,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 288,
@@ -3693,15 +3392,13 @@
       "Container": false,
       "CostperLevel": 5,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "314,313",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 4,
@@ -3716,15 +3413,13 @@
       "Container": false,
       "CostperLevel": 10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Attack Combat Value",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 5,
@@ -3739,15 +3434,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 6,
@@ -3762,6 +3455,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "-[n] penalty to attacker, \u002B[n] Powers blocked.",
@@ -3783,10 +3477,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 7,
@@ -3807,10 +3498,7 @@
       "Description": "[n] Techniques",
       "ChildrenList": "199,200,238,239,240,241,202,203,242,243,244,204,205,206,207,208,209,210,245,246,247,248,249,250,251,252,214,253,254,217,255,287,256,257,258,314,313,218,286,259",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 8,
@@ -3825,13 +3513,13 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[sn1] Companions",
       "ChildrenList": "0,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
       "MultiGenre": false,
-      "PointsContainer": false,
       "Companion": true,
       "HasFreebie": true,
       "SubAttributeID": 0,
@@ -3851,15 +3539,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[fn2] cm Radius",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 10,
@@ -3874,6 +3560,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[5*n] damage converted into Health",
@@ -3909,10 +3596,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 11,
@@ -3927,6 +3611,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Character points per 5 damage",
@@ -3948,10 +3633,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 12,
@@ -3966,15 +3648,13 @@
       "Container": false,
       "CostperLevel": 10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Defence Combat Value",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 14,
@@ -3989,15 +3669,13 @@
       "Container": false,
       "CostperLevel": 20,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Time required: [trn10]",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 13,
@@ -4012,15 +3690,13 @@
       "Container": false,
       "CostperLevel": 8,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[n] Dimensions",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 15,
@@ -4035,15 +3711,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] re-rolls per game session",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 16,
@@ -4058,6 +3732,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Variant",
@@ -4086,10 +3761,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 17,
@@ -4104,15 +3776,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[mn3] cm",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,213,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 18,
@@ -4127,15 +3797,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[5*n] Energy Points",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 19,
@@ -4150,15 +3818,13 @@
       "Container": false,
       "CostperLevel": 10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Stat",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 20,
@@ -4173,15 +3839,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[n] Environments",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 21,
@@ -4196,15 +3860,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Used to reverse the results of the Mind Control Attribute.",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 23,
@@ -4219,15 +3881,13 @@
       "Container": false,
       "CostperLevel": 15,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Actions per round",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 22,
@@ -4242,15 +3902,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[sn1] Arms",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 24,
@@ -4265,15 +3923,13 @@
       "Container": false,
       "CostperLevel": 5,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Defences per round",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 25,
@@ -4288,15 +3944,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Features",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 26,
@@ -4311,15 +3965,13 @@
       "Container": false,
       "CostperLevel": 8,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[mn3] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,301,302,213,214,217,303,287,304,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 27,
@@ -4334,15 +3986,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[4*n] Armour Rating",
       "ChildrenList": "291,165,199,200,292,294,297,202,203,204,205,206,207,166,208,209,210,293,298,299,214,295,216,167,217,296,287,300,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 28,
@@ -4357,15 +4007,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[10*n] Restored Health",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 29,
@@ -4380,15 +4028,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Bonus",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 30,
@@ -4403,15 +4049,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B3 bonus to [n] senses",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 31,
@@ -4426,15 +4070,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[fn2] cm Radius",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,305,213,306,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 32,
@@ -4449,6 +4091,7 @@
       "Container": false,
       "CostperLevel": 8,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -4466,10 +4109,7 @@
       ],
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,213,214,215,216,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 33,
@@ -4484,15 +4124,13 @@
       "Container": false,
       "CostperLevel": 6,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Invisible to [n] senses",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,212,214,215,216,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 34,
@@ -4505,6 +4143,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -4512,9 +4151,7 @@
       "HasLevel": false,
       "MultiGenre": false,
       "PointsContainer": true,
-      "PointScale": 2,
-      "Companion": false,
-      "HasFreebie": false
+      "PointScale": 2
     },
     {
       "ID": 35,
@@ -4529,15 +4166,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[mn2] times normal distance",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 36,
@@ -4552,15 +4187,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[sn4] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,213,214,217,307,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 37,
@@ -4575,6 +4208,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] damage multiplier",
@@ -4610,10 +4244,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 38,
@@ -4628,15 +4259,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] ACV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 39,
@@ -4651,15 +4280,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] DCV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 40,
@@ -4703,10 +4330,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 41,
@@ -4721,6 +4345,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Attribute Levels",
@@ -4742,10 +4367,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 42,
@@ -4760,6 +4382,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Variant",
@@ -4803,9 +4426,7 @@
       ],
       "HasLevel": true,
       "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": true,
+      "HasFreebie":  true,
       "SubAttributeID": 167,
       "SubAttributeLevel": 3,
       "SubAttributePointsAdj": -3
@@ -4823,15 +4444,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] to resist Mind Stat rolls",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 44,
@@ -4846,6 +4465,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Attributes",
@@ -4881,10 +4501,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 45,
@@ -4899,6 +4516,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -4916,10 +4534,7 @@
       ],
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 46,
@@ -4934,15 +4549,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[fn2] cm Radius",
       "ChildrenList": "199,200,202,203,204,205,206,207,166,208,209,210,309,308,213,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 47,
@@ -4957,15 +4570,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[fn2] cm Radius",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 48,
@@ -4980,6 +4591,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[4*n] Character Points",
@@ -5008,10 +4620,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 49,
@@ -5026,15 +4635,13 @@
       "Container": false,
       "CostperLevel": 10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Attributes",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 50,
@@ -5049,15 +4656,13 @@
       "Container": false,
       "CostperLevel": 6,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[mn3]",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,213,214,167,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 51,
@@ -5072,15 +4677,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] ACV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 52,
@@ -5095,15 +4698,13 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] DCV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 53,
@@ -5118,6 +4719,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[5*n] Health Points per round",
@@ -5139,10 +4741,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 54,
@@ -5157,6 +4756,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[trn10]",
@@ -5178,10 +4778,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 55,
@@ -5196,15 +4793,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] to Body/Soul to resist",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,211,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 56,
@@ -5219,15 +4814,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Blocked senses",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 57,
@@ -5242,15 +4835,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] to DCV",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,311,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 58,
@@ -5265,15 +4856,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] Sixth senses",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 59,
@@ -5288,6 +4877,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Maximum change of [n] size rank(s).",
@@ -5309,10 +4899,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 61,
@@ -5327,15 +4914,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "[fn3] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 62,
@@ -5356,10 +4941,7 @@
       "Description": "[n] special defence slot(s).",
       "ChildrenList": "260,199,200,202,203,204,205,206,207,261,208,209,210,262,263,264,269,211,265,266,267,268,214,270,215,271,217,272,287,273,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 63,
@@ -5380,10 +4962,7 @@
       "Description": "[n] special movement type(s).",
       "ChildrenList": "199,200,274,275,202,203,204,205,206,207,208,209,210,276,211,277,214,217,278,287,279,314,313,218,280,286,281,282,283,284",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 64,
@@ -5398,15 +4977,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 65,
@@ -5421,15 +4998,13 @@
       "Container": false,
       "CostperLevel": 12,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[mn5] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,213,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 66,
@@ -5444,15 +5019,13 @@
       "Container": false,
       "CostperLevel": 8,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Can lift [sn1] tonne(s), \u002B[n] to unarmed Damage Multiplier, \u002B[2*n] bonus to strength-based Body stat rolls.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,215,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 67,
@@ -5467,15 +5040,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[n] critters for every current Health point.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 68,
@@ -5490,6 +5061,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Can lift up to [fn1] kg.",
@@ -5511,10 +5083,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 69,
@@ -5529,6 +5098,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[n] bonus to mind touch rolls.",
@@ -5557,10 +5127,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 70,
@@ -5575,15 +5142,13 @@
       "Container": false,
       "CostperLevel": 10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Teleport up to [fn2] m",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,208,209,210,213,214,167,217,287,168,314,313,285,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 71,
@@ -5598,15 +5163,13 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "\u002B[5*n] Health points.",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 72,
@@ -5621,6 +5184,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Transfer up to [n] attribute level(s).",
@@ -5649,10 +5213,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 73,
@@ -5667,6 +5228,7 @@
       "Container": false,
       "CostperLevel": 0,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Objects up to [2*n] character points.",
@@ -5709,10 +5271,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 74,
@@ -5727,15 +5286,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[mn3] m per hour",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 75,
@@ -5750,15 +5307,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 76,
@@ -5773,15 +5328,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[ceil(1.5*n)] points to spend",
       "ChildrenList": "165,199,200,202,203,204,205,206,207,166,208,209,210,214,167,217,287,168,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 77,
@@ -5796,15 +5349,13 @@
       "Container": false,
       "CostperLevel": 4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[mn2] kph",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,210,213,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 78,
@@ -5819,15 +5370,13 @@
       "Container": false,
       "CostperLevel": 5,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "$[mn6],000",
       "ChildrenList": "199,200,202,203,204,205,206,207,208,209,210,214,217,287,314,313,218,286",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 79,
@@ -5842,6 +5391,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": true,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "[n] base damage",
@@ -5863,10 +5413,7 @@
         }
       ],
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 80,
@@ -5881,6 +5428,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -5891,10 +5439,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 81,
@@ -5909,6 +5454,7 @@
       "Container": false,
       "CostperLevel": -4,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "Custom",
@@ -5926,10 +5472,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 82,
@@ -5944,15 +5487,13 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "[20*n] damage points per round of exposure",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 83,
@@ -5967,6 +5508,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -5977,10 +5519,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 84,
@@ -5995,6 +5534,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6005,10 +5545,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 85,
@@ -6023,6 +5560,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6033,10 +5571,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 86,
@@ -6051,6 +5586,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6061,10 +5597,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 87,
@@ -6079,6 +5612,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6089,10 +5623,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 88,
@@ -6107,6 +5638,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6117,10 +5649,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 89,
@@ -6135,6 +5664,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6145,10 +5675,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 90,
@@ -6163,6 +5690,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6173,10 +5701,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 91,
@@ -6191,6 +5716,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6201,10 +5727,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 92,
@@ -6219,15 +5742,13 @@
       "Container": false,
       "CostperLevel": -10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "The character\uFFFDs Attack Combat Value is decreased by [n] Point(s).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 93,
@@ -6242,15 +5763,13 @@
       "Container": false,
       "CostperLevel": -10,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "The character\uFFFDs DCV is decreased by [n] Point(s).",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 94,
@@ -6265,6 +5784,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6275,10 +5795,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 95,
@@ -6293,6 +5810,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6303,10 +5821,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 96,
@@ -6321,15 +5836,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 97,
@@ -6344,6 +5857,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6354,10 +5868,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 98,
@@ -6372,6 +5883,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6382,10 +5894,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 99,
@@ -6400,15 +5909,13 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "The character\uFFFDs Health Points are decreased by [5*n] Points.",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 100,
@@ -6423,6 +5930,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6433,10 +5941,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 101,
@@ -6451,6 +5956,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6461,10 +5967,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 102,
@@ -6479,6 +5982,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6489,10 +5993,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 103,
@@ -6507,6 +6008,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6517,10 +6019,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 105,
@@ -6535,6 +6034,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6545,10 +6045,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 104,
@@ -6563,6 +6060,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6573,10 +6071,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 106,
@@ -6591,6 +6086,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6601,10 +6097,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 107,
@@ -6619,6 +6112,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6629,10 +6123,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 108,
@@ -6647,6 +6138,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6657,10 +6149,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 109,
@@ -6675,6 +6164,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6685,10 +6175,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 110,
@@ -6703,6 +6190,7 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6713,10 +6201,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 111,
@@ -6731,15 +6216,13 @@
       "Container": false,
       "CostperLevel": -1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 112,
@@ -6754,6 +6237,7 @@
       "Container": false,
       "CostperLevel": -3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6764,10 +6248,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 113,
@@ -6782,6 +6263,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6792,10 +6274,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 114,
@@ -6810,6 +6289,7 @@
       "Container": false,
       "CostperLevel": -2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": true,
       "Description": "Custom",
@@ -6820,10 +6300,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": false,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": false
     },
     {
       "ID": 115,
@@ -6838,6 +6315,7 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -6875,10 +6353,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 116,
@@ -6893,6 +6368,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -6930,10 +6406,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 117,
@@ -6948,6 +6421,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -6985,10 +6459,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 118,
@@ -7003,6 +6474,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7040,10 +6512,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 119,
@@ -7058,6 +6527,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7095,10 +6565,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 120,
@@ -7113,6 +6580,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7150,10 +6618,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 121,
@@ -7168,6 +6633,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7205,10 +6671,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 122,
@@ -7223,6 +6686,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7260,10 +6724,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 123,
@@ -7278,6 +6739,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7315,10 +6777,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 124,
@@ -7333,6 +6792,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7370,10 +6830,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 125,
@@ -7388,6 +6845,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7425,10 +6883,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 126,
@@ -7443,6 +6898,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7480,10 +6936,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 127,
@@ -7498,6 +6951,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7535,10 +6989,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 128,
@@ -7553,6 +7004,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7590,10 +7042,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 129,
@@ -7608,6 +7057,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7645,10 +7095,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 130,
@@ -7663,6 +7110,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7700,10 +7148,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 131,
@@ -7718,6 +7163,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7755,10 +7201,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 132,
@@ -7773,6 +7216,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7810,10 +7254,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 133,
@@ -7828,6 +7269,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7865,10 +7307,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 134,
@@ -7883,6 +7322,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7920,10 +7360,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 135,
@@ -7938,6 +7375,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -7975,10 +7413,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 136,
@@ -7993,6 +7428,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8030,10 +7466,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 137,
@@ -8048,6 +7481,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8085,10 +7519,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 138,
@@ -8103,6 +7534,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8140,10 +7572,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 139,
@@ -8158,6 +7587,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8195,10 +7625,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 140,
@@ -8213,6 +7640,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8250,10 +7678,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 141,
@@ -8268,6 +7693,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8305,10 +7731,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 142,
@@ -8323,6 +7746,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8360,10 +7784,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 143,
@@ -8378,6 +7799,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8415,10 +7837,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 144,
@@ -8433,6 +7852,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8470,10 +7890,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 145,
@@ -8488,6 +7905,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8525,10 +7943,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 146,
@@ -8543,6 +7958,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8580,10 +7996,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 147,
@@ -8598,6 +8011,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8635,10 +8049,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 148,
@@ -8653,6 +8064,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8690,10 +8102,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 149,
@@ -8708,6 +8117,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8745,10 +8155,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 150,
@@ -8763,6 +8170,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8800,10 +8208,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 151,
@@ -8818,6 +8223,7 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8855,10 +8261,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 152,
@@ -8873,6 +8276,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8910,10 +8314,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 153,
@@ -8928,6 +8329,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -8965,10 +8367,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 154,
@@ -8983,6 +8382,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9020,10 +8420,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 155,
@@ -9038,6 +8435,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9075,10 +8473,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 156,
@@ -9093,6 +8488,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9130,10 +8526,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 157,
@@ -9148,6 +8541,7 @@
       "Container": false,
       "CostperLevel": 3,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9185,10 +8579,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 158,
@@ -9203,6 +8594,7 @@
       "Container": false,
       "CostperLevel": 2,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9240,10 +8632,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 159,
@@ -9258,6 +8647,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9295,10 +8685,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 312,
@@ -9313,15 +8700,13 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 160,
@@ -9336,6 +8721,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9373,10 +8759,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 161,
@@ -9391,6 +8774,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9428,10 +8812,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 162,
@@ -9446,6 +8827,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9483,10 +8865,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 163,
@@ -9501,6 +8880,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9538,10 +8918,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     },
     {
       "ID": 164,
@@ -9556,6 +8933,7 @@
       "Container": false,
       "CostperLevel": 1,
       "RequiresVariant": false,
+      "SpecialPointsPerLevel": 0,
       "SpecialContainer": false,
       "EnforceMaxLevel": false,
       "Description": "",
@@ -9593,10 +8971,7 @@
       ],
       "ChildrenList": "",
       "HasLevel": true,
-      "MultiGenre": true,
-      "PointsContainer": false,
-      "Companion": false,
-      "HasFreebie": false
+      "MultiGenre": true
     }
   ],
   "TypeList": [

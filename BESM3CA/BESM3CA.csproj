@@ -30,4 +30,8 @@
     <ProjectReference Include="..\BESM3CAData\BESM3CAData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
 </Project>

@@ -17,10 +17,10 @@ namespace BESM3CAData.Listings
         public List<DataListing> Children { get; private set; }
 
         //  To check if still needed:        
-        /*private string Stat { get; set; }
+        private string Stat { get; set; }
         private string Page { get; set; }
         private bool Human { get; set; }
-        */
+        
                             
 
         //Constructor:
@@ -52,9 +52,9 @@ namespace BESM3CAData.Listings
             {
                 ID = this.ID,
                 Name = this.Name,
-                /*Stat = this.Stat,
+                Stat = this.Stat,
                 Page = this.Page,
-                Human = this.Human,*/
+                Human = this.Human,
                 Type = this.Type,
                 Description = this.Description,
                 PointsContainer = false,
@@ -77,9 +77,9 @@ namespace BESM3CAData.Listings
         {
             ID = data.ID;
             Name = data.Name;
-            /*Stat = data.Stat;
+            Stat = data.Stat;
             Page = data.Page;
-            Human = data.Human;*/
+            Human = data.Human;
             Type = data.Type;
             Description = data.Description;
 

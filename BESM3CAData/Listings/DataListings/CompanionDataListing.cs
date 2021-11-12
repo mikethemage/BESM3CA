@@ -13,8 +13,8 @@ namespace BESM3CAData.Listings
         public CompanionDataListing(DataListingSerialized data) : base(data)
         {
             
-            SubAttributeLevel = data.SubAttributeLevel;
-            SubAttributePointsAdj = data.SubAttributePointsAdj;
+            SubAttributeLevel = data.SubAttributeLevel ?? 0;
+            SubAttributePointsAdj = data.SubAttributePointsAdj ?? 0;
         }
 
         public override DataListingSerialized Serialize()
