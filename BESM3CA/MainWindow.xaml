@@ -8,8 +8,12 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="BESM3CA" Height="600" Width="1060" MinHeight="570" MinWidth="540" Loaded="Window_Loaded">
-        
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+    <Grid Grid.Column="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" MinHeight="250"/>
@@ -182,5 +186,6 @@
         </Grid>
 
     </Grid>
-
+        <TreeView x:Name="TestTreeView" Grid.Column="1" Margin="10,10,10,10" HorizontalAlignment="Stretch"/>
+    </Grid>
 </Window>

@@ -70,6 +70,8 @@ namespace BESM3CA
             //link to root:
             AddNodeDataToTree(CurrentController.RootCharacter, CharacterTreeView.Items).IsSelected = true;
 
+            TestTreeView.ItemsSource = CurrentController.Root;
+
             //Refresh right hand boxes:
             RefreshFilter();
             RefreshList();
