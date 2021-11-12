@@ -186,6 +186,19 @@
         </Grid>
 
     </Grid>
-        <TreeView x:Name="TestTreeView" Grid.Column="1" Margin="10,10,10,10" HorizontalAlignment="Stretch"/>
+        <TreeView x:Name="TestTreeView" Grid.Column="1" Margin="10,10,10,10" HorizontalAlignment="Stretch" >
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="x:Type BaseNode" ItemsSource="{Binding Path=Children}">
+                    <TextBlock Text="{Binding Path=DisplayText}"  />
+                </HierarchicalDataTemplate>                
+            </TreeView.ItemTemplate>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    
+                    <Setter Property="IsExpanded" Value="True" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+
+        </TreeView>
     </Grid>
 </Window>

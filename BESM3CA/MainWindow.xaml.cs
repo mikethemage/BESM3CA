@@ -20,7 +20,7 @@ namespace BESM3CA
         private const string ApplicationName = "BESM3CA";
 
         //Data:
-        private DataController CurrentController;
+        public DataController CurrentController;
 
 
         //Constructor:
@@ -188,6 +188,7 @@ namespace BESM3CA
                 BaseNode FirstNewNodeData = ((BaseNode)SelectedTreeNode.Tag).AddChildAttribute((DataListing)AttributeListBox.SelectedItem);
                 NewUpdateTreeFromNodes(SelectedTreeNode, FirstNewNodeData);
                 RefreshTree(CharacterTreeView.Items);
+               
                 RefreshTextBoxes();
                 ((TreeViewItem)SelectedTreeNode.Items[^1]).BringIntoView();
             }
