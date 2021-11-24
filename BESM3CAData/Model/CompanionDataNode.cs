@@ -1,71 +1,124 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
+using System.ComponentModel;
 
 namespace BESM3CAData.Model
 {
     public class CompanionDataNode : LevelableDataNode
     {
         //Constructor:
-        public CompanionDataNode(CompanionDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public CompanionDataNode(CompanionDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
             AddChild(attribute.SubAttribute.CreateNode("", AssociatedController, attribute.SubAttributeLevel, attribute.SubAttributePointsAdj));
+            RefreshChildPoints();
         }
 
-        public CompanionDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public CompanionDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
             //Default constructor for data loading only
         }
 
 
-        //Methods:
-        public override int GetPoints()
+        private int _childPoints;
+        public virtual int ChildPoints
         {
-            if (PointsUpToDate == false || FirstChild == null)
+            get
             {
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
-
-                BaseNode temp = FirstChild;
-                while (temp != null)
+                return _childPoints;
+            }
+            set
+            {
+                int originalChildPoints = _childPoints;
+                _childPoints = value;
+                if (originalChildPoints != _childPoints)
                 {
-                    if (temp is DataNode tempAttribute)
+                    OnPropertyChanged(nameof(ChildPoints));
+                    RefreshBaseCost();
+                }
+            }
+        }
+        private void RefreshChildPoints()
+        {
+            int tempChildPoints = 0;
+
+            BaseNode temp = FirstChild;
+            while (temp != null)
+            {
+                if (temp is DataNode tempAttribute)
+                {
+                    if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
                     {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
+
                     }
                     else
                     {
-                        ChildPoints += temp.GetPoints();
+                        tempChildPoints += temp.Points;
                     }
-
-                    temp = temp.Next;
-                }
-
-                //Points should equal BaseCost +- any restrictions or variables
-                _points = BaseCost;
-                _points += VariablesOrRestrictions;
-
-                //Points calc for companions:
-                if (ChildPoints > 120)
-                {
-                    _points += (2 + ((ChildPoints - 120) / 10)) * Level;
                 }
                 else
                 {
-                    _points += 2 * Level;
+                    tempChildPoints += temp.Points;
                 }
 
-
-                PointsUpToDate = true;
+                temp = temp.Next;
             }
+            ChildPoints = tempChildPoints;
+        }
 
-            return _points;
+        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is BaseNode baseNode)
+            {
+                if (e.PropertyName == nameof(BaseNode.Points))
+                {
+                    RefreshVariablesOrRestrictions();
+                    RefreshChildPoints();
+                }
+            }
+        }
+
+
+        //Methods:
+        protected override void RefreshPoints()
+        {
+            //Points should equal BaseCost +- any restrictions or variables
+            int tempPoints = BaseCost;
+            tempPoints += VariablesOrRestrictions;
+         
+            Points = tempPoints;
+        }
+
+        protected override void RefreshBaseCost()
+        {
+            //Points calc for companions:
+            if (ChildPoints > 120)
+            {
+                BaseCost = (2 + ((ChildPoints - 120) / 10)) * Level;
+            }
+            else
+            {
+                BaseCost = 2 * Level;
+            }
+        }
+
+        private int _baseCost;
+        public override int BaseCost
+        {
+            get
+            {
+                return _baseCost;
+            }
+            protected set
+            {
+                int originalCost = _baseCost;
+                _baseCost = value;
+                if (originalCost != _baseCost)
+                {
+                    //Cost has changed
+                    OnPropertyChanged(nameof(BaseCost));
+                    RefreshPoints();
+                }
+            }
         }
     }
 }

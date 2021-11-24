@@ -65,7 +65,7 @@ namespace BESM3CAData.Model
                     }
 
                 }
-                PointsUpToDate = false;
+               
 
             }
         }
@@ -90,18 +90,18 @@ namespace BESM3CAData.Model
                     Variant = variantDataListing.Variants.First(n => n.ID == value);
                 }
 
-                PointsUpToDate = false;
+                
             }
         }
 
 
         //Constructors:
-        public LevelableWithVariantDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public LevelableWithVariantDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
             //Default constructor for data loading only
         }
 
-        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
@@ -123,60 +123,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public override int GetPoints()
-        {
-            if (PointsUpToDate == false || FirstChild == null)
-            {
-                bool isAlternateAttack = false;
-
-                if (VariantID > 0)
-                {
-                    if (_variantListing.Name == "Alternate Attack")
-                    {
-                        isAlternateAttack = true;
-                    }
-                }
-
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
-
-                BaseNode temp = FirstChild;
-                while (temp != null)
-                {
-                    if (temp is DataNode tempAttribute)
-                    {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
-                    }
-                    else
-                    {
-                        ChildPoints += temp.GetPoints();
-                    }
-
-                    temp = temp.Next;
-                }
-
-                //Points should equal BaseCost +- any restrictions or variables
-                _points = BaseCost;
-                _points += VariablesOrRestrictions;
-
-                //if alternate weapon attack half points:
-                if (isAlternateAttack)
-                {
-                    _points /= 2;
-                }
-
-                PointsUpToDate = true;
-            }
-
-            return _points;
-        }
+        
 
 
         //XML:

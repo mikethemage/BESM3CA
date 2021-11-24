@@ -62,19 +62,19 @@ namespace BESM3CAData.Model
                     }
 
                 }
-                PointsUpToDate = false;
+                
 
             }
         }
 
 
         //Constructors:
-        public SpecialContainerWithVariantDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public SpecialContainerWithVariantDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
 
         }
 
-        public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
 
         }

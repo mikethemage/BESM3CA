@@ -5,24 +5,142 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
+using System.ComponentModel;
+using System;
+using System.Collections.Specialized;
+
 
 namespace BESM3CAData.Model
 {
-    public abstract class BaseNode
+    public abstract class BaseNode : INotifyPropertyChanged
     {
+
+        //Need view model for selected attribute for adding????
+        public void AddSelectedChild()
+        {
+
+        }
+
+        public bool CanAddSelectedChild()
+        {
+            return false;
+        }
+
+        private void CreateAddCommand()
+        {
+            AddCommand = new RelayCommand(AddSelectedChild, CanAddSelectedChild);
+        }
+
+        public RelayCommand AddCommand
+        {
+            get; private set;
+        }
+        //****
+
+
+        public virtual void RefreshAll()
+        {
+            foreach (BaseNode item in Children)
+            {
+                item.RefreshAll();
+            }
+            RefreshPoints();
+            RefreshDisplayText();
+        }
+
+        private int _baseCost;
+        public virtual int BaseCost
+        {
+            get
+            {
+                return _baseCost;
+            }
+            protected set
+            {
+                int originalCost = _baseCost;
+                _baseCost = value;
+                if (originalCost != _baseCost)
+                {
+                    //Cost has changed
+                    OnPropertyChanged(nameof(BaseCost));
+                    RefreshPoints();
+                }
+            }
+        }
+
+        private int _points;
+        public int Points
+        {
+            get
+            {
+                return _points;
+            }
+            protected set
+            {
+                int originalPoints = _points;
+
+                _points = value;
+                if (originalPoints != _points)
+                {
+                    OnPropertyChanged(nameof(Points));
+                    RefreshDisplayText();
+                }
+            }
+        }
+        protected abstract void RefreshPoints();
+
+        private string _displayText;
+        public string DisplayText
+        {
+            get
+            {
+                return _displayText;
+            }
+            protected set
+            {
+                string originalDisplayText = _displayText;
+                _displayText = value;
+                if (originalDisplayText != _displayText)
+                {
+                    OnPropertyChanged(nameof(DisplayText));
+                }
+            }
+        }
+
+        protected virtual void RefreshDisplayText()
+        {
+            DisplayText = $"{Name} ({Points} Points)";
+        }
+
+
         //Fields:
         private int _lastChildOrder;
-        protected int _points;
-        private bool _pointsUpToDate;
-        
-
-        public DataListing AssociatedListing { get; private set; }
 
 
         //Properties:
-        public DataController AssociatedController { get; private set; }
+        public RPGEntity AssociatedController { get; private set; }
+        public DataListing AssociatedListing { get; private set; }
+
         public int ID { get; private set; }
-        public string Name { get; set; }
+
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                    RefreshDisplayText();
+                }
+            }
+        }
+
         public string Notes { get; set; }
 
 
@@ -35,12 +153,30 @@ namespace BESM3CAData.Model
 
         public ObservableCollection<BaseNode> Children { get; private set; } = new ObservableCollection<BaseNode>();
 
+        private bool _isSelected;
 
-        public virtual string DisplayText
+        public bool IsSelected
         {
             get
             {
-                return $"{Name} ({GetPoints()} Points)";
+                return _isSelected;
+            }
+            set
+            {
+
+                _isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
             }
         }
 
@@ -59,29 +195,16 @@ namespace BESM3CAData.Model
             }
         }
 
-        public bool PointsUpToDate
-        {
-            get
-            {
-                return _pointsUpToDate;
-            }
-            protected set
-            {
-                _pointsUpToDate = value;
-                if (value == false && Parent != null)
-                {
-                    Parent.PointsUpToDate = false;
-                }
-            }
-        }
-
         public bool Useable { get; private set; }
 
         //Constructors:
-        public BaseNode(DataController controller,string notes = "")
+        public BaseNode(RPGEntity controller, string notes = "")
         {
             //Default constructor for data loading only
             AssociatedController = controller;
+
+            PropertyChanged += AssociatedController.ChildPropertyChanged;
+
             //Need to set attribute seperately in order to use this!
             Useable = false;
             Notes = notes;
@@ -91,15 +214,63 @@ namespace BESM3CAData.Model
             _lastChildOrder = 0;
             Next = null;
             Prev = null;
-            _pointsUpToDate = false;
+
+            Children.CollectionChanged += Children_CollectionChanged;
+
+            CreateMoveUpCommand();
+            CreateMoveDownCommand();
+            CreateDeleteCommand();
+            CreateAddCommand();
+        }
+        public RelayCommand DeleteCommand
+        {
+            get; private set;
+        }
+        public RelayCommand MoveUpCommand
+        {
+            get; private set;
+        }
+        public RelayCommand MoveDownCommand
+        {
+            get; private set;
+        }
+        private void CreateMoveUpCommand()
+        {
+            MoveUpCommand = new RelayCommand(MoveUp, CanMoveUp);
+        }
+
+        private void CreateMoveDownCommand()
+        {
+            MoveDownCommand = new RelayCommand(MoveDown, CanMoveDown);
+        }
+
+        public bool CanMoveUp()
+        {
+            return Prev != null;
+        }
+
+        public bool CanMoveDown()
+        {
+            return Next != null;
+        }
+
+        protected virtual void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            RefreshPoints();
+        }
+
+        public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Event handler for changes to children
         }
 
 
-        public BaseNode(DataListing attribute, DataController controller, string notes="")
+        public BaseNode(DataListing attribute, RPGEntity controller, string notes = "")
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
             AssociatedController = controller;
+            PropertyChanged += AssociatedController.ChildPropertyChanged;
             AssociatedListing = attribute;
             Name = attribute.Name;
             ID = attribute.ID;
@@ -111,13 +282,15 @@ namespace BESM3CAData.Model
             _lastChildOrder = 0;
             Next = null;
             Prev = null;
-            _pointsUpToDate = false;
+            Children.CollectionChanged += Children_CollectionChanged;
+            CreateMoveUpCommand();
+            CreateMoveDownCommand();
+            CreateDeleteCommand();
+            CreateAddCommand();
         }
 
 
         //Methods:
-        public abstract int GetPoints();
-
         public List<string> GetTypesForFilter()
         {
             //LINQ Version:
@@ -153,6 +326,40 @@ namespace BESM3CAData.Model
             }
         }
 
+        private List<DataListing> _filteredPotentialChildren;
+        public List<DataListing> FilteredPotentialChildren
+        {
+            get { return _filteredPotentialChildren; }
+            set
+            {
+                _filteredPotentialChildren = value;
+                OnPropertyChanged(nameof(FilteredPotentialChildren));
+            }
+        }
+
+        public void RefreshFilteredPotentialChildren(string filter)
+        {
+            List<DataListing> selectedAttributeChildren = PotentialChildren;
+            if (selectedAttributeChildren != null)
+            {
+                //LINQ Version:
+                List<DataListing> filteredAttList = selectedAttributeChildren
+                    .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
+                    .OrderBy(a => a.Type)
+                    .ThenBy(a => a.Name)
+                    .ToList();
+
+                
+
+
+                FilteredPotentialChildren = filteredAttList;
+            }
+            else
+            {
+                FilteredPotentialChildren = null;
+            }
+        }
+
         public void AddChild(BaseNode child)
         {
             if (FirstChild == null)
@@ -174,33 +381,52 @@ namespace BESM3CAData.Model
             _lastChildOrder++;
             child.NodeOrder = _lastChildOrder;
             Children.Add(child);
-            _pointsUpToDate = false;
+            child.PropertyChanged += this.ChildPropertyChanged;
         }
 
         public void Delete()
         {
-            if (Parent != null)
+            if (Parent != null) //Do not delete root node!
             {
-                if (Parent.FirstChild == this)
+                if (Parent.FirstChild == this) //if we are the first child, advance to next (or copy null value)
                 {
                     Parent.FirstChild = Next;
                 }
-                if (Next != null)
+                if (Prev != null) //we have at least one previous entry, so not the first child 
                 {
-                    Next.Prev = null;
+                    Prev.Next = Next;
+                    Prev.IsSelected = true;
                 }
-                if (Prev != null)
+                if (Next != null) //we are not the last child
                 {
-                    Prev.Next = null;
+                    Next.Prev = Prev;
+                    if (Prev == null)
+                    {
+                        Next.IsSelected = true;
+                    }
+                }
+                if (Prev == null && Next == null)
+                {
+                    Parent.IsSelected = true;
                 }
 
                 Parent.Children.Remove(this);
-
-                Parent.PointsUpToDate = false;
-
+                PropertyChanged -= AssociatedController.ChildPropertyChanged;
+                PropertyChanged -= Parent.ChildPropertyChanged;
                 Parent = null;
             }
         }
+
+        public virtual bool CanDelete()
+        {
+            return Parent != null;
+        }
+
+        private void CreateDeleteCommand()
+        {
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
+        }
+
 
         public void MoveUp()
         {
@@ -229,6 +455,10 @@ namespace BESM3CAData.Model
                 int tempNodeOrder = NodeOrder;
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
+
+                Parent.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) - 1);
+                MoveUpCommand.RaiseCanExecuteChanged();
+                MoveDownCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -259,6 +489,9 @@ namespace BESM3CAData.Model
                 int tempNodeOrder = NodeOrder;
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
+                Parent.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) + 1);
+                MoveUpCommand.RaiseCanExecuteChanged();
+                MoveDownCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -342,7 +575,7 @@ namespace BESM3CAData.Model
                     {
                         LoadAdditionalXML(reader);
                     }
-                    
+
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {
@@ -353,7 +586,6 @@ namespace BESM3CAData.Model
                 }
             }
         }
-
         public abstract void LoadAdditionalXML(XmlTextReader reader);
     }
 }

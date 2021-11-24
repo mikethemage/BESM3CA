@@ -6,12 +6,12 @@ namespace BESM3CAData.Model
     public class MultiGenreDataNode : LevelableDataNode
     {
         //Constructors:
-        public MultiGenreDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public MultiGenreDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
 
         }
 
-        public MultiGenreDataNode(MultiGenreDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public MultiGenreDataNode(MultiGenreDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
 
         }
@@ -22,7 +22,7 @@ namespace BESM3CAData.Model
         {
             if (AssociatedListing is MultiGenreDataListing skillDataListing && skillDataListing.GenrePoints != null)
             {
-                PointsUpToDate = false;
+                
                 UpdatePointsPerLevel();
             }
 

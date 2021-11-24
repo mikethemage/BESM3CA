@@ -1,24 +1,152 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using org.mariuszgromada.math.mxparser;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Input;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
     public class LevelableDataNode : DataNode, IPointsDataNode
     {
+
+        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is BaseNode baseNode)
+            {
+                if (e.PropertyName == nameof(BaseNode.Points))
+                {
+                    RefreshVariablesOrRestrictions();
+                }
+            }
+        }
+
+        public override void RefreshAll()
+        {
+            foreach (BaseNode item in Children)
+            {
+                item.RefreshAll();
+            }
+            RefreshBaseCost();
+            RefreshPoints();
+            RefreshDisplayText();
+        }
+
         //Properties:
-        public int Level { get; protected set; }
-        public int PointsPerLevel { get; set; }
-        public int PointAdj { get; protected set; }
-        public virtual int BaseCost
+        protected int _level;
+        public virtual int Level
         {
             get
             {
-                return (PointsPerLevel * Level) + PointAdj;
+                return _level;
+            }
+            protected set
+            {
+                int originalLevel = _level;
+                _level = value;
+                if (originalLevel != _level)
+                {
+                    OnPropertyChanged(nameof(Level));
+                    RefreshBaseCost();
+                    RefreshDescription();
+                }
             }
         }
+
+        protected virtual void RefreshBaseCost()
+        {
+            BaseCost = (PointsPerLevel * Level) + PointAdj;
+        }
+
+        protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            RefreshVariablesOrRestrictions();
+        }
+
+        private int _variablesOrRestrictions;
+        public virtual int VariablesOrRestrictions
+        {
+            get
+            {
+                return _variablesOrRestrictions;
+            }
+            set
+            {
+                int originalVariablesOrRestrictions = _variablesOrRestrictions;
+                _variablesOrRestrictions = value;
+                if (originalVariablesOrRestrictions != _variablesOrRestrictions)
+                {
+                    OnPropertyChanged(nameof(VariablesOrRestrictions));
+                    RefreshPoints();
+                }
+            }
+        }
+
+        public override bool CanDelete()
+        {
+            return Parent != null && PointAdj >= 0;  //Do not delete "Freebies"
+        }
+
+        protected void RefreshVariablesOrRestrictions()
+        {
+            int tempVariablesOrRestrictions = 0;
+            BaseNode temp = FirstChild;
+            while (temp != null)
+            {
+                if (temp is DataNode tempAttribute)
+                {
+                    if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
+                    {
+                        tempVariablesOrRestrictions += temp.Points;
+                    }
+                }
+                temp = temp.Next;
+            }
+            VariablesOrRestrictions = tempVariablesOrRestrictions;
+        }
+
+
+        protected override void RefreshPoints()
+        {
+            int tempPoints = BaseCost;
+            tempPoints += VariablesOrRestrictions;
+            Points = tempPoints;
+        }
+
+
+
+
+
+
+
+        private int _pointsPerLevel;
+        public int PointsPerLevel
+        {
+            get
+            {
+                return _pointsPerLevel;
+            }
+            set
+            {
+                if (value != _pointsPerLevel)
+                {
+                    _pointsPerLevel = value;
+                    OnPropertyChanged(nameof(PointsPerLevel));
+                    RefreshBaseCost();
+                }
+
+            }
+        }
+
+
+        public int PointAdj { get; protected set; }
+
+
+
+
+
         protected override string BaseDescription
         {
             get
@@ -39,15 +167,19 @@ namespace BESM3CAData.Model
 
 
         //Constructors:
-        public LevelableDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public LevelableDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
             //Default constructor for data loading only
+            CreateRaiseLevelCommand();
+            CreateLowerLevelCommand();
         }
 
-        public LevelableDataNode(LevelableDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller)
+        public LevelableDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
+            PointAdj = pointAdj;
 
+            UpdatePointsPerLevel();
             if (attribute.Name == "Weapon")
             {
                 Level = 0;
@@ -56,52 +188,14 @@ namespace BESM3CAData.Model
             {
                 Level = level;
             }
+            CreateRaiseLevelCommand();
+            CreateLowerLevelCommand();
 
-            PointAdj = pointAdj;
-
-            UpdatePointsPerLevel();
         }
 
 
         //Methods:
-        public override int GetPoints()
-        {
-            if (PointsUpToDate == false || FirstChild == null)
-            {           
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
 
-                BaseNode temp = FirstChild;
-                while (temp != null)
-                {
-                    if (temp is DataNode tempAttribute)
-                    {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
-                    }
-                    else
-                    {
-                        ChildPoints += temp.GetPoints();
-                    }
-
-                    temp = temp.Next;
-                }
-
-                //Points should equal BaseCost +- any restrictions or variables
-                _points = BaseCost;
-                _points += VariablesOrRestrictions;   
-
-                PointsUpToDate = true;
-            }
-
-            return _points;
-        }
 
         public override CalcStats GetStats()
         {
@@ -230,45 +324,11 @@ namespace BESM3CAData.Model
             }
         }
 
-        public bool RaiseLevel()
+        public bool CanRaiseLevel()
         {
-            if (AssociatedListing is LevelableDataListing levelableDataListing)
+            if (AssociatedListing is LevelableDataListing levelableDataListing &&
+                (levelableDataListing.EnforceMaxLevel == false || (levelableDataListing.MaxLevel != int.MaxValue && levelableDataListing.MaxLevel > Level)))
             {
-                if (levelableDataListing.EnforceMaxLevel == false || (levelableDataListing.MaxLevel != int.MaxValue && levelableDataListing.MaxLevel > Level))
-                {
-                    Level++;
-                    PointsUpToDate = false;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool LowerLevel()
-        {
-            if (Level > 1 || (Level > 0 && AssociatedListing.Name == "Weapon"))
-            {
-                if (PointAdj < 0)
-                {
-                    if ((Level * PointsPerLevel) + PointAdj > 0)
-                    {
-                        Level--;
-                        PointsUpToDate = false;
-                    }
-                }
-                else
-                {
-                    Level--;
-                    PointsUpToDate = false;
-                }
-
                 return true;
             }
             else
@@ -277,6 +337,74 @@ namespace BESM3CAData.Model
             }
         }
 
+        public void RaiseLevel()
+        {
+            bool canRaiseLevel = CanRaiseLevel();
+            if (canRaiseLevel)
+            {
+                Level++;
+                RaiseLevelCommand.RaiseCanExecuteChanged();
+                LowerLevelCommand.RaiseCanExecuteChanged();
+            }
+            //return canRaiseLevel;
+        }
+
+        public RelayCommand RaiseLevelCommand
+        {
+            get; private set;
+        }
+        private void CreateRaiseLevelCommand()
+        {
+            RaiseLevelCommand = new RelayCommand(RaiseLevel, CanRaiseLevel);
+        }
+
+
+        public bool CanLowerLevel()
+        {
+            if (Level > 1 || (Level > 0 && AssociatedListing.Name == "Weapon"))
+            {
+                if (PointAdj < 0)
+                {
+                    if ((Level * PointsPerLevel) + PointAdj > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void LowerLevel()
+        {
+            bool canRaiseLevel = CanLowerLevel();
+            if (canRaiseLevel)
+            {
+                Level--;
+                LowerLevelCommand.RaiseCanExecuteChanged();
+                RaiseLevelCommand.RaiseCanExecuteChanged();
+            }            
+        }
+
+        private void CreateLowerLevelCommand()
+        {
+            LowerLevelCommand = new RelayCommand(LowerLevel, CanLowerLevel);
+        }
+
+        public RelayCommand LowerLevelCommand
+        {
+            get; private set;
+        }
 
         //XML:
         public override void SaveAdditionalXML(XmlTextWriter textWriter)

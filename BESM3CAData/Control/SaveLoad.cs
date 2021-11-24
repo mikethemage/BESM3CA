@@ -89,7 +89,7 @@ namespace BESM3CAData.Control
                             if (reader.NodeType == XmlNodeType.Text)
                             {
                                 //Read genre name
-                                controller.SelectedGenreIndex = controller.SelectedListingData.Genres.IndexOf(reader.Value);
+                                controller.CurrentEntity.SelectedGenreIndex = controller.SelectedListingData.Genres.IndexOf(reader.Value);
                             }
                         }
                     }
@@ -103,7 +103,7 @@ namespace BESM3CAData.Control
                         {
                             if (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode"))
                             {
-                                newNode = new CharacterNode(controller);
+                                newNode = new CharacterNode(controller.CurrentEntity);
                                 newNode.LoadXML(reader);
                                 if (rootNode == null)
                                 {
@@ -123,28 +123,28 @@ namespace BESM3CAData.Control
                                 switch (reader.Name)
                                 {
                                     case "LevelableDataNode":
-                                        newNode = new LevelableDataNode(controller);
+                                        newNode = new LevelableDataNode(controller.CurrentEntity);
                                         break;
                                     case "LevelableWithVariantDataNode":
-                                        newNode = new LevelableWithVariantDataNode(controller);
+                                        newNode = new LevelableWithVariantDataNode(controller.CurrentEntity);
                                         break;
                                     case "MultiGenreDataNode":
-                                        newNode = new MultiGenreDataNode(controller);
+                                        newNode = new MultiGenreDataNode(controller.CurrentEntity);
                                         break;
                                     case "PointsContainerDataNode":
-                                        newNode = new PointsContainerDataNode(controller);
+                                        newNode = new PointsContainerDataNode(controller.CurrentEntity);
                                         break;
                                     case "SpecialContainerDataNode":
-                                        newNode = new SpecialContainerDataNode(controller);
+                                        newNode = new SpecialContainerDataNode(controller.CurrentEntity);
                                         break;
                                     case "SpecialContainerWithVariantDataNode":
-                                        newNode = new SpecialContainerWithVariantDataNode(controller);
+                                        newNode = new SpecialContainerWithVariantDataNode(controller.CurrentEntity);
                                         break;
                                     case "CompanionDataNode":
-                                        newNode = new CompanionDataNode(controller);
+                                        newNode = new CompanionDataNode(controller.CurrentEntity);
                                         break;
                                     case "LevelableWithFreebieWithVariantDataNode":
-                                        newNode = new LevelableWithFreebieWithVariantDataNode(controller);
+                                        newNode = new LevelableWithFreebieWithVariantDataNode(controller.CurrentEntity);
                                         break;
                                     default:
                                         throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");
@@ -160,19 +160,7 @@ namespace BESM3CAData.Control
 
                                     parentNode = newNode;
                                 }
-                            }
-                            else if (reader.Name.EndsWith("AttributeData") || reader.Name.EndsWith("AttributeNode"))
-                            {
-                                //Debug.Assert(false, "Invalid/old save file!");
-                                /*newNode = new DataNode(controller);
-                                newNode.LoadXML(reader);
-                                if (parentNode != null)
-                                {
-                                    parentNode.AddChild(newNode);
-                                }
-
-                                parentNode = newNode;*/
-                            }
+                            }                            
                             else
                             {
                                 //Do nothing
@@ -218,7 +206,7 @@ namespace BESM3CAData.Control
             return rootNode;
         }
 
-        public static void SerializeXML(BaseNode rootNode, string fileName, DataController controller)
+        public static void SerializeXML(BaseNode rootNode, string fileName, RPGEntity controller)
         {
             XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.UTF8);
 

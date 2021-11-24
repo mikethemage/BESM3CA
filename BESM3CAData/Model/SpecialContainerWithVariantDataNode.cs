@@ -1,12 +1,39 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BESM3CAData.Model
 {
     public class SpecialContainerWithVariantDataNode : LevelableWithVariantDataNode, IVariantDataNode, ISpecialContainerDataNode
     {
+
+        protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            RefreshVariablesOrRestrictions();
+            RefreshChildPoints();
+        }
+        public override int Level
+        {
+            get
+            {
+                return _level;
+            }
+            protected set
+            {
+                int originalLevel = _level;
+                _level = value;
+                if (originalLevel != _level)
+                {
+                    OnPropertyChanged(nameof(Level));
+                    RefreshBaseCost();
+                    RefreshSpecialPoints();
+                }
+            }
+        }
+
         //Fields:        
         private int _specialPointsUsed = 0;
 
@@ -33,17 +60,55 @@ namespace BESM3CAData.Model
             }
         }
 
+        protected override void RefreshDisplayText()
+        {
+            DisplayText = $"{Name} ({SpecialPoints} Left) ({Points} Points)";
+        }
+
+
+        private int _specialPoints;
+        public int SpecialPoints
+        {
+            get
+            {
+                return _specialPoints;
+            }
+            set
+            {
+                if(value!=_specialPoints)
+                {
+                    _specialPoints = value;
+                    OnPropertyChanged(nameof(SpecialPoints));
+                    RefreshDisplayText();
+                }
+                
+            }
+        }
+        public void RefreshSpecialPoints()
+        {
+
+            int tempSpecialPoints = 0;
+
+            if (AssociatedListing is ISpecialContainerDataListing attributeListing)
+            {
+                _specialPointsUsed = ChildPoints;
+
+                tempSpecialPoints = Level * attributeListing.SpecialPointsPerLevel;
+
+                tempSpecialPoints -= _specialPointsUsed;
+
+            }
+
+            SpecialPoints = tempSpecialPoints;
+        }
+
         public int GetSpecialPoints()
         {
             int specialpoints = 0;
 
             if (AssociatedListing is ISpecialContainerDataListing attributeListing)
             {
-
-                if (PointsUpToDate == false)
-                {
-                    GetPoints();
-                }
+                _specialPointsUsed = ChildPoints;
 
                 specialpoints = Level * attributeListing.SpecialPointsPerLevel;
 
@@ -54,107 +119,92 @@ namespace BESM3CAData.Model
             return specialpoints;
         }
 
-        public override int GetPoints()
+        protected override void RefreshPoints()
         {
-            if (PointsUpToDate == false || FirstChild == null)
-            {
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
+            //Points should equal BaseCost +- any restrictions or variables
+            int tempPoints = BaseCost;
+            tempPoints += VariablesOrRestrictions;
 
-                BaseNode temp = FirstChild;
-                while (temp != null)
-                {
-                    if (temp is DataNode tempAttribute)
-                    {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
-                    }
-                    else
-                    {
-                        ChildPoints += temp.GetPoints();
-                    }
+            //Update special points used counter while recalculating points:
+            _specialPointsUsed = ChildPoints;
 
-                    temp = temp.Next;
-                }
-
-                //Points should equal BaseCost +- any restrictions or variables
-                _points = BaseCost;
-                _points += VariablesOrRestrictions;
-
-                //Update special points used counter while recalculating points:
-                _specialPointsUsed = ChildPoints;
-
-                PointsUpToDate = true;
-            }
-
-            return _points;
+            Points = tempPoints;
         }
 
-        /*public VariantListing Variant
+        private int _childPoints;
+        public virtual int ChildPoints
         {
             get
             {
-                return _variantListing;
+                return _childPoints;
             }
             set
             {
-                if (value != null)
+                int originalChildPoints = _childPoints;
+                _childPoints = value;
+                if (originalChildPoints != _childPoints)
                 {
-                    _variantListing = value;
-                    Name = _variantListing.FullName;
-                    PointsPerLevel = _variantListing.CostperLevel;
+                    OnPropertyChanged(nameof(ChildPoints));
+                    RefreshPoints();
+                    RefreshSpecialPoints();
                 }
-                else
-                {
-                    _variantListing = null;
-                    Name = _dataListing.Name;
+            }
+        }
 
-                    if (_dataListing is LevelableDataListing levelableDataListing)
+        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is BaseNode baseNode)
+            {
+                if (e.PropertyName == nameof(BaseNode.Points))
+                {
+                    RefreshVariablesOrRestrictions();
+                    RefreshChildPoints();
+                }
+            }
+        }
+
+        private void RefreshChildPoints()
+        {
+            int tempChildPoints = 0;
+
+            BaseNode temp = FirstChild;
+            while (temp != null)
+            {
+                if (temp is DataNode tempAttribute)
+                {
+                    if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
                     {
-                        PointsPerLevel = levelableDataListing.CostperLevel;
+
                     }
                     else
                     {
-                        PointsPerLevel = 0;
+                        tempChildPoints += temp.Points;
                     }
-
                 }
-                PointsUpToDate = false;
+                else
+                {
+                    tempChildPoints += temp.Points;
+                }
 
+                temp = temp.Next;
             }
-        }*/
+            ChildPoints = tempChildPoints;
+        }
 
 
         //Constructors:
-        public SpecialContainerWithVariantDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public SpecialContainerWithVariantDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
 
         }
 
-        public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, DataController controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
         {
 
         }
 
 
-        //Methods:
-        /*public List<VariantListing> GetVariants()
-        {
-            if (_dataListing is IVariantDataListing variantDataListing)
-            {
-                //LINQ Version:
-                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
-            }
-            else
-            {
-                return null;
-            }
-        }*/
+
+
     }
 }

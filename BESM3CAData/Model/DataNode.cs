@@ -9,27 +9,7 @@ namespace BESM3CAData.Model
     public abstract class DataNode : BaseNode
     {
         //Properties:
-        public override string DisplayText
-        {
-            get
-            {
-                if (AssociatedListing != null)
-                {
-                    if (AttributeType == "Special")
-                    {
-                        return Name;
-                    }
-                    else
-                    {
-                        return $"{Name} ({GetPoints()} Points)";
-                    }
-                }
-                else
-                {
-                    return "";
-                }
-            }
-        }
+
 
         protected virtual string BaseDescription
         {
@@ -40,42 +20,59 @@ namespace BESM3CAData.Model
             }
         }
 
-        public string AttributeDescription
+
+        public void RefreshDescription()
         {
-            get
+            //Need to process attribute description to calculate numeric components
+            string description = BaseDescription;
+
+            string completedDescription = "";
+
+            while (description != null)
             {
-                //Need to process attribute description to calculate numeric components
-                string description = BaseDescription;
-
-                string completedDescription = "";
-
-                while (description != null)
+                string[] pieces = description.Split('[', 2);
+                completedDescription += pieces[0];
+                if (pieces.Length > 1)
                 {
-                    string[] pieces = description.Split('[', 2);
-                    completedDescription += pieces[0];
+                    description = pieces[1];
+                    pieces = description.Split(']', 2);
+
+                    completedDescription += ProcessDescriptionValue(pieces[0]);
+
                     if (pieces.Length > 1)
                     {
                         description = pieces[1];
-                        pieces = description.Split(']', 2);
-
-                        completedDescription += ProcessDescriptionValue(pieces[0]);
-
-                        if (pieces.Length > 1)
-                        {
-                            description = pieces[1];
-                        }
-                        else
-                        {
-                            description = null;
-                        }
                     }
                     else
                     {
                         description = null;
                     }
                 }
+                else
+                {
+                    description = null;
+                }
+            }
 
-                return completedDescription;
+            AttributeDescription = completedDescription;
+        }
+
+
+        protected string _attributeDescription;
+
+        public string AttributeDescription
+        {
+            get
+            {
+                return _attributeDescription;
+            }
+            set
+            {
+                if (value != _attributeDescription)
+                {
+                    _attributeDescription = value;
+                    OnPropertyChanged(nameof(AttributeDescription));
+                }
             }
         }
 
@@ -89,15 +86,15 @@ namespace BESM3CAData.Model
 
 
         //Constructors:   
-        public DataNode(DataController controller, string notes = "") : base(controller,notes )
+        public DataNode(RPGEntity controller, string notes = "") : base(controller, notes)
         {
             //Default constructor for data loading only
         }
 
-        public DataNode(DataListing attribute, string notes, DataController controller) : base(attribute, controller,notes)
+        public DataNode(DataListing attribute, string notes, RPGEntity controller) : base(attribute, controller, notes)
         {
-           //Pass parameters to base constructor
-           
+            //Pass parameters to base constructor
+            RefreshDescription();
         }
 
 
@@ -106,7 +103,7 @@ namespace BESM3CAData.Model
         {
             return valueToParse;
         }
-       
+
 
         public override CalcStats GetStats()
         {
@@ -139,29 +136,7 @@ namespace BESM3CAData.Model
             {
                 reader.Read();
 
-                //if (reader.NodeType == XmlNodeType.Element)
-                //{
-                    //if (reader.Name == "AttributeStats")
-                    //{
-                        //// loading node attributes
-                        //int attributeCount = reader.AttributeCount;
-                        //if (attributeCount > 0)
-                        //{
-                        //    for (int i = 0; i < attributeCount; i++)
-                        //    {
-                        //        reader.MoveToAttribute(i);
-                        //        switch (reader.Name)
-                        //        {
-                        //            default:
-                        //                //Todo: remove method
-                        //                break;
-                        //        }
-                        //    }
-                        //    break;
-                        //}
-                    //}
-                //}
-                //else
+                
                 if (reader.NodeType == XmlNodeType.EndElement)
                 {
                     if (reader.Name == "AttributeStats")

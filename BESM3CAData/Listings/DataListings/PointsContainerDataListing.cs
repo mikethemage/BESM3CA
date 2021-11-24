@@ -30,7 +30,7 @@ namespace BESM3CAData.Listings
             return result;
         }
 
-        public override PointsContainerDataNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0)
+        public override PointsContainerDataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0)
         {
             return new PointsContainerDataNode(this, notes, controller);
         }

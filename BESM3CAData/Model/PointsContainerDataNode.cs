@@ -1,11 +1,30 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Xml;
 
 namespace BESM3CAData.Model
 {
     public class PointsContainerDataNode : DataNode, IPointsDataNode
     {
+
+        public override void RefreshAll()
+        {
+            foreach (BaseNode item in Children)
+            {
+                item.RefreshAll();
+            }
+            RefreshChildPoints();
+            RefreshPoints();
+            RefreshDisplayText();
+        }
+
+        protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            RefreshChildPoints();
+        }
+
         //Properties:
         public int PointAdj
         {
@@ -16,66 +35,137 @@ namespace BESM3CAData.Model
         }
 
         //Constructors:
-        public PointsContainerDataNode(DataController controller, string Notes = "") : base(controller, Notes)
+        public PointsContainerDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
         {
             //Default constructor for data loading only
         }
 
-        public PointsContainerDataNode(PointsContainerDataListing attribute, string notes, DataController controller) : base(attribute, notes, controller)
+        public PointsContainerDataNode(PointsContainerDataListing attribute, string notes, RPGEntity controller) : base(attribute, notes, controller)
         {
-            
+
+        }
+
+        private int _variablesOrRestrictions;
+        public virtual int VariablesOrRestrictions
+        {
+            get
+            {
+                return _variablesOrRestrictions;
+            }
+            set
+            {
+                int originalVariablesOrRestrictions = _variablesOrRestrictions;
+                _variablesOrRestrictions = value;
+                if (originalVariablesOrRestrictions != _variablesOrRestrictions)
+                {
+                    OnPropertyChanged(nameof(VariablesOrRestrictions));
+                    RefreshPoints();
+                }
+            }
+        }
+        private void RefreshVariablesOrRestrictions()
+        {
+            int tempVariablesOrRestrictions = 0;
+            BaseNode temp = FirstChild;
+            while (temp != null)
+            {
+                if (temp is DataNode tempAttribute)
+                {
+                    if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
+                    {
+                        tempVariablesOrRestrictions += temp.Points;
+                    }
+                }
+                temp = temp.Next;
+            }
+            VariablesOrRestrictions = tempVariablesOrRestrictions;
         }
 
 
-        //Methods:
-        public override int GetPoints()
-        {
-            if (PointsUpToDate == false || FirstChild == null)
-            {
-                int VariablesOrRestrictions = 0;
-                int ChildPoints = 0;
 
-                BaseNode temp = FirstChild;
-                while (temp != null)
+
+        private int _childPoints;
+        public virtual int ChildPoints
+        {
+            get
+            {
+                return _childPoints;
+            }
+            set
+            {
+                int originalChildPoints = _childPoints;
+                _childPoints = value;
+                if (originalChildPoints != _childPoints)
                 {
-                    if (temp is DataNode tempAttribute)
+                    OnPropertyChanged(nameof(ChildPoints));
+                    RefreshPoints();
+                }
+            }
+        }
+        private void RefreshChildPoints()
+        {
+            int tempChildPoints = 0;
+
+            BaseNode temp = FirstChild;
+            while (temp != null)
+            {
+                if (temp is DataNode tempAttribute)
+                {
+                    if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
                     {
-                        if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
-                        {
-                            VariablesOrRestrictions += temp.GetPoints();
-                        }
-                        else
-                        {
-                            ChildPoints += temp.GetPoints();
-                        }
+
                     }
                     else
                     {
-                        ChildPoints += temp.GetPoints();
+                        tempChildPoints += temp.Points;
                     }
-
-                    temp = temp.Next;
-                }
-
-                _points = VariablesOrRestrictions;
-
-                //container point cost calc:
-                if (((PointsContainerDataListing)AssociatedListing).PointScale == 0 || ChildPoints < ((PointsContainerDataListing)AssociatedListing).PointScale)
-                {
-                    //PointScale should be set for containers - if not set points to 0 to avoid divide by 0 errors:
-                    _points += 0;
                 }
                 else
                 {
-                    //Scale points e.g. 3E items valued at 1/2 total child points:
-                    _points += ChildPoints / ((PointsContainerDataListing)AssociatedListing).PointScale;
+                    tempChildPoints += temp.Points;
                 }
 
-                PointsUpToDate = true;
+                temp = temp.Next;
+            }
+            ChildPoints = tempChildPoints;
+        }
+
+        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is BaseNode baseNode)
+            {
+                if (e.PropertyName == nameof(BaseNode.Points))
+                {
+                    RefreshVariablesOrRestrictions();
+                    RefreshChildPoints();
+                }
+            }
+        }
+
+        protected override void RefreshPoints()
+        {
+            int tempPoints = VariablesOrRestrictions;
+
+            //container point cost calc:
+            if (((PointsContainerDataListing)AssociatedListing).PointScale == 0 || ChildPoints < ((PointsContainerDataListing)AssociatedListing).PointScale)
+            {
+                //PointScale should be set for containers - if not set points to 0 to avoid divide by 0 errors:
+                tempPoints += 0;
+            }
+            else
+            {
+                //Scale points e.g. 3E items valued at 1/2 total child points:
+                tempPoints += ChildPoints / ((PointsContainerDataListing)AssociatedListing).PointScale;
             }
 
-            return _points;
+            Points = tempPoints;
         }
+
+
+
+
+        //Methods:
+        
 
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {

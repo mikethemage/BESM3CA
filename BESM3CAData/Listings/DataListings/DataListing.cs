@@ -31,7 +31,7 @@ namespace BESM3CAData.Listings
 
 
         //Methods:
-        public abstract BaseNode CreateNode(string notes, DataController controller, int level = 1, int pointAdj = 0);
+        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0);
         //{
         //    return new DataNode(this, notes, controller);
         //}

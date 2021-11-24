@@ -7,6 +7,6 @@
         int PointAdj { get; }
 
         //Methods:
-        int GetPoints();
+        int Points { get; }
     }
 }
