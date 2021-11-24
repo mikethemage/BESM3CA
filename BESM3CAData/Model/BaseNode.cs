@@ -18,13 +18,43 @@ namespace BESM3CAData.Model
         //Need view model for selected attribute for adding????
         public void AddSelectedChild()
         {
-
+            AddChildAttribute(SelectedAttributeToAdd);
         }
 
         public bool CanAddSelectedChild()
         {
-            return false;
+            if(SelectedAttributeToAdd != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;    
+            }
         }
+
+        public DataListing SelectedAttributeToAdd { 
+            get; 
+            set; 
+        } 
+
+        public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Event handler for changes to children
+            if (sender is DataListing dataListing)
+            {
+                if (e.PropertyName == nameof(DataListing.IsSelected) && dataListing.IsSelected == true)
+                {
+                    SelectedAttributeToAdd = dataListing;
+                    AddCommand.RaiseCanExecuteChanged();
+                }
+                //else if (sender == SelectedNode)
+                //{
+                //    OnPropertyChanged(nameof(SelectedNode));
+                //}
+            }
+        }
+
 
         private void CreateAddCommand()
         {
@@ -165,6 +195,18 @@ namespace BESM3CAData.Model
             {
 
                 _isSelected = value;
+
+                if(value==true)
+                {
+                    AddAttributeSelectionHandlers();
+                }
+                else
+                {
+                    RemoveAttributeSelectionHandlers();
+                }
+
+                AddCommand.RaiseCanExecuteChanged();
+
                 OnPropertyChanged(nameof(IsSelected));
             }
         }
@@ -259,10 +301,7 @@ namespace BESM3CAData.Model
             RefreshPoints();
         }
 
-        public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //Event handler for changes to children
-        }
+        
 
 
         public BaseNode(DataListing attribute, RPGEntity controller, string notes = "")
@@ -325,40 +364,7 @@ namespace BESM3CAData.Model
                 return null;
             }
         }
-
-        private List<DataListing> _filteredPotentialChildren;
-        public List<DataListing> FilteredPotentialChildren
-        {
-            get { return _filteredPotentialChildren; }
-            set
-            {
-                _filteredPotentialChildren = value;
-                OnPropertyChanged(nameof(FilteredPotentialChildren));
-            }
-        }
-
-        public void RefreshFilteredPotentialChildren(string filter)
-        {
-            List<DataListing> selectedAttributeChildren = PotentialChildren;
-            if (selectedAttributeChildren != null)
-            {
-                //LINQ Version:
-                List<DataListing> filteredAttList = selectedAttributeChildren
-                    .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
-                    .OrderBy(a => a.Type)
-                    .ThenBy(a => a.Name)
-                    .ToList();
-
-                
-
-
-                FilteredPotentialChildren = filteredAttList;
-            }
-            else
-            {
-                FilteredPotentialChildren = null;
-            }
-        }
+        
 
         public void AddChild(BaseNode child)
         {
@@ -531,6 +537,22 @@ namespace BESM3CAData.Model
         }
 
         public abstract void SaveAdditionalXML(XmlTextWriter textWriter);
+
+        private void AddAttributeSelectionHandlers()
+        {
+            foreach (DataListing item in AssociatedListing.Children)
+            {
+                item.PropertyChanged += ChildPropertyChanged;
+            }            
+        }
+
+        private void RemoveAttributeSelectionHandlers()
+        {
+            foreach (DataListing item in AssociatedListing.Children)
+            {
+                item.PropertyChanged -= ChildPropertyChanged;
+            }
+        }
 
         public void LoadXML(XmlTextReader reader)
         {

@@ -16,8 +16,8 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();            
 
-            testController.CurrentEntity.RootCharacter.RefreshFilteredPotentialChildren("All");
-            DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.FilteredPotentialChildren[attributePosition];
+            testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
@@ -33,8 +33,8 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();
                         
-            testController.CurrentEntity.RootCharacter.RefreshFilteredPotentialChildren("All");
-            DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.FilteredPotentialChildren[attributePosition];
+            testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
@@ -51,8 +51,8 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();           
 
-            testController.CurrentEntity.RootCharacter.RefreshFilteredPotentialChildren("All");
-            LevelableDataListing selectedAttribute = (LevelableDataListing)testController.CurrentEntity.RootCharacter.FilteredPotentialChildren[attributePosition];
+            testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            LevelableDataListing selectedAttribute = (LevelableDataListing)testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
             LevelableDataNode foundAttribute = (LevelableDataNode)testController.CurrentEntity.RootCharacter.FirstChild;

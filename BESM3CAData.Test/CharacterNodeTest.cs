@@ -28,8 +28,8 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();       
 
-            testController.CurrentEntity.RootCharacter.RefreshFilteredPotentialChildren("All");
-            List<DataListing> foundPotentialChildren = testController.CurrentEntity.RootCharacter.FilteredPotentialChildren;
+            testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            List<DataListing> foundPotentialChildren = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren;
 
             Assert.True(foundPotentialChildren.Count > 0);
         }
@@ -56,8 +56,8 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();
 
-            testController.CurrentEntity.RootCharacter.RefreshFilteredPotentialChildren("All");
-            DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.FilteredPotentialChildren[attributePosition];
+            testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
 

@@ -132,7 +132,8 @@ namespace BESM3CAData.Model
 
         public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is BaseNode baseNode)
+            base.ChildPropertyChanged(sender, e);
+            if (sender is BaseNode )
             {
                 if (e.PropertyName == nameof(BaseNode.Points))
                 {

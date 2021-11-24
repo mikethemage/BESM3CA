@@ -90,10 +90,10 @@ namespace BESM3CAData.Control
                 {
                     SelectedNode = baseNode;
                 }
-                else if (sender == SelectedNode)
-                {
-                    OnPropertyChanged(nameof(SelectedNode));
-                }
+                //else if (sender == SelectedNode)
+                //{
+                //    OnPropertyChanged(nameof(SelectedNode));
+                //}
             }
         }
 

@@ -38,22 +38,7 @@ namespace BESM3CA
             DataContext = CurrentController;
             CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\BESM3E.json");
             ResetAll();
-        }
-
-
-        //UI methods:
-        private static TreeViewItem AddNodeDataToTree(BaseNode nodeData, ItemCollection insertionPoint)
-        {
-            TreeViewItem AddedNode = new TreeViewItem
-            {
-                Header = nodeData.DisplayText,
-                Tag = nodeData
-            };
-
-            insertionPoint.Add(AddedNode);
-
-            return AddedNode;
-        }
+        }                
 
         private void ResetAll()
         {
@@ -156,40 +141,12 @@ namespace BESM3CA
             if (CharacterTreeView.SelectedItem != null)
             {
 
-                ((BaseNode)CharacterTreeView.SelectedItem).RefreshFilteredPotentialChildren(Filter);
+                ((BaseNode)CharacterTreeView.SelectedItem).AssociatedListing.RefreshFilteredPotentialChildren(Filter);
                 
-                //object OriginalSelection = AttributeListBox.SelectedItem;
-
-                //ICollectionView view = CollectionViewSource.GetDefaultView(((BaseNode)CharacterTreeView.SelectedItem).GetFilteredPotentialChildren(Filter));
-                //view.GroupDescriptions.Add(new PropertyGroupDescription("Type"));
-                //AttributeListBox.ItemsSource = view;
-                //if (OriginalSelection != null && AttributeListBox.Items.Contains(OriginalSelection))
-                //{
-                //    //Keep selected item in view:
-                //    AttributeListBox.ScrollIntoView(OriginalSelection);
-                //}
-                //else
-                //{
-                //    //go back to top of the list:
-                //    if (AttributeListBox.Items.Count > 0)
-                //    {
-                //        AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
-                //    }
-                //}
+               
             }
         }
-
-        private void AddAttr()
-        {
-            if (CharacterTreeView.SelectedItem is BaseNode SelectedTreeNode && AttributeListBox.SelectedIndex >= 0 && AttributeListBox.SelectedValue != null)
-            {
-                BaseNode FirstNewNodeData = SelectedTreeNode.AddChildAttribute((DataListing)AttributeListBox.SelectedItem);                        
-                                
-                //((TreeViewItem)((TreeViewItem)CharacterTreeView.SelectedItem).Items[^1]).BringIntoView();
-            }
-        }
-
-
+        
         private void SaveFile(bool SaveExisting)
         {
             if (SaveExisting == false || CurrentController.CurrentEntity.FileName == "")
@@ -306,13 +263,6 @@ namespace BESM3CA
             }
         }
 
-        private void AddAttButton_Click(object sender, RoutedEventArgs e)
-        {
-            AddAttr();
-        }
-
-             
-
 
         private void VariantListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -324,7 +274,11 @@ namespace BESM3CA
 
         private void AttributeListBox_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            AddAttr();
+            if (CurrentController.CurrentEntity.SelectedNode is BaseNode SelectedTreeNode && SelectedTreeNode.CanAddSelectedChild())
+            {
+                SelectedTreeNode.AddSelectedChild();
+            }         
+            
             AttributeListBox.Focus();
         }
 
@@ -332,7 +286,10 @@ namespace BESM3CA
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
-                AddAttr();
+                if (CurrentController.CurrentEntity.SelectedNode is BaseNode SelectedTreeNode && SelectedTreeNode.CanAddSelectedChild())
+                {
+                    SelectedTreeNode.AddSelectedChild();
+                }
             }
         }
 
@@ -435,7 +392,7 @@ namespace BESM3CA
                     DelAttButton.IsEnabled = false;
                     
                 }
-                else if (selectedTreeNode is DataNode selectedAttribute)
+                else if (selectedTreeNode is DataNode)
                 {
                     if (selectedTreeNode.Parent != null)
                     {

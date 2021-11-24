@@ -3,10 +3,11 @@ using BESM3CAData.Model;
 using System.Collections.Generic;
 using System.Linq;
 using BESM3CAData.Control;
+using System.ComponentModel;
 
 namespace BESM3CAData.Listings
 {
-    public abstract class DataListing
+    public abstract class DataListing : INotifyPropertyChanged
     {
         //Properties:
         //Everything should have:
@@ -20,8 +21,63 @@ namespace BESM3CAData.Listings
         private string Stat { get; set; }
         private string Page { get; set; }
         private bool Human { get; set; }
-        
-                            
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RefreshFilteredPotentialChildren(string filter)
+        {
+            List<DataListing> selectedAttributeChildren = Children;
+            if (selectedAttributeChildren != null)
+            {
+                //LINQ Version:
+                List<DataListing> filteredAttList = selectedAttributeChildren
+                    .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
+                    .OrderBy(a => a.Type)
+                    .ThenBy(a => a.Name)
+                    .ToList();
+
+                FilteredPotentialChildren = filteredAttList;
+            }
+            else
+            {
+                FilteredPotentialChildren = null;
+            }
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (value != _isSelected)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
+                }
+            }
+        }
+
+        private List<DataListing> _filteredPotentialChildren;
+        public List<DataListing> FilteredPotentialChildren
+        {
+            get { return _filteredPotentialChildren; }
+            set
+            {
+                _filteredPotentialChildren = value;
+                OnPropertyChanged(nameof(FilteredPotentialChildren));
+            }
+        }
+
+
 
         //Constructor:
         public DataListing()

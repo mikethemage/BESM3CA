@@ -86,49 +86,53 @@
                     </TreeView>
                 </Grid>
 
-                <StackPanel Grid.Column="1" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <StackPanel Grid.Column="1" Margin="10,5,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Button x:Name="MoveUpButton" Content="Move Up" Margin="5,5,5,5" Height="35" HorizontalAlignment="Stretch" Command="{Binding Path=CurrentEntity.SelectedNode.MoveUpCommand, Converter={StaticResource NullToBooleanConverter}}"/>
                     <Button x:Name="MoveDownButton" Content="Move Down" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Command="{Binding Path=CurrentEntity.SelectedNode.MoveDownCommand, Converter={StaticResource NullToBooleanConverter}}" />
-                    <Button x:Name="RaiseLevelButton" Content="Raise Level" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Visibility="{Binding Path=CurrentEntity.SelectedLevelable, Converter={StaticResource NullToVisibilityConverter}}" Command="{Binding Path=CurrentEntity.SelectedLevelable.RaiseLevelCommand, Converter={StaticResource NullToBooleanConverter}}"/>
-                    <Button x:Name="LowerLevelButton" Content="Lower Level" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Visibility="{Binding Path=CurrentEntity.SelectedLevelable, Converter={StaticResource NullToVisibilityConverter}}" Command="{Binding Path=CurrentEntity.SelectedLevelable.LowerLevelCommand, Converter={StaticResource NullToBooleanConverter}}" />
-                    <Button x:Name="AddAttButton" Content="Add" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Click="AddAttButton_Click" />
+                    <Button x:Name="AddAttButton" Content="Add" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Command="{Binding Path=CurrentEntity.SelectedNode.AddCommand, Converter={StaticResource NullToBooleanConverter}}" />
                     <Button x:Name="DelAttButton" Content="Delete" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Command="{Binding Path=CurrentEntity.SelectedNode.DeleteCommand, Converter={StaticResource NullToBooleanConverter}}" />
-
+                    <Button x:Name="RaiseLevelButton" Content="Raise Level" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Visibility="{Binding Path=CurrentEntity.SelectedLevelable, Converter={StaticResource NullToVisibilityConverter}}" Command="{Binding Path=CurrentEntity.SelectedLevelable.RaiseLevelCommand, Converter={StaticResource NullToBooleanConverter}}"/>
+                    <Button x:Name="LowerLevelButton" Content="Lower Level" Margin="5,15,5,5" Height="35" HorizontalAlignment="Stretch" Visibility="{Binding Path=CurrentEntity.SelectedLevelable, Converter={StaticResource NullToVisibilityConverter}}" Command="{Binding Path=CurrentEntity.SelectedLevelable.LowerLevelCommand, Converter={StaticResource NullToBooleanConverter}}"/>
                 </StackPanel>
 
-                <Grid Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
 
-                    </Grid.RowDefinitions>
+                        </Grid.RowDefinitions>
 
-                    <Label x:Name="VariantLabel" Content="Variant:" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" />
-                    <ListBox x:Name="VariantListBox" Height="64" Margin="10,0,10,10" Grid.Row="1" SelectionChanged="VariantListBox_SelectionChanged"/>
+                        <Label x:Name="VariantLabel" Content="Variant:" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" />
+                        <ListBox x:Name="VariantListBox" Height="64" Margin="10,0,10,10" Grid.Row="1" SelectionChanged="VariantListBox_SelectionChanged"/>
 
-                    <Grid Grid.Row="2" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Filter: " Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
-                        <ComboBox x:Name="FilterComboBox" Margin="10,10,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectionChanged="FilterComboBox_SelectionChanged" Grid.Column="1"/>
+                        <Grid Grid.Row="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Filter: " Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
+                            <ComboBox x:Name="FilterComboBox" Margin="10,10,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectionChanged="FilterComboBox_SelectionChanged" Grid.Column="1"/>
+                        </Grid>
+
+                        <ListBox x:Name="AttributeListBox" Margin="10,5,10,10" Grid.Row="3" ItemsSource="{Binding Path=CurrentEntity.SelectedNode.AssociatedListing.FilteredPotentialChildren}" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" SelectionChanged="AttributeListBox_SelectionChanged" >
+                            <ListBox.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock x:Name="textBlock" FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListBox.GroupStyle>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
                     </Grid>
-
-                    <ListBox x:Name="AttributeListBox" Margin="10,5,10,10" Grid.Row="3" ItemsSource="{Binding Path=CurrentEntity.SelectedNode.FilteredPotentialChildren}" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" SelectionChanged="AttributeListBox_SelectionChanged" >
-                        <ListBox.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="textBlock" FontWeight="Bold" Text="{Binding Path=Name}"/>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListBox.GroupStyle>
-                    </ListBox>
-                </Grid>
             </Grid>
 
             <Grid Grid.Row="2" Margin="5 5 5 15">
@@ -181,13 +185,13 @@
                     <TextBox x:Name="DCVTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" VerticalAlignment="Stretch" IsEnabled="False" Text="{Binding Path=Stats.DCV,Mode=OneWay}"/>
 
                     <TextBlock Text="Body" Grid.Row="0" Grid.Column="4"/>
-                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="4" Margin="2,2,2,2" Text="{Binding Path=Body, Delay=150, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
+                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="4" Margin="2,2,2,2" Text="{Binding Path=Body, Delay=100, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
 
                     <TextBlock Text="Mind" Grid.Row="0" Grid.Column="6"/>
-                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="6" Margin="2,2,2,2" Text="{Binding Path=Mind, Delay=150, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
+                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="6" Margin="2,2,2,2" Text="{Binding Path=Mind, Delay=100, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
 
                     <TextBlock Text="Soul" Grid.Row="0" Grid.Column="8"/>
-                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="8" Margin="2,2,2,2" Text="{Binding Path=Soul, Delay=150, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
+                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="8" Margin="2,2,2,2" Text="{Binding Path=Soul, Delay=100, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
 
                     <Label x:Name="HealthLabel" Content="Health" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="4"/>
                     <TextBox x:Name="HealthTextBox" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" IsEnabled="False" Text="{Binding Path=Stats.Health,Mode=OneWay}"/>
@@ -230,8 +234,8 @@
 
 
 
-                
-                
+
+
             </Grid>
 
         </Grid>

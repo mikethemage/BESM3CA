@@ -153,8 +153,9 @@ namespace BESM3CAData.Listings
                             }
                         }
                     }
+                    Parent.RefreshFilteredPotentialChildren("All");
 
-                    if(Parent is IFreebieDataListing freebieDataListing)
+                    if (Parent is IFreebieDataListing freebieDataListing)
                     {
                         freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.ID == attribute.SubAttributeID);
                     }
