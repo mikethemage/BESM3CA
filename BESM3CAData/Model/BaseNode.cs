@@ -23,20 +23,21 @@ namespace BESM3CAData.Model
 
         public bool CanAddSelectedChild()
         {
-            if(SelectedAttributeToAdd != null)
+            if (SelectedAttributeToAdd != null)
             {
                 return true;
             }
             else
             {
-                return false;    
+                return false;
             }
         }
 
-        public DataListing SelectedAttributeToAdd { 
-            get; 
-            set; 
-        } 
+        public DataListing SelectedAttributeToAdd
+        {
+            get;
+            set;
+        }
 
         public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -196,9 +197,19 @@ namespace BESM3CAData.Model
 
                 _isSelected = value;
 
-                if(value==true)
+                if (value == true)
                 {
                     AddAttributeSelectionHandlers();
+
+                    //Deselect any invalid options:
+                    foreach (DataListing stillSelectedDataListing in AssociatedController.SelectedListingData.AttributeList.Where(x => x.IsSelected))
+                    {
+                        if (AssociatedListing.FilteredPotentialChildren == null || !AssociatedListing.FilteredPotentialChildren.Contains(stillSelectedDataListing))
+                        {
+                            stillSelectedDataListing.IsSelected = false;
+                        }
+                    }
+
                 }
                 else
                 {
@@ -301,7 +312,7 @@ namespace BESM3CAData.Model
             RefreshPoints();
         }
 
-        
+
 
 
         public BaseNode(DataListing attribute, RPGEntity controller, string notes = "")
@@ -364,7 +375,7 @@ namespace BESM3CAData.Model
                 return null;
             }
         }
-        
+
 
         public void AddChild(BaseNode child)
         {
@@ -543,7 +554,7 @@ namespace BESM3CAData.Model
             foreach (DataListing item in AssociatedListing.Children)
             {
                 item.PropertyChanged += ChildPropertyChanged;
-            }            
+            }
         }
 
         private void RemoveAttributeSelectionHandlers()

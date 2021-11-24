@@ -127,7 +127,7 @@
                     </Grid>
 
 
-                    <ListBox x:Name="AttributeListBox" Margin="10,5,10,10" Grid.Row="3" ItemsSource="{Binding Source={StaticResource AttributeResource}}" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" SelectionChanged="AttributeListBox_SelectionChanged" >
+                    <ListBox x:Name="AttributeListBox" Margin="10,5,10,10" Grid.Row="3" ItemsSource="{Binding Source={StaticResource AttributeResource}}" PreviewMouseDoubleClick="AttributeListBox_PreviewMouseDoubleClick" KeyDown="AttributeListBox_KeyDown" >
                         <ListBox.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>

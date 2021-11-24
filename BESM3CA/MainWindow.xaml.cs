@@ -40,6 +40,8 @@ namespace BESM3CA
             ResetAll();
         }                
 
+
+        //Helper Methods:
         private void ResetAll()
         {
             Title = ApplicationName;
@@ -72,7 +74,6 @@ namespace BESM3CA
 
         private void RefreshFilter()
         {
-
             if (CharacterTreeView.SelectedItem is BaseNode baseNode)
             {
                 //Reset Attribute filter listbox basded off selected node:    
@@ -89,7 +90,6 @@ namespace BESM3CA
                     FilterComboBox.SelectedIndex = 0;
                 }
             }
-
         }
 
         private void RefreshVariants()
@@ -134,8 +134,7 @@ namespace BESM3CA
             else
             {
                 Filter = FilterComboBox.Items[FilterComboBox.SelectedIndex].ToString();
-            }
-                        
+            }                        
 
             if (CharacterTreeView.SelectedItem != null)
             {
@@ -169,8 +168,7 @@ namespace BESM3CA
             {
                 CurrentController.CurrentEntity.Save();
             }
-        }
-                
+        }               
 
 
         //Events:       
@@ -259,7 +257,6 @@ namespace BESM3CA
             }
         }
 
-
         private void VariantListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (VariantListBox.SelectedValue is VariantListing selectedVariant)
@@ -323,30 +320,12 @@ namespace BESM3CA
             }
         }
 
-        private void AttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CheckValidAttributeForAddButton();
-        }
-
-        private void CheckValidAttributeForAddButton()
-        {
-            if (CharacterTreeView.SelectedItem is BaseNode && AttributeListBox.SelectedValue is DataListing)
-            {
-                AddAttButton.IsEnabled = true;
-            }
-            else
-            {
-                AddAttButton.IsEnabled = false;
-            }
-        }
-
         private void GenreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (GenreComboBox.SelectedIndex > -1)
             {
                 CurrentController.CurrentEntity.SelectedGenreIndex = GenreComboBox.SelectedIndex;
-                CurrentController.CurrentEntity.RootCharacter.InvalidateGenrePoints();
-                
+                CurrentController.CurrentEntity.RootCharacter.InvalidateGenrePoints();                
             }
         }
 
@@ -380,35 +359,8 @@ namespace BESM3CA
                 if (AttributeListBox.Items.Count > 0)
                 {
                     AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
-                }
-
-                if (selectedTreeNode is CharacterNode)
-                {
-                    
-                    DelAttButton.IsEnabled = false;
-                    
-                }
-                else if (selectedTreeNode is DataNode)
-                {
-                    if (selectedTreeNode.Parent != null)
-                    {
-                        DelAttButton.IsEnabled = true;
-                        
-                    }
-                    else
-                    {
-                        //Do not allow deletion/moving of root node regardless:
-                        DelAttButton.IsEnabled = false;
-                        
-                    }                    
-                }
-                else
-                {
-                    //Error
-                    Debug.Assert(false);
-                }
-            }
-            CheckValidAttributeForAddButton();
+                }                
+            }            
         }
     }
 }
