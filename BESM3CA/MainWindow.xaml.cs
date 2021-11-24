@@ -135,8 +135,7 @@ namespace BESM3CA
             {
                 Filter = FilterComboBox.Items[FilterComboBox.SelectedIndex].ToString();
             }
-
-            //AttributeListBox.DisplayMemberPath = "Name";
+                        
 
             if (CharacterTreeView.SelectedItem != null)
             {
