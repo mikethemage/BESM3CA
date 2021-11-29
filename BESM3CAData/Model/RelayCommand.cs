@@ -9,8 +9,8 @@ namespace BESM3CAData.Model
 {
     public class RelayCommand : ICommand
     {
-        private Action commandTask;
-        private Func<bool> canExecute;
+        private readonly Action commandTask;
+        private readonly Func<bool> canExecute;
 
         public RelayCommand(Action workToDo, Func<bool> workCanBeDone)
         {

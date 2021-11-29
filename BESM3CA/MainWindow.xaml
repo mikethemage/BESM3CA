@@ -206,7 +206,7 @@
                 </Grid.RowDefinitions>
 
                 <Label x:Name="NotesLabel" Content="Notes" Margin="5,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0"/>
-                <TextBox x:Name="NotesTextBox" Text="{Binding Path=CurrentEntity.SelectedNode.Notes}" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="1" TextWrapping="Wrap" VerticalAlignment="Stretch" LostFocus="NotesTextBox_LostFocus" />
+                <TextBox x:Name="NotesTextBox" Text="{Binding Path=CurrentEntity.SelectedNode.Notes}" Margin="5,0,5,5" HorizontalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="1" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
                 <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Grid.ColumnSpan="9" DataContext="{Binding Path=CurrentEntity.SelectedCharacter}"  Visibility="{Binding Path=., Converter={StaticResource NullToVisibilityConverter}}">
                     <Grid.RowDefinitions>

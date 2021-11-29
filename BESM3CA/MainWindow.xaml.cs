@@ -38,7 +38,7 @@ namespace BESM3CA
             DataContext = CurrentController;
             CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\BESM3E.json");
             ResetAll();
-        }                
+        }
 
 
         //Helper Methods:
@@ -51,9 +51,6 @@ namespace BESM3CA
 
             //Refresh Genre list:
             RefreshGenreList();
-
-            //Refresh right hand boxes:            
-            //RefreshList();
         }
 
         private void RefreshGenreList()
@@ -71,43 +68,6 @@ namespace BESM3CA
             }
         }
 
-        
-
-        private void RefreshVariants()
-        {
-            if (CharacterTreeView.SelectedItem is IVariantDataNode selectedVariantNode)
-            {
-                List<VariantListing> FilteredVarList = selectedVariantNode.GetVariants();
-                if (FilteredVarList != null)
-                {
-                    VariantListBox.Visibility = Visibility.Visible;
-                    VariantLabel.Visibility = Visibility.Visible;
-
-                    VariantListBox.DisplayMemberPath = "FullName";
-                    VariantListBox.ItemsSource = FilteredVarList;
-
-                    if (selectedVariantNode.Variant != null)
-                    {
-                        VariantListBox.SelectedValue = selectedVariantNode.Variant;  //Load in saved variant
-                    }
-                    else
-                    {
-                        VariantListBox.SelectedIndex = -1; // This line keeps the first item from being selected.
-                    }
-                }
-            }
-            else
-            {
-                VariantListBox.Visibility = Visibility.Collapsed;
-                VariantLabel.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void RefreshList()
-        {
-            //RefreshVariants();            
-        }
-        
         private void SaveFile(bool SaveExisting)
         {
             if (SaveExisting == false || CurrentController.CurrentEntity.FileName == "")
@@ -134,7 +94,7 @@ namespace BESM3CA
             {
                 CurrentController.CurrentEntity.Save();
             }
-        }               
+        }
 
 
         //Events:       
@@ -154,7 +114,7 @@ namespace BESM3CA
             if (openFileDialog1.ShowDialog() == true)
             {
                 ResetAll();
-                
+
                 CurrentController.Load(openFileDialog1.FileName);
 
                 if (CurrentController.CurrentEntity.RootCharacter == null)
@@ -170,12 +130,6 @@ namespace BESM3CA
                         GenreComboBox.SelectedIndex = CurrentController.CurrentEntity.SelectedGenreIndex;
                     }
 
-                    TreeViewItem newRoot = new TreeViewItem
-                    {
-                        Header = CurrentController.CurrentEntity.RootCharacter.DisplayText
-                    };
-                                        
-                    NewUpdateTreeFromNodes(newRoot, CurrentController.CurrentEntity.RootCharacter);
 
                     Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileName;
                     if (CharacterTreeView.Items.Count > 0)
@@ -223,66 +177,26 @@ namespace BESM3CA
             }
         }
 
-        private void VariantListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (VariantListBox.SelectedValue is VariantListing selectedVariant)
-            {
-                ((IVariantDataNode)CharacterTreeView.SelectedItem).Variant = selectedVariant;   
-            }
-        }
-
         private void AttributeListBox_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (CurrentController.CurrentEntity.SelectedNode is BaseNode SelectedTreeNode && SelectedTreeNode.CanAddSelectedChild())
-            {
-                SelectedTreeNode.AddSelectedChild();
-            }         
-            
+            AddNodeIfSelected();
+
             AttributeListBox.Focus();
+        }
+
+        private void AddNodeIfSelected()
+        {
+            if (CurrentController.CurrentEntity.SelectedNode != null && CurrentController.CurrentEntity.SelectedNode.CanAddSelectedChild())
+            {
+                CurrentController.CurrentEntity.SelectedNode.AddSelectedChild();
+            }
         }
 
         private void AttributeListBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
-                if (CurrentController.CurrentEntity.SelectedNode is BaseNode SelectedTreeNode && SelectedTreeNode.CanAddSelectedChild())
-                {
-                    SelectedTreeNode.AddSelectedChild();
-                }
-            }
-        }
-
-        private void FilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            RefreshList();
-        }
-
-        private void NotesTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (CharacterTreeView.SelectedItem is BaseNode selectedTreeNode)
-            {
-                selectedTreeNode.Notes = NotesTextBox.Text;
-            }
-        }
-
-        private void NewUpdateTreeFromNodes(TreeViewItem insertionPoint, BaseNode nodeDataToAdd)
-        {
-            if (nodeDataToAdd == CurrentController.CurrentEntity.RootCharacter)
-            {
-                insertionPoint.Tag = nodeDataToAdd;
-            }
-            else
-            {
-                TreeViewItem temp = new TreeViewItem() { Header = nodeDataToAdd.DisplayText, Tag = nodeDataToAdd };
-                insertionPoint.Items.Add(temp);
-                insertionPoint.IsExpanded = true;
-                insertionPoint = temp;
-            }
-            BaseNode child = nodeDataToAdd.FirstChild;
-            while (child != null)
-            {
-                NewUpdateTreeFromNodes(insertionPoint, child);
-                child = child.Next;
+                AddNodeIfSelected();
             }
         }
 
@@ -291,7 +205,7 @@ namespace BESM3CA
             if (GenreComboBox.SelectedIndex > -1)
             {
                 CurrentController.CurrentEntity.SelectedGenreIndex = GenreComboBox.SelectedIndex;
-                CurrentController.CurrentEntity.RootCharacter.InvalidateGenrePoints();                
+                CurrentController.CurrentEntity.RootCharacter.InvalidateGenrePoints();
             }
         }
 
@@ -316,17 +230,10 @@ namespace BESM3CA
 
         private void CharacterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
-            if (CharacterTreeView.SelectedItem is BaseNode selectedTreeNode)
+            if (AttributeListBox.Items.Count > 0)
             {
-                //RefreshFilter();
-                RefreshList();
-                
-                if (AttributeListBox.Items.Count > 0)
-                {
-                    AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
-                }                
-            }            
+                AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
+            }
         }
     }
 }
