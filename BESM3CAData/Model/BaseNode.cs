@@ -150,7 +150,7 @@ namespace BESM3CAData.Model
 
         //Properties:
         public RPGEntity AssociatedController { get; private set; }
-        public DataListing AssociatedListing { get; private set; }
+        public virtual DataListing AssociatedListing { get; protected set; }
 
         public int ID { get; private set; }
 
@@ -210,9 +210,39 @@ namespace BESM3CAData.Model
                         }
                     }
 
+                    string temp = AssociatedController.SelectedType;
+                    if (AssociatedController.Filters.FirstOrDefault(x => x.TypeName == "All") is FilterType allFilterType1)
+                    {
+                        allFilterType1.IsSelected = false;
+                    }
+
+                    AssociatedController.Filters.Clear();
+                    foreach (string filterType in GetTypesForFilter())                    
+                    {
+                        FilterType newFilterType = new FilterType(filterType);
+                        AssociatedController.Filters.Add(newFilterType);
+                        newFilterType.PropertyChanged += AssociatedController.FilterPropertyChanged;
+                        if(filterType==temp)
+                        {
+                            newFilterType.IsSelected = true;
+                        }
+                    }
+
+                    if(AssociatedController.SelectedType==null || AssociatedController.SelectedType=="")
+                    {
+                        if (AssociatedController.Filters.FirstOrDefault(x=>x.TypeName=="All") is FilterType allFilterType2)
+                        {
+                            allFilterType2.IsSelected = true;
+                        }
+                    }
+
                 }
                 else
-                {
+                { 
+                    foreach (FilterType oldFT in AssociatedController.Filters)
+                    {
+                        oldFT.PropertyChanged-= AssociatedController.FilterPropertyChanged;
+                    }
                     RemoveAttributeSelectionHandlers();
                 }
 

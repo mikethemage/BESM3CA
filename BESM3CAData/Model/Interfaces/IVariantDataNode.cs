@@ -1,5 +1,6 @@
 ﻿using BESM3CAData.Listings;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BESM3CAData.Model
 {
@@ -10,5 +11,7 @@ namespace BESM3CAData.Model
 
         //Methods:
         List<VariantListing> GetVariants();
+
+        ObservableCollection<VariantListing> VariantList { get; set; }
     }
 }

@@ -14,8 +14,8 @@ namespace BESM3CAData.Control
     public class RPGEntity : INotifyPropertyChanged
     {
 
-        
 
+        public ObservableCollection<FilterType> Filters { get; set; } = new ObservableCollection<FilterType>();
         public string FileName { get; set; }
         public MasterListing SelectedListingData { get; set; }
 
@@ -30,6 +30,7 @@ namespace BESM3CAData.Control
                 OnPropertyChanged(nameof(SelectedNode));
                 OnPropertyChanged(nameof(SelectedCharacter));
                 OnPropertyChanged(nameof(SelectedLevelable));
+                OnPropertyChanged(nameof(SelectedVariantNode));
             }
         }
 
@@ -49,6 +50,14 @@ namespace BESM3CAData.Control
             }
         }
 
+        public IVariantDataNode SelectedVariantNode
+        {
+            get
+            {
+                return selectedNode as IVariantDataNode;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -63,6 +72,24 @@ namespace BESM3CAData.Control
         public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();
 
         public int SelectedGenreIndex { get; set; }
+
+        private string selectedType ="All";
+        public string SelectedType
+        {
+            get { 
+                return selectedType;
+            }
+
+            private set
+            { 
+                if(value != selectedType)
+                {
+                    selectedType = value;
+                    OnPropertyChanged(nameof(selectedType));
+                }
+                
+            }
+        }
 
         private BaseNode selectedNode;
 
@@ -97,6 +124,22 @@ namespace BESM3CAData.Control
             }
         }
 
+        public void FilterPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is FilterType filterType)
+            {
+                if (e.PropertyName == nameof(FilterType.IsSelected) && filterType.IsSelected == true)
+                {
+                    SelectedType = filterType.TypeName;
+                    if (SelectedNode != null)
+                    {
+                        SelectedNode.AssociatedListing.RefreshFilteredPotentialChildren(SelectedType);
+                    }
+
+                }
+            }
+        }
+
         public void ResetAll()
         {
             //Reset root character:
@@ -122,14 +165,14 @@ namespace BESM3CAData.Control
         public RPGEntity()
         {
             ResetAll();
-            
+
         }
 
         public RPGEntity(MasterListing selectedListing)
         {
-            SelectedListingData=selectedListing;
+            SelectedListingData = selectedListing;
             ResetAll();
-           
+
         }
 
         public void SaveAs(string fileName)

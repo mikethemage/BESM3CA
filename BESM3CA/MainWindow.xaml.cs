@@ -52,9 +52,8 @@ namespace BESM3CA
             //Refresh Genre list:
             RefreshGenreList();
 
-            //Refresh right hand boxes:
-            RefreshFilter();
-            RefreshList();
+            //Refresh right hand boxes:            
+            //RefreshList();
         }
 
         private void RefreshGenreList()
@@ -72,25 +71,7 @@ namespace BESM3CA
             }
         }
 
-        private void RefreshFilter()
-        {
-            if (CharacterTreeView.SelectedItem is BaseNode baseNode)
-            {
-                //Reset Attribute filter listbox basded off selected node:    
-                string OriginalValue = (string)FilterComboBox.SelectedValue;
-
-                FilterComboBox.ItemsSource = baseNode.GetTypesForFilter();
-
-                if (FilterComboBox.Items.Contains(OriginalValue))
-                {
-                    FilterComboBox.SelectedValue = OriginalValue;
-                }
-                else
-                {
-                    FilterComboBox.SelectedIndex = 0;
-                }
-            }
-        }
+        
 
         private void RefreshVariants()
         {
@@ -124,22 +105,7 @@ namespace BESM3CA
 
         private void RefreshList()
         {
-            RefreshVariants();
-
-            string Filter;
-            if (FilterComboBox.SelectedIndex == -1)
-            {
-                Filter = "";
-            }
-            else
-            {
-                Filter = FilterComboBox.Items[FilterComboBox.SelectedIndex].ToString();
-            }                        
-
-            if (CharacterTreeView.SelectedItem != null)
-            {
-                ((BaseNode)CharacterTreeView.SelectedItem).AssociatedListing.RefreshFilteredPotentialChildren(Filter);
-            }
+            //RefreshVariants();            
         }
         
         private void SaveFile(bool SaveExisting)
@@ -353,7 +319,7 @@ namespace BESM3CA
 
             if (CharacterTreeView.SelectedItem is BaseNode selectedTreeNode)
             {
-                RefreshFilter();
+                //RefreshFilter();
                 RefreshList();
                 
                 if (AttributeListBox.Items.Count > 0)

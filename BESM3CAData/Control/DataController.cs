@@ -40,6 +40,7 @@ namespace BESM3CAData.Control
         //Fields:
         public ListingDirectory ListingDirectory;
 
+        
 
         //Constructor:
         public DataController()

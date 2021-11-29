@@ -1,6 +1,9 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
@@ -10,8 +13,52 @@ namespace BESM3CAData.Model
     public class LevelableWithVariantDataNode : LevelableDataNode, IVariantDataNode
     {
         //Fields:
-        protected VariantListing _variantListing;
 
+
+        private DataListing _associatedListing;
+        public override DataListing AssociatedListing
+        {
+            get
+            {
+                return _associatedListing;
+            }
+            protected set
+            {
+                if (value != _associatedListing)
+                {
+                    _associatedListing = value;
+
+                    foreach (VariantListing oldVL in VariantList)
+                    {
+                        oldVL.PropertyChanged -= VariantPropertyChanged;
+                    }
+
+                    VariantList.Clear();
+                    if (_associatedListing is LevelableWithVariantDataListing variantDataListing && variantDataListing.Variants != null)
+                    {
+                        foreach (VariantListing newVL in variantDataListing.Variants)
+                        {
+                            VariantList.Add(newVL);
+                            newVL.PropertyChanged += VariantPropertyChanged;
+                        }
+                    }
+                }
+
+
+
+            }
+        }
+
+        private void VariantPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is VariantListing variantListing)
+            {
+                if (e.PropertyName == nameof(VariantListing.IsSelected) && variantListing.IsSelected == true)
+                {
+                    Variant = variantListing;
+                }
+            }
+        }
 
         //Properties:
         protected override string BaseDescription
@@ -36,6 +83,8 @@ namespace BESM3CAData.Model
             }
         }
 
+
+        protected VariantListing _variantListing;
         public VariantListing Variant
         {
             get
@@ -65,7 +114,7 @@ namespace BESM3CAData.Model
                     }
 
                 }
-               
+
 
             }
         }
@@ -90,9 +139,11 @@ namespace BESM3CAData.Model
                     Variant = variantDataListing.Variants.First(n => n.ID == value);
                 }
 
-                
+
             }
         }
+
+        public ObservableCollection<VariantListing> VariantList { get ; set; } = new ObservableCollection<VariantListing>();
 
 
         //Constructors:
@@ -123,7 +174,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        
+
 
 
         //XML:
@@ -138,7 +189,7 @@ namespace BESM3CAData.Model
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
-        {   
+        {
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();

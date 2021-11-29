@@ -1,8 +1,10 @@
 ﻿using BESM3CAData.Listings.Serialization;
+using System;
+using System.ComponentModel;
 
 namespace BESM3CAData.Listings
 {
-    public class VariantListing
+    public class VariantListing : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -19,6 +21,33 @@ namespace BESM3CAData.Listings
             }
         }
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                if (value != _isSelected)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
+                }
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public VariantListingSerialized Serialize()
         {
