@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BESM3CAData.Control
 {
-    public class FilterType : INotifyPropertyChanged
+    public class GenreEntry : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string TypeName { get; set; }
+        public string GenreName { get; set; }
 
         private bool _isSelected;
         public bool IsSelected
@@ -19,21 +19,25 @@ namespace BESM3CAData.Control
             get { return _isSelected; }
             set
             {
-                //if (_isSelected != value)
-                //{
+                if (_isSelected != value)
+                {
                     _isSelected = value;
                     OnPropertyChanged(nameof(IsSelected));
-                //}
+                }
             }
         }
 
-        public FilterType()
+        public int Index { get; set; }
+
+        public GenreEntry()
         {
         }
 
-        public FilterType(string typeName)
+        public GenreEntry(string genreName, int index)
         {
-            TypeName = typeName;            
+            GenreName = genreName;
+            Index = index;
+            IsSelected = false;
         }
 
         private void OnPropertyChanged(string propertyName)

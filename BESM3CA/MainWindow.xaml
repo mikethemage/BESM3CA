@@ -70,7 +70,18 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label  Content="Genre: " Margin="10,10,10,5" Width="Auto" Grid.Column="0" />
-                        <ComboBox x:Name="GenreComboBox" Margin="10,10,10,5" Grid.Column="1" SelectionChanged="GenreComboBox_SelectionChanged" />
+                        <ComboBox x:Name="GenreComboBox" Margin="10,10,10,5" Grid.Column="1" ItemsSource="{Binding Path=CurrentEntity.GenreList}" Visibility="{Binding Path=CurrentEntity.GenreList[0], Converter={StaticResource NullToVisibilityConverter}}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=GenreName}"/>    
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
                     </Grid>
 
                     <TreeView Grid.Row="1"  x:Name="CharacterTreeView"  Margin="10,10,10,10" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=CurrentEntity.Root}" SelectedItemChanged="CharacterTreeView_SelectedItemChanged" >
@@ -82,7 +93,7 @@
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="TreeViewItem">
                                 <Setter Property="IsExpanded" Value="True" />
-                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>                                
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </TreeView>
@@ -139,7 +150,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Filter: " Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
-                        <ComboBox x:Name="FilterComboBox" Margin="10,10,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" ItemsSource="{Binding Path=CurrentEntity.Filters}">
+                        <ComboBox x:Name="FilterComboBox" Margin="10,10,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" ItemsSource="{Binding Path=CurrentEntity.Filters}" >
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding TypeName}"/>

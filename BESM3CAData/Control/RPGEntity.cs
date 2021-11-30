@@ -14,10 +14,58 @@ namespace BESM3CAData.Control
     public class RPGEntity : INotifyPropertyChanged
     {
 
+        public ObservableCollection<GenreEntry> GenreList { get; set; } = new ObservableCollection<GenreEntry>();
+
+        private GenreEntry _genreEntry;
+        public GenreEntry SelectedGenreEntry
+        {
+            get
+            {
+                return _genreEntry;
+            }
+            set
+            {
+                //if (value != _genreEntry)
+                //{
+                    _genreEntry = value;
+                    OnPropertyChanged(nameof(SelectedGenreEntry));
+                //}
+            }
+        }
 
         public ObservableCollection<FilterType> Filters { get; set; } = new ObservableCollection<FilterType>();
         public string FileName { get; set; }
-        public MasterListing SelectedListingData { get; set; }
+
+        private MasterListing _selectedListingData;
+        public MasterListing SelectedListingData
+        {
+            get
+            {
+                return _selectedListingData;
+                
+            }
+            set
+            {
+                if (value != _selectedListingData)
+                {
+                    _selectedListingData = value;
+
+                    foreach (GenreEntry oldGenre in GenreList)
+                    {
+                        oldGenre.PropertyChanged -= GenrePropertyChanged;
+                    }
+
+                    GenreList.Clear();
+                    foreach (string newListings in SelectedListingData.Genres)
+                    {
+                        GenreEntry newGenre = new GenreEntry(newListings, SelectedListingData.Genres.IndexOf(newListings));
+                        GenreList.Add(newGenre);
+                        newGenre.PropertyChanged += GenrePropertyChanged;
+                    }
+                    OnPropertyChanged(nameof(SelectedListingData));
+                }
+            }
+        }
 
         public BaseNode RootCharacter { get; private set; }
 
@@ -71,32 +119,32 @@ namespace BESM3CAData.Control
 
         public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();
 
-        public int SelectedGenreIndex { get; set; }
+        
 
-        private string selectedType ="All";
+        private string selectedType ;
         public string SelectedType
         {
-            get { 
+            get
+            {
                 return selectedType;
             }
 
             private set
-            { 
-                if(value != selectedType)
-                {
+            {
+                //if (value != selectedType)
+                //{
                     selectedType = value;
-                    OnPropertyChanged(nameof(selectedType));
-                }
-                
+                    OnPropertyChanged(nameof(SelectedType));
+                //}
+
             }
         }
 
         private BaseNode selectedNode;
 
         public void Load(string fileName, BaseNode newRoot)
-        {
-            //SelectedGenreIndex = -1;  //Needs changing to load Genre
-            //RootCharacter = SaveLoad.DeserializeXML(fileName, this);
+        {           
+            
             RootCharacter = newRoot;
             Root.Clear();
             Root.Add(newRoot);
@@ -140,6 +188,23 @@ namespace BESM3CAData.Control
             }
         }
 
+        public void GenrePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is GenreEntry genreEntry)
+            {
+                if (e.PropertyName == nameof(GenreEntry.IsSelected) && genreEntry.IsSelected == true)
+                {
+                    SelectedGenreEntry = genreEntry;
+                    if (SelectedNode != null)
+                    {
+                        
+                        RootCharacter.InvalidateGenrePoints();
+                    }
+
+                }
+            }
+        }
+
         public void ResetAll()
         {
             //Reset root character:
@@ -152,7 +217,7 @@ namespace BESM3CAData.Control
                 Root.Add(RootCharacter);
                 RootCharacter.IsSelected = true;
                 FileName = "";
-                SelectedGenreIndex = -1;
+                
             }
             else
             {
@@ -194,9 +259,9 @@ namespace BESM3CAData.Control
 
             tw.WriteLine("BESM3CA Character Export");
             tw.WriteLine("Using points listings: " + SelectedListingData.ListingName);
-            if (SelectedGenreIndex > -1)
+            if (SelectedGenreEntry !=null)
             {
-                tw.WriteLine("Genre: " + SelectedListingData.Genres[SelectedGenreIndex]);
+                tw.WriteLine("Genre: " + SelectedGenreEntry.GenreName);
             }
             tw.WriteLine();
 
@@ -219,10 +284,10 @@ namespace BESM3CAData.Control
             tw.Write(SelectedListingData.ListingName);
             tw.Write("</p>\n");
 
-            if (SelectedGenreIndex > -1)
+            if (SelectedGenreEntry != null)
             {
                 tw.Write("<p>Genre: ");
-                tw.Write(SelectedListingData.Genres[SelectedGenreIndex]);
+                tw.Write(SelectedGenreEntry.GenreName);
                 tw.Write("</p>\n");
             }
             tw.Write("</div>\n");

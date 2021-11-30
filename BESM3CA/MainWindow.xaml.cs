@@ -38,6 +38,8 @@ namespace BESM3CA
             DataContext = CurrentController;
             CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\BESM3E.json");
             ResetAll();
+            GenreComboBox.SelectedIndex = 0;
+            FilterComboBox.SelectedIndex = 0;
         }
 
 
@@ -49,24 +51,10 @@ namespace BESM3CA
             //Reset root character:
             CurrentController.ResetAll();
 
-            //Refresh Genre list:
-            RefreshGenreList();
+            //Refresh Genre list:           
         }
 
-        private void RefreshGenreList()
-        {
-            if (CurrentController.SelectedListingData.Genres != null && CurrentController.SelectedListingData.Genres.Count > 0)
-            {
-                GenreComboBox.Visibility = Visibility.Visible;
-                GenreComboBox.ItemsSource = CurrentController.SelectedListingData.Genres;
-                GenreComboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                GenreComboBox.Visibility = Visibility.Collapsed;
-                GenreComboBox.ItemsSource = null;
-            }
-        }
+        
 
         private void SaveFile(bool SaveExisting)
         {
@@ -125,12 +113,6 @@ namespace BESM3CA
                 }
                 else
                 {
-                    if (CurrentController.CurrentEntity.SelectedGenreIndex > -1)
-                    {
-                        GenreComboBox.SelectedIndex = CurrentController.CurrentEntity.SelectedGenreIndex;
-                    }
-
-
                     Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileName;
                     if (CharacterTreeView.Items.Count > 0)
                     {
@@ -200,14 +182,7 @@ namespace BESM3CA
             }
         }
 
-        private void GenreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (GenreComboBox.SelectedIndex > -1)
-            {
-                CurrentController.CurrentEntity.SelectedGenreIndex = GenreComboBox.SelectedIndex;
-                CurrentController.CurrentEntity.RootCharacter.InvalidateGenrePoints();
-            }
-        }
+        
 
         private void ExportToHTMLMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -235,5 +210,7 @@ namespace BESM3CA
                 AttributeListBox.ScrollIntoView(AttributeListBox.Items[0]);
             }
         }
+
+        
     }
 }

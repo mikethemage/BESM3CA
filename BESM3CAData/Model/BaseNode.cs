@@ -200,7 +200,7 @@ namespace BESM3CAData.Model
                 if (value == true)
                 {
                     AddAttributeSelectionHandlers();
-
+                    
                     //Deselect any invalid options:
                     foreach (DataListing stillSelectedDataListing in AssociatedController.SelectedListingData.AttributeList.Where(x => x.IsSelected))
                     {
@@ -210,12 +210,14 @@ namespace BESM3CAData.Model
                         }
                     }
 
-                    string temp = AssociatedController.SelectedType;
-                    if (AssociatedController.Filters.FirstOrDefault(x => x.TypeName == "All") is FilterType allFilterType1)
-                    {
-                        allFilterType1.IsSelected = false;
-                    }
+                    
 
+                    string temp = AssociatedController.SelectedType;
+                    foreach (FilterType oldFilterType in AssociatedController.Filters)
+                    {
+                        oldFilterType.IsSelected = false;
+                        
+                    }
                     AssociatedController.Filters.Clear();
                     foreach (string filterType in GetTypesForFilter())                    
                     {
@@ -226,9 +228,9 @@ namespace BESM3CAData.Model
                         {
                             newFilterType.IsSelected = true;
                         }
-                    }
+                    }                    
 
-                    if(AssociatedController.SelectedType==null || AssociatedController.SelectedType=="")
+                    if (AssociatedController.SelectedType==null || AssociatedController.SelectedType=="" || AssociatedController.Filters.FirstOrDefault(x => x.TypeName == temp)==null)
                     {
                         if (AssociatedController.Filters.FirstOrDefault(x=>x.TypeName=="All") is FilterType allFilterType2)
                         {

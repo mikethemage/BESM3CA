@@ -170,7 +170,7 @@ namespace BESM3CAData.Model
 
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
-            //Todo: remove method
+            //No additional XML for PointsContainers
         }
     }
 }

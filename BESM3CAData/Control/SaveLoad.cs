@@ -3,6 +3,7 @@ using BESM3CAData.Model;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 
@@ -89,7 +90,8 @@ namespace BESM3CAData.Control
                             if (reader.NodeType == XmlNodeType.Text)
                             {
                                 //Read genre name
-                                controller.CurrentEntity.SelectedGenreIndex = controller.SelectedListingData.Genres.IndexOf(reader.Value);
+                                controller.CurrentEntity.GenreList.FirstOrDefault(x=>x.GenreName==reader.Value).IsSelected=true;
+                                
                             }
                         }
                     }
@@ -216,9 +218,9 @@ namespace BESM3CAData.Control
             textWriter.WriteAttributeString("version", System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
 
             textWriter.WriteElementString(XmlListingTag, controller.SelectedListingData.ListingName);
-            if (controller.SelectedGenreIndex > -1)
+            if (controller.SelectedGenreEntry!=null)
             {
-                textWriter.WriteElementString(XmlGenreTag, controller.SelectedListingData.Genres[controller.SelectedGenreIndex]);
+                textWriter.WriteElementString(XmlGenreTag, controller.SelectedGenreEntry.GenreName);
             }
 
             // writing the main tag that encloses all node tags
