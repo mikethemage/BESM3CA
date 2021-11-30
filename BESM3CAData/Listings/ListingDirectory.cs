@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
@@ -13,7 +9,7 @@ namespace BESM3CAData.Listings
         public List<ListingLocation> AvailableListings { get; set; }
 
         public ListingDirectory()
-        {            
+        {
         }
 
         public void CreateJSON(string outputPath)

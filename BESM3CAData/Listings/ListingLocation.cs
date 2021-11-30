@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json.Serialization;
 
 namespace BESM3CAData.Listings
@@ -19,9 +18,10 @@ namespace BESM3CAData.Listings
             }
         }
 
-        public ListingData LoadListing()
+
+        public MasterListing LoadListing()
         {
-            return ListingData.JSONLoader(this);
-        }        
+            return MasterListing.JSONLoader(this);
+        }
     }
 }

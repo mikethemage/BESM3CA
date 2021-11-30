@@ -1,19 +1,46 @@
 ﻿using BESM3CAData.Listings;
 using BESM3CAData.Model;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 
 namespace BESM3CAData.Control
 {
-    public class DataController
+    public class DataController : INotifyPropertyChanged
     {
-        //Properties:
-        public string FileName { get; set; }
-        public ListingData SelectedListingData { get; set; }
-        public CharacterNode RootCharacter { get; set; }
-        public int SelectedGenreIndex { get; set; }
+        private RPGEntity _currentEntity;
+        public RPGEntity CurrentEntity
+        {
+            get { return _currentEntity; }
+            set
+            {
+                if (_currentEntity != value)
+                {
+                    _currentEntity = value;
+                    OnPropertyChanged(nameof(CurrentEntity));
+                }
+            }
+        }
+
+        //Properties:        
+        public MasterListing SelectedListingData { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         //Fields:
         public ListingDirectory ListingDirectory;
+
+        
 
         //Constructor:
         public DataController()
@@ -25,91 +52,33 @@ namespace BESM3CAData.Control
 
             //Load listing from file:
             SelectedListingData = DefaultListing.LoadListing();
-            ResetAll();
-        }
 
+            CurrentEntity = new RPGEntity(SelectedListingData);
+        }
 
         //Public Methods:
-        public void Load(string fileName)
-        {
-            SelectedGenreIndex = -1;  //Needs changing to load Genre
-            RootCharacter = (CharacterNode)SaveLoad.DeserializeXML(fileName, this);
-            //Need to check if successful
-
-            FileName = fileName;
-        }
-
         public void ResetAll()
         {
-            //Reset root character:
-            RootCharacter = new CharacterNode(this);
-            FileName = "";
-            SelectedGenreIndex = -1;
-        }
-
-        public void SaveAs(string fileName)
-        {
-            FileName = fileName;
-            Save();
-        }
-
-        public void Save()
-        {
-            SaveLoad.SerializeXML(RootCharacter, FileName, this);
-        }
-
-        public void ExportToText(string exportFile)
-        {
-            TextWriter tw;
-
-            tw = new StreamWriter(exportFile);
-
-            tw.WriteLine("BESM3CA Character Export");
-            tw.WriteLine("Using points listings: " + SelectedListingData.ListingName);
-            if (SelectedGenreIndex > -1)
-            {
-                tw.WriteLine("Genre: " + SelectedListingData.Genres[SelectedGenreIndex]);
-            }
-            tw.WriteLine();
-
-            SaveLoad.ExportNode(RootCharacter, 0, tw);
-
-            //close file
-            tw.Close();
-        }
-
-        public void ExportToHTML(string exportFile)
-        {
-            TextWriter tw;
-
-            tw = new StreamWriter(exportFile);
-
-            tw.Write("<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n<style type = \"text/css\">\n@page\n {\n size: A4; \n}\n@page :left\n {\n margin-left: 2cm;\n }\n@page :right\n {\n margin-right: 2cm;\n }\n</style>\n</head>\n<body>\n<div class=\"CharacterExport\">\n<div class=\"CharacterExportHeader\">\n");
-            tw.Write("<h1>BESM3CA Character Export</h1>\n");
             
-            tw.Write("<p>Using points listings: ");
-            tw.Write(SelectedListingData.ListingName);
-            tw.Write("</p>\n");
+                CurrentEntity = new RPGEntity(SelectedListingData);
+            
+        }
 
-            if (SelectedGenreIndex > -1)
-            {
-                tw.Write("<p>Genre: ");
-                tw.Write(SelectedListingData.Genres[SelectedGenreIndex]);
-                tw.Write("</p>\n");
-            }
-            tw.Write("</div>\n");
-            tw.Write("<ul>\n");
+        public void Load(string fileName)
+        {
+            CurrentEntity = new RPGEntity(SelectedListingData);
 
-            SaveLoad.ExportHTMLNode(RootCharacter, 0, tw);
+            CurrentEntity.Load(fileName, SaveLoad.DeserializeXML(fileName, this));
 
-            tw.Write("</ul>\n");
 
-            tw.WriteLine("</div>");
-            tw.WriteLine("</body>");
-            tw.WriteLine("</html>");
+            //Root.Clear();
+            //Root.Add(RootCharacter);
+            //RootCharacter.IsSelected = true;
+            //RootCharacter.RefreshAll();
 
-            tw.Close();
+            ////Need to check if successful
 
+            //FileName = fileName;
         }
 
     }

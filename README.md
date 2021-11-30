@@ -1,6 +1,6 @@
 # BESM 3rd Edition Character Assistant
 
-**BESM3CA** is a character creator for the third edition of the BESM (Big Eyes, Small Mouth) roleplaying game.  It is currently a 64-bit Windows application using .Net 5.0.  Supported operating systems are Windows 7 x64 and higher.
+**BESM3CA** is a character creator for the third edition of the BESM (Big Eyes, Small Mouth) roleplaying game.  It is currently a 64-bit Windows application using .Net 6.0.  Supported operating systems are Windows 7 x64 and higher.
 
 Files can be saved in _.xml_ format which can be reloaded later, or exported to _.txt_ for easier reading/manual formatting/printing etc.
 

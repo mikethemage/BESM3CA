@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Datafiles\BESM4E.json">
+    <EmbeddedResource Include="Datafiles\BESM3E.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Datafiles\BESM3E.json">
+    <EmbeddedResource Include="Datafiles\BESM4E.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Datafiles\ListingDirectory.json">
@@ -29,6 +29,12 @@
 
   <ItemGroup>
     <PackageReference Include="MathParser.org-mXparser" Version="4.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Datafiles\bkBESM3E.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

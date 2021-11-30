@@ -2,19 +2,19 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>BESM3CA</RootNamespace>
     <UseWPF>true</UseWPF>
     <StartupObject>BESM3CA.App</StartupObject>
-    <Version>0.2.1</Version>
+    <Version>0.3.0</Version>
     <Description>BESM 3rd Edition Character Assistant</Description>
     <Product>BESM3CA</Product>
     <Company>MD2000</Company>
     <Authors>Mike Dunn</Authors>
     <PackageProjectUrl>https://github.com/mikethemage/BESM3CA</PackageProjectUrl>
     <NeutralLanguage>en-GB</NeutralLanguage>
-    <AssemblyVersion>0.2.0.0</AssemblyVersion>
-    <FileVersion>0.2.0.0</FileVersion>
+    <AssemblyVersion>0.3.0.0</AssemblyVersion>
+    <FileVersion>0.3.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -28,6 +28,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BESM3CAData\BESM3CAData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
 </Project>

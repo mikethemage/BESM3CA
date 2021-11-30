@@ -1,7 +1,9 @@
-﻿using BESM3CAData.Model;
-using BESM3CAData.Listings;
+﻿using BESM3CAData.Listings;
+using BESM3CAData.Model;
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 
@@ -23,6 +25,8 @@ namespace BESM3CAData.Control
             BaseNode rootNode = null;
 
             XmlTextReader reader = null;
+
+            Version fileVersion=null;
             try
             {
                 reader = new XmlTextReader(fileName);
@@ -31,7 +35,37 @@ namespace BESM3CAData.Control
 
                 while (reader.Read())
                 {
-                    if ((reader.Name == XmlListingTag || reader.Name == OldXmlListingTag) && reader.NodeType == XmlNodeType.Element)
+                    if (reader.Name == "root" && reader.NodeType == XmlNodeType.Element)
+                    {
+                        int attributeCount = reader.AttributeCount;
+                        if (attributeCount > 0)
+                        {
+                            for (int i = 0; i < attributeCount; i++)
+                            {
+                                reader.MoveToAttribute(i);
+                                switch (reader.Name)
+                                {
+                                    case "version":
+                                        fileVersion = new Version(reader.Value);
+                                        break;                                    
+                                    default:
+                                        break;
+                                }
+                            }
+                            if(fileVersion == null || fileVersion < new Version("0.2.2.0"))
+                            {
+                                ///version is too old
+                                break;
+                            }
+                        }
+                        else 
+                        {
+                            //No version number!
+                            break;
+                        }
+
+                    }
+                    else if ((reader.Name == XmlListingTag || reader.Name == OldXmlListingTag) && reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Read())
                         {
@@ -44,7 +78,7 @@ namespace BESM3CAData.Control
                                 if (controller.SelectedListingData.ListingName != selectedListing.ListingName)
                                 {
                                     //Load listing from file:
-                                    controller.SelectedListingData = ListingData.JSONLoader(selectedListing);
+                                    controller.SelectedListingData = MasterListing.JSONLoader(selectedListing);
                                 }
                             }
                         }
@@ -56,7 +90,8 @@ namespace BESM3CAData.Control
                             if (reader.NodeType == XmlNodeType.Text)
                             {
                                 //Read genre name
-                                controller.SelectedGenreIndex = controller.SelectedListingData.Genres.IndexOf(reader.Value);
+                                controller.CurrentEntity.GenreList.FirstOrDefault(x=>x.GenreName==reader.Value).IsSelected=true;
+                                
                             }
                         }
                     }
@@ -70,7 +105,7 @@ namespace BESM3CAData.Control
                         {
                             if (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode"))
                             {
-                                newNode = new CharacterNode(controller);  
+                                newNode = new CharacterNode(controller.CurrentEntity);
                                 newNode.LoadXML(reader);
                                 if (rootNode == null)
                                 {
@@ -85,17 +120,49 @@ namespace BESM3CAData.Control
 
                                 parentNode = newNode;
                             }
-                            else if (reader.Name.EndsWith("AttributeData") || reader.Name.EndsWith("AttributeNode"))
+                            else if (reader.Name.EndsWith("DataNode"))
                             {
-                                newNode = new AttributeNode(controller); 
-                                newNode.LoadXML(reader);
-                                if (parentNode != null)
+                                switch (reader.Name)
                                 {
-                                    parentNode.AddChild(newNode);
+                                    case "LevelableDataNode":
+                                        newNode = new LevelableDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "LevelableWithVariantDataNode":
+                                        newNode = new LevelableWithVariantDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "MultiGenreDataNode":
+                                        newNode = new MultiGenreDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "PointsContainerDataNode":
+                                        newNode = new PointsContainerDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "SpecialContainerDataNode":
+                                        newNode = new SpecialContainerDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "SpecialContainerWithVariantDataNode":
+                                        newNode = new SpecialContainerWithVariantDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "CompanionDataNode":
+                                        newNode = new CompanionDataNode(controller.CurrentEntity);
+                                        break;
+                                    case "LevelableWithFreebieWithVariantDataNode":
+                                        newNode = new LevelableWithFreebieWithVariantDataNode(controller.CurrentEntity);
+                                        break;
+                                    default:
+                                        throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");
+                                        //break;
                                 }
+                                if (newNode != null)
+                                {
+                                    newNode.LoadXML(reader);
+                                    if (parentNode != null)
+                                    {
+                                        parentNode.AddChild(newNode);
+                                    }
 
-                                parentNode = newNode;
-                            }
+                                    parentNode = newNode;
+                                }
+                            }                            
                             else
                             {
                                 //Do nothing
@@ -141,18 +208,19 @@ namespace BESM3CAData.Control
             return rootNode;
         }
 
-        public static void SerializeXML(BaseNode rootNode, string fileName, DataController controller)
+        public static void SerializeXML(BaseNode rootNode, string fileName, RPGEntity controller)
         {
             XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.UTF8);
 
             // writing the xml declaration tag
             textWriter.WriteStartDocument();
             textWriter.WriteStartElement("root");
+            textWriter.WriteAttributeString("version", System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
 
             textWriter.WriteElementString(XmlListingTag, controller.SelectedListingData.ListingName);
-            if (controller.SelectedGenreIndex > -1)
+            if (controller.SelectedGenreEntry!=null)
             {
-                textWriter.WriteElementString(XmlGenreTag, controller.SelectedListingData.Genres[controller.SelectedGenreIndex]);
+                textWriter.WriteElementString(XmlGenreTag, controller.SelectedGenreEntry.GenreName);
             }
 
             // writing the main tag that encloses all node tags
@@ -221,7 +289,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine($"{nexttabstring}Energy: {stats.Energy}");
                     tw.WriteLine();
                 }
-                else if(current is AttributeNode currentAttribute)
+                else if (current is DataNode currentAttribute)
                 {
                     if (currentAttribute.AttributeType == "Attribute")
                     {
@@ -231,13 +299,16 @@ namespace BESM3CAData.Control
 
                         nexttabstring = $"{tabstring}\t";
 
-                        if (currentAttribute.Name == "Item")
+                        if (currentAttribute is LevelableDataNode levelableDataNode)
                         {
-                            tw.WriteLine($"{tabstring}(");
+                            tw.WriteLine($"{nexttabstring}Level {levelableDataNode.Level} x {levelableDataNode.PointsPerLevel} = {levelableDataNode.Level * levelableDataNode.PointsPerLevel}");
                         }
                         else
                         {
-                            tw.WriteLine($"{nexttabstring}Level {currentAttribute.Level} x {currentAttribute.PointsPerLevel} = {currentAttribute.Level * currentAttribute.PointsPerLevel}");
+                            if (currentAttribute.Name == "Item")
+                            {
+                                tw.WriteLine($"{tabstring}(");
+                            }
                         }
 
                         if (currentAttribute.AttributeDescription != "")
@@ -250,7 +321,10 @@ namespace BESM3CAData.Control
                     {
                         //write stuff
                         //write a line of text to the file
-                        tw.WriteLine($"{tabstring}{current.DisplayText} Level {currentAttribute.Level}");
+                        if (currentAttribute is LevelableDataNode levelableDataNode)
+                        {
+                            tw.WriteLine($"{tabstring}{current.DisplayText} Level {levelableDataNode.Level}");
+                        }
                         nexttabstring = $"{tabstring}\t";
                     }
                 }
@@ -331,30 +405,45 @@ namespace BESM3CAData.Control
                 }
                 else
                 {
-                    if (((AttributeNode)current).AttributeType == "Attribute")
+                    if (((DataNode)current).AttributeType == "Attribute")
                     {
                         tw.WriteLine("<li class=\"AttributeNode\">");
                         tw.WriteLine($"<h3>{current.DisplayText}</h3>");
 
-                        if (((AttributeNode)current).Name == "Item")
+
+
+
+
+
+                        if (current is LevelableDataNode levelableDataNode)
                         {
-                            tw.WriteLine("(");
+
+                            tw.WriteLine($"<p>Level {(levelableDataNode).Level} x {(levelableDataNode).PointsPerLevel} = {(levelableDataNode).Level * (levelableDataNode).PointsPerLevel}</p>");
                         }
                         else
                         {
-                            tw.WriteLine($"<p>Level {((AttributeNode)current).Level} x {((AttributeNode)current).PointsPerLevel} = {((AttributeNode)current).Level * ((AttributeNode)current).PointsPerLevel}</p>");
+                            if (((DataNode)current).Name == "Item")
+                            {
+                                tw.WriteLine("(");
+                            }
                         }
 
-                        if (((AttributeNode)current).AttributeDescription != "")
+                        if (((DataNode)current).AttributeDescription != "")
                         {
-                            tw.WriteLine($"<p>Description: {((AttributeNode)current).AttributeDescription}</p>");
+                            tw.WriteLine($"<p>Description: {((DataNode)current).AttributeDescription}</p>");
                         }
                         isAttrib = true;
                     }
                     else
                     {
-                        tw.WriteLine($"<li class=\"{((AttributeNode)current).AttributeType}Node\">");
-                        tw.WriteLine($"{current.DisplayText} Level {((AttributeNode)current).Level}");
+                        tw.WriteLine($"<li class=\"{((DataNode)current).AttributeType}Node\">");
+
+                        if (current is LevelableDataNode levelableDataNode)
+                        {
+                            tw.WriteLine($"{current.DisplayText} Level {levelableDataNode.Level}");
+                        }
+
+
                     }
                     if (current.Notes != "")
                     {
@@ -369,7 +458,7 @@ namespace BESM3CAData.Control
                     }
                     if (isAttrib)
                     {
-                        if (((AttributeNode)current).Name == "Item")
+                        if (((DataNode)current).Name == "Item")
                         {
                             tw.WriteLine(") / 2");
                         }

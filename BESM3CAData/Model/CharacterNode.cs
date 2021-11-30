@@ -1,6 +1,7 @@
-﻿using BESM3CAData.Listings;
-using BESM3CAData.Control;
+﻿using BESM3CAData.Control;
+using BESM3CAData.Listings;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 
@@ -8,85 +9,18 @@ namespace BESM3CAData.Model
 {
     public class CharacterNode : BaseNode
     {
-        //Fields:
+        public override void RefreshAll()
+        {
+            foreach (BaseNode item in Children)
+            {
+                item.RefreshAll();
+            }
+            RefreshBaseCost();
+            RefreshPoints();
+            RefreshDisplayText();
+        }
+
         private int _body;
-        private int _mind;
-        private int _soul;
-
-        //Properties:
-        public string CharacterName { get; set; }
-
-        public override bool HasCharacterStats
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        public override bool HasLevelStats
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public override bool HasPointsStats
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public override List<AttributeListing> PotentialChildren
-        {
-            get
-            {
-                if (AssociatedController.SelectedListingData != null)
-                {
-                    return AssociatedController.SelectedListingData.AttributeList.Where(n => (n.Type == "Attribute" || n.Type == "Defect" || n.Type == "Skill") && n.Name != "Character").ToList<AttributeListing>();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public int BaseCost
-        {
-            get
-            {
-                return (_body + _mind + _soul) * 10;
-            }
-        }
-
-        public int BaseHealth
-        {
-            get
-            {
-                return (_body + _soul) * 5;
-            }
-        }
-
-        public int BaseEnergy
-        {
-            get
-            {
-                return (_mind + _soul) * 5;
-            }
-        }
-
-        public int BaseCV
-        {
-            get
-            {
-                return (_body + _mind + _soul) / 3;
-            }
-        }
-
         public int Body
         {
             get
@@ -97,12 +31,19 @@ namespace BESM3CAData.Model
             {
                 if (value >= 0)
                 {
-                    _body = value;
-                    PointsUpToDate = false;
+                    if (value != _body)
+                    {
+                        _body = value;
+                        OnPropertyChanged(nameof(Body));
+                        RefreshBaseCost();
+                        
+                    }
+
                 }
             }
         }
 
+        private int _mind;
         public int Mind
         {
             get
@@ -113,12 +54,18 @@ namespace BESM3CAData.Model
             {
                 if (value >= 0)
                 {
-                    _mind = value;
-                    PointsUpToDate = false;
+                    if (value != _mind)
+                    {
+                        _mind = value;
+                        OnPropertyChanged(nameof(Mind));
+                        RefreshBaseCost();
+                        
+                    }
                 }
             }
         }
 
+        private int _soul;
         public int Soul
         {
             get
@@ -129,38 +76,107 @@ namespace BESM3CAData.Model
             {
                 if (value >= 0)
                 {
-                    _soul = value;
-                    PointsUpToDate = false;
+                    if (value != _soul)
+                    {
+                        _soul = value;
+                        OnPropertyChanged(nameof(Soul));
+                        RefreshBaseCost();
+                        
+                    }
+                }
+            }
+        }
+
+        private void RefreshBaseCost()
+        {
+            BaseCost = (Body + Mind + Soul) * 10;
+        }
+
+        public override bool CanDelete()
+        {
+            return false;
+        }
+
+        protected override void RefreshPoints()
+        {
+            int tempPoints = BaseCost;
+            BaseNode temp = FirstChild;
+            while (temp != null)
+            {
+                tempPoints += temp.Points;
+                temp = temp.Next;
+            }
+            Points = tempPoints;
+        }
+
+
+
+
+        //Properties:
+        public string CharacterName { get; set; }
+
+        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.ChildPropertyChanged(sender, e);
+            if (sender is BaseNode)
+            {
+                if (e.PropertyName == nameof(BaseNode.Points))
+                {
+                    RefreshPoints();
                 }
             }
         }
 
 
-        //Constructor:
-        public CharacterNode(DataController controller, string Notes = "") : base("Character", 0, Notes, controller)
+
+        public int BaseHealth
         {
-            _body = 1;
-            _mind = 1;
-            _soul = 1;
+            get
+            {
+                return (Body + Soul) * 5;
+            }
+        }
+
+        public int BaseEnergy
+        {
+            get
+            {
+                return (Mind + Soul) * 5;
+            }
+        }
+
+        public int BaseCV
+        {
+            get
+            {
+                return (Body + Mind + Soul) / 3;
+            }
+        }
+
+
+
+
+        //Constructors:  
+        public CharacterNode(RPGEntity controller, string notes = "") : base(controller, notes)
+        {
+            //Default constructor for data loading only
+        }
+
+        public CharacterNode(CharacterDataListing attribute, string notes, RPGEntity controller) : base(attribute, controller, notes)
+        {
+            Body = 1;
+            Mind = 1;
+            Soul = 1;
         }
 
 
         //Methods:
-        public override int GetPoints()
-        {
-            if (PointsUpToDate == false || FirstChild == null)
-            {
-                _points = BaseCost;
-                BaseNode temp = FirstChild;
-                while (temp != null)
-                {
-                    _points += temp.GetPoints();
-                    temp = temp.Next;
-                }
-                PointsUpToDate = true;
-            }
 
-            return _points;
+
+
+        public CalcStats Stats
+        {
+            get { return GetStats(); }
         }
 
         //Stat calculation:
@@ -188,14 +204,16 @@ namespace BESM3CAData.Model
         public override void SaveAdditionalXML(XmlTextWriter textWriter)
         {
             textWriter.WriteStartElement("CharacterStats");
-            textWriter.WriteAttributeString("Mind", _mind.ToString());
-            textWriter.WriteAttributeString("Body", _body.ToString());
-            textWriter.WriteAttributeString("Soul", _soul.ToString());
+            textWriter.WriteAttributeString("Mind", Mind.ToString());
+            textWriter.WriteAttributeString("Body", Body.ToString());
+            textWriter.WriteAttributeString("Soul", Soul.ToString());
             textWriter.WriteEndElement();
         }
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
+
+
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();

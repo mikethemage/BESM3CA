@@ -1,74 +1,374 @@
-﻿using BESM3CAData.Listings;
-using BESM3CAData.Control;
+﻿using BESM3CAData.Control;
+using BESM3CAData.Listings;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml;
+using System.ComponentModel;
+using System;
+using System.Collections.Specialized;
+
 
 namespace BESM3CAData.Model
 {
-    public abstract class BaseNode
+    public abstract class BaseNode : INotifyPropertyChanged
     {
-        //Fields:
-        private int _lastChildOrder;
-        protected int _points;
-        private bool _pointsUpToDate;
 
-        //Properties:
-        public DataController AssociatedController { get; set; }
-        public int ID { get; private set; }
-        public string Name { get; set; }
-        public string Notes { get; set; }
-
-        public BaseNode FirstChild { get; private set; }
-        public BaseNode Parent { get; private set; }
-        public int NodeOrder { get; set; }
-        public BaseNode Next { get; private set; }
-        public BaseNode Prev { get; private set; }
-
-        public virtual string DisplayText
+        //Need view model for selected attribute for adding????
+        public void AddSelectedChild()
         {
-            get
+            AddChildAttribute(SelectedAttributeToAdd);
+        }
+
+        public bool CanAddSelectedChild()
+        {
+            if (SelectedAttributeToAdd != null)
             {
-                return $"{Name} ({GetPoints()} Points)";
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public abstract bool HasCharacterStats { get; }
-        public abstract bool HasLevelStats { get; }
-        public abstract bool HasPointsStats { get; }
-        public abstract List<AttributeListing> PotentialChildren { get; }
+        public DataListing SelectedAttributeToAdd
+        {
+            get;
+            set;
+        }
 
-        public bool PointsUpToDate
+        public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Event handler for changes to children
+            if (sender is DataListing dataListing)
+            {
+                if (e.PropertyName == nameof(DataListing.IsSelected) && dataListing.IsSelected == true)
+                {
+                    SelectedAttributeToAdd = dataListing;
+                    AddCommand.RaiseCanExecuteChanged();
+                }
+                //else if (sender == SelectedNode)
+                //{
+                //    OnPropertyChanged(nameof(SelectedNode));
+                //}
+            }
+        }
+
+
+        private void CreateAddCommand()
+        {
+            AddCommand = new RelayCommand(AddSelectedChild, CanAddSelectedChild);
+        }
+
+        public RelayCommand AddCommand
+        {
+            get; private set;
+        }
+        //****
+
+
+        public virtual void RefreshAll()
+        {
+            foreach (BaseNode item in Children)
+            {
+                item.RefreshAll();
+            }
+            RefreshPoints();
+            RefreshDisplayText();
+        }
+
+        private int _baseCost;
+        public virtual int BaseCost
         {
             get
             {
-                return _pointsUpToDate;
+                return _baseCost;
             }
             protected set
             {
-                _pointsUpToDate = value;
-                if (value == false && Parent != null)
+                int originalCost = _baseCost;
+                _baseCost = value;
+                if (originalCost != _baseCost)
                 {
-                    Parent.PointsUpToDate = false;
+                    //Cost has changed
+                    OnPropertyChanged(nameof(BaseCost));
+                    RefreshPoints();
                 }
             }
         }
 
-        //Constructors:
-        public BaseNode(string attributeName, int attributeID, string notes, DataController controller)
+        private int _points;
+        public int Points
         {
-            AssociatedController = controller;
-            Name = attributeName;
-            ID = attributeID;
-            Notes = notes;
+            get
+            {
+                return _points;
+            }
+            protected set
+            {
+                int originalPoints = _points;
 
+                _points = value;
+                if (originalPoints != _points)
+                {
+                    OnPropertyChanged(nameof(Points));
+                    RefreshDisplayText();
+                }
+            }
+        }
+        protected abstract void RefreshPoints();
+
+        private string _displayText;
+        public string DisplayText
+        {
+            get
+            {
+                return _displayText;
+            }
+            protected set
+            {
+                string originalDisplayText = _displayText;
+                _displayText = value;
+                if (originalDisplayText != _displayText)
+                {
+                    OnPropertyChanged(nameof(DisplayText));
+                }
+            }
+        }
+
+        protected virtual void RefreshDisplayText()
+        {
+            DisplayText = $"{Name} ({Points} Points)";
+        }
+
+
+        //Fields:
+        private int _lastChildOrder;
+
+
+        //Properties:
+        public RPGEntity AssociatedController { get; private set; }
+        public virtual DataListing AssociatedListing { get; protected set; }
+
+        public int ID { get; private set; }
+
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                    RefreshDisplayText();
+                }
+            }
+        }
+
+        public string Notes { get; set; }
+
+
+        //Tree structure properties:
+        public BaseNode FirstChild { get; private set; }
+        public BaseNode Parent { get; private set; }
+        public int NodeOrder { get; private set; }
+        public BaseNode Next { get; private set; }
+        public BaseNode Prev { get; private set; }
+
+        public ObservableCollection<BaseNode> Children { get; private set; } = new ObservableCollection<BaseNode>();
+
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+
+                _isSelected = value;
+
+                if (value == true)
+                {
+                    AddAttributeSelectionHandlers();
+                    
+                    //Deselect any invalid options:
+                    foreach (DataListing stillSelectedDataListing in AssociatedController.SelectedListingData.AttributeList.Where(x => x.IsSelected))
+                    {
+                        if (AssociatedListing.FilteredPotentialChildren == null || !AssociatedListing.FilteredPotentialChildren.Contains(stillSelectedDataListing))
+                        {
+                            stillSelectedDataListing.IsSelected = false;
+                        }
+                    }
+
+                    
+
+                    string temp = AssociatedController.SelectedType;
+                    foreach (FilterType oldFilterType in AssociatedController.Filters)
+                    {
+                        oldFilterType.IsSelected = false;
+                        
+                    }
+                    AssociatedController.Filters.Clear();
+                    foreach (string filterType in GetTypesForFilter())                    
+                    {
+                        FilterType newFilterType = new FilterType(filterType);
+                        AssociatedController.Filters.Add(newFilterType);
+                        newFilterType.PropertyChanged += AssociatedController.FilterPropertyChanged;
+                        if(filterType==temp)
+                        {
+                            newFilterType.IsSelected = true;
+                        }
+                    }                    
+
+                    if (AssociatedController.SelectedType==null || AssociatedController.SelectedType=="" || AssociatedController.Filters.FirstOrDefault(x => x.TypeName == temp)==null)
+                    {
+                        if (AssociatedController.Filters.FirstOrDefault(x=>x.TypeName=="All") is FilterType allFilterType2)
+                        {
+                            allFilterType2.IsSelected = true;
+                        }
+                    }
+
+                }
+                else
+                { 
+                    foreach (FilterType oldFT in AssociatedController.Filters)
+                    {
+                        oldFT.PropertyChanged-= AssociatedController.FilterPropertyChanged;
+                    }
+                    RemoveAttributeSelectionHandlers();
+                }
+
+                AddCommand.RaiseCanExecuteChanged();
+
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public List<DataListing> PotentialChildren
+        {
+            get
+            {
+                if (AssociatedListing != null)
+                {
+                    return AssociatedListing.Children;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public bool Useable { get; private set; }
+
+        //Constructors:
+        public BaseNode(RPGEntity controller, string notes = "")
+        {
+            //Default constructor for data loading only
+            AssociatedController = controller;
+
+            PropertyChanged += AssociatedController.ChildPropertyChanged;
+
+            //Need to set attribute seperately in order to use this!
+            Useable = false;
+            Notes = notes;
             NodeOrder = 1;
             FirstChild = null;
             Parent = null;
             _lastChildOrder = 0;
             Next = null;
             Prev = null;
-            _pointsUpToDate = false;
+
+            Children.CollectionChanged += Children_CollectionChanged;
+
+            CreateMoveUpCommand();
+            CreateMoveDownCommand();
+            CreateDeleteCommand();
+            CreateAddCommand();
+        }
+        public RelayCommand DeleteCommand
+        {
+            get; private set;
+        }
+        public RelayCommand MoveUpCommand
+        {
+            get; private set;
+        }
+        public RelayCommand MoveDownCommand
+        {
+            get; private set;
+        }
+        private void CreateMoveUpCommand()
+        {
+            MoveUpCommand = new RelayCommand(MoveUp, CanMoveUp);
+        }
+
+        private void CreateMoveDownCommand()
+        {
+            MoveDownCommand = new RelayCommand(MoveDown, CanMoveDown);
+        }
+
+        public bool CanMoveUp()
+        {
+            return Prev != null;
+        }
+
+        public bool CanMoveDown()
+        {
+            return Next != null;
+        }
+
+        protected virtual void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            RefreshPoints();
+        }
+
+
+
+
+        public BaseNode(DataListing attribute, RPGEntity controller, string notes = "")
+        {
+            Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
+
+            AssociatedController = controller;
+            PropertyChanged += AssociatedController.ChildPropertyChanged;
+            AssociatedListing = attribute;
+            Name = attribute.Name;
+            ID = attribute.ID;
+            Useable = true;
+            Notes = notes;
+            NodeOrder = 1;
+            FirstChild = null;
+            Parent = null;
+            _lastChildOrder = 0;
+            Next = null;
+            Prev = null;
+            Children.CollectionChanged += Children_CollectionChanged;
+            CreateMoveUpCommand();
+            CreateMoveDownCommand();
+            CreateDeleteCommand();
+            CreateAddCommand();
         }
 
 
@@ -76,20 +376,25 @@ namespace BESM3CAData.Model
         public List<string> GetTypesForFilter()
         {
             //LINQ Version:
-            List<string> tempList = (from AttChild in PotentialChildren
-                                     orderby AttChild.Type
-                                     select AttChild.Type).Distinct().ToList();
+            List<string> tempList = (
+
+                                     from AttChild in PotentialChildren
+                                     join TypeValue in AssociatedController.SelectedListingData.TypeList on AttChild.Type equals TypeValue.Name
+                                     orderby TypeValue.TypeOrder
+                                     select AttChild.Type
+
+                                     ).Distinct().ToList();
             tempList.Insert(0, "All");
             return tempList;
         }
 
-        public List<AttributeListing> GetFilteredPotentialChildren(string filter)
+        public List<DataListing> GetFilteredPotentialChildren(string filter)
         {
-            List<AttributeListing> selectedAttributeChildren = PotentialChildren;
+            List<DataListing> selectedAttributeChildren = PotentialChildren;
             if (selectedAttributeChildren != null)
             {
                 //LINQ Version:
-                List<AttributeListing> filteredAttList = selectedAttributeChildren
+                List<DataListing> filteredAttList = selectedAttributeChildren
                     .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
                     .OrderBy(a => a.Type)
                     .ThenBy(a => a.Name)
@@ -103,7 +408,6 @@ namespace BESM3CAData.Model
             }
         }
 
-        public abstract int GetPoints();
 
         public void AddChild(BaseNode child)
         {
@@ -125,30 +429,53 @@ namespace BESM3CAData.Model
             child.Parent = this;
             _lastChildOrder++;
             child.NodeOrder = _lastChildOrder;
-            _pointsUpToDate = false;
+            Children.Add(child);
+            child.PropertyChanged += this.ChildPropertyChanged;
         }
 
         public void Delete()
         {
-            if (Parent != null)
+            if (Parent != null) //Do not delete root node!
             {
-                if (Parent.FirstChild == this)
+                if (Parent.FirstChild == this) //if we are the first child, advance to next (or copy null value)
                 {
                     Parent.FirstChild = Next;
                 }
-                if (Next != null)
+                if (Prev != null) //we have at least one previous entry, so not the first child 
                 {
-                    Next.Prev = null;
+                    Prev.Next = Next;
+                    Prev.IsSelected = true;
                 }
-                if (Prev != null)
+                if (Next != null) //we are not the last child
                 {
-                    Prev.Next = null;
+                    Next.Prev = Prev;
+                    if (Prev == null)
+                    {
+                        Next.IsSelected = true;
+                    }
                 }
-                Parent.PointsUpToDate = false;
+                if (Prev == null && Next == null)
+                {
+                    Parent.IsSelected = true;
+                }
 
+                Parent.Children.Remove(this);
+                PropertyChanged -= AssociatedController.ChildPropertyChanged;
+                PropertyChanged -= Parent.ChildPropertyChanged;
                 Parent = null;
             }
         }
+
+        public virtual bool CanDelete()
+        {
+            return Parent != null;
+        }
+
+        private void CreateDeleteCommand()
+        {
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
+        }
+
 
         public void MoveUp()
         {
@@ -177,6 +504,10 @@ namespace BESM3CAData.Model
                 int tempNodeOrder = NodeOrder;
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
+
+                Parent.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) - 1);
+                MoveUpCommand.RaiseCanExecuteChanged();
+                MoveDownCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -207,12 +538,15 @@ namespace BESM3CAData.Model
                 int tempNodeOrder = NodeOrder;
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
+                Parent.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) + 1);
+                MoveUpCommand.RaiseCanExecuteChanged();
+                MoveDownCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public AttributeNode AddChildAttribute(AttributeListing attribute)
+        public BaseNode AddChildAttribute(DataListing attribute)
         {
-            AttributeNode Temp = new AttributeNode(attribute, "", AssociatedController);
+            BaseNode Temp = attribute.CreateNode("", AssociatedController);
             AddChild(Temp);
             return Temp;
         }
@@ -247,6 +581,22 @@ namespace BESM3CAData.Model
 
         public abstract void SaveAdditionalXML(XmlTextWriter textWriter);
 
+        private void AddAttributeSelectionHandlers()
+        {
+            foreach (DataListing item in AssociatedListing.Children)
+            {
+                item.PropertyChanged += ChildPropertyChanged;
+            }
+        }
+
+        private void RemoveAttributeSelectionHandlers()
+        {
+            foreach (DataListing item in AssociatedListing.Children)
+            {
+                item.PropertyChanged -= ChildPropertyChanged;
+            }
+        }
+
         public void LoadXML(XmlTextReader reader)
         {
             while (reader.NodeType != XmlNodeType.None)
@@ -265,6 +615,11 @@ namespace BESM3CAData.Model
                                 break;
                             case "ID":
                                 ID = int.Parse(reader.Value);
+                                if (AssociatedController.SelectedListingData != null)
+                                {
+                                    AssociatedListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
+                                    Useable = true;
+                                }
                                 break;
                             default:
                                 break;
@@ -285,30 +640,7 @@ namespace BESM3CAData.Model
                     {
                         LoadAdditionalXML(reader);
                     }
-                    else
-                    {
-                        // loading node attributes
-                        attributeCount = reader.AttributeCount;
-                        if (attributeCount > 0)
-                        {
-                            for (int i = 0; i < attributeCount; i++)
-                            {
-                                reader.MoveToAttribute(i);
-                                switch (reader.Name)
-                                {
-                                    case "Name":
-                                        Name = reader.Value;
-                                        break;
-                                    case "ID":
-                                        ID = int.Parse(reader.Value);
 
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement)
                 {
@@ -319,7 +651,6 @@ namespace BESM3CAData.Model
                 }
             }
         }
-
         public abstract void LoadAdditionalXML(XmlTextReader reader);
     }
 }
