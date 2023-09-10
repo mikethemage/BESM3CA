@@ -1,13 +1,7 @@
 ﻿using BESM3CAData.Control;
-using BESM3CAData.Listings;
 using BESM3CAData.Model;
 using Microsoft.Win32;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace BESM3CA
 {
