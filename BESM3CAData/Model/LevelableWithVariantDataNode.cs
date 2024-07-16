@@ -40,6 +40,10 @@ namespace BESM3CAData.Model
                         {
                             VariantList.Add(newVL);
                             newVL.PropertyChanged += VariantPropertyChanged;
+                            if(newVL.DefaultVariant)
+                            {
+                                Variant = newVL;
+                            }
                         }
                     }
                 }
@@ -51,13 +55,16 @@ namespace BESM3CAData.Model
 
         private void VariantPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is VariantListing variantListing)
+            if (IsSelected)
             {
-                if (e.PropertyName == nameof(VariantListing.IsSelected) && variantListing.IsSelected == true)
+                if (sender is VariantListing variantListing)
                 {
-                    Variant = variantListing;
+                    if (e.PropertyName == nameof(VariantListing.IsSelected) && variantListing.IsSelected == true)
+                    {
+                        Variant = variantListing;
+                    }
                 }
-            }
+            }            
         }
 
         //Properties:

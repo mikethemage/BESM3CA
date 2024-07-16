@@ -75,7 +75,7 @@ namespace BESM3CAData.Control
                                 ListingLocation selectedListing = controller.ListingDirectory.AvailableListings.Find(x => (x.ListingName == reader.Value));
 
                                 //Only need to reload listings if different:
-                                if (controller.SelectedListingData.ListingName != selectedListing.ListingName)
+                                if (selectedListing is null || controller.SelectedListingData.ListingName != selectedListing.ListingName)
                                 {
                                     //Load listing from file:
                                     controller.SelectedListingData = MasterListing.JSONLoader(selectedListing);
