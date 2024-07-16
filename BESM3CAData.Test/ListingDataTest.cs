@@ -11,8 +11,8 @@ namespace BESM3CAData.Test
             MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
-                ListingName = "BESM3E",
-                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+                ListingName = "BESM 3rd Edition",
+                ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
             Assert.NotNull(DefaultListing);
         }
@@ -23,8 +23,8 @@ namespace BESM3CAData.Test
             MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
-                ListingName = "BESM3E",
-                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+                ListingName = "BESM 3rd Edition",
+                ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
             Assert.True(DefaultListing.AttributeList.Count > 0);
         }
@@ -35,8 +35,8 @@ namespace BESM3CAData.Test
             MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
-                ListingName = "BESM3E",
-                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+                ListingName = "BESM 3rd Edition",
+                ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
             Assert.True(DefaultListing.TypeList.Count > 0);
         }
@@ -50,8 +50,8 @@ namespace BESM3CAData.Test
             MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
-                ListingName = "BESM3E",
-                ListingPathArray = new string[] { "Datafiles", "BESM3E.json" }
+                ListingName = "BESM 3rd Edition",
+                ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
 
             string output = DefaultListing.GetProgression(progressionType, rank);
