@@ -11,7 +11,6 @@ namespace BESM3CAData.Model
 {
     public class LevelableDataNode : DataNode, IPointsDataNode
     {
-
         public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.ChildPropertyChanged(sender, e);
@@ -55,12 +54,10 @@ namespace BESM3CAData.Model
                 }
             }
         }
-
         protected virtual void RefreshBaseCost()
         {
             BaseCost = (PointsPerLevel * Level) + PointAdj;
         }
-
         protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
             RefreshVariablesOrRestrictions();
@@ -84,12 +81,10 @@ namespace BESM3CAData.Model
                 }
             }
         }
-
         public override bool CanDelete()
         {
             return Parent != null && PointAdj >= 0;  //Do not delete "Freebies"
         }
-
         protected void RefreshVariablesOrRestrictions()
         {
             int tempVariablesOrRestrictions = 0;
@@ -116,13 +111,8 @@ namespace BESM3CAData.Model
             Points = tempPoints;
         }
 
-
-
-
-
-
-
         private int _pointsPerLevel;
+
         public int PointsPerLevel
         {
             get
@@ -141,12 +131,7 @@ namespace BESM3CAData.Model
             }
         }
 
-
         public int PointAdj { get; protected set; }
-
-
-
-
 
         protected override string BaseDescription
         {
@@ -154,18 +139,20 @@ namespace BESM3CAData.Model
             {
                 string result = AssociatedListing.Description;
 
-                if (result == "Custom")
+                if (AssociatedListing is LevelableDataListing levelableListing)
                 {
-                    if (Level >= 1 && AssociatedListing is LevelableDataListing levelableDataListing && Level <= levelableDataListing.CustomProgression.Count)
+                    if(levelableListing.Progression != null && levelableListing.Progression.CustomProgression)
                     {
-                        result = levelableDataListing.CustomProgression[(Level - 1)];
+                        if (Level >= 1 && Level <= levelableListing.Progression.ProgressionsList.Count)
+                        {
+                            result = levelableListing.Progression.ProgressionsList[(Level - 1)];
+                        }
                     }
-                }
+                }                
 
                 return result;
             }
         }
-
 
         //Constructors:
         public LevelableDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
@@ -191,13 +178,9 @@ namespace BESM3CAData.Model
             }
             CreateRaiseLevelCommand();
             CreateLowerLevelCommand();
-
         }
 
-
         //Methods:
-
-
         public override CalcStats GetStats()
         {
             CalcStats stats;

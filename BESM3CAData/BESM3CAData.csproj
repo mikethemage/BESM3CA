@@ -39,6 +39,9 @@
     <None Update="Datafiles\bkBESM3E.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <None Update="Datafiles\NEW_BESM3E_Get_result.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

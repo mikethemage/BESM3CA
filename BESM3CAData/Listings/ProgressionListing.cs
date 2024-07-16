@@ -1,6 +1,6 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -9,6 +9,8 @@ namespace BESM3CAData.Listings
         public string ProgressionType { get; set; }
 
         public List<string> ProgressionsList { get; set; }
+
+        public bool CustomProgression { get; set; } = false;
 
         private const int MinRank = 0;
 
@@ -38,16 +40,9 @@ namespace BESM3CAData.Listings
             ProgressionsList = progressionArray.ToList<string>();
         }
 
-        public ProgressionListingSerialized Serialize()
+        public ProgressionDto Serialize()
         {
-            return new ProgressionListingSerialized { ProgressionType = this.ProgressionType, ProgressionsList = this.ProgressionsList };
-        }
-
-        public static ProgressionListing Deserialize(ProgressionListingSerialized progression)
-        {
-            ProgressionListing result = new ProgressionListing { ProgressionsList = progression.ProgressionsList, ProgressionType = progression.ProgressionType };
-
-            return result;
+            return new ProgressionDto { ProgressionType = this.ProgressionType, Progressions = this.ProgressionsList.Select(x => new ProgressionEntryDto { Text = x }).ToList() };
         }
 
         public string GetProgressionValue(int rank)

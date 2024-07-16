@@ -1,9 +1,9 @@
-﻿using BESM3CAData.Listings.Serialization;
-using BESM3CAData.Model;
+﻿using BESM3CAData.Model;
 using System.Collections.Generic;
 using System.Linq;
 using BESM3CAData.Control;
 using System.ComponentModel;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -87,10 +87,7 @@ namespace BESM3CAData.Listings
 
 
         //Methods:
-        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0);
-        //{
-        //    return new DataNode(this, notes, controller);
-        //}
+        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0);        
 
         public void AddChild(DataListing Child)
         {
@@ -102,41 +99,36 @@ namespace BESM3CAData.Listings
 
 
         //Serialization:
-        public virtual DataListingSerialized Serialize()
+        public virtual RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result = new DataListingSerialized
+            RPGElementDefinitionDto result = new RPGElementDefinitionDto
             {
-                ID = this.ID,
-                Name = this.Name,
+                Id = this.ID,
+                ElementName = this.Name,
                 Stat = this.Stat,
-                Page = this.Page,
+                PageNumbers = this.Page,
                 Human = this.Human,
-                Type = this.Type,
-                Description = this.Description,
-                PointsContainer = false,
-                SpecialContainer = false,
-                RequiresVariant = false,
-                MultiGenre = false,
-                HasLevel = false
+                ElementTypeName = this.Type,
+                Description = this.Description                
             };
 
             //Convert childrenlist to string:
-            IEnumerable<int> ChildIDs = from child in Children
-                                        select child.ID;
+            IEnumerable<string> ChildIDs = from child in Children
+                                        select child.Name;
 
-            result.ChildrenList = string.Join(",", ChildIDs);
+            result.AllowedChildrenNames = ChildIDs.ToList();
 
             return result;
         }
 
-        public DataListing(DataListingSerialized data)
+        public DataListing(RPGElementDefinitionDto data)
         {
-            ID = data.ID;
-            Name = data.Name;
+            ID = data.Id;
+            Name = data.ElementName;
             Stat = data.Stat;
-            Page = data.Page;
+            Page = data.PageNumbers;
             Human = data.Human;
-            Type = data.Type;
+            Type = data.ElementTypeName;
             Description = data.Description;
 
             Children = new List<DataListing>();

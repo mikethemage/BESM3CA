@@ -1,6 +1,6 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System;
+﻿using System;
 using System.ComponentModel;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -49,9 +49,9 @@ namespace BESM3CAData.Listings
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public VariantListingSerialized Serialize()
+        public VariantDefinitionDto Serialize()
         {
-            return new VariantListingSerialized { ID = this.ID, Name = this.Name, CostperLevel = this.CostperLevel, Desc = this.Desc, DefaultVariant = this.DefaultVariant };
+            return new VariantDefinitionDto { Id = this.ID, VariantName = this.Name, CostPerLevel = this.CostperLevel, Description = this.Desc, IsDefault = this.DefaultVariant };
         }
 
     }

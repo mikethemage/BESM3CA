@@ -1,8 +1,8 @@
-﻿using BESM3CAData.Listings.Serialization;
-using BESM3CAData.Model;
+﻿using BESM3CAData.Model;
 using System.Collections.Generic;
 using System.Linq;
 using BESM3CAData.Control;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -13,19 +13,18 @@ namespace BESM3CAData.Listings
 
 
         //Constructors:
-        public PointsContainerDataListing(DataListingSerialized data) : base(data)
+        public PointsContainerDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            PointScale = data.PointScale ?? 1;
+            PointScale = data.PointsContainerScale ?? 1;
         }
 
 
         //Methods:
-        public override DataListingSerialized Serialize()
+        public override RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result = base.Serialize();
-
-            result.PointsContainer = true;
-            result.PointScale = PointScale;
+            RPGElementDefinitionDto result = base.Serialize();
+            
+            result.PointsContainerScale = PointScale;
 
             return result;
         }

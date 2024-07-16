@@ -1,29 +1,32 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Triarch.Dtos.Definitions;
 
 
 namespace BESM3CAData.Listings
 {
     public class MasterListing
     {
-        public MasterListingSerialized Serialize()
+        public RPGSystemDto Serialize()
         {
-            MasterListingSerialized result = new MasterListingSerialized { ListingName = this.ListingName, Genres = this.Genres, AttributeList = new List<DataListingSerialized>(), TypeList = new List<TypeListingSerialized>(), ProgressionList = new List<ProgressionListingSerialized>() };
+            RPGSystemDto result = new RPGSystemDto { SystemName = this.ListingName, Genres = this.Genres.Select(x=>new GenreDto { GenreName=x}).ToList(), ElementDefinitions = new List<RPGElementDefinitionDto>(), ElementTypes = new List<RPGElementTypeDto>(), Progressions = new List<ProgressionDto>() };
 
             foreach (DataListing attribute in AttributeList)
             {
-                result.AttributeList.Add(attribute.Serialize());
+                result.ElementDefinitions.Add(attribute.Serialize());
             }
 
             foreach (TypeListing typeListing in TypeList)
             {
-                result.TypeList.Add(typeListing.Serialize());
+                result.ElementTypes.Add(typeListing.Serialize());
             }
 
             foreach (ProgressionListing progressionListing in ProgressionList)
             {
-                result.ProgressionList.Add(progressionListing.Serialize());
+                result.Progressions.Add(progressionListing.Serialize());
             }
 
             return result;
@@ -38,8 +41,6 @@ namespace BESM3CAData.Listings
         public List<string> Genres { get; set; }
 
         public List<ProgressionListing> ProgressionList { get; set; }
-
-
 
         public string GetProgression(string progressionType, int rank)
         {
@@ -58,43 +59,60 @@ namespace BESM3CAData.Listings
         public static MasterListing JSONLoader(ListingLocation listingLocation)
         {
             //Load JSON data to temp object:
-            MasterListingSerialized temp = MasterListingSerialized.JSONLoader(listingLocation);
+            //MasterListingSerialized temp = MasterListingSerialized.JSONLoader(listingLocation);
+
+            string input = File.ReadAllText(listingLocation.ListingPath);
+
+            //Load listing:
+            RPGSystemDto temp = JsonSerializer.Deserialize<RPGSystemDto>(input, new JsonSerializerOptions { PropertyNameCaseInsensitive=true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull});
+
 
             //Create new listing data object:
-            MasterListing result = new MasterListing { ListingName = temp.ListingName, Genres = temp.Genres, ProgressionList = new List<ProgressionListing>(), AttributeList = new List<DataListing>(), TypeList = new List<TypeListing>() };
+            MasterListing result = new MasterListing { ListingName = temp.SystemName, Genres = temp.Genres.Select(x => x.GenreName).ToList(), ProgressionList = new List<ProgressionListing>(), AttributeList = new List<DataListing>(), TypeList = new List<TypeListing>() };
 
             //Deserialize Type Listings:
-            foreach (TypeListingSerialized typeListing in temp.TypeList)
+            foreach (RPGElementTypeDto typeListing in temp.ElementTypes)
             {
-                result.TypeList.Add(TypeListing.Deserialize(typeListing));
+                result.TypeList.Add(new TypeListing
+                {
+                    ID = typeListing.Id,
+                    Name = typeListing.TypeName,
+                    TypeOrder = typeListing.TypeOrder
+                }
+                );
             }
 
             //Deserialize Progression Listings:
-            foreach (ProgressionListingSerialized progression in temp.ProgressionList)
+            foreach (ProgressionDto progression in temp.Progressions)
             {
-                result.ProgressionList.Add(ProgressionListing.Deserialize(progression));
+                result.ProgressionList.Add(new ProgressionListing
+                {
+                    ProgressionType = progression.ProgressionType,
+                    ProgressionsList = progression.Progressions.OrderBy(x=>x.ProgressionLevel).Select(x=>x.Text).ToList(),
+                    CustomProgression = progression.CustomProgression
+                });
             }
 
             //Deserialize raw attribute data:
-            foreach (DataListingSerialized data in temp.AttributeList)
+            foreach (RPGElementDefinitionDto data in temp.ElementDefinitions)
             {
                 DataListing newData = null;
 
-                if(data.Type=="Character")
+                if (data.ElementTypeName == "Character")
                 {
                     newData = new CharacterDataListing(data);
                 }
-                else if(data.Companion)
+                else if (data.ElementTypeName == "Companion")
                 {
                     newData = new CompanionDataListing(data);
                 }
-                else if (data.PointsContainer)
+                else if (data.PointsContainerScale != null)
                 {
                     newData = new PointsContainerDataListing(data);
                 }
-                else if (data.SpecialContainer)
+                else if (data.LevelableData?.SpecialPointsPerLevel != null)
                 {
-                    if (data.RequiresVariant)
+                    if (data.LevelableData?.Variants != null)
                     {
                         newData = new SpecialContainerWithVariantDataListing(data);
                     }
@@ -103,9 +121,9 @@ namespace BESM3CAData.Listings
                         newData = new SpecialContainerDataListing(data);
                     }
                 }
-                else if (data.RequiresVariant)
+                else if (data.LevelableData?.Variants != null)
                 {
-                    if (data.HasFreebie)
+                    if (data.Freebies != null)
                     {
                         newData = new LevelableWithFreebieWithVariantDataListing(data);
                     }
@@ -114,11 +132,11 @@ namespace BESM3CAData.Listings
                         newData = new LevelableWithVariantDataListing(data);
                     }
                 }
-                else if (data.MultiGenre)
+                else if (data.LevelableData?.MultiGenreCostPerLevels != null)
                 {
                     newData = new MultiGenreDataListing(data);
                 }
-                else if (data.HasLevel)
+                else if (data.LevelableData != null)
                 {
                     newData = new LevelableDataListing(data);
                 }
@@ -127,6 +145,10 @@ namespace BESM3CAData.Listings
                     throw new Exception("Unexpected data listing");
                 }
 
+                if(newData is LevelableDataListing levelableDataListing)
+                {
+                    levelableDataListing.Progression = result.ProgressionList.Where(x => x.ProgressionType == levelableDataListing.ProgressionName).FirstOrDefault();
+                }
 
                 if (newData != null)
                 {
@@ -135,29 +157,25 @@ namespace BESM3CAData.Listings
             }
 
             //Link children and freebies:
-            foreach (DataListingSerialized attribute in temp.AttributeList)
+            foreach (var attribute in temp.ElementDefinitions)
             {
-                if (attribute.ChildrenList != "" || attribute.HasFreebie)
+                if (attribute.AllowedChildrenNames != null || attribute.Freebies != null)
                 {
-                    DataListing Parent = result.AttributeList.Find(x => x.ID == attribute.ID);
+                    DataListing Parent = result.AttributeList.Find(x => x.ID == attribute.Id);
 
-                    //Link Children:
-                    string[] Children = attribute.ChildrenList.Split(',');
-                    if (Children.Length > 0)
+                    //Link Children:                    
+                    if (attribute.AllowedChildrenNames.Count > 0)
                     {
-                        foreach (string Child in Children)
+                        foreach (string Child in attribute.AllowedChildrenNames)
                         {
-                            if (int.TryParse(Child, out int ChildID))
-                            {
-                                Parent.AddChild(result.AttributeList.Find(x => x.ID == ChildID));
-                            }
+                            Parent.AddChild(result.AttributeList.Find(x => x.Name == Child));                            
                         }
                     }
                     Parent.RefreshFilteredPotentialChildren("All");
 
                     if (Parent is IFreebieDataListing freebieDataListing)
                     {
-                        freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.ID == attribute.SubAttributeID);
+                        freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.Name == attribute.Freebies[0].FreebieElementDefinitionName);
                     }
                 }
             }
@@ -169,8 +187,9 @@ namespace BESM3CAData.Listings
         {
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
-            MasterListingSerialized output = Serialize();
-            output.CreateJSON(outputPath);
+            RPGSystemDto output = Serialize();
+            string outputText = JsonSerializer.Serialize(output, new JsonSerializerOptions { PropertyNameCaseInsensitive=true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull });
+            File.WriteAllText(outputPath, outputText);            
         }
     }
 }

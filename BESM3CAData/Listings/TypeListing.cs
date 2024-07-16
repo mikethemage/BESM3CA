@@ -1,4 +1,4 @@
-﻿using BESM3CAData.Listings.Serialization;
+﻿using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -9,15 +9,9 @@ namespace BESM3CAData.Listings
         public int TypeOrder { get; set; }
 
 
-        public TypeListingSerialized Serialize()
+        public RPGElementTypeDto Serialize()
         {
-            return new TypeListingSerialized { ID = ID, Name = Name, TypeOrder = TypeOrder };
-        }
-
-        public static TypeListing Deserialize(TypeListingSerialized typeListing)
-        {
-            TypeListing result = new TypeListing { ID = typeListing.ID, Name = typeListing.Name, TypeOrder = typeListing.TypeOrder };
-            return result;
-        }
+            return new RPGElementTypeDto { Id = ID, TypeName = Name, TypeOrder = TypeOrder };
+        }        
     }
 }

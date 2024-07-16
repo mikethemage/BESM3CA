@@ -5,15 +5,7 @@
       "BuiltIn": true,
       "ListingPathArray": [
         "Datafiles",
-        "BESM3E.json"
-      ]
-    },
-    {
-      "ListingName": "BESM4E",
-      "BuiltIn": true,
-      "ListingPathArray": [
-        "Datafiles",
-        "BESM4E.json"
+        "NEW_BESM3E_Get_result.json"
       ]
     }
   ]

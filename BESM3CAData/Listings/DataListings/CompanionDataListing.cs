@@ -1,6 +1,7 @@
 ﻿using BESM3CAData.Control;
-using BESM3CAData.Listings.Serialization;
 using BESM3CAData.Model;
+using System.Collections.Generic;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -10,21 +11,25 @@ namespace BESM3CAData.Listings
         public int SubAttributeLevel { get; set; }
         public int SubAttributePointsAdj { get; set; }
 
-        public CompanionDataListing(DataListingSerialized data) : base(data)
+        public CompanionDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            
-            SubAttributeLevel = data.SubAttributeLevel ?? 0;
-            SubAttributePointsAdj = data.SubAttributePointsAdj ?? 0;
+
+            SubAttributeLevel = data.Freebies[0].FreeLevels + data.Freebies[0].RequiredLevels;
+            SubAttributePointsAdj = data.Freebies[0].FreeLevels;
         }
 
-        public override DataListingSerialized Serialize()
+        public override RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result = base.Serialize();
-            result.Companion = true;
-            result.HasFreebie = true;
-            result.SubAttributeID = SubAttribute.ID;
-            result.SubAttributeLevel = SubAttributeLevel;
-            result.SubAttributePointsAdj = SubAttributePointsAdj;
+            RPGElementDefinitionDto result = base.Serialize();
+
+            result.Freebies = new List<FreebieDto> {
+                new FreebieDto
+                {
+                    FreebieElementDefinitionName = SubAttribute.Name,
+                    FreeLevels = SubAttributePointsAdj,
+                    RequiredLevels = SubAttributeLevel - SubAttributePointsAdj
+                }
+            };
 
             return result;
         }

@@ -1,9 +1,9 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using BESM3CAData.Model;
 using BESM3CAData.Control;
+using Triarch.Dtos.Definitions;
 
 
 namespace BESM3CAData.Listings
@@ -19,14 +19,16 @@ namespace BESM3CAData.Listings
 
         //  To check if still needed: 
         private string CostperLevelDesc { get; set; }
-        private string Progression { get; set; }
+        public string ProgressionName { get; set; }
+
+        public ProgressionListing Progression { get; set; }
 
 
         //Constructors:
         public LevelableDataListing()
         {
             CostperLevelDesc = "";
-            Progression = "";
+            ProgressionName = "";
         }
 
 
@@ -36,28 +38,29 @@ namespace BESM3CAData.Listings
             return new LevelableDataNode(this, notes, controller, level, pointAdj);
         }
 
-        public override DataListingSerialized Serialize()
+        public override RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result = base.Serialize();
-
-            result.CostperLevelDesc = CostperLevelDesc;
-            result.CostperLevel = CostperLevel;
-            result.Progression = Progression;
-            result.MaxLevel = MaxLevel;
-            result.EnforceMaxLevel = this.EnforceMaxLevel;
-            result.CustomProgression = this.CustomProgression;
-            result.HasLevel = true;
+            RPGElementDefinitionDto result = base.Serialize();
+            result.LevelableData = new LevelableDefinitionDto
+            {
+                CostPerLevel = CostperLevel,
+                CostPerLevelDescription = CostperLevelDesc,
+                ProgressionName = ProgressionName,
+                MaxLevel = MaxLevel,
+                EnforceMaxLevel = EnforceMaxLevel
+            };           
+            
             return result;
         }
 
-        public LevelableDataListing(DataListingSerialized data) : base(data)
+        public LevelableDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            CostperLevelDesc = data.CostperLevelDesc;
-            CostperLevel = data.CostperLevel;
-            Progression = data.Progression;
-            MaxLevel = data.MaxLevel;
-            EnforceMaxLevel = data.EnforceMaxLevel;
-            CustomProgression = data.CustomProgression;            
+            CostperLevelDesc = data.LevelableData.CostPerLevelDescription;
+            CostperLevel = (int)data.LevelableData.CostPerLevel;
+            ProgressionName = data.LevelableData.ProgressionName;
+            MaxLevel = (int)data.LevelableData.MaxLevel;
+            EnforceMaxLevel = (bool)data.LevelableData.EnforceMaxLevel;
+            ProgressionName = data.LevelableData.ProgressionName;            
         }
     }
 }

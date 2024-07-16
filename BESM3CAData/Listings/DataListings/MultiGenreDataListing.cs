@@ -1,11 +1,11 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BESM3CAData.Model;
 using BESM3CAData.Control;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -16,9 +16,9 @@ namespace BESM3CAData.Listings
 
 
         //Constructors:
-        public MultiGenreDataListing(DataListingSerialized data) : base(data)
+        public MultiGenreDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            GenrePoints = data.GenrePoints;
+            GenrePoints = data.LevelableData.MultiGenreCostPerLevels.Select(x=>x.CostPerLevel).ToList();
         }
 
 
@@ -28,11 +28,20 @@ namespace BESM3CAData.Listings
             return new MultiGenreDataNode(this, notes, controller, level, pointAdj);
         }
 
-        public override DataListingSerialized Serialize()
+        public override RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result = base.Serialize();
-            result.MultiGenre = true;
-            result.GenrePoints = GenrePoints;
+            RPGElementDefinitionDto result = base.Serialize();
+            result.LevelableData.MultiGenreCostPerLevels = new List<GenreCostPerLevelDto>();
+
+            for (int i = 0; i < GenrePoints.Count ; i++)
+            {
+                result.LevelableData.MultiGenreCostPerLevels.Add(new GenreCostPerLevelDto
+                {
+                    CostPerLevel = GenrePoints[i],
+                    GenreName = "FIX ME" //Todo - fix this!
+                });
+            }
+            
             return result;
         }
     }

@@ -30,7 +30,7 @@ namespace BESM3CA
             //Initialise Controller:
             CurrentController = new DataController();
             DataContext = CurrentController;
-            CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\BESM3E.json");
+            CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\NEW_BESM3E.json");
             ResetAll();
             GenreComboBox.SelectedIndex = 0;
             FilterComboBox.SelectedIndex = 0;

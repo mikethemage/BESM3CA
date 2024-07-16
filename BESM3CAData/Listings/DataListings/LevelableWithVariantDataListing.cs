@@ -1,11 +1,11 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BESM3CAData.Model;
 using BESM3CAData.Control;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -22,33 +22,31 @@ namespace BESM3CAData.Listings
 
 
         //Constructors:
-        public LevelableWithVariantDataListing(DataListingSerialized data) : base(data)
+        public LevelableWithVariantDataListing(RPGElementDefinitionDto data) : base(data)
         {
             //Add variants and link back:
-            if (data.Variants != null)
+            if (data.LevelableData.Variants != null)
             {
                 Variants = new List<VariantListing>();
-                foreach (VariantListingSerialized variant in data.Variants)
+                foreach (var variant in data.LevelableData.Variants)
                 {
-                    Variants.Add(new VariantListing { ID = variant.ID, Name = variant.Name, CostperLevel = variant.CostperLevel, DefaultVariant = variant.DefaultVariant, Desc = variant.Desc, Attribute = this });
+                    Variants.Add(new VariantListing { ID = variant.Id, Name = variant.VariantName, CostperLevel = variant.CostPerLevel, DefaultVariant = variant.IsDefault, Desc = variant.Description, Attribute = this });
                 }
             }
         }
 
 
         //Methods:
-        public override DataListingSerialized Serialize()
+        public override RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result = base.Serialize();
-
-            result.RequiresVariant = true;
+            RPGElementDefinitionDto result = base.Serialize();            
 
             if (Variants != null)
             {
-                result.Variants = new List<VariantListingSerialized>();
+                result.LevelableData.Variants = new List<VariantDefinitionDto>();
                 foreach (VariantListing variant in Variants)
                 {
-                    result.Variants.Add(variant.Serialize());
+                    result.LevelableData.Variants.Add(variant.Serialize());
                 }
             }
 

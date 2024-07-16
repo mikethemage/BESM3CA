@@ -1,11 +1,11 @@
-﻿using BESM3CAData.Listings.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BESM3CAData.Model;
 using BESM3CAData.Control;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -16,9 +16,9 @@ namespace BESM3CAData.Listings
 
 
         //Constructors:
-        public SpecialContainerDataListing(DataListingSerialized data) : base(data)
+        public SpecialContainerDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            SpecialPointsPerLevel = data.SpecialPointsPerLevel ?? 1;
+            SpecialPointsPerLevel = data.LevelableData.SpecialPointsPerLevel ?? 1;
         }
 
 
@@ -28,12 +28,12 @@ namespace BESM3CAData.Listings
             return new SpecialContainerDataNode(this, notes, controller, level, pointAdj);
         }
 
-        public override DataListingSerialized Serialize()
+        public override RPGElementDefinitionDto Serialize()
         {
-            DataListingSerialized result=base.Serialize();
+            RPGElementDefinitionDto result = base.Serialize();
+
+            result.LevelableData.SpecialPointsPerLevel = SpecialPointsPerLevel;
             
-            result.SpecialPointsPerLevel = SpecialPointsPerLevel;
-            result.SpecialContainer = true;
             return result;
         }
     }

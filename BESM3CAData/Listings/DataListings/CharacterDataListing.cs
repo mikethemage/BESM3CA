@@ -1,8 +1,8 @@
-﻿using BESM3CAData.Listings.Serialization;
-using BESM3CAData.Model;
+﻿using BESM3CAData.Model;
 using System.Collections.Generic;
 using System.Linq;
 using BESM3CAData.Control;
+using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
@@ -13,7 +13,7 @@ namespace BESM3CAData.Listings
             return new CharacterNode(this, notes, controller);
         }
 
-        public CharacterDataListing(DataListingSerialized data) : base(data)
+        public CharacterDataListing(RPGElementDefinitionDto data) : base(data)
         {
             
         }
