@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30621.155
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C59A1BEC-8591-4A9E-ABB8-4F6AFA61567D}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CA", "BESM3CA\BESM3CA.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CAData", "BESM3CAData\BESM3CAData.csproj", "{DF303078-8FBC-4659-BAC5-261829B2E4F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BESM3CAData.Test", "BESM3CAData.Test\BESM3CAData.Test.csproj", "{1A272AC3-DF94-401A-A8FA-AE56D8171210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CAData.Test", "BESM3CAData.Test\BESM3CAData.Test.csproj", "{1A272AC3-DF94-401A-A8FA-AE56D8171210}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triarch.Dtos", "Triarch.Dtos\Triarch.Dtos.csproj", "{5528B3EA-7FAC-4F14-89A0-1EBF791FC614}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{1A272AC3-DF94-401A-A8FA-AE56D8171210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A272AC3-DF94-401A-A8FA-AE56D8171210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A272AC3-DF94-401A-A8FA-AE56D8171210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5528B3EA-7FAC-4F14-89A0-1EBF791FC614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5528B3EA-7FAC-4F14-89A0-1EBF791FC614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5528B3EA-7FAC-4F14-89A0-1EBF791FC614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5528B3EA-7FAC-4F14-89A0-1EBF791FC614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
