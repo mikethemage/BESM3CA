@@ -1,43 +1,44 @@
 ﻿using BESM3CAData.Listings;
+using Triarch.Dtos.Definitions;
 using Xunit;
 
 namespace BESM3CAData.Test
 {
     public class AttributeListingTest
     {
-        //[Fact]
-        //public void Attribute_AddChildShouldWork()
-        //{
-        //    DataListingSerialized testParentSerialized = new DataListingSerialized { ID = 1, Name = "Test Parent" };
-        //    DataListingSerialized testChild1Serialized = new DataListingSerialized { ID = 2, Name = "Test Child1" };
+        [Fact]
+        public void Attribute_AddChildShouldWork()
+        {
+            RPGElementDefinitionDto testParentSerialized = new RPGElementDefinitionDto { Id = 1, ElementName = "Test Parent", LevelableData = new LevelableDefinitionDto { CostPerLevel=0,MaxLevel=0,EnforceMaxLevel=false } };
+            RPGElementDefinitionDto testChild1Serialized = new RPGElementDefinitionDto { Id = 2, ElementName = "Test Child1", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
 
-        //    DataListing testParent = new LevelableDataListing(testParentSerialized);
-        //    DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
+            DataListing testParent = new LevelableDataListing(testParentSerialized);
+            DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
 
-        //    testParent.AddChild(testChild1);
+            testParent.AddChild(testChild1);
 
-        //    Assert.Contains<DataListing>(testChild1, testParent.Children);
-        //}
+            Assert.Contains<DataListing>(testChild1, testParent.Children);
+        }
 
-        //[Fact]
-        //public void Attribute_GetChildrenListShouldWork()
-        //{
+        [Fact]
+        public void Attribute_GetChildrenListShouldWork()
+        {
 
-        //    DataListingSerialized testParentSerialized = new DataListingSerialized { ID = 1, Name = "Test Parent" };
-        //    DataListingSerialized testChild1Serialized = new DataListingSerialized { ID = 2, Name = "Test Child1" };
-        //    DataListingSerialized testChild2Serialized = new DataListingSerialized { ID = 3, Name = "Test Child2" };
+            RPGElementDefinitionDto testParentSerialized = new RPGElementDefinitionDto { Id = 1, ElementName = "Test Parent", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
+            RPGElementDefinitionDto testChild1Serialized = new RPGElementDefinitionDto { Id = 2, ElementName = "Test Child1", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
+            RPGElementDefinitionDto testChild2Serialized = new RPGElementDefinitionDto { Id = 3, ElementName = "Test Child2", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
 
-        //    DataListing testParent = new LevelableDataListing(testParentSerialized);
-        //    DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
-        //    DataListing testChild2 = new LevelableDataListing(testChild2Serialized);
+            DataListing testParent = new LevelableDataListing(testParentSerialized);
+            DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
+            DataListing testChild2 = new LevelableDataListing(testChild2Serialized);
 
-        //    testParent.AddChild(testChild1);
-        //    testParent.AddChild(testChild2);
+            testParent.AddChild(testChild1);
+            testParent.AddChild(testChild2);
 
-        //    DataListingSerialized testParentDeserialized = testParent.Serialize();
+            RPGElementDefinitionDto testParentDeserialized = testParent.Serialize();
 
-        //    Assert.Equal("2,3", testParentDeserialized.ChildrenList);
-        //}
+            Assert.Equal("Test Child1,Test Child2", string.Join(',',testParentDeserialized.AllowedChildrenNames));
+        }
 
     }
 }
