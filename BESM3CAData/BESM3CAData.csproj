@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathParser.org-mXparser" Version="4.4.2" />
+    <PackageReference Include="MathParser.org-mXparser" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

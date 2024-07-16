@@ -1,5 +1,0 @@
-﻿[*.cs]
-
-# IDE0066: Convert switch statement to expression
-csharp_style_prefer_switch_expression = false
-csharp_style_expression_bodied_properties=false:silent
