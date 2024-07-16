@@ -9822,6 +9822,7 @@
     {
       "ProgressionType": "Growth",
       "ProgressionsList": [
+        "1x growth",
         "10x growth",
         "50x growth",
         "100x growth",
