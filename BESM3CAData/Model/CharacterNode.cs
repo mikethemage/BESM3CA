@@ -201,19 +201,17 @@ namespace BESM3CAData.Model
         }
 
         //XML:
-        public override void SaveAdditionalXML(XmlTextWriter textWriter)
-        {
-            textWriter.WriteStartElement("CharacterStats");
-            textWriter.WriteAttributeString("Mind", Mind.ToString());
-            textWriter.WriteAttributeString("Body", Body.ToString());
-            textWriter.WriteAttributeString("Soul", Soul.ToString());
-            textWriter.WriteEndElement();
-        }
+        //public override void SaveAdditionalXML(XmlTextWriter textWriter)
+        //{
+        //    textWriter.WriteStartElement("CharacterStats");
+        //    textWriter.WriteAttributeString("Mind", Mind.ToString());
+        //    textWriter.WriteAttributeString("Body", Body.ToString());
+        //    textWriter.WriteAttributeString("Soul", Soul.ToString());
+        //    textWriter.WriteEndElement();
+        //}
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {
-
-
             while (reader.NodeType != XmlNodeType.None)
             {
                 reader.Read();

@@ -396,14 +396,14 @@ namespace BESM3CAData.Model
         }
 
         //XML:
-        public override void SaveAdditionalXML(XmlTextWriter textWriter)
-        {
-            textWriter.WriteStartElement("AttributeStats");
-            textWriter.WriteAttributeString("Level", Level.ToString());
-            textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
-            //textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
-            textWriter.WriteEndElement();
-        }
+        //public override void SaveAdditionalXML(XmlTextWriter textWriter)
+        //{
+        //    textWriter.WriteStartElement("AttributeStats");
+        //    textWriter.WriteAttributeString("Level", Level.ToString());
+        //    textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
+        //    //textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
+        //    textWriter.WriteEndElement();
+        //}
 
         public override void LoadAdditionalXML(XmlTextReader reader)
         {

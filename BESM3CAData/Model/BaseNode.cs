@@ -274,7 +274,7 @@ namespace BESM3CAData.Model
             {
                 if (AssociatedListing != null)
                 {
-                    return AssociatedListing.Children;
+                    return AssociatedListing.Children.Where(x=>x.Name!="Character").ToList();
                 }
                 else
                 {
@@ -569,21 +569,21 @@ namespace BESM3CAData.Model
         public abstract CalcStats GetStats();
 
         //XML:
-        public void SaveXML(XmlTextWriter textWriter)
-        {
-            textWriter.WriteStartElement(GetType().Name);
-            textWriter.WriteAttributeString("Name", Name);
-            textWriter.WriteAttributeString("ID", ID.ToString());
-            textWriter.WriteStartElement("AdditionalData");
-            SaveAdditionalXML(textWriter);
-            textWriter.WriteEndElement();
-            textWriter.WriteStartElement("Notes");
-            textWriter.WriteString(Notes);
-            textWriter.WriteEndElement();
-            textWriter.WriteEndElement();
-        }
+        //public void SaveXML(XmlTextWriter textWriter)
+        //{
+        //    textWriter.WriteStartElement(GetType().Name);
+        //    textWriter.WriteAttributeString("Name", Name);
+        //    textWriter.WriteAttributeString("ID", ID.ToString());
+        //    textWriter.WriteStartElement("AdditionalData");
+        //    SaveAdditionalXML(textWriter);
+        //    textWriter.WriteEndElement();
+        //    textWriter.WriteStartElement("Notes");
+        //    textWriter.WriteString(Notes);
+        //    textWriter.WriteEndElement();
+        //    textWriter.WriteEndElement();
+        //}
 
-        public abstract void SaveAdditionalXML(XmlTextWriter textWriter);
+        //public abstract void SaveAdditionalXML(XmlTextWriter textWriter);
 
         private void AddAttributeSelectionHandlers()
         {

@@ -125,7 +125,7 @@ namespace BESM3CAData.Model
 
         }
 
-        public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public SpecialContainerWithVariantDataNode(SpecialContainerWithVariantDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0) : base(attribute, notes, controller, level, freeLevels, requiredLevels)
         {
 
         }

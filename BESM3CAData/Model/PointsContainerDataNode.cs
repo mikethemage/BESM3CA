@@ -26,13 +26,7 @@ namespace BESM3CAData.Model
         }
 
         //Properties:
-        public int PointAdj
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        
 
         //Constructors:
         public PointsContainerDataNode(RPGEntity controller, string Notes = "") : base(controller, Notes)
@@ -148,15 +142,18 @@ namespace BESM3CAData.Model
             int tempPoints = VariablesOrRestrictions;
 
             //container point cost calc:
-            if (((PointsContainerDataListing)AssociatedListing).PointScale == 0 || ChildPoints < ((PointsContainerDataListing)AssociatedListing).PointScale)
+            if (((PointsContainerDataListing)AssociatedListing).PointScale != 0)
             {
-                //PointScale should be set for containers - if not set points to 0 to avoid divide by 0 errors:
-                tempPoints += 0;
-            }
-            else
-            {
-                //Scale points e.g. 3E items valued at 1/2 total child points:
-                tempPoints += ChildPoints / ((PointsContainerDataListing)AssociatedListing).PointScale;
+                if(ChildPoints >0 && ChildPoints < ((PointsContainerDataListing)AssociatedListing).PointScale)
+                {
+                    //If child points positive but less that pointscale we should still charge 1 point for the container:
+                    tempPoints += 1;
+                }
+                else
+                {
+                    //Scale points e.g. 3E items valued at 1/2 total child points:
+                    tempPoints += ChildPoints / ((PointsContainerDataListing)AssociatedListing).PointScale;
+                }                
             }
 
             Points = tempPoints;
@@ -168,9 +165,9 @@ namespace BESM3CAData.Model
         //Methods:
         
 
-        public override void SaveAdditionalXML(XmlTextWriter textWriter)
-        {
-            //No additional XML for PointsContainers
-        }
+        //public override void SaveAdditionalXML(XmlTextWriter textWriter)
+        //{
+        //    //No additional XML for PointsContainers
+        //}
     }
 }

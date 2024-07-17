@@ -40,7 +40,7 @@ namespace BESM3CAData.Listings
             {
                 //LINQ Version:
                 List<DataListing> filteredAttList = selectedAttributeChildren
-                    .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
+                    .Where(a => a.Name != "Character" && (filter == "All" || filter == "" || a.Type == filter))
                     .OrderBy(a => a.Type)
                     .ThenBy(a => a.Name)
                     .ToList();
