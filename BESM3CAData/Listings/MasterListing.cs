@@ -102,7 +102,7 @@ namespace BESM3CAData.Listings
                 {
                     newData = new CharacterDataListing(data);
                 }
-                else if (data.ElementTypeName == "Companion")
+                else if (data.ElementName == "Companion")
                 {
                     newData = new CompanionDataListing(data);
                 }
@@ -175,7 +175,17 @@ namespace BESM3CAData.Listings
 
                     if (Parent is IFreebieDataListing freebieDataListing)
                     {
-                        freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.Name == attribute.Freebies[0].FreebieElementDefinitionName);
+                        if(attribute.Freebies!=null && attribute.Freebies.Count>0)
+                        {
+                            freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.Name == attribute.Freebies[0].FreebieElementDefinitionName);
+                        }
+                        else
+                        {
+                            freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.Name == "Character");
+                        }
+                        
+                            
+                            
                     }
                 }
             }

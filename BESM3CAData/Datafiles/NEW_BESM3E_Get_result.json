@@ -2740,7 +2740,14 @@
             "isDefault": false
           }
         ]
-      }
+      },
+      "freebies": [
+        {
+          "freebieElementDefinitionName": "Range",
+          "freeLevels": 3,
+          "requiredLevels": 0
+        }
+      ]
     },
     {
       "id": 129,
@@ -5421,7 +5428,14 @@
         "costPerLevelDescription": "Special",
         "progressionName": "Slow",
         "progressionReversed": false
-      }
+      },
+      "freebies": [
+        {
+          "freebieElementDefinitionName": "Character",
+          "freeLevels": 0,
+          "requiredLevels": 0
+        }
+      ]
     },
     {
       "id": 253,
