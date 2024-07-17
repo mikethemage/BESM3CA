@@ -61,7 +61,7 @@ namespace BESM3CAData.Control
                         else 
                         {
                             //No version number!
-                            break;
+                            continue;
                         }
 
                     }
@@ -120,8 +120,10 @@ namespace BESM3CAData.Control
 
                                 parentNode = newNode;
                             }
-                            else if (reader.Name.EndsWith("DataNode"))
+                            else if (reader.Name.EndsWith("DataNode") || reader.Name.EndsWith("AttributeNode"))
                             {
+
+
                                 switch (reader.Name)
                                 {
                                     case "LevelableDataNode":

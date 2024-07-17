@@ -48,7 +48,7 @@ namespace BESM3CAData.Control
             //Temp code:
             ListingDirectory = ListingDirectory.JSONLoader(Path.Combine("Datafiles", "ListingDirectory.json"));
 
-            ListingLocation DefaultListing = ListingDirectory.AvailableListings.Find(x => (x.ListingName == "BESM 3rd Edition"));
+            ListingLocation DefaultListing = ListingDirectory.AvailableListings.Find(x => (x.ListingName == "BESM3E"));
 
             //Load listing from file:
             SelectedListingData = DefaultListing.LoadListing();

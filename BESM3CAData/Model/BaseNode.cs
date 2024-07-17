@@ -613,15 +613,23 @@ namespace BESM3CAData.Model
                         {
                             case "Name":
                                 Name = reader.Value;
-                                break;
-                            case "ID":
-                                ID = int.Parse(reader.Value);
+
                                 if (AssociatedController.SelectedListingData != null)
                                 {
-                                    AssociatedListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
+                                    AssociatedListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == Name);
                                     Useable = true;
+                                    ID = AssociatedListing.ID;
                                 }
+
                                 break;
+                            //case "ID":
+                            //    ID = int.Parse(reader.Value);
+                            //    if (AssociatedController.SelectedListingData != null)
+                            //    {
+                            //        AssociatedListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.ID == ID);
+                            //        Useable = true;
+                            //    }
+                            //    break;
                             default:
                                 break;
                         }
