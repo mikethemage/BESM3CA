@@ -9,8 +9,6 @@ namespace BESM3CAData.Model
     public abstract class DataNode : BaseNode
     {
         //Properties:
-
-
         protected virtual string BaseDescription
         {
             get
@@ -19,7 +17,6 @@ namespace BESM3CAData.Model
                 return result;
             }
         }
-
 
         public void RefreshDescription()
         {
@@ -57,7 +54,6 @@ namespace BESM3CAData.Model
             AttributeDescription = completedDescription;
         }
 
-
         protected string _attributeDescription;
 
         public string AttributeDescription
@@ -75,7 +71,6 @@ namespace BESM3CAData.Model
                 }
             }
         }
-
         public string AttributeType
         {
             get
@@ -84,26 +79,22 @@ namespace BESM3CAData.Model
             }
         }
 
-
         //Constructors:   
         public DataNode(RPGEntity controller, string notes = "") : base(controller, notes)
         {
             //Default constructor for data loading only
         }
-
         public DataNode(DataListing attribute, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, notes, isFreebie)
         {
             //Pass parameters to base constructor
             RefreshDescription();
         }
 
-
         //Methods:
         protected virtual string ProcessDescriptionValue(string valueToParse)
         {
             return valueToParse;
         }
-
 
         public override CalcStats GetStats()
         {
@@ -127,7 +118,6 @@ namespace BESM3CAData.Model
 
             return stats;
         }
-
 
         //XML:     
         public override void LoadAdditionalXML(XmlTextReader reader)

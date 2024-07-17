@@ -6,7 +6,7 @@ namespace BESM3CAData.Model
 {
     public class LevelableWithFreebieWithVariantDataNode : LevelableWithVariantDataNode
     {
-        public LevelableWithFreebieWithVariantDataNode(LevelableWithFreebieWithVariantDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false) : base(attribute, notes, controller, level, pointAdj, isFreebie)
+        public LevelableWithFreebieWithVariantDataNode(LevelableWithFreebieWithVariantDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false) : base(attribute, notes, controller, level, freeLevels,requiredLevels, isFreebie)
         {
             foreach (FreebieListing freebie in attribute.Freebies)
             {
@@ -14,7 +14,7 @@ namespace BESM3CAData.Model
                 if(subAttribute!= null)
                 {
                     //Auto create freebie when creating new instance of this attribute:
-                    AddChild(subAttribute.CreateNode("", AssociatedController, freebie.SubAttributeLevel, freebie.SubAttributePointsAdj, true));
+                    AddChild(subAttribute.CreateNode("", AssociatedController, freebie.FreeLevels+freebie.RequiredLevels, freebie.FreeLevels , freebie.RequiredLevels, true));
                 }                
             }            
         }

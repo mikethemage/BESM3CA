@@ -11,7 +11,7 @@ namespace BESM3CAData.Model
 
         }
 
-        public MultiGenreDataNode(MultiGenreDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false) : base(attribute, notes, controller, level, pointAdj, isFreebie)
+        public MultiGenreDataNode(MultiGenreDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false) : base(attribute, notes, controller, level, freeLevels,requiredLevels, isFreebie)
         {
 
         }

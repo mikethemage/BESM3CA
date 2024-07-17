@@ -55,12 +55,12 @@ namespace BESM3CAData.Model
             }
         }
 
-        public int RequiredLevel { get; private set; } = 0;
+        public int RequiredLevels { get; private set; } = 0;
         public int FreeLevels { get; private set; } = 0;
 
         protected virtual void RefreshBaseCost()
         {
-            BaseCost = (PointsPerLevel * Level) + PointAdj;
+            BaseCost = PointsPerLevel * (Level - FreeLevels);
         }
         protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
@@ -87,7 +87,7 @@ namespace BESM3CAData.Model
         }
         public override bool CanDelete()
         {
-            return Parent != null && PointAdj >= 0;  //Do not delete "Freebies"
+            return Parent != null && IsFreebie == false;  //Do not delete "Freebies"
         }
         protected void RefreshVariablesOrRestrictions()
         {
@@ -135,7 +135,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public int PointAdj { get; protected set; }
+       
 
         protected override string BaseDescription
         {
@@ -166,10 +166,11 @@ namespace BESM3CAData.Model
             CreateLowerLevelCommand();
         }
 
-        public LevelableDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false) : base(attribute, notes, controller, isFreebie)
+        public LevelableDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false) : base(attribute, notes, controller, isFreebie)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
-            PointAdj = pointAdj;
+            FreeLevels = freeLevels;
+            RequiredLevels = requiredLevels;
 
             UpdatePointsPerLevel();
             if (attribute.Name == "Weapon")
@@ -351,9 +352,9 @@ namespace BESM3CAData.Model
         {
             if (Level > 1 || (Level > 0 && AssociatedListing.Name == "Weapon"))
             {
-                if (PointAdj < 0)
+                if (FreeLevels + RequiredLevels > 0)
                 {
-                    if ((Level * PointsPerLevel) + PointAdj > 0)
+                    if (Level > FreeLevels + RequiredLevels)
                     {
                         return true;
                     }
@@ -400,7 +401,7 @@ namespace BESM3CAData.Model
             textWriter.WriteStartElement("AttributeStats");
             textWriter.WriteAttributeString("Level", Level.ToString());
             textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
-            textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
+            //textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
             textWriter.WriteEndElement();
         }
 
@@ -431,9 +432,9 @@ namespace BESM3CAData.Model
                                         PointsPerLevel = int.Parse(reader.Value);
                                         break;
 
-                                    case "PointAdj":
-                                        PointAdj = int.Parse(reader.Value);
-                                        break;
+                                    //case "PointAdj":
+                                    //    PointAdj = int.Parse(reader.Value);
+                                    //    break;
 
                                     default:
                                         break;

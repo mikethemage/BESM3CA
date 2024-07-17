@@ -268,10 +268,10 @@ namespace BESM3CAData.Control
                     output.LevelableData.VariantName = variantDataNode.Variant.Name;
                 }
 
-                if(levelableDataNode.PointAdj != 0)
-                {
-                    output.LevelableData.FreeLevels = levelableDataNode.PointAdj;
-                }
+                
+                output.LevelableData.FreeLevels = levelableDataNode.FreeLevels;
+                
+
             }
 
             if (node.Children.Count > 0)

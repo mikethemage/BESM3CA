@@ -159,7 +159,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false) : base(attribute, notes, controller, level, pointAdj, isFreebie)
+        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false) : base(attribute, notes, controller, level, freeLevels, requiredLevels, isFreebie)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
@@ -191,7 +191,7 @@ namespace BESM3CAData.Model
             textWriter.WriteAttributeString("Level", Level.ToString());
             textWriter.WriteAttributeString("Variant", VariantID.ToString());
             textWriter.WriteAttributeString("Points", PointsPerLevel.ToString());
-            textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
+            //textWriter.WriteAttributeString("PointAdj", PointAdj.ToString());
             textWriter.WriteEndElement();
         }
 
@@ -223,9 +223,9 @@ namespace BESM3CAData.Model
                                     case "Points":
                                         PointsPerLevel = int.Parse(reader.Value);
                                         break;
-                                    case "PointAdj":
-                                        PointAdj = int.Parse(reader.Value);
-                                        break;
+                                    //case "PointAdj":
+                                    //    PointAdj = int.Parse(reader.Value);
+                                    //    break;
                                     default:
                                         break;
                                 }

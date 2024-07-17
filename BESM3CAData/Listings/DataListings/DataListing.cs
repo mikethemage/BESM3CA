@@ -30,6 +30,7 @@ namespace BESM3CAData.Listings
                     new PropertyChangedEventArgs(propertyName));
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RefreshFilteredPotentialChildren(string filter)
@@ -77,17 +78,14 @@ namespace BESM3CAData.Listings
             }
         }
 
-
-
         //Constructor:
         public DataListing()
         {
             Children = new List<DataListing>();
         }
 
-
         //Methods:
-        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false);        
+        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false);        
 
         public void AddChild(DataListing Child)
         {
@@ -96,7 +94,6 @@ namespace BESM3CAData.Listings
                 Children.Add(Child);
             }
         }
-
 
         //Serialization:
         public virtual RPGElementDefinitionDto Serialize()

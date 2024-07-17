@@ -27,8 +27,8 @@ namespace BESM3CAData.Listings
                 Freebies.Add(new FreebieListing
                 {
                     SubAttributeName = freebie.FreebieElementDefinitionName,
-                    SubAttributeLevel = freebie.FreeLevels + freebie.RequiredLevels,
-                    SubAttributePointsAdj = freebie.FreeLevels
+                    FreeLevels = freebie.FreeLevels,
+                    RequiredLevels = freebie.RequiredLevels
                 });                
             }            
         }
@@ -41,17 +41,17 @@ namespace BESM3CAData.Listings
                 Freebies.Select(x=> new FreebieDto
                 {
                     FreebieElementDefinitionName = x.SubAttributeName,
-                    FreeLevels = x.SubAttributePointsAdj,
-                    RequiredLevels = x.SubAttributeLevel - x.SubAttributePointsAdj
+                    FreeLevels = x.FreeLevels,
+                    RequiredLevels = x.RequiredLevels
                 }).ToList();    
             
 
             return result;
         }
 
-        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false)
+        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false)
         {
-            return new CompanionDataNode(this, notes, controller, level, pointAdj, isFreebie);
+            return new CompanionDataNode(this, notes, controller, level, freeLevels, requiredLevels, isFreebie);
         }
     }
 }
