@@ -34,6 +34,7 @@ namespace BESM3CAData.Control
         }
 
         public ObservableCollection<FilterType> Filters { get; set; } = new ObservableCollection<FilterType>();
+        public string FileNameAndPath { get; set; }
         public string FileName { get; set; }
 
         private MasterListing _selectedListingData;
@@ -67,7 +68,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public BaseNode RootCharacter { get; private set; }
+        public BaseNode RootCharacter { get; set; }
 
         public BaseNode SelectedNode
         {
@@ -142,7 +143,7 @@ namespace BESM3CAData.Control
 
         private BaseNode selectedNode;
 
-        public void Load(string fileName, BaseNode newRoot)
+        public void ImportOldXml(string fileName, BaseNode newRoot)
         {           
             
             RootCharacter = newRoot;
@@ -153,7 +154,7 @@ namespace BESM3CAData.Control
 
             //Need to check if successful
 
-            FileName = fileName;
+            //FileNameAndPath = fileName;
         }
 
 
@@ -216,7 +217,7 @@ namespace BESM3CAData.Control
                 Root.Clear();
                 Root.Add(RootCharacter);
                 RootCharacter.IsSelected = true;
-                FileName = "";
+                FileNameAndPath = "";
                 
             }
             else
@@ -240,15 +241,16 @@ namespace BESM3CAData.Control
 
         }
 
-        public void SaveAs(string fileName)
+        public void SaveAs(string fileNameAndPath, string fileName)
         {
+            FileNameAndPath = fileNameAndPath;
             FileName = fileName;
             Save();
         }
 
         public void Save()
         {
-            SaveLoad.SerializeXML(RootCharacter, FileName, this);
+            SaveLoad.SerializeJSON(RootCharacter, FileNameAndPath, FileName, this);
         }
 
         public void ExportToText(string exportFile)

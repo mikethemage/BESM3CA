@@ -52,20 +52,21 @@ namespace BESM3CA
 
         private void SaveFile(bool SaveExisting)
         {
-            if (SaveExisting == false || CurrentController.CurrentEntity.FileName == "")
+            if (SaveExisting == false || CurrentController.CurrentEntity.FileNameAndPath == "")
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog
+                SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
                     RestoreDirectory = false,
-                    Filter = ApplicationName + " Files (*.xml)|*.xml|All Files (*.*)|*.*",
+                    Filter = ApplicationName + " Files (*.json)|*.json|All Files (*.*)|*.*",
                     FilterIndex = 1
                 };
 
-                if (saveFileDialog1.ShowDialog() == true)
+                if (saveFileDialog.ShowDialog() == true)
                 {
-                    CurrentController.CurrentEntity.SaveAs(saveFileDialog1.FileName);
+                    
+                    CurrentController.CurrentEntity.SaveAs(saveFileDialog.FileName, saveFileDialog.SafeFileName);
 
-                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileName;
+                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
                 }
                 else
                 {
@@ -85,19 +86,19 @@ namespace BESM3CA
             SaveFile(true);
         }
 
-        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
+        private void ImportOldMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 RestoreDirectory = false,
                 Filter = ApplicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
                 FilterIndex = 1
             };
-            if (openFileDialog1.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() == true)
             {
                 ResetAll();
 
-                CurrentController.Load(openFileDialog1.FileName);
+                CurrentController.ImportOldXml(openFileDialog.FileName);
 
                 if (CurrentController.CurrentEntity.RootCharacter == null)
                 {
@@ -107,7 +108,7 @@ namespace BESM3CA
                 }
                 else
                 {
-                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileName;
+                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
                     if (CharacterTreeView.Items.Count > 0)
                     {
                         ((BaseNode)CharacterTreeView.Items[0]).IsSelected = true;
@@ -205,6 +206,35 @@ namespace BESM3CA
             }
         }
 
-        
+        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                RestoreDirectory = false,
+                Filter = ApplicationName + " Files(*.json)|*.json|All Files (*.*)|*.*",
+                FilterIndex = 1
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ResetAll();
+
+                CurrentController.Load(openFileDialog.FileName);
+
+                if (CurrentController.CurrentEntity.RootCharacter == null)
+                {
+                    //load failed, reset:
+                    ResetAll();
+                    MessageBox.Show("Unable to load file: invalid format", "Error loading file", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
+                    if (CharacterTreeView.Items.Count > 0)
+                    {
+                        ((BaseNode)CharacterTreeView.Items[0]).IsSelected = true;
+                    }
+                }
+            }
+        }
     }
 }

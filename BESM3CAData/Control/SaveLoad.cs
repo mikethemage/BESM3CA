@@ -1,10 +1,13 @@
 ﻿using BESM3CAData.Listings;
 using BESM3CAData.Model;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Xml;
+using Triarch.Dtos.Entities;
 
 
 namespace BESM3CAData.Control
@@ -210,51 +213,80 @@ namespace BESM3CAData.Control
             return rootNode;
         }
 
-        public static void SerializeXML(BaseNode rootNode, string fileName, RPGEntity controller)
+        public static void SerializeJSON(BaseNode rootNode, string fileNameAndPath, string fileName, RPGEntity controller)
         {
-            XmlTextWriter textWriter = new XmlTextWriter(fileName, System.Text.Encoding.UTF8);
+            EntityDto entity = new EntityDto
+            {
+                EntityName = fileName.Replace(".json", ""),
+                EntityType="Character",
+                RPGSystemName=controller.SelectedListingData.ListingName                
+            };
+            
+            //"version", System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
 
-            // writing the xml declaration tag
-            textWriter.WriteStartDocument();
-            textWriter.WriteStartElement("root");
-            textWriter.WriteAttributeString("version", System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
-
-            textWriter.WriteElementString(XmlListingTag, controller.SelectedListingData.ListingName);
+            
             if (controller.SelectedGenreEntry!=null)
             {
-                textWriter.WriteElementString(XmlGenreTag, controller.SelectedGenreEntry.GenreName);
-            }
-
-            // writing the main tag that encloses all node tags
-            textWriter.WriteStartElement("Data");
+                entity.GenreName = controller.SelectedGenreEntry.GenreName;
+            }            
 
             // save the nodes, recursive method
-            SaveNodes(rootNode, textWriter);
+            entity.RootElement = SaveNodes(rootNode);
 
-            textWriter.WriteEndElement();
-            textWriter.WriteEndElement();
-            textWriter.Close();
+            string entityText = JsonSerializer.Serialize(entity, new JsonSerializerOptions { DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull});
+            
+            File.WriteAllText(fileNameAndPath, entityText);            
         }
 
-        private static void SaveNodes(BaseNode nodesCollection, XmlTextWriter textWriter)
+        private static RPGElementDto SaveNodes(BaseNode node)
         {
-            BaseNode node = nodesCollection;
-            while (node != null)
+            RPGElementDto output = new RPGElementDto
             {
-                textWriter.WriteStartElement(XmlNodeTag);
+                ElementName = node.Name,
+                Notes = node.Notes                             
+            };
 
-                node.SaveXML(textWriter);
-
-                if (node.FirstChild != null)
+            if (node is CharacterNode characterNode)
+            {
+                output.CharacterData = new CharacterDataDto
                 {
-                    SaveNodes(node.FirstChild, textWriter);
+                    Body = characterNode.Body,
+                    Mind = characterNode.Mind,
+                    Soul = characterNode.Soul
+                };
+            }
+
+            if (node is LevelableDataNode levelableDataNode)
+            {
+                output.LevelableData = new LevelableDataDto
+                {
+                    Level = levelableDataNode.Level                    
+                };
+
+                if(levelableDataNode is IVariantDataNode variantDataNode)
+                {
+                    output.LevelableData.VariantName = variantDataNode.Variant.Name;
                 }
 
-                textWriter.WriteEndElement();
-
-                node = node.Next;
+                if(levelableDataNode.PointAdj != 0)
+                {
+                    output.LevelableData.FreeLevels = levelableDataNode.PointAdj;
+                }
             }
+
+            if (node.Children.Count > 0)
+            {
+                output.Children = new List<RPGElementDto>();
+                foreach (BaseNode childNode in node.Children)
+                {
+                    output.Children.Add(SaveNodes(childNode));
+                }
+            }
+
+            return output;
         }
+
+        
 
         public static void ExportNode(BaseNode nodes, int tabdepth, TextWriter tw)
         {

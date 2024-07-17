@@ -4,6 +4,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Triarch.Dtos.Entities;
 
 namespace BESM3CAData.Control
 {
@@ -64,11 +67,11 @@ namespace BESM3CAData.Control
             
         }
 
-        public void Load(string fileName)
+        public void ImportOldXml(string fileName)
         {
             CurrentEntity = new RPGEntity(SelectedListingData);
 
-            CurrentEntity.Load(fileName, SaveLoad.DeserializeXML(fileName, this));
+            CurrentEntity.ImportOldXml(fileName, SaveLoad.DeserializeXML(fileName, this));
 
 
             //Root.Clear();
@@ -81,5 +84,66 @@ namespace BESM3CAData.Control
             //FileName = fileName;
         }
 
+        public void Load(string fileName)
+        {
+            var loadedText = File.ReadAllText(fileName);
+            var loadedEntity = JsonSerializer.Deserialize<EntityDto>(loadedText);
+
+            if(SelectedListingData == null || SelectedListingData.ListingName != loadedEntity.RPGSystemName)
+            {
+                ListingDirectory = ListingDirectory.JSONLoader(Path.Combine("Datafiles", "ListingDirectory.json"));
+
+                ListingLocation DefaultListing = ListingDirectory.AvailableListings.Find(x => x.ListingName == loadedEntity.RPGSystemName);
+
+                //Load listing from file:
+                SelectedListingData = DefaultListing.LoadListing();
+            }
+            CurrentEntity = new RPGEntity(SelectedListingData);
+
+            var selectedGenre = CurrentEntity.GenreList.Where(x=>x.GenreName == loadedEntity.GenreName).FirstOrDefault();
+            if (selectedGenre != null)
+            {
+                selectedGenre.IsSelected = true;
+            }
+
+            CurrentEntity.RootCharacter = LoadNode(loadedEntity.RootElement);
+            CurrentEntity.FileNameAndPath = fileName;
+            CurrentEntity.FileName = loadedEntity.EntityName;
+
+            CurrentEntity.Root.Clear();
+            CurrentEntity.Root.Add(CurrentEntity.RootCharacter);
+
+            CurrentEntity.RootCharacter.RefreshAll();
+
+        }
+
+        public BaseNode LoadNode(RPGElementDto input)
+        {
+            BaseNode output = null;
+
+            var ElementDefinition = SelectedListingData.AttributeList.Where(x => x.Name == input.ElementName).FirstOrDefault();
+            if (ElementDefinition != null)
+            {
+                
+                if (input.LevelableData != null)
+                {
+                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity,input.LevelableData.Level);
+                }
+                else
+                {
+                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity);
+                }
+            }
+
+            if (input.Children != null && input.Children.Count > 0)
+            {
+                foreach (RPGElementDto child in input.Children)
+                {
+                    output.Children.Add(LoadNode(child));
+                }
+            }
+
+            return output;
+        }
     }
 }

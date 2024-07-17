@@ -36,6 +36,7 @@
                         <MenuItem x:Name="SaveAsMenuItem" Header="Save _As" Click="SaveAsMenuItem_Click" />
                         <MenuItem x:Name="ExportToTextMenuItem" Header="Export to _Text" Click="ExportToTextMenuItem_Click" />
                         <MenuItem x:Name="ExportToHTMLMenuItem" Header="Export to _HTML" Click="ExportToHTMLMenuItem_Click" />
+                        <MenuItem x:Name="ImportOldMenuItem" Header="_Import Old Format" Click="ImportOldMenuItem_Click" />
                         <MenuItem Header="_Print" />
                         <MenuItem Header="Print Pre_view" />
                         <MenuItem x:Name="ExitMenuItem" Header="E_xit" Click="ExitMenuItem_Click" />
