@@ -138,7 +138,14 @@ namespace BESM3CAData.Listings
                 }
                 else if (data.LevelableData != null)
                 {
-                    newData = new LevelableDataListing(data);
+                    if(data.Freebies!= null)
+                    {
+                        newData = new LevelableWithFreebieDataListing(data);
+                    }
+                    else
+                    {
+                        newData = new LevelableDataListing(data);
+                    }                    
                 }
                 else
                 {

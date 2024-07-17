@@ -9,8 +9,6 @@ namespace BESM3CAData.Listings
     public class LevelableWithFreebieWithVariantDataListing : LevelableWithVariantDataListing, IFreebieDataListing
     {
         //Properties:
-
-
         public List<FreebieListing> Freebies { get; set; } = new List<FreebieListing>();
 
         //Constructors:
@@ -27,8 +25,7 @@ namespace BESM3CAData.Listings
                         FreeLevels = freebie.FreeLevels
                     });
                 }
-            }
-            
+            }            
         }
 
         //Methods:
@@ -46,8 +43,7 @@ namespace BESM3CAData.Listings
                     FreeLevels = x.FreeLevels,
                     RequiredLevels = x.RequiredLevels
                 }).ToList();
-            }           
-
+            }    
 
             return result;
         }
