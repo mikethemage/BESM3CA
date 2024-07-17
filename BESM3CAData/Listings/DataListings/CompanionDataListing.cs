@@ -1,42 +1,57 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Model;
 using System.Collections.Generic;
+using System.Linq;
 using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
     public class CompanionDataListing : LevelableDataListing, IFreebieDataListing
     {
-        public DataListing SubAttribute { get; set; }
-        public int SubAttributeLevel { get; set; }
-        public int SubAttributePointsAdj { get; set; }
+
+
+        public List<FreebieListing> Freebies
+        {
+            get
+            ;
+
+            set
+            ;
+        } = new List<FreebieListing>();
 
         public CompanionDataListing(RPGElementDefinitionDto data) : base(data)
         {
 
-            SubAttributeLevel = data.Freebies[0].FreeLevels + data.Freebies[0].RequiredLevels;
-            SubAttributePointsAdj = data.Freebies[0].FreeLevels;
+            foreach(FreebieDto freebie in data.Freebies)
+            {
+                Freebies.Add(new FreebieListing
+                {
+                    SubAttributeName = freebie.FreebieElementDefinitionName,
+                    SubAttributeLevel = freebie.FreeLevels + freebie.RequiredLevels,
+                    SubAttributePointsAdj = freebie.FreeLevels
+                });                
+            }            
         }
 
         public override RPGElementDefinitionDto Serialize()
         {
             RPGElementDefinitionDto result = base.Serialize();
 
-            result.Freebies = new List<FreebieDto> {
-                new FreebieDto
+            result.Freebies = 
+                Freebies.Select(x=> new FreebieDto
                 {
-                    FreebieElementDefinitionName = SubAttribute.Name,
-                    FreeLevels = SubAttributePointsAdj,
-                    RequiredLevels = SubAttributeLevel - SubAttributePointsAdj
-                }
-            };
+                    FreebieElementDefinitionName = x.SubAttributeName,
+                    FreeLevels = x.SubAttributePointsAdj,
+                    RequiredLevels = x.SubAttributeLevel - x.SubAttributePointsAdj
+                }).ToList();    
+            
 
             return result;
         }
 
-        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0)
+        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false)
         {
-            return new CompanionDataNode(this, notes, controller, level, pointAdj);
+            return new CompanionDataNode(this, notes, controller, level, pointAdj, isFreebie);
         }
     }
 }

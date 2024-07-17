@@ -15,9 +15,9 @@ namespace BESM3CAData.Listings
         //Only things with Variants:        
         public List<VariantListing> Variants { get; set; }
 
-        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0)
+        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false)
         {
-            return new LevelableWithVariantDataNode(this, notes, controller, level, pointAdj);
+            return new LevelableWithVariantDataNode(this, notes, controller, level, pointAdj, isFreebie);
         }        
 
 

@@ -91,7 +91,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public DataNode(DataListing attribute, string notes, RPGEntity controller) : base(attribute, controller, notes)
+        public DataNode(DataListing attribute, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, notes, isFreebie)
         {
             //Pass parameters to base constructor
             RefreshDescription();

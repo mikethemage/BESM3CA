@@ -162,7 +162,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public CharacterNode(CharacterDataListing attribute, string notes, RPGEntity controller) : base(attribute, controller, notes)
+        public CharacterNode(CharacterDataListing attribute, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, notes, isFreebie)
         {
             Body = 1;
             Mind = 1;

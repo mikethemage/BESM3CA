@@ -159,7 +159,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public LevelableWithVariantDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false) : base(attribute, notes, controller, level, pointAdj, isFreebie)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 

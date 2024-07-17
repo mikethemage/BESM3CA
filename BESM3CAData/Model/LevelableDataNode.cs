@@ -54,6 +54,10 @@ namespace BESM3CAData.Model
                 }
             }
         }
+
+        public int RequiredLevel { get; private set; } = 0;
+        public int FreeLevels { get; private set; } = 0;
+
         protected virtual void RefreshBaseCost()
         {
             BaseCost = (PointsPerLevel * Level) + PointAdj;
@@ -162,7 +166,7 @@ namespace BESM3CAData.Model
             CreateLowerLevelCommand();
         }
 
-        public LevelableDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller)
+        public LevelableDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false) : base(attribute, notes, controller, isFreebie)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
             PointAdj = pointAdj;

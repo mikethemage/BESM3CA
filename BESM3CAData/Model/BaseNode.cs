@@ -33,6 +33,8 @@ namespace BESM3CAData.Model
             }
         }
 
+        public bool IsFreebie { get; set; } = false;
+
         public DataListing SelectedAttributeToAdd
         {
             get;
@@ -348,7 +350,7 @@ namespace BESM3CAData.Model
 
 
 
-        public BaseNode(DataListing attribute, RPGEntity controller, string notes = "")
+        public BaseNode(DataListing attribute, RPGEntity controller, string notes = "", bool isFreebie = false)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
@@ -365,6 +367,7 @@ namespace BESM3CAData.Model
             _lastChildOrder = 0;
             Next = null;
             Prev = null;
+            IsFreebie = isFreebie;
             Children.CollectionChanged += Children_CollectionChanged;
             CreateMoveUpCommand();
             CreateMoveDownCommand();

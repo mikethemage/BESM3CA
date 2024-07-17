@@ -23,9 +23,9 @@ namespace BESM3CAData.Listings
 
 
         //Methods:
-        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0)
+        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie=false)
         {
-            return new MultiGenreDataNode(this, notes, controller, level, pointAdj);
+            return new MultiGenreDataNode(this, notes, controller, level, pointAdj,isFreebie);
         }
 
         public override RPGElementDefinitionDto Serialize()

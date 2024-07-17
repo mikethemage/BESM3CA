@@ -1,15 +1,28 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace BESM3CAData.Model
 {
     public class CompanionDataNode : LevelableDataNode
     {
         //Constructor:
-        public CompanionDataNode(CompanionDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0) : base(attribute, notes, controller, level, pointAdj)
+        public CompanionDataNode(CompanionDataListing attribute, string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie=false) : base(attribute, notes, controller, level, pointAdj,isFreebie)
         {
-            AddChild(attribute.SubAttribute.CreateNode("", AssociatedController, attribute.SubAttributeLevel, attribute.SubAttributePointsAdj));
+            if(attribute.Freebies != null)
+            {
+                foreach (FreebieListing freebie in attribute.Freebies)
+                {
+                    DataListing subAttribute = controller.SelectedListingData.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
+                    if (subAttribute != null)
+                    {
+                        AddChild(subAttribute.CreateNode("", AssociatedController, freebie.SubAttributeLevel, freebie.SubAttributePointsAdj));
+                    }
+                }
+            }                        
+
             RefreshChildPoints();
         }
 
@@ -121,5 +134,7 @@ namespace BESM3CAData.Model
                 }
             }
         }
+
+        
     }
 }

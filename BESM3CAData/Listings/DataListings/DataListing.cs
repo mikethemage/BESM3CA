@@ -87,7 +87,7 @@ namespace BESM3CAData.Listings
 
 
         //Methods:
-        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0);        
+        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int pointAdj = 0, bool isFreebie = false);        
 
         public void AddChild(DataListing Child)
         {

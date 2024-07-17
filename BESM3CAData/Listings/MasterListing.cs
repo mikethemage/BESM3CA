@@ -173,20 +173,16 @@ namespace BESM3CAData.Listings
                     }
                     Parent.RefreshFilteredPotentialChildren("All");
 
-                    if (Parent is IFreebieDataListing freebieDataListing)
-                    {
-                        if(attribute.Freebies!=null && attribute.Freebies.Count>0)
-                        {
-                            freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.Name == attribute.Freebies[0].FreebieElementDefinitionName);
-                        }
-                        else
-                        {
-                            freebieDataListing.SubAttribute = result.AttributeList.Find(x => x.Name == "Character");
-                        }
-                        
-                            
-                            
-                    }
+                    //if (Parent is IFreebieDataListing freebieDataListing)
+                    //{
+                    //    if(freebieDataListing.Freebies != null)
+                    //    {
+                    //        foreach (FreebieListing freebie in freebieDataListing.Freebies)
+                    //        {
+                    //            freebie.SubAttribute = result.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
+                    //        }
+                    //    }                    
+                    //}
                 }
             }
 
