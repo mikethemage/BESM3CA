@@ -89,7 +89,7 @@ namespace BESM3CAData.Model
 
         }
 
-        public SpecialContainerDataNode(SpecialContainerDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0) : base(attribute, notes, controller, level, freeLevels, requiredLevels)
+        public SpecialContainerDataNode(SpecialContainerDataListing attribute, string notes, RPGEntity controller, bool isLoading, int level = 1, int freeLevels = 0, int requiredLevels = 0) : base(attribute, isLoading, notes, controller, level, freeLevels, requiredLevels)
         {
 
         }

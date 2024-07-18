@@ -350,7 +350,7 @@ namespace BESM3CAData.Model
 
 
 
-        public BaseNode(DataListing attribute, RPGEntity controller, string notes = "", bool isFreebie = false)
+        public BaseNode(DataListing attribute, RPGEntity controller, bool isLoading, string notes = "", bool isFreebie = false)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
 
@@ -369,6 +369,20 @@ namespace BESM3CAData.Model
             Prev = null;
             IsFreebie = isFreebie;
             Children.CollectionChanged += Children_CollectionChanged;
+
+            if (!isLoading && attribute.Freebies != null && attribute.Freebies.Count > 0)
+            {
+                foreach (FreebieListing freebie in attribute.Freebies)
+                {
+                    DataListing subAttribute = controller.SelectedListingData.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
+                    if (subAttribute != null)
+                    {
+                        //Auto create freebie when creating new instance of this attribute:
+                        AddChild(subAttribute.CreateNode("", AssociatedController, false, freebie.FreeLevels + freebie.RequiredLevels, freebie.FreeLevels, freebie.RequiredLevels, true));
+                    }
+                }
+            }
+
             CreateMoveUpCommand();
             CreateMoveDownCommand();
             CreateDeleteCommand();
@@ -470,9 +484,9 @@ namespace BESM3CAData.Model
             }
         }
 
-        public virtual bool CanDelete()
+        public bool CanDelete()
         {
-            return Parent != null;
+            return Parent != null && IsFreebie == false;  //Do not delete "Freebies"
         }
 
         private void CreateDeleteCommand()
@@ -550,7 +564,7 @@ namespace BESM3CAData.Model
 
         public BaseNode AddChildAttribute(DataListing attribute)
         {
-            BaseNode Temp = attribute.CreateNode("", AssociatedController);
+            BaseNode Temp = attribute.CreateNode("", AssociatedController, false);
             AddChild(Temp);
             return Temp;
         }

@@ -92,10 +92,7 @@ namespace BESM3CAData.Model
             BaseCost = (Body + Mind + Soul) * 10;
         }
 
-        public override bool CanDelete()
-        {
-            return false;
-        }
+        
 
         protected override void RefreshPoints()
         {
@@ -162,7 +159,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public CharacterNode(CharacterDataListing attribute, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, notes, isFreebie)
+        public CharacterNode(CharacterDataListing attribute, bool isLoading, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, isLoading, notes, isFreebie)
         {
             Body = 1;
             Mind = 1;

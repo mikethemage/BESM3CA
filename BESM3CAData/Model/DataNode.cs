@@ -2,6 +2,7 @@
 using BESM3CAData.Listings;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Xml;
 
 namespace BESM3CAData.Model
@@ -84,9 +85,10 @@ namespace BESM3CAData.Model
         {
             //Default constructor for data loading only
         }
-        public DataNode(DataListing attribute, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, notes, isFreebie)
+        public DataNode(DataListing attribute, bool isLoading, string notes, RPGEntity controller, bool isFreebie) : base(attribute, controller, isLoading, notes, isFreebie)
         {
-            //Pass parameters to base constructor
+            //Pass parameters to base constructor            
+
             RefreshDescription();
         }
 

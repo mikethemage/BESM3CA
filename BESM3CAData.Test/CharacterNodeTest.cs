@@ -78,7 +78,7 @@ namespace BESM3CAData.Test
             List<string> output = null;
             if (testController.SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
-                CharacterNode testCharacter = new CharacterNode(characterDataListing, "", testController.CurrentEntity, false);
+                CharacterNode testCharacter = new CharacterNode(characterDataListing, false, "", testController.CurrentEntity, false);
                 output = testCharacter.GetTypesForFilter();
 
             }

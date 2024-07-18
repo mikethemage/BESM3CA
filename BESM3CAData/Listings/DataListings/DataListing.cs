@@ -7,7 +7,7 @@ using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
-    public abstract class DataListing : INotifyPropertyChanged
+    public abstract class DataListing : INotifyPropertyChanged, IFreebieDataListing
     {
         //Properties:
         //Everything should have:
@@ -16,6 +16,8 @@ namespace BESM3CAData.Listings
         public string Type { get; private set; }
         public string Description { get; private set; }  //Character doesn't need description really
         public List<DataListing> Children { get; private set; }
+
+        public List<FreebieListing> Freebies { get; set; } = new List<FreebieListing>();
 
         //  To check if still needed:        
         private string Stat { get; set; }
@@ -85,7 +87,7 @@ namespace BESM3CAData.Listings
         }
 
         //Methods:
-        public abstract BaseNode CreateNode(string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false);        
+        public abstract BaseNode CreateNode(string notes, RPGEntity controller, bool isLoading, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false);        
 
         public void AddChild(DataListing Child)
         {
@@ -115,6 +117,18 @@ namespace BESM3CAData.Listings
 
             result.AllowedChildrenNames = ChildIDs.ToList();
 
+            if (Freebies != null && Freebies.Count > 0)
+            {
+                result.Freebies = Freebies.Select(x =>
+
+                new FreebieDto
+                {
+                    FreebieElementDefinitionName = x.SubAttributeName,
+                    FreeLevels = x.FreeLevels,
+                    RequiredLevels = x.RequiredLevels
+                }).ToList();
+            }
+
             return result;
         }
 
@@ -129,6 +143,19 @@ namespace BESM3CAData.Listings
             Description = data.Description;
 
             Children = new List<DataListing>();
+
+            if (data.Freebies != null)
+            {
+                foreach (FreebieDto freebie in data.Freebies)
+                {
+                    Freebies.Add(new FreebieListing
+                    {
+                        SubAttributeName = freebie.FreebieElementDefinitionName,
+                        RequiredLevels = freebie.RequiredLevels,
+                        FreeLevels = freebie.FreeLevels
+                    });
+                }
+            }
         }
     }
 }

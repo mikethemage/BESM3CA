@@ -71,7 +71,7 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();
                        
-            BaseNode testAttribute = testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName).CreateNode("", testController.CurrentEntity);
+            BaseNode testAttribute = testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName).CreateNode("", testController.CurrentEntity, false);
             List<string> output = testAttribute.GetTypesForFilter();
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);

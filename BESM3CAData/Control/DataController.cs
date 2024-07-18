@@ -127,11 +127,11 @@ namespace BESM3CAData.Control
                 
                 if (input.LevelableData != null)
                 {
-                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity,input.LevelableData.Level);
+                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity, true, input.LevelableData.Level);
                 }
                 else
                 {
-                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity);
+                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity, true);
                 }
             }
 

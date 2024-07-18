@@ -151,7 +151,7 @@ namespace BESM3CAData.Control
                                         newNode = new CompanionDataNode(controller.CurrentEntity);
                                         break;
                                     case "LevelableWithFreebieWithVariantDataNode":
-                                        newNode = new LevelableWithFreebieWithVariantDataNode(controller.CurrentEntity);
+                                        newNode = new LevelableWithVariantDataNode(controller.CurrentEntity);
                                         break;
                                     default:
                                         throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");
@@ -265,7 +265,11 @@ namespace BESM3CAData.Control
 
                 if(levelableDataNode is IVariantDataNode variantDataNode)
                 {
-                    output.LevelableData.VariantName = variantDataNode.Variant.Name;
+                    if (variantDataNode.Variant != null)                    
+                    {
+                        output.LevelableData.VariantName = variantDataNode.Variant.Name;
+                    }
+                    
                 }
 
                 

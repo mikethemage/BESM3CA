@@ -22,7 +22,7 @@ namespace BESM3CAData.Listings
         public string ProgressionName { get; set; }
 
         public ProgressionListing Progression { get; set; }
-
+        
 
         //Constructors:
         public LevelableDataListing()
@@ -33,9 +33,9 @@ namespace BESM3CAData.Listings
 
 
         //Methods:
-        public override DataNode CreateNode(string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false)
+        public override DataNode CreateNode(string notes, RPGEntity controller, bool isLoading, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false)
         {
-            return new LevelableDataNode(this, notes, controller, level, freeLevels, requiredLevels, isFreebie);
+            return new LevelableDataNode(this, isLoading, notes, controller, level, freeLevels, requiredLevels, isFreebie);
         }
 
         public override RPGElementDefinitionDto Serialize()
@@ -48,8 +48,8 @@ namespace BESM3CAData.Listings
                 ProgressionName = ProgressionName,
                 MaxLevel = MaxLevel,
                 EnforceMaxLevel = EnforceMaxLevel
-            };           
-            
+            };            
+
             return result;
         }
 

@@ -213,7 +213,7 @@ namespace BESM3CAData.Control
             //Get Character data listing:
             if (SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
-                RootCharacter = characterDataListing.CreateNode("", this);
+                RootCharacter = characterDataListing.CreateNode("", this, false);
                 Root.Clear();
                 Root.Add(RootCharacter);
                 RootCharacter.IsSelected = true;

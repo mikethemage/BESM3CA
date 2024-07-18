@@ -123,14 +123,7 @@ namespace BESM3CAData.Listings
                 }
                 else if (data.LevelableData?.Variants != null)
                 {
-                    if (data.Freebies != null)
-                    {
-                        newData = new LevelableWithFreebieWithVariantDataListing(data);
-                    }
-                    else
-                    {
-                        newData = new LevelableWithVariantDataListing(data);
-                    }
+                    newData = new LevelableWithVariantDataListing(data);                    
                 }
                 else if (data.LevelableData?.MultiGenreCostPerLevels != null)
                 {
@@ -138,14 +131,7 @@ namespace BESM3CAData.Listings
                 }
                 else if (data.LevelableData != null)
                 {
-                    if(data.Freebies!= null)
-                    {
-                        newData = new LevelableWithFreebieDataListing(data);
-                    }
-                    else
-                    {
-                        newData = new LevelableDataListing(data);
-                    }                    
+                    newData = new LevelableDataListing(data);                                       
                 }
                 else
                 {

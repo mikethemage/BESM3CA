@@ -34,7 +34,7 @@ namespace BESM3CAData.Model
             //Default constructor for data loading only
         }
 
-        public PointsContainerDataNode(PointsContainerDataListing attribute, string notes, RPGEntity controller, bool isFreebie) : base(attribute, notes, controller, isFreebie)
+        public PointsContainerDataNode(PointsContainerDataListing attribute, bool isLoading, string notes, RPGEntity controller, bool isFreebie) : base(attribute, isLoading, notes, controller, isFreebie)
         {
 
         }

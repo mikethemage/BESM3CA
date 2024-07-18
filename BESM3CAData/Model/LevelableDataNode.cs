@@ -4,6 +4,7 @@ using org.mariuszgromada.math.mxparser;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using System.Xml;
 
@@ -85,10 +86,7 @@ namespace BESM3CAData.Model
                 }
             }
         }
-        public override bool CanDelete()
-        {
-            return Parent != null && IsFreebie == false;  //Do not delete "Freebies"
-        }
+        
         protected void RefreshVariablesOrRestrictions()
         {
             int tempVariablesOrRestrictions = 0;
@@ -166,11 +164,11 @@ namespace BESM3CAData.Model
             CreateLowerLevelCommand();
         }
 
-        public LevelableDataNode(LevelableDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false) : base(attribute, notes, controller, isFreebie)
+        public LevelableDataNode(LevelableDataListing attribute, bool isloading, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie = false) : base(attribute, isloading, notes, controller, isFreebie)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
             FreeLevels = freeLevels;
-            RequiredLevels = requiredLevels;
+            RequiredLevels = requiredLevels;                     
 
             UpdatePointsPerLevel();
             if (attribute.Name == "Weapon")

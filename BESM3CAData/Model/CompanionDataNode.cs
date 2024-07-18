@@ -9,19 +9,8 @@ namespace BESM3CAData.Model
     public class CompanionDataNode : LevelableDataNode
     {
         //Constructor:
-        public CompanionDataNode(CompanionDataListing attribute, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie=false) : base(attribute, notes, controller, level, freeLevels, requiredLevels, isFreebie)
-        {
-            if(attribute.Freebies != null)
-            {
-                foreach (FreebieListing freebie in attribute.Freebies)
-                {
-                    DataListing subAttribute = controller.SelectedListingData.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
-                    if (subAttribute != null)
-                    {
-                        AddChild(subAttribute.CreateNode("", AssociatedController, freebie.FreeLevels+freebie.RequiredLevels, -1 * freebie.FreeLevels));
-                    }
-                }
-            }                        
+        public CompanionDataNode(CompanionDataListing attribute, bool isLoading, string notes, RPGEntity controller, int level = 1, int freeLevels = 0, int requiredLevels = 0, bool isFreebie=false) : base(attribute, isLoading, notes, controller, level, freeLevels, requiredLevels, isFreebie)
+        {                             
 
             RefreshChildPoints();
         }
