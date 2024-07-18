@@ -10,4 +10,5 @@ public class LevelableDataDto
     public string? VariantName { get; set; }
     
     public int? FreeLevels { get; set; }
+    public int? RequiredLevels { get; set; }
 }

@@ -7,7 +7,7 @@ using Triarch.Dtos.Definitions;
 
 namespace BESM3CAData.Listings
 {
-    public abstract class DataListing : INotifyPropertyChanged, IFreebieDataListing
+    public abstract class DataListing : INotifyPropertyChanged
     {
         //Properties:
         //Everything should have:

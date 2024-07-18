@@ -43,7 +43,14 @@ namespace BESM3CAData.Model
 
         protected override void RefreshDisplayText()
         {
-            DisplayText = $"{Name} ({SpecialPoints} Left) ({Points} Points)";
+            if (Variant != null)
+            {                
+                DisplayText = $"{Variant.FullName} ({SpecialPoints} Left) ({Points} Points)";
+            }
+            else
+            {
+                DisplayText = $"{Name} ({SpecialPoints} Left) ({Points} Points)";
+            }            
         }
 
         private int _specialPoints;

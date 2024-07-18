@@ -133,7 +133,7 @@ namespace BESM3CAData.Control
                                         newNode = new LevelableDataNode(controller.CurrentEntity);
                                         break;
                                     case "LevelableWithVariantDataNode":
-                                        newNode = new LevelableWithVariantDataNode(controller.CurrentEntity);
+                                        newNode = new LevelableDataNode(controller.CurrentEntity);
                                         break;
                                     case "MultiGenreDataNode":
                                         newNode = new MultiGenreDataNode(controller.CurrentEntity);
@@ -145,13 +145,13 @@ namespace BESM3CAData.Control
                                         newNode = new SpecialContainerDataNode(controller.CurrentEntity);
                                         break;
                                     case "SpecialContainerWithVariantDataNode":
-                                        newNode = new SpecialContainerWithVariantDataNode(controller.CurrentEntity);
+                                        newNode = new SpecialContainerDataNode(controller.CurrentEntity);
                                         break;
                                     case "CompanionDataNode":
                                         newNode = new CompanionDataNode(controller.CurrentEntity);
                                         break;
                                     case "LevelableWithFreebieWithVariantDataNode":
-                                        newNode = new LevelableWithVariantDataNode(controller.CurrentEntity);
+                                        newNode = new LevelableDataNode(controller.CurrentEntity);
                                         break;
                                     default:
                                         throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");

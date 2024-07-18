@@ -112,18 +112,11 @@ namespace BESM3CAData.Listings
                 }
                 else if (data.LevelableData?.SpecialPointsPerLevel != null)
                 {
-                    if (data.LevelableData?.Variants != null)
-                    {
-                        newData = new SpecialContainerWithVariantDataListing(data);
-                    }
-                    else
-                    {
-                        newData = new SpecialContainerDataListing(data);
-                    }
+                    newData = new SpecialContainerDataListing(data);                    
                 }
                 else if (data.LevelableData?.Variants != null)
                 {
-                    newData = new LevelableWithVariantDataListing(data);                    
+                    newData = new LevelableDataListing(data);                    
                 }
                 else if (data.LevelableData?.MultiGenreCostPerLevels != null)
                 {

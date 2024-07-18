@@ -13,7 +13,11 @@ namespace BESM3CAData.Model
         {
             foreach (BaseNode item in Children)
             {
-                item.RefreshAll();
+                if(item != null)
+                {
+                    item.RefreshAll();
+                }
+                
             }
             RefreshBaseCost();
             RefreshPoints();

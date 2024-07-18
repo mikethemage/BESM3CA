@@ -103,7 +103,14 @@ namespace BESM3CAData.Control
         {
             get
             {
-                return selectedNode as IVariantDataNode;
+                if(selectedNode is IVariantDataNode variantDataNode)
+                {
+                    if(variantDataNode.VariantList !=null && variantDataNode.VariantList.Count > 0)
+                    {
+                        return variantDataNode;
+                    }
+                }
+                return null;
             }
         }
 

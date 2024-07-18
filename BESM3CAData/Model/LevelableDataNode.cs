@@ -1,6 +1,8 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Listings;
 using org.mariuszgromada.math.mxparser;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,7 +12,7 @@ using System.Xml;
 
 namespace BESM3CAData.Model
 {
-    public class LevelableDataNode : DataNode, IPointsDataNode
+    public class LevelableDataNode : DataNode, IPointsDataNode, IVariantDataNode
     {
         public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -33,6 +35,19 @@ namespace BESM3CAData.Model
             RefreshBaseCost();
             RefreshPoints();
             RefreshDisplayText();
+        }
+
+        protected override void RefreshDisplayText()
+        {
+
+            if (Variant != null)
+            {                
+                DisplayText = $"{Variant.FullName} ({Points} Points)";
+            }
+            else
+            {
+                DisplayText = $"{Name} ({Points} Points)";
+            }            
         }
 
         //Properties:
@@ -141,16 +156,20 @@ namespace BESM3CAData.Model
             {
                 string result = AssociatedListing.Description;
 
-                if (AssociatedListing is LevelableDataListing levelableListing)
+                if (AssociatedListing is LevelableDataListing levelableDataListing)
                 {
-                    if(levelableListing.Progression != null && levelableListing.Progression.CustomProgression)
+                    if(levelableDataListing.Progression != null && levelableDataListing.Progression.CustomProgression)
                     {
-                        if (Level >= 1 && Level <= levelableListing.Progression.ProgressionsList.Count)
+                        if (Level >= 1 && Level <= levelableDataListing.Progression.ProgressionsList.Count)
                         {
-                            result = levelableListing.Progression.ProgressionsList[(Level - 1)];
+                            result = levelableDataListing.Progression.ProgressionsList[(Level - 1)];
                         }
                     }
-                }                
+                    else if (result == "Variant" && _variantListing != null && _variantListing.Desc != "")
+                    {
+                        result = _variantListing.Desc;
+                    }
+                }     
 
                 return result;
             }
@@ -168,7 +187,19 @@ namespace BESM3CAData.Model
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
             FreeLevels = freeLevels;
-            RequiredLevels = requiredLevels;                     
+            RequiredLevels = requiredLevels;
+
+            if (!isloading)
+            {
+                if (attribute.Variants != null && attribute.Variants.Count > 0)
+                {
+                    VariantListing defaultVariant = attribute.Variants.Where(x=>x.DefaultVariant).FirstOrDefault();
+                    if (defaultVariant != null)
+                    {
+                        Variant=defaultVariant;
+                    }
+                }
+            }
 
             UpdatePointsPerLevel();
             if (attribute.Name == "Weapon")
@@ -426,6 +457,10 @@ namespace BESM3CAData.Model
                                         Level = int.Parse(reader.Value);
                                         break;
 
+                                    case "Variant":
+                                        //VariantID = int.Parse(reader.Value);
+                                        break;
+
                                     case "Points":
                                         PointsPerLevel = int.Parse(reader.Value);
                                         break;
@@ -451,6 +486,106 @@ namespace BESM3CAData.Model
                 }
             }
 
+        }
+
+        public List<VariantListing> GetVariants()
+        {
+            if (AssociatedListing is LevelableDataListing variantDataListing && variantDataListing.Variants != null && variantDataListing.Variants.Count > 0)
+            {
+                //LINQ Version:
+                return variantDataListing.Variants.OrderByDescending(v => v.DefaultVariant).ThenBy(v => v.Name).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        protected VariantListing _variantListing;
+        public VariantListing Variant
+        {
+            get
+            {
+                return _variantListing;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _variantListing = value;                    
+                    PointsPerLevel = _variantListing.CostperLevel;
+                }
+                else
+                {
+                    _variantListing = null;                    
+
+                    if (AssociatedListing is LevelableDataListing levelableDataListing)
+                    {
+                        PointsPerLevel = levelableDataListing.CostperLevel;
+                    }
+                    else
+                    {
+                        PointsPerLevel = 0;
+                    }
+                }
+                RefreshDisplayText();
+            }
+        }
+
+        public ObservableCollection<VariantListing> VariantList { get; set; } = new ObservableCollection<VariantListing>();
+
+        private void VariantPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (IsSelected)
+            {
+                if (sender is VariantListing variantListing)
+                {
+                    if (e.PropertyName == nameof(VariantListing.IsSelected) && variantListing.IsSelected == true)
+                    {
+                        Variant = variantListing;
+                    }
+                }
+            }
+        }
+
+        private DataListing _associatedListing;
+
+        public override DataListing AssociatedListing
+        {
+            get
+            {
+                return _associatedListing;
+            }
+            protected set
+            {
+                if (value != _associatedListing)
+                {
+                    if (_associatedListing is LevelableDataListing oldVariantDataListing && oldVariantDataListing.Variants != null && oldVariantDataListing.Variants.Count > 0)
+                    {
+                        foreach (VariantListing oldVL in VariantList)
+                        {
+                            oldVL.PropertyChanged -= VariantPropertyChanged;
+                        }
+
+                        VariantList.Clear();
+                    }
+
+                    _associatedListing = value;
+
+                    if (_associatedListing is LevelableDataListing newVariantDataListing && newVariantDataListing.Variants != null && newVariantDataListing.Variants.Count > 0)
+                    {
+                        foreach (VariantListing newVL in newVariantDataListing.Variants)
+                        {
+                            VariantList.Add(newVL);
+                            newVL.PropertyChanged += VariantPropertyChanged;
+                            if (newVL.DefaultVariant)
+                            {
+                                Variant = newVL;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

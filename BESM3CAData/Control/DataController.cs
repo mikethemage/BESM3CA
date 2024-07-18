@@ -121,13 +121,21 @@ namespace BESM3CAData.Control
         {
             BaseNode output = null;
 
-            var ElementDefinition = SelectedListingData.AttributeList.Where(x => x.Name == input.ElementName).FirstOrDefault();
+            DataListing ElementDefinition = SelectedListingData.AttributeList.Where(x => x.Name == input.ElementName).FirstOrDefault();
             if (ElementDefinition != null)
             {
                 
                 if (input.LevelableData != null)
                 {
-                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity, true, input.LevelableData.Level);
+                    output = ElementDefinition.CreateNode(input.Notes, CurrentEntity, true, input.LevelableData.Level, input.LevelableData.FreeLevels ?? 0,input.LevelableData.RequiredLevels ?? 0, input.LevelableData.FreeLevels != null && input.LevelableData.FreeLevels != 0);
+                    if (input.LevelableData.VariantName != null && output is LevelableDataNode variantOutput && variantOutput.VariantList != null && variantOutput.VariantList.Count>0)
+                    {
+                        VariantListing variant = variantOutput.VariantList.Where(x=>x.Name==input.LevelableData.VariantName).FirstOrDefault();
+                        if (variant != null)
+                        {
+                            variantOutput.Variant=variant;
+                        }
+                    }
                 }
                 else
                 {
