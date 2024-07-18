@@ -75,17 +75,15 @@ namespace BESM3CAData.Test
         public void Character_GetTypesForFilterShouldContain(string expected)
         {
             DataController testController = new DataController();
-            List<string> output = null;
+            List<string>? output = null;
             if (testController.SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
                 CharacterNode testCharacter = new CharacterNode(characterDataListing, false, "", testController.CurrentEntity, false);
                 output = testCharacter.GetTypesForFilter();
-
             }
+            Assert.NotNull(output);
             Assert.True(output.Count > 0);
             Assert.Contains<string>(expected, output);
-
         }
-
     }
 }
