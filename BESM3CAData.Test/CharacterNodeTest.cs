@@ -26,9 +26,10 @@ namespace BESM3CAData.Test
         [Fact]
         public void Character_ShouldHavePotentialChildren()
         {
-            DataController testController = new DataController();       
-
+            DataController testController = new DataController();
+            Assert.NotNull(testController.CurrentEntity);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             List<DataListing> foundPotentialChildren = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren;
 
             Assert.True(foundPotentialChildren.Count > 0);
@@ -41,6 +42,8 @@ namespace BESM3CAData.Test
         public void Character_BasePointsShouldBeCorrect(int body, int mind, int soul)
         {
             DataController testController = new DataController();
+            Assert.NotNull(testController.CurrentEntity);
+            Assert.NotNull(testController.CurrentEntity.RootCharacter);
             ((CharacterNode)testController.CurrentEntity.RootCharacter).Body = body;
             ((CharacterNode)testController.CurrentEntity.RootCharacter).Mind = mind;
             ((CharacterNode)testController.CurrentEntity.RootCharacter).Soul = soul;
@@ -55,13 +58,14 @@ namespace BESM3CAData.Test
         public void Character_AddChildAttributeShouldExist(int attributePosition)
         {
             DataController testController = new DataController();
-
+            Assert.NotNull(testController.CurrentEntity);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
+            Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
-
-            DataNode foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.FirstChild;
+            Assert.NotNull(testController.CurrentEntity.RootCharacter.FirstChild);
+            DataNode? foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.FirstChild;
 
             Assert.Equal(selectedAttribute.ID, foundAttribute.ID);
             Assert.Equal(selectedAttribute.Name, foundAttribute.Name);

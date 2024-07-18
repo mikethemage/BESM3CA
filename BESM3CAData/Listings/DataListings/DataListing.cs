@@ -33,7 +33,7 @@ namespace BESM3CAData.Listings
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void RefreshFilteredPotentialChildren(string filter)
         {
@@ -69,8 +69,8 @@ namespace BESM3CAData.Listings
             }
         }
 
-        private List<DataListing> _filteredPotentialChildren;
-        public List<DataListing> FilteredPotentialChildren
+        private List<DataListing>? _filteredPotentialChildren;
+        public List<DataListing>? FilteredPotentialChildren
         {
             get { return _filteredPotentialChildren; }
             set
@@ -136,11 +136,11 @@ namespace BESM3CAData.Listings
         {
             ID = data.Id;
             Name = data.ElementName;
-            Stat = data.Stat;
-            Page = data.PageNumbers;
+            Stat = data.Stat ?? "";
+            Page = data.PageNumbers ?? "";
             Human = data.Human;
             Type = data.ElementTypeName;
-            Description = data.Description;
+            Description = data.Description ?? "";
 
             Children = new List<DataListing>();
 

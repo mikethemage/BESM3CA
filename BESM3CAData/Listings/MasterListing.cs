@@ -44,7 +44,7 @@ namespace BESM3CAData.Listings
 
         public string GetProgression(string progressionType, int rank)
         {
-            ProgressionListing SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
+            ProgressionListing? SelectedProgression = ProgressionList.Find(n => n.ProgressionType == progressionType);
             if (SelectedProgression == null)
             {
                 return "";
@@ -64,8 +64,7 @@ namespace BESM3CAData.Listings
             string input = File.ReadAllText(listingLocation.ListingPath);
 
             //Load listing:
-            RPGSystemDto temp = JsonSerializer.Deserialize<RPGSystemDto>(input, new JsonSerializerOptions { PropertyNameCaseInsensitive=true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull});
-
+            RPGSystemDto? temp = JsonSerializer.Deserialize<RPGSystemDto>(input, new JsonSerializerOptions { PropertyNameCaseInsensitive=true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull});
 
             //Create new listing data object:
             MasterListing result = new MasterListing { ListingName = temp.SystemName, Genres = temp.Genres.Select(x => x.GenreName).ToList(), ProgressionList = new List<ProgressionListing>(), AttributeList = new List<DataListing>(), TypeList = new List<TypeListing>() };
@@ -96,7 +95,7 @@ namespace BESM3CAData.Listings
             //Deserialize raw attribute data:
             foreach (RPGElementDefinitionDto data in temp.ElementDefinitions)
             {
-                DataListing newData = null;
+                DataListing? newData = null;
 
                 if (data.ElementTypeName == "Character")
                 {
@@ -147,28 +146,19 @@ namespace BESM3CAData.Listings
             {
                 if (attribute.AllowedChildrenNames != null || attribute.Freebies != null)
                 {
-                    DataListing Parent = result.AttributeList.Find(x => x.ID == attribute.Id);
-
-                    //Link Children:                    
-                    if (attribute.AllowedChildrenNames.Count > 0)
+                    DataListing? Parent = result.AttributeList.Find(x => x.ID == attribute.Id);
+                    if(Parent != null)
                     {
-                        foreach (string Child in attribute.AllowedChildrenNames)
+                        //Link Children:                    
+                        if (attribute.AllowedChildrenNames != null && attribute.AllowedChildrenNames.Count > 0)
                         {
-                            Parent.AddChild(result.AttributeList.Find(x => x.Name == Child));                            
+                            foreach (string Child in attribute.AllowedChildrenNames)
+                            {
+                                Parent.AddChild(result.AttributeList.Find(x => x.Name == Child));
+                            }
                         }
+                        Parent.RefreshFilteredPotentialChildren("All");
                     }
-                    Parent.RefreshFilteredPotentialChildren("All");
-
-                    //if (Parent is IFreebieDataListing freebieDataListing)
-                    //{
-                    //    if(freebieDataListing.Freebies != null)
-                    //    {
-                    //        foreach (FreebieListing freebie in freebieDataListing.Freebies)
-                    //        {
-                    //            freebie.SubAttribute = result.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
-                    //        }
-                    //    }                    
-                    //}
                 }
             }
 

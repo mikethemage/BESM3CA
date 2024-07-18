@@ -21,7 +21,7 @@ namespace BESM3CAData.Listings
         private string CostperLevelDesc { get; set; }
         public string ProgressionName { get; set; }
 
-        public ProgressionListing Progression { get; set; }
+        public ProgressionListing? Progression { get; set; }
 
         public List<VariantListing> Variants { get; set; }
 
@@ -66,12 +66,11 @@ namespace BESM3CAData.Listings
 
         public LevelableDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            CostperLevelDesc = data.LevelableData.CostPerLevelDescription;
-            CostperLevel = (int)data.LevelableData.CostPerLevel;
-            ProgressionName = data.LevelableData.ProgressionName;
-            MaxLevel = (int)data.LevelableData.MaxLevel;
-            EnforceMaxLevel = (bool)data.LevelableData.EnforceMaxLevel;
-            ProgressionName = data.LevelableData.ProgressionName;
+            CostperLevelDesc = data.LevelableData.CostPerLevelDescription ?? "";
+            CostperLevel = data.LevelableData.CostPerLevel ?? 0;            
+            MaxLevel = data.LevelableData.MaxLevel ?? 0;
+            EnforceMaxLevel = data.LevelableData.EnforceMaxLevel ?? false;
+            ProgressionName = data.LevelableData.ProgressionName ?? "";
 
             //Add variants and link back:
             if (data.LevelableData.Variants != null)
@@ -79,7 +78,7 @@ namespace BESM3CAData.Listings
                 Variants = new List<VariantListing>();
                 foreach (VariantDefinitionDto variant in data.LevelableData.Variants)
                 {
-                    Variants.Add(new VariantListing { ID = variant.Id, Name = variant.VariantName, CostperLevel = variant.CostPerLevel, DefaultVariant = variant.IsDefault, Desc = variant.Description, Attribute = this });
+                    Variants.Add(new VariantListing { ID = variant.Id, Name = variant.VariantName, CostperLevel = variant.CostPerLevel, DefaultVariant = variant.IsDefault, Desc = variant.Description ?? "", Attribute = this });
                 }
             }
         }

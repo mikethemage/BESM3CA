@@ -105,7 +105,7 @@ namespace BESM3CAData.Model
         protected void RefreshVariablesOrRestrictions()
         {
             int tempVariablesOrRestrictions = 0;
-            BaseNode temp = FirstChild;
+            BaseNode? temp = FirstChild;
             while (temp != null)
             {
                 if (temp is DataNode tempAttribute)
@@ -193,7 +193,7 @@ namespace BESM3CAData.Model
             {
                 if (attribute.Variants != null && attribute.Variants.Count > 0)
                 {
-                    VariantListing defaultVariant = attribute.Variants.Where(x=>x.DefaultVariant).FirstOrDefault();
+                    VariantListing? defaultVariant = attribute.Variants.Where(x=>x.DefaultVariant).FirstOrDefault();
                     if (defaultVariant != null)
                     {
                         Variant=defaultVariant;
@@ -240,7 +240,7 @@ namespace BESM3CAData.Model
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
-                BaseNode child = FirstChild;
+                BaseNode? child = FirstChild;
                 while (child != null)
                 {
                     if (child is DataNode childAttribute && childAttribute.AttributeType == "Restriction")
@@ -371,6 +371,7 @@ namespace BESM3CAData.Model
         {
             get; private set;
         }
+
         private void CreateRaiseLevelCommand()
         {
             RaiseLevelCommand = new RelayCommand(RaiseLevel, CanRaiseLevel);
@@ -501,13 +502,14 @@ namespace BESM3CAData.Model
             }
         }
 
-        protected VariantListing _variantListing;
-        public VariantListing Variant
+        protected VariantListing? _variantListing;
+        public VariantListing? Variant
         {
             get
             {
                 return _variantListing;
             }
+
             set
             {
                 if (value != null)
@@ -548,9 +550,9 @@ namespace BESM3CAData.Model
             }
         }
 
-        private DataListing _associatedListing;
+        private DataListing? _associatedListing;
 
-        public override DataListing AssociatedListing
+        public override DataListing? AssociatedListing
         {
             get
             {

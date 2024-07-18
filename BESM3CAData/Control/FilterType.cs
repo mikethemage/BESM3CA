@@ -9,7 +9,7 @@ namespace BESM3CAData.Control
 {
     public class FilterType : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public string TypeName { get; set; }
 

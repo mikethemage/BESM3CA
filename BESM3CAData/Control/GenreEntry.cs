@@ -9,7 +9,7 @@ namespace BESM3CAData.Control
 {
     public class GenreEntry : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public string GenreName { get; set; }
 

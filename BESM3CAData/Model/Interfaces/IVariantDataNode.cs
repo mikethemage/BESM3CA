@@ -7,7 +7,7 @@ namespace BESM3CAData.Model
     public interface IVariantDataNode
     {
         //Properties:
-        VariantListing Variant { get; set; }
+        VariantListing? Variant { get; set; }
 
         //Methods:
         List<VariantListing> GetVariants();

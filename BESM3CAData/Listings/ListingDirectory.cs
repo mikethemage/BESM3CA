@@ -22,9 +22,9 @@ namespace BESM3CAData.Listings
 
         }
 
-        public static ListingDirectory JSONLoader(string directoryPath)
+        public static ListingDirectory? JSONLoader(string directoryPath)
         {
-            ListingDirectory temp;
+            ListingDirectory? temp;
 
             string input = File.ReadAllText(directoryPath);
 

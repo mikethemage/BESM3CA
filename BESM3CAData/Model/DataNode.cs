@@ -22,7 +22,7 @@ namespace BESM3CAData.Model
         public void RefreshDescription()
         {
             //Need to process attribute description to calculate numeric components
-            string description = BaseDescription;
+            string? description = BaseDescription;
 
             string completedDescription = "";
 
@@ -76,7 +76,7 @@ namespace BESM3CAData.Model
         {
             get
             {
-                return AssociatedListing.Type;
+                return AssociatedListing?.Type ?? "";
             }
         }
 
@@ -106,7 +106,7 @@ namespace BESM3CAData.Model
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
-                BaseNode child = FirstChild;
+                BaseNode? child = FirstChild;
                 while (child != null)
                 {
                     if (child is DataNode childAttribute && childAttribute.AttributeType == "Restriction")

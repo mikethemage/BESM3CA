@@ -13,7 +13,6 @@ namespace BESM3CAData.Control
 {
     public class RPGEntity : INotifyPropertyChanged
     {
-
         public ObservableCollection<GenreEntry> GenreList { get; set; } = new ObservableCollection<GenreEntry>();
 
         private GenreEntry _genreEntry;
@@ -35,10 +34,12 @@ namespace BESM3CAData.Control
 
         public ObservableCollection<FilterType> Filters { get; set; } = new ObservableCollection<FilterType>();
         public string FileNameAndPath { get; set; }
+
         public string FileName { get; set; }
 
-        private MasterListing _selectedListingData;
-        public MasterListing SelectedListingData
+        private MasterListing? _selectedListingData;
+
+        public MasterListing? SelectedListingData
         {
             get
             {
@@ -53,24 +54,28 @@ namespace BESM3CAData.Control
 
                     foreach (GenreEntry oldGenre in GenreList)
                     {
-                        oldGenre.PropertyChanged -= GenrePropertyChanged;
+                        oldGenre.PropertyChanged -= GenrePropertyChanged;                                               
                     }
 
                     GenreList.Clear();
-                    foreach (string newListings in SelectedListingData.Genres)
+                    if(SelectedListingData!=null)
                     {
-                        GenreEntry newGenre = new GenreEntry(newListings, SelectedListingData.Genres.IndexOf(newListings));
-                        GenreList.Add(newGenre);
-                        newGenre.PropertyChanged += GenrePropertyChanged;
+                        foreach (string newListings in SelectedListingData.Genres)
+                        {
+                            GenreEntry newGenre = new GenreEntry(newListings, SelectedListingData.Genres.IndexOf(newListings));
+                            GenreList.Add(newGenre);
+                            newGenre.PropertyChanged += GenrePropertyChanged;
+                        }                        
                     }
                     OnPropertyChanged(nameof(SelectedListingData));
+
                 }
             }
         }
 
-        public BaseNode RootCharacter { get; set; }
+        public BaseNode? RootCharacter { get; set; }
 
-        public BaseNode SelectedNode
+        public BaseNode? SelectedNode
         {
             get { return selectedNode; }
             set
@@ -83,7 +88,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public CharacterNode SelectedCharacter
+        public CharacterNode? SelectedCharacter
         {
             get
             {
@@ -91,7 +96,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public LevelableDataNode SelectedLevelable
+        public LevelableDataNode? SelectedLevelable
         {
             get
             {
@@ -99,7 +104,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public IVariantDataNode SelectedVariantNode
+        public IVariantDataNode? SelectedVariantNode
         {
             get
             {
@@ -114,7 +119,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -125,11 +130,10 @@ namespace BESM3CAData.Control
             }
         }
 
-        public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();
+        public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();        
 
-        
+        private string selectedType;
 
-        private string selectedType ;
         public string SelectedType
         {
             get
@@ -148,7 +152,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        private BaseNode selectedNode;
+        private BaseNode? selectedNode;
 
         public void ImportOldXml(string fileName, BaseNode newRoot)
         {           
@@ -163,7 +167,6 @@ namespace BESM3CAData.Control
 
             //FileNameAndPath = fileName;
         }
-
 
         public void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -187,7 +190,7 @@ namespace BESM3CAData.Control
                 if (e.PropertyName == nameof(FilterType.IsSelected) && filterType.IsSelected == true)
                 {
                     SelectedType = filterType.TypeName;
-                    if (SelectedNode != null)
+                    if (SelectedNode != null && SelectedNode.AssociatedListing != null)
                     {
                         SelectedNode.AssociatedListing.RefreshFilteredPotentialChildren(SelectedType);
                     }
@@ -203,7 +206,7 @@ namespace BESM3CAData.Control
                 if (e.PropertyName == nameof(GenreEntry.IsSelected) && genreEntry.IsSelected == true)
                 {
                     SelectedGenreEntry = genreEntry;
-                    if (SelectedNode != null)
+                    if (SelectedNode != null && RootCharacter != null)
                     {
                         
                         RootCharacter.InvalidateGenrePoints();
@@ -218,34 +221,29 @@ namespace BESM3CAData.Control
             //Reset root character:
 
             //Get Character data listing:
-            if (SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
+            if (SelectedListingData!= null && SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
                 RootCharacter = characterDataListing.CreateNode("", this, false);
                 Root.Clear();
                 Root.Add(RootCharacter);
                 RootCharacter.IsSelected = true;
-                FileNameAndPath = "";
-                
+                FileNameAndPath = "";                
             }
             else
             {
                 throw new InvalidDataException("No valid Character data");
-
             }
-
         }
 
         public RPGEntity()
         {
             ResetAll();
-
         }
 
         public RPGEntity(MasterListing selectedListing)
         {
             SelectedListingData = selectedListing;
             ResetAll();
-
         }
 
         public void SaveAs(string fileNameAndPath, string fileName)
@@ -262,6 +260,14 @@ namespace BESM3CAData.Control
 
         public void ExportToText(string exportFile)
         {
+            if (SelectedListingData == null)
+            {
+                throw new Exception("Listing Data is null!");
+            }
+            if (RootCharacter == null)
+            {
+                throw new Exception("Root Character is null!");
+            }
             TextWriter tw;
 
             tw = new StreamWriter(exportFile);
@@ -282,6 +288,14 @@ namespace BESM3CAData.Control
 
         public void ExportToHTML(string exportFile)
         {
+            if (SelectedListingData == null)
+            {
+                throw new Exception("Listing Data is null!");
+            }
+            if (RootCharacter == null)
+            {
+                throw new Exception("Root Character is null!");
+            }
             TextWriter tw;
 
             tw = new StreamWriter(exportFile);
@@ -313,6 +327,5 @@ namespace BESM3CAData.Control
             tw.Close();
 
         }
-
     }
 }

@@ -12,8 +12,8 @@ namespace BESM3CAData.Control
 {
     public class DataController : INotifyPropertyChanged
     {
-        private RPGEntity _currentEntity;
-        public RPGEntity CurrentEntity
+        private RPGEntity? _currentEntity;
+        public RPGEntity? CurrentEntity
         {
             get { return _currentEntity; }
             set
@@ -29,7 +29,7 @@ namespace BESM3CAData.Control
         //Properties:        
         public MasterListing SelectedListingData { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -41,7 +41,7 @@ namespace BESM3CAData.Control
         }
 
         //Fields:
-        public ListingDirectory ListingDirectory;
+        public ListingDirectory? ListingDirectory { get; set; }
 
         
 
@@ -51,12 +51,18 @@ namespace BESM3CAData.Control
             //Temp code:
             ListingDirectory = ListingDirectory.JSONLoader(Path.Combine("Datafiles", "ListingDirectory.json"));
 
-            ListingLocation DefaultListing = ListingDirectory.AvailableListings.Find(x => (x.ListingName == "BESM3E"));
+            if (ListingDirectory != null)
+            {               
+                ListingLocation? DefaultListing = ListingDirectory.AvailableListings.Find(x => (x.ListingName == "BESM3E"));
 
-            //Load listing from file:
-            SelectedListingData = DefaultListing.LoadListing();
+                if (DefaultListing != null)
+                {
+                    //Load listing from file:
+                    SelectedListingData = DefaultListing.LoadListing();
 
-            CurrentEntity = new RPGEntity(SelectedListingData);
+                    CurrentEntity = new RPGEntity(SelectedListingData);
+                }
+            }
         }
 
         //Public Methods:
@@ -86,42 +92,59 @@ namespace BESM3CAData.Control
 
         public void Load(string fileName)
         {
-            var loadedText = File.ReadAllText(fileName);
-            var loadedEntity = JsonSerializer.Deserialize<EntityDto>(loadedText);
+            string loadedText = File.ReadAllText(fileName);
+            EntityDto? loadedEntity = JsonSerializer.Deserialize<EntityDto>(loadedText);
 
-            if(SelectedListingData == null || SelectedListingData.ListingName != loadedEntity.RPGSystemName)
+            if(loadedEntity != null && (SelectedListingData == null || SelectedListingData.ListingName != loadedEntity.RPGSystemName))
             {
                 ListingDirectory = ListingDirectory.JSONLoader(Path.Combine("Datafiles", "ListingDirectory.json"));
 
-                ListingLocation DefaultListing = ListingDirectory.AvailableListings.Find(x => x.ListingName == loadedEntity.RPGSystemName);
-
-                //Load listing from file:
-                SelectedListingData = DefaultListing.LoadListing();
+                if (ListingDirectory != null)
+                {
+                    ListingLocation? DefaultListing = ListingDirectory.AvailableListings.Find(x => x.ListingName == loadedEntity.RPGSystemName);
+                    if (DefaultListing != null)
+                    {
+                        //Load listing from file:
+                        SelectedListingData = DefaultListing.LoadListing();
+                    }
+                }
             }
-            CurrentEntity = new RPGEntity(SelectedListingData);
 
-            var selectedGenre = CurrentEntity.GenreList.Where(x=>x.GenreName == loadedEntity.GenreName).FirstOrDefault();
-            if (selectedGenre != null)
+            if (SelectedListingData != null)
             {
-                selectedGenre.IsSelected = true;
+                CurrentEntity = new RPGEntity(SelectedListingData);
+                if (loadedEntity! != null)
+                {
+                    var selectedGenre = CurrentEntity.GenreList.Where(x => x.GenreName == loadedEntity.GenreName).FirstOrDefault();
+                    if (selectedGenre != null)
+                    {
+                        selectedGenre.IsSelected = true;
+                    }
+
+                    CurrentEntity.RootCharacter = LoadNode(loadedEntity.RootElement);
+
+
+                    CurrentEntity.FileNameAndPath = fileName;
+                    CurrentEntity.FileName = loadedEntity.EntityName;
+                }
+
+                CurrentEntity.Root.Clear();
+
+                if(CurrentEntity.RootCharacter!=null)
+                {
+                    CurrentEntity.Root.Add(CurrentEntity.RootCharacter);
+
+                    CurrentEntity.RootCharacter.RefreshAll();
+                }                
             }
-
-            CurrentEntity.RootCharacter = LoadNode(loadedEntity.RootElement);
-            CurrentEntity.FileNameAndPath = fileName;
-            CurrentEntity.FileName = loadedEntity.EntityName;
-
-            CurrentEntity.Root.Clear();
-            CurrentEntity.Root.Add(CurrentEntity.RootCharacter);
-
-            CurrentEntity.RootCharacter.RefreshAll();
 
         }
 
-        public BaseNode LoadNode(RPGElementDto input)
+        public BaseNode? LoadNode(RPGElementDto input)
         {
-            BaseNode output = null;
+            BaseNode? output = null;
 
-            DataListing ElementDefinition = SelectedListingData.AttributeList.Where(x => x.Name == input.ElementName).FirstOrDefault();
+            DataListing? ElementDefinition = SelectedListingData.AttributeList.Where(x => x.Name == input.ElementName).FirstOrDefault();
             if (ElementDefinition != null)
             {
                 
@@ -130,7 +153,7 @@ namespace BESM3CAData.Control
                     output = ElementDefinition.CreateNode(input.Notes, CurrentEntity, true, input.LevelableData.Level, input.LevelableData.FreeLevels ?? 0,input.LevelableData.RequiredLevels ?? 0, input.LevelableData.FreeLevels != null && input.LevelableData.FreeLevels != 0);
                     if (input.LevelableData.VariantName != null && output is LevelableDataNode variantOutput && variantOutput.VariantList != null && variantOutput.VariantList.Count>0)
                     {
-                        VariantListing variant = variantOutput.VariantList.Where(x=>x.Name==input.LevelableData.VariantName).FirstOrDefault();
+                        VariantListing? variant = variantOutput.VariantList.Where(x=>x.Name==input.LevelableData.VariantName).FirstOrDefault();
                         if (variant != null)
                         {
                             variantOutput.Variant=variant;
@@ -143,11 +166,15 @@ namespace BESM3CAData.Control
                 }
             }
 
-            if (input.Children != null && input.Children.Count > 0)
+            if (output != null && input.Children != null && input.Children.Count > 0)
             {
                 foreach (RPGElementDto child in input.Children)
                 {
-                    output.Children.Add(LoadNode(child));
+                    BaseNode? childNode = LoadNode(child);
+                    if(childNode != null)
+                    {
+                        output.Children.Add(childNode);
+                    }                    
                 }
             }
 

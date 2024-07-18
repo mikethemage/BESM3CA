@@ -43,7 +43,7 @@ namespace BESM3CAData.Model
         {
             int tempChildPoints = 0;
 
-            BaseNode temp = FirstChild;
+            BaseNode? temp = FirstChild;
             while (temp != null)
             {
                 if (temp is DataNode tempAttribute)

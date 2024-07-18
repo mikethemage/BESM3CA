@@ -152,7 +152,7 @@ namespace BESM3CAData.Model
 
         //Properties:
         public RPGEntity AssociatedController { get; private set; }
-        public virtual DataListing AssociatedListing { get; protected set; }
+        public virtual DataListing? AssociatedListing { get; protected set; }
 
         public int ID { get; private set; }
 
@@ -178,11 +178,11 @@ namespace BESM3CAData.Model
 
 
         //Tree structure properties:
-        public BaseNode FirstChild { get; private set; }
-        public BaseNode Parent { get; private set; }
+        public BaseNode? FirstChild { get; private set; }
+        public BaseNode? Parent { get; private set; }
         public int NodeOrder { get; private set; }
-        public BaseNode Next { get; private set; }
-        public BaseNode Prev { get; private set; }
+        public BaseNode? Next { get; private set; }
+        public BaseNode? Prev { get; private set; }
 
         public ObservableCollection<BaseNode> Children { get; private set; } = new ObservableCollection<BaseNode>();
 
@@ -256,7 +256,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -347,9 +347,6 @@ namespace BESM3CAData.Model
             RefreshPoints();
         }
 
-
-
-
         public BaseNode(DataListing attribute, RPGEntity controller, bool isLoading, string notes = "", bool isFreebie = false)
         {
             Debug.Assert(controller.SelectedListingData != null);  //Check if we have listing data...
@@ -374,7 +371,7 @@ namespace BESM3CAData.Model
             {
                 foreach (FreebieListing freebie in attribute.Freebies)
                 {
-                    DataListing subAttribute = controller.SelectedListingData.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
+                    DataListing? subAttribute = controller.SelectedListingData.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
                     if (subAttribute != null)
                     {
                         //Auto create freebie when creating new instance of this attribute:
@@ -571,7 +568,7 @@ namespace BESM3CAData.Model
 
         public virtual void InvalidateGenrePoints()
         {
-            BaseNode child = FirstChild;
+            BaseNode? child = FirstChild;
             while (child != null)
             {
                 child.InvalidateGenrePoints();

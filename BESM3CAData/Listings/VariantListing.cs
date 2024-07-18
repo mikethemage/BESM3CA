@@ -47,7 +47,7 @@ namespace BESM3CAData.Listings
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public VariantDefinitionDto Serialize()
         {

@@ -25,16 +25,16 @@ namespace BESM3CAData.Control
         public static BaseNode DeserializeXML(string fileName, DataController controller)
         {
             //Needs completely re-writing:
-            BaseNode rootNode = null;
+            BaseNode? rootNode = null;
 
-            XmlTextReader reader = null;
+            XmlTextReader? reader = null;
 
-            Version fileVersion=null;
+            Version? fileVersion=null;
             try
             {
                 reader = new XmlTextReader(fileName);
-                BaseNode parentNode = null;
-                BaseNode newNode = null;
+                BaseNode? parentNode = null;
+                BaseNode? newNode = null;
 
                 while (reader.Read())
                 {
@@ -75,7 +75,7 @@ namespace BESM3CAData.Control
                             if (reader.NodeType == XmlNodeType.Text)
                             {
                                 //Read Listing name      
-                                ListingLocation selectedListing = controller.ListingDirectory.AvailableListings.Find(x => (x.ListingName == reader.Value));
+                                ListingLocation? selectedListing = controller.ListingDirectory.AvailableListings.Find(x => (x.ListingName == reader.Value));
 
                                 //Only need to reload listings if different:
                                 if (selectedListing is null || controller.SelectedListingData.ListingName != selectedListing.ListingName)
@@ -289,9 +289,7 @@ namespace BESM3CAData.Control
             }
 
             return output;
-        }
-
-        
+        }        
 
         public static void ExportNode(BaseNode nodes, int tabdepth, TextWriter tw)
         {
@@ -303,7 +301,7 @@ namespace BESM3CAData.Control
             }
             bool isAttrib = false;
 
-            BaseNode current = nodes;
+            BaseNode? current = nodes;
             while (current != null)
             {
                 string nexttabstring;
@@ -397,7 +395,7 @@ namespace BESM3CAData.Control
             //Code to export to HTML format:
             bool isAttrib = false;
 
-            BaseNode current = nodes;
+            BaseNode? current = nodes;
             while (current != null)
             {
                 if (current is CharacterNode currentCharacter)
@@ -448,11 +446,6 @@ namespace BESM3CAData.Control
                     {
                         tw.WriteLine("<li class=\"AttributeNode\">");
                         tw.WriteLine($"<h3>{current.DisplayText}</h3>");
-
-
-
-
-
 
                         if (current is LevelableDataNode levelableDataNode)
                         {

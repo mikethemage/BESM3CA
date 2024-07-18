@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BESM3CAData.Listings;
 public class FreebieListing
-{    
-    public string SubAttributeName { get; set; }  
+{
+    public string SubAttributeName { get; set; } = string.Empty; 
     public int FreeLevels { get; set; } = 0;
     public int RequiredLevels { get; set; } = 0;
 }

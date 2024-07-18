@@ -60,7 +60,7 @@ namespace BESM3CAData.Model
         private void RefreshVariablesOrRestrictions()
         {
             int tempVariablesOrRestrictions = 0;
-            BaseNode temp = FirstChild;
+            BaseNode? temp = FirstChild;
             while (temp != null)
             {
                 if (temp is DataNode tempAttribute)
@@ -100,7 +100,7 @@ namespace BESM3CAData.Model
         {
             int tempChildPoints = 0;
 
-            BaseNode temp = FirstChild;
+            BaseNode? temp = FirstChild;
             while (temp != null)
             {
                 if (temp is DataNode tempAttribute)
@@ -138,25 +138,28 @@ namespace BESM3CAData.Model
         }
 
         protected override void RefreshPoints()
-        {
-            int tempPoints = VariablesOrRestrictions;
-
-            //container point cost calc:
-            if (((PointsContainerDataListing)AssociatedListing).PointScale != 0)
+        {            
+            if (AssociatedListing != null)
             {
-                if(ChildPoints >0 && ChildPoints < ((PointsContainerDataListing)AssociatedListing).PointScale)
-                {
-                    //If child points positive but less that pointscale we should still charge 1 point for the container:
-                    tempPoints += 1;
-                }
-                else
-                {
-                    //Scale points e.g. 3E items valued at 1/2 total child points:
-                    tempPoints += ChildPoints / ((PointsContainerDataListing)AssociatedListing).PointScale;
-                }                
-            }
+                int tempPoints = VariablesOrRestrictions;
 
-            Points = tempPoints;
+                //container point cost calc:
+                if (((PointsContainerDataListing)AssociatedListing).PointScale != 0)
+                {
+                    if (ChildPoints > 0 && ChildPoints < ((PointsContainerDataListing)AssociatedListing).PointScale)
+                    {
+                        //If child points positive but less that pointscale we should still charge 1 point for the container:
+                        tempPoints += 1;
+                    }
+                    else
+                    {
+                        //Scale points e.g. 3E items valued at 1/2 total child points:
+                        tempPoints += ChildPoints / ((PointsContainerDataListing)AssociatedListing).PointScale;
+                    }
+                }
+
+                Points = tempPoints;
+            }
         }
 
 
