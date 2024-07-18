@@ -272,10 +272,11 @@ namespace BESM3CAData.Control
                     
                 }
 
-                
-                output.LevelableData.FreeLevels = levelableDataNode.FreeLevels;
-                
-
+                if(levelableDataNode.IsFreebie)
+                {
+                    output.LevelableData.FreeLevels = levelableDataNode.FreeLevels;
+                    output.LevelableData.RequiredLevels = levelableDataNode.RequiredLevels;
+                }
             }
 
             if (node.Children.Count > 0)
