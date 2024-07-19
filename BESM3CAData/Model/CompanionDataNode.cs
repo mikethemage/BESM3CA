@@ -67,7 +67,7 @@ namespace BESM3CAData.Model
             ChildPoints = tempChildPoints;
         }
 
-        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             base.ChildPropertyChanged(sender, e);
             if (sender is BaseNode )

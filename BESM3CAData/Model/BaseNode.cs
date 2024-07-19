@@ -40,7 +40,7 @@ namespace BESM3CAData.Model
 
         public DataListing? SelectedAttributeToAdd { get; set; }
 
-        public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public virtual void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             //Event handler for changes to children
             if (sender is DataListing dataListing)
@@ -48,7 +48,7 @@ namespace BESM3CAData.Model
                 if (e.PropertyName == nameof(DataListing.IsSelected) && dataListing.IsSelected == true)
                 {
                     SelectedAttributeToAdd = dataListing;
-                    AddCommand.RaiseCanExecuteChanged();
+                    AddCommand?.RaiseCanExecuteChanged();
                 }
                 //else if (sender == SelectedNode)
                 //{
@@ -63,7 +63,7 @@ namespace BESM3CAData.Model
             AddCommand = new RelayCommand(AddSelectedChild, CanAddSelectedChild);
         }
 
-        public RelayCommand AddCommand
+        public RelayCommand? AddCommand
         {
             get; private set;
         }
@@ -250,7 +250,7 @@ namespace BESM3CAData.Model
                     RemoveAttributeSelectionHandlers();
                 }
 
-                AddCommand.RaiseCanExecuteChanged();
+                AddCommand?.RaiseCanExecuteChanged();
 
                 OnPropertyChanged(nameof(IsSelected));
             }
@@ -310,15 +310,15 @@ namespace BESM3CAData.Model
             CreateDeleteCommand();
             CreateAddCommand();
         }
-        public RelayCommand DeleteCommand
+        public RelayCommand? DeleteCommand
         {
             get; private set;
         }
-        public RelayCommand MoveUpCommand
+        public RelayCommand? MoveUpCommand
         {
             get; private set;
         }
-        public RelayCommand MoveDownCommand
+        public RelayCommand? MoveDownCommand
         {
             get; private set;
         }
@@ -342,7 +342,7 @@ namespace BESM3CAData.Model
             return Next != null;
         }
 
-        protected virtual void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        protected virtual void Children_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
         {
             RefreshPoints();
         }
@@ -526,8 +526,8 @@ namespace BESM3CAData.Model
                 temp.NodeOrder = tempNodeOrder;
 
                 Parent?.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) - 1);
-                MoveUpCommand.RaiseCanExecuteChanged();
-                MoveDownCommand.RaiseCanExecuteChanged();
+                MoveUpCommand?.RaiseCanExecuteChanged();
+                MoveDownCommand?.RaiseCanExecuteChanged();
             }
         }
 
@@ -559,8 +559,8 @@ namespace BESM3CAData.Model
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
                 Parent?.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) + 1);
-                MoveUpCommand.RaiseCanExecuteChanged();
-                MoveDownCommand.RaiseCanExecuteChanged();
+                MoveUpCommand?.RaiseCanExecuteChanged();
+                MoveDownCommand?.RaiseCanExecuteChanged();
             }
         }
 

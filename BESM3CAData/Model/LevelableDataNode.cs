@@ -14,7 +14,7 @@ namespace BESM3CAData.Model
 {
     public class LevelableDataNode : DataNode, IPointsDataNode, IVariantDataNode
     {
-        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             base.ChildPropertyChanged(sender, e);
             if (sender is BaseNode)
@@ -78,7 +78,7 @@ namespace BESM3CAData.Model
         {
             BaseCost = PointsPerLevel * (Level - FreeLevels);
         }
-        protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        protected override void Children_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
         {
             RefreshVariablesOrRestrictions();
         }
@@ -366,13 +366,13 @@ namespace BESM3CAData.Model
             if (canRaiseLevel)
             {
                 Level++;
-                RaiseLevelCommand.RaiseCanExecuteChanged();
-                LowerLevelCommand.RaiseCanExecuteChanged();
+                RaiseLevelCommand?.RaiseCanExecuteChanged();
+                LowerLevelCommand?.RaiseCanExecuteChanged();
             }
             //return canRaiseLevel;
         }
 
-        public RelayCommand RaiseLevelCommand
+        public RelayCommand? RaiseLevelCommand
         {
             get; private set;
         }
@@ -415,8 +415,8 @@ namespace BESM3CAData.Model
             if (canRaiseLevel)
             {
                 Level--;
-                LowerLevelCommand.RaiseCanExecuteChanged();
-                RaiseLevelCommand.RaiseCanExecuteChanged();
+                LowerLevelCommand?.RaiseCanExecuteChanged();
+                RaiseLevelCommand?.RaiseCanExecuteChanged();
             }            
         }
 
@@ -425,7 +425,7 @@ namespace BESM3CAData.Model
             LowerLevelCommand = new RelayCommand(LowerLevel, CanLowerLevel);
         }
 
-        public RelayCommand LowerLevelCommand
+        public RelayCommand? LowerLevelCommand
         {
             get; private set;
         }
@@ -541,7 +541,7 @@ namespace BESM3CAData.Model
 
         public ObservableCollection<VariantListing> VariantList { get; set; } = new ObservableCollection<VariantListing>();
 
-        private void VariantPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void VariantPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (IsSelected)
             {

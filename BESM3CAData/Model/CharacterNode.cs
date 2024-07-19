@@ -116,7 +116,7 @@ namespace BESM3CAData.Model
         //Properties:
         public string? CharacterName { get; set; }
 
-        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             base.ChildPropertyChanged(sender, e);
             if (sender is BaseNode)

@@ -8,7 +8,7 @@ namespace BESM3CAData.Model
     public class SpecialContainerDataNode : LevelableDataNode, ISpecialContainerDataNode
     {
 
-        protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        protected override void Children_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
         {
             RefreshVariablesOrRestrictions();
             RefreshChildPoints();
@@ -152,7 +152,7 @@ namespace BESM3CAData.Model
             }
         }
 
-        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             base.ChildPropertyChanged(sender, e);
             if (sender is BaseNode )

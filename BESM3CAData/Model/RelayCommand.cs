@@ -9,25 +9,25 @@ namespace BESM3CAData.Model
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action commandTask;
-        private readonly Func<bool> canExecute;
+        private readonly Action _commandTask;
+        private readonly Func<bool> _canExecute;
 
         public RelayCommand(Action workToDo, Func<bool> workCanBeDone)
         {
-            commandTask = workToDo;
-            canExecute = workCanBeDone;
+            _commandTask = workToDo;
+            _canExecute = workCanBeDone;
         }
 
         public event EventHandler? CanExecuteChanged;
 
         public bool CanExecute(object? parameter)
         {
-            return canExecute();
+            return _canExecute();
         }
 
         public void Execute(object? parameter)
         {
-            commandTask();
+            _commandTask();
         }
 
         public void RaiseCanExecuteChanged()

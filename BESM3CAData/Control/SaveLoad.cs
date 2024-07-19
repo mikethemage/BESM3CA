@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Xml;
 using Triarch.Dtos.Entities;
 
@@ -15,12 +16,13 @@ namespace BESM3CAData.Control
     public class SaveLoad
     {
         // Xml tag for node, e.g. 'node' in case of <node></node> 
-        private const string XmlNodeTag = "node";
+        private const string _xmlNodeTag = "node";
 
-        private const string XmlListingTag = "listing";
-        private const string OldXmlListingTag = "template";
+        private const string _xmlListingTag = "listing";
+        private const string _oldXmlListingTag = "template";
 
-        private const string XmlGenreTag = "genre";
+        private const string _xmlGenreTag = "genre";
+        private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
 
         public static BaseNode? DeserializeXML(string fileName, DataController controller)
         {
@@ -68,7 +70,7 @@ namespace BESM3CAData.Control
                         }
 
                     }
-                    else if ((reader.Name == XmlListingTag || reader.Name == OldXmlListingTag) && reader.NodeType == XmlNodeType.Element)
+                    else if ((reader.Name == _xmlListingTag || reader.Name == _oldXmlListingTag) && reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Read())
                         {
@@ -86,7 +88,7 @@ namespace BESM3CAData.Control
                             }
                         }
                     }
-                    else if (reader.Name == XmlGenreTag && reader.NodeType == XmlNodeType.Element)
+                    else if (reader.Name == _xmlGenreTag && reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Read())
                         {
@@ -103,7 +105,7 @@ namespace BESM3CAData.Control
                     }
                     else if (reader.NodeType == XmlNodeType.Element)
                     {
-                        if (reader.Name == XmlNodeTag)
+                        if (reader.Name == _xmlNodeTag)
                         {
                             //Do nothing
                         }
@@ -182,7 +184,7 @@ namespace BESM3CAData.Control
                     // moving up to parent if end tag is encountered
                     else if (reader.NodeType == XmlNodeType.EndElement)
                     {
-                        if (reader.Name == XmlNodeTag)
+                        if (reader.Name == _xmlNodeTag)
                         {
                             if (parentNode != null)
                             {
@@ -242,7 +244,7 @@ namespace BESM3CAData.Control
             // save the nodes, recursive method
             entity.RootElement = SaveNodes(rootNode);
 
-            string entityText = JsonSerializer.Serialize(entity, new JsonSerializerOptions { DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull});
+            string entityText = JsonSerializer.Serialize(entity, _jsonOptions);
             
             File.WriteAllText(fileNameAndPath, entityText);            
         }

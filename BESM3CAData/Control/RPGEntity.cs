@@ -132,20 +132,20 @@ namespace BESM3CAData.Control
 
         public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();        
 
-        private string? selectedType;
+        private string? _selectedType;
 
         public string? SelectedType
         {
             get
             {
-                return selectedType;
+                return _selectedType;
             }
 
             private set
             {
                 //if (value != selectedType)
                 //{
-                    selectedType = value;
+                    _selectedType = value;
                     OnPropertyChanged(nameof(SelectedType));
                 //}
 
@@ -168,7 +168,7 @@ namespace BESM3CAData.Control
             //FileNameAndPath = fileName;
         }
 
-        public void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (sender is BaseNode baseNode)
             {
@@ -183,7 +183,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public void FilterPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void FilterPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (sender is FilterType filterType)
             {
@@ -199,7 +199,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        public void GenrePropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void GenrePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (sender is GenreEntry genreEntry)
             {

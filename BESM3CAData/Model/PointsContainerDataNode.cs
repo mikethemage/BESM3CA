@@ -20,7 +20,7 @@ namespace BESM3CAData.Model
             RefreshDisplayText();
         }
 
-        protected override void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        protected override void Children_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
         {
             RefreshChildPoints();
         }
@@ -124,7 +124,7 @@ namespace BESM3CAData.Model
             ChildPoints = tempChildPoints;
         }
 
-        public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override void ChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             base.ChildPropertyChanged(sender, e);
             if (sender is BaseNode )

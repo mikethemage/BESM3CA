@@ -12,10 +12,10 @@ namespace BESM3CA
     public partial class MainWindow : Window
     {
         //Title bar:
-        private const string ApplicationName = "BESM3CA";
+        private const string _applicationName = "BESM3CA";
 
         //Data:
-        public DataController CurrentController;
+        public DataController CurrentController { get; set; } = null!;
 
 
         //Constructor:
@@ -44,7 +44,7 @@ namespace BESM3CA
         //Helper Methods:
         private void ResetAll()
         {
-            Title = ApplicationName;
+            Title = _applicationName;
 
             //Reset root character:
             CurrentController.ResetAll();
@@ -66,7 +66,7 @@ namespace BESM3CA
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
                     RestoreDirectory = false,
-                    Filter = ApplicationName + " Files (*.json)|*.json|All Files (*.*)|*.*",
+                    Filter = _applicationName + " Files (*.json)|*.json|All Files (*.*)|*.*",
                     FilterIndex = 1
                 };
 
@@ -75,7 +75,7 @@ namespace BESM3CA
                     
                     CurrentController.CurrentEntity.SaveAs(saveFileDialog.FileName, saveFileDialog.SafeFileName);
 
-                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
+                    Title = _applicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
                 }
                 else
                 {
@@ -100,7 +100,7 @@ namespace BESM3CA
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 RestoreDirectory = false,
-                Filter = ApplicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
+                Filter = _applicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
                 FilterIndex = 1
             };
             if (openFileDialog.ShowDialog() == true)
@@ -117,7 +117,7 @@ namespace BESM3CA
                 }
                 else
                 {
-                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
+                    Title = _applicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
                     if (CharacterTreeView.Items.Count > 0)
                     {
                         ((BaseNode)CharacterTreeView.Items[0]).IsSelected = true;
@@ -230,7 +230,7 @@ namespace BESM3CA
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 RestoreDirectory = false,
-                Filter = ApplicationName + " Files(*.json)|*.json|All Files (*.*)|*.*",
+                Filter = _applicationName + " Files(*.json)|*.json|All Files (*.*)|*.*",
                 FilterIndex = 1
             };
             if (openFileDialog.ShowDialog() == true)
@@ -247,7 +247,7 @@ namespace BESM3CA
                 }
                 else
                 {
-                    Title = ApplicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
+                    Title = _applicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
                     if (CharacterTreeView.Items.Count > 0)
                     {
                         ((BaseNode)CharacterTreeView.Items[0]).IsSelected = true;

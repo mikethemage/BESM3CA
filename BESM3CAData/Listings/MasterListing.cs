@@ -10,6 +10,8 @@ namespace BESM3CAData.Listings
 {
     public class MasterListing
     {
+        private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
+
         public RPGSystemDto Serialize()
         {
             RPGSystemDto result = new RPGSystemDto { SystemName = this.ListingName ?? "", Genres = this.Genres?.Select(x=>new GenreDto { GenreName=x}).ToList() ?? new List<GenreDto>(), ElementDefinitions = new List<RPGElementDefinitionDto>(), ElementTypes = new List<RPGElementTypeDto>(), Progressions = new List<ProgressionDto>() };
@@ -73,7 +75,7 @@ namespace BESM3CAData.Listings
             string input = File.ReadAllText(listingLocation.ListingPath);
 
             //Load listing:
-            RPGSystemDto? temp = JsonSerializer.Deserialize<RPGSystemDto>(input, new JsonSerializerOptions { PropertyNameCaseInsensitive=true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull});
+            RPGSystemDto? temp = JsonSerializer.Deserialize<RPGSystemDto>(input, _jsonOptions);
 
             if (temp != null)
             {
@@ -190,7 +192,7 @@ namespace BESM3CAData.Listings
             //Code to write out JSON data files.   
             //Should not be being called at present - debugging only:
             RPGSystemDto output = Serialize();
-            string outputText = JsonSerializer.Serialize(output, new JsonSerializerOptions { PropertyNameCaseInsensitive=true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull });
+            string outputText = JsonSerializer.Serialize(output, _jsonOptions);
             File.WriteAllText(outputPath, outputText);            
         }
     }

@@ -12,7 +12,7 @@ namespace BESM3CAData.Listings
 
         public bool CustomProgression { get; set; } = false;
 
-        private const int MinRank = 0;
+        private const int _minRank = 0;
 
         private int MaxRank
         {
@@ -52,7 +52,7 @@ namespace BESM3CAData.Listings
                 //error: above maximum rank for calculations
                 return "ERROR";
             }
-            if (rank < MinRank)
+            if (rank < _minRank)
             {
                 //error: below minimum rank for calculations
                 return "ERROR";
