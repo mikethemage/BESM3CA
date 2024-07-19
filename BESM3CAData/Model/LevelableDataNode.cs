@@ -154,11 +154,11 @@ namespace BESM3CAData.Model
         {
             get
             {
-                string result = AssociatedListing.Description;
+                string result = AssociatedListing?.Description ?? "";
 
                 if (AssociatedListing is LevelableDataListing levelableDataListing)
                 {
-                    if(levelableDataListing.Progression != null && levelableDataListing.Progression.CustomProgression)
+                    if(levelableDataListing.Progression != null && levelableDataListing.Progression.CustomProgression && levelableDataListing.Progression.ProgressionsList != null)
                     {
                         if (Level >= 1 && Level <= levelableDataListing.Progression.ProgressionsList.Count)
                         {
@@ -167,7 +167,7 @@ namespace BESM3CAData.Model
                     }
                     else if (result == "Variant" && _variantListing != null && _variantListing.Desc != "")
                     {
-                        result = _variantListing.Desc;
+                        result = _variantListing.Desc ?? "";
                     }
                 }     
 
@@ -258,6 +258,11 @@ namespace BESM3CAData.Model
 
         protected override string ProcessDescriptionValue(string valueToParse)
         {
+            if(AssociatedController.SelectedListingData == null)
+            {
+                return valueToParse;
+            }
+
             //Substitute "n" for Level:
             if (valueToParse.Contains("fn"))
             {
@@ -380,7 +385,7 @@ namespace BESM3CAData.Model
 
         public bool CanLowerLevel()
         {
-            if (Level > 1 || (Level > 0 && AssociatedListing.Name == "Weapon"))
+            if (Level > 1 || (Level > 0 && AssociatedListing?.Name == "Weapon"))
             {
                 if (FreeLevels + RequiredLevels > 0)
                 {
@@ -489,7 +494,7 @@ namespace BESM3CAData.Model
 
         }
 
-        public List<VariantListing> GetVariants()
+        public List<VariantListing>? GetVariants()
         {
             if (AssociatedListing is LevelableDataListing variantDataListing && variantDataListing.Variants != null && variantDataListing.Variants.Count > 0)
             {

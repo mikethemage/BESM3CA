@@ -7,17 +7,17 @@ namespace BESM3CAData.Listings
     public class VariantListing : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int CostperLevel { get; set; }
-        public string Desc { get; set; }
+        public string? Desc { get; set; }
         public bool DefaultVariant { get; set; }
-        public DataListing Attribute { get; set; }
+        public DataListing? Attribute { get; set; }
 
         public string FullName
         {
             get
             {
-                return $"{Attribute.Name} [{Name}]";
+                return $"{Attribute?.Name ?? ""} [{Name}]";
             }
         }
 
@@ -51,7 +51,7 @@ namespace BESM3CAData.Listings
 
         public VariantDefinitionDto Serialize()
         {
-            return new VariantDefinitionDto { Id = this.ID, VariantName = this.Name, CostPerLevel = this.CostperLevel, Description = this.Desc, IsDefault = this.DefaultVariant };
+            return new VariantDefinitionDto { Id = this.ID, VariantName = this.Name ?? "", CostPerLevel = this.CostperLevel, Description = this.Desc, IsDefault = this.DefaultVariant };
         }
 
     }

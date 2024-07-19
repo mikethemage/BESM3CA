@@ -11,7 +11,7 @@ namespace BESM3CAData.Control
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public string TypeName { get; set; }
+        public string? TypeName { get; set; }
 
         private bool _isSelected;
         public bool IsSelected

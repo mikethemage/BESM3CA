@@ -10,7 +10,7 @@ namespace BESM3CAData.Model
         VariantListing? Variant { get; set; }
 
         //Methods:
-        List<VariantListing> GetVariants();
+        List<VariantListing>? GetVariants();
 
         ObservableCollection<VariantListing> VariantList { get; set; }
     }

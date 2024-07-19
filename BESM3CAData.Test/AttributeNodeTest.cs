@@ -16,7 +16,7 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();            
 
-            Assert.NotNull(testController.CurrentEntity);
+            Assert.NotNull(testController.CurrentEntity?.RootCharacter?.AssociatedListing);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
             Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
@@ -35,7 +35,7 @@ namespace BESM3CAData.Test
         public void AttributeNode_DisplayTextContainsPoints(int attributePosition)
         {
             DataController testController = new DataController();
-            Assert.NotNull(testController.CurrentEntity);
+            Assert.NotNull(testController.CurrentEntity?.RootCharacter?.AssociatedListing);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
             Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
@@ -55,7 +55,7 @@ namespace BESM3CAData.Test
         public void AttributeNode_DescriptionCalculationShouldNotFail(int attributePosition, int level)
         {
             DataController testController = new DataController();
-            Assert.NotNull(testController.CurrentEntity);
+            Assert.NotNull(testController.CurrentEntity?.RootCharacter?.AssociatedListing);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
             Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             LevelableDataListing selectedAttribute = (LevelableDataListing)testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
@@ -77,7 +77,7 @@ namespace BESM3CAData.Test
         public void Attribute_GetTypesForFilterShouldContain(string attributeName, string expected)
         {
             DataController testController = new DataController();
-
+            Assert.NotNull(testController.SelectedListingData?.AttributeList);
             DataListing? dataListing = testController.SelectedListingData.AttributeList.Find(x => x.Name == attributeName);
 
             Assert.NotNull(dataListing);

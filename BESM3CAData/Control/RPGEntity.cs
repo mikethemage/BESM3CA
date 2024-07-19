@@ -15,8 +15,8 @@ namespace BESM3CAData.Control
     {
         public ObservableCollection<GenreEntry> GenreList { get; set; } = new ObservableCollection<GenreEntry>();
 
-        private GenreEntry _genreEntry;
-        public GenreEntry SelectedGenreEntry
+        private GenreEntry? _genreEntry;
+        public GenreEntry? SelectedGenreEntry
         {
             get
             {
@@ -33,9 +33,9 @@ namespace BESM3CAData.Control
         }
 
         public ObservableCollection<FilterType> Filters { get; set; } = new ObservableCollection<FilterType>();
-        public string FileNameAndPath { get; set; }
+        public string? FileNameAndPath { get; set; }
 
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
         private MasterListing? _selectedListingData;
 
@@ -58,7 +58,7 @@ namespace BESM3CAData.Control
                     }
 
                     GenreList.Clear();
-                    if(SelectedListingData!=null)
+                    if(SelectedListingData!=null && SelectedListingData.Genres!=null)
                     {
                         foreach (string newListings in SelectedListingData.Genres)
                         {
@@ -77,10 +77,10 @@ namespace BESM3CAData.Control
 
         public BaseNode? SelectedNode
         {
-            get { return selectedNode; }
+            get { return _selectedNode; }
             set
             {
-                selectedNode = value;
+                _selectedNode = value;
                 OnPropertyChanged(nameof(SelectedNode));
                 OnPropertyChanged(nameof(SelectedCharacter));
                 OnPropertyChanged(nameof(SelectedLevelable));
@@ -92,7 +92,7 @@ namespace BESM3CAData.Control
         {
             get
             {
-                return selectedNode as CharacterNode;
+                return _selectedNode as CharacterNode;
             }
         }
 
@@ -100,7 +100,7 @@ namespace BESM3CAData.Control
         {
             get
             {
-                return selectedNode as LevelableDataNode;
+                return _selectedNode as LevelableDataNode;
             }
         }
 
@@ -108,7 +108,7 @@ namespace BESM3CAData.Control
         {
             get
             {
-                if(selectedNode is IVariantDataNode variantDataNode)
+                if(_selectedNode is IVariantDataNode variantDataNode)
                 {
                     if(variantDataNode.VariantList !=null && variantDataNode.VariantList.Count > 0)
                     {
@@ -132,9 +132,9 @@ namespace BESM3CAData.Control
 
         public ObservableCollection<BaseNode> Root { get; private set; } = new ObservableCollection<BaseNode>();        
 
-        private string selectedType;
+        private string? selectedType;
 
-        public string SelectedType
+        public string? SelectedType
         {
             get
             {
@@ -152,7 +152,7 @@ namespace BESM3CAData.Control
             }
         }
 
-        private BaseNode? selectedNode;
+        private BaseNode? _selectedNode;
 
         public void ImportOldXml(string fileName, BaseNode newRoot)
         {           
@@ -187,7 +187,7 @@ namespace BESM3CAData.Control
         {
             if (sender is FilterType filterType)
             {
-                if (e.PropertyName == nameof(FilterType.IsSelected) && filterType.IsSelected == true)
+                if (e.PropertyName == nameof(FilterType.IsSelected) && filterType.IsSelected == true && filterType.TypeName!=null)
                 {
                     SelectedType = filterType.TypeName;
                     if (SelectedNode != null && SelectedNode.AssociatedListing != null)
@@ -221,7 +221,7 @@ namespace BESM3CAData.Control
             //Reset root character:
 
             //Get Character data listing:
-            if (SelectedListingData!= null && SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
+            if (SelectedListingData!= null && SelectedListingData.AttributeList != null && SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
                 RootCharacter = characterDataListing.CreateNode("", this, false);
                 Root.Clear();
@@ -255,7 +255,10 @@ namespace BESM3CAData.Control
 
         public void Save()
         {
-            SaveLoad.SerializeJSON(RootCharacter, FileNameAndPath, FileName, this);
+            if(RootCharacter!=null&& FileNameAndPath!=null&& FileName!=null)
+            {
+                SaveLoad.SerializeJSON(RootCharacter, FileNameAndPath, FileName, this);
+            }            
         }
 
         public void ExportToText(string exportFile)

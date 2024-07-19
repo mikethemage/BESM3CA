@@ -18,7 +18,10 @@ namespace BESM3CAData.Model
         //Need view model for selected attribute for adding????
         public void AddSelectedChild()
         {
-            AddChildAttribute(SelectedAttributeToAdd);
+            if(SelectedAttributeToAdd != null)
+            {
+                AddChildAttribute(SelectedAttributeToAdd);
+            }            
         }
 
         public bool CanAddSelectedChild()
@@ -35,11 +38,7 @@ namespace BESM3CAData.Model
 
         public bool IsFreebie { get; set; } = false;
 
-        public DataListing SelectedAttributeToAdd
-        {
-            get;
-            set;
-        }
+        public DataListing? SelectedAttributeToAdd { get; set; }
 
         public virtual void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -122,7 +121,7 @@ namespace BESM3CAData.Model
         }
         protected abstract void RefreshPoints();
 
-        private string _displayText;
+        private string _displayText = string.Empty;
         public string DisplayText
         {
             get
@@ -156,7 +155,7 @@ namespace BESM3CAData.Model
 
         public int ID { get; private set; }
 
-        private string _name;
+        private string _name = string.Empty;
         public string Name
         {
             get
@@ -202,39 +201,40 @@ namespace BESM3CAData.Model
                 if (value == true)
                 {
                     AddAttributeSelectionHandlers();
-                    
-                    //Deselect any invalid options:
-                    foreach (DataListing stillSelectedDataListing in AssociatedController.SelectedListingData.AttributeList.Where(x => x.IsSelected))
+
+                    if (AssociatedController.SelectedListingData?.AttributeList != null)
                     {
-                        if (AssociatedListing.FilteredPotentialChildren == null || !AssociatedListing.FilteredPotentialChildren.Contains(stillSelectedDataListing))
+                        //Deselect any invalid options:
+                        foreach (DataListing stillSelectedDataListing in AssociatedController.SelectedListingData.AttributeList.Where(x => x.IsSelected))
                         {
-                            stillSelectedDataListing.IsSelected = false;
+                            if (AssociatedListing?.FilteredPotentialChildren == null || !AssociatedListing.FilteredPotentialChildren.Contains(stillSelectedDataListing))
+                            {
+                                stillSelectedDataListing.IsSelected = false;
+                            }
                         }
                     }
 
-                    
-
-                    string temp = AssociatedController.SelectedType;
+                    string temp = AssociatedController.SelectedType ?? "";
                     foreach (FilterType oldFilterType in AssociatedController.Filters)
                     {
                         oldFilterType.IsSelected = false;
-                        
+
                     }
                     AssociatedController.Filters.Clear();
-                    foreach (string filterType in GetTypesForFilter())                    
+                    foreach (string filterType in GetTypesForFilter())
                     {
                         FilterType newFilterType = new FilterType(filterType);
                         AssociatedController.Filters.Add(newFilterType);
                         newFilterType.PropertyChanged += AssociatedController.FilterPropertyChanged;
-                        if(filterType==temp)
+                        if (filterType == temp)
                         {
                             newFilterType.IsSelected = true;
                         }
-                    }                    
+                    }
 
-                    if (AssociatedController.SelectedType==null || AssociatedController.SelectedType=="" || AssociatedController.Filters.FirstOrDefault(x => x.TypeName == temp)==null)
+                    if (AssociatedController.SelectedType == null || AssociatedController.SelectedType == "" || AssociatedController.Filters.FirstOrDefault(x => x.TypeName == temp) == null)
                     {
-                        if (AssociatedController.Filters.FirstOrDefault(x=>x.TypeName=="All") is FilterType allFilterType2)
+                        if (AssociatedController.Filters.FirstOrDefault(x => x.TypeName == "All") is FilterType allFilterType2)
                         {
                             allFilterType2.IsSelected = true;
                         }
@@ -242,10 +242,10 @@ namespace BESM3CAData.Model
 
                 }
                 else
-                { 
+                {
                     foreach (FilterType oldFT in AssociatedController.Filters)
                     {
-                        oldFT.PropertyChanged-= AssociatedController.FilterPropertyChanged;
+                        oldFT.PropertyChanged -= AssociatedController.FilterPropertyChanged;
                     }
                     RemoveAttributeSelectionHandlers();
                 }
@@ -268,13 +268,13 @@ namespace BESM3CAData.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public List<DataListing> PotentialChildren
+        public List<DataListing>? PotentialChildren
         {
             get
             {
                 if (AssociatedListing != null)
                 {
-                    return AssociatedListing.Children.Where(x=>x.Name!="Character").ToList();
+                    return AssociatedListing.Children.Where(x => x.Name != "Character").ToList();
                 }
                 else
                 {
@@ -354,7 +354,7 @@ namespace BESM3CAData.Model
             AssociatedController = controller;
             PropertyChanged += AssociatedController.ChildPropertyChanged;
             AssociatedListing = attribute;
-            Name = attribute.Name;
+            Name = attribute.Name ?? "";
             ID = attribute.ID;
             Useable = true;
             Notes = notes;
@@ -371,7 +371,7 @@ namespace BESM3CAData.Model
             {
                 foreach (FreebieListing freebie in attribute.Freebies)
                 {
-                    DataListing? subAttribute = controller.SelectedListingData.AttributeList.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
+                    DataListing? subAttribute = controller.SelectedListingData.AttributeList?.Where(x => x.Name == freebie.SubAttributeName).FirstOrDefault();
                     if (subAttribute != null)
                     {
                         //Auto create freebie when creating new instance of this attribute:
@@ -390,6 +390,11 @@ namespace BESM3CAData.Model
         //Methods:
         public List<string> GetTypesForFilter()
         {
+            if(AssociatedController.SelectedListingData?.TypeList==null)
+            {
+                return new List<string>();
+            }
+
             //LINQ Version:
             List<string> tempList = (
 
@@ -403,9 +408,9 @@ namespace BESM3CAData.Model
             return tempList;
         }
 
-        public List<DataListing> GetFilteredPotentialChildren(string filter)
+        public List<DataListing>? GetFilteredPotentialChildren(string filter)
         {
-            List<DataListing> selectedAttributeChildren = PotentialChildren;
+            List<DataListing>? selectedAttributeChildren = PotentialChildren;
             if (selectedAttributeChildren != null)
             {
                 //LINQ Version:
@@ -498,7 +503,7 @@ namespace BESM3CAData.Model
             {
                 BaseNode temp = Prev;
 
-                if (temp.Parent.FirstChild == temp)
+                if (temp.Parent?.FirstChild == temp)
                 {
                     temp.Parent.FirstChild = this;
                 }
@@ -520,7 +525,7 @@ namespace BESM3CAData.Model
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
 
-                Parent.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) - 1);
+                Parent?.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) - 1);
                 MoveUpCommand.RaiseCanExecuteChanged();
                 MoveDownCommand.RaiseCanExecuteChanged();
             }
@@ -532,7 +537,7 @@ namespace BESM3CAData.Model
             {
                 BaseNode temp = Next;
 
-                if (Parent.FirstChild == this)
+                if (Parent?.FirstChild == this)
                 {
                     Parent.FirstChild = temp;
                 }
@@ -553,7 +558,7 @@ namespace BESM3CAData.Model
                 int tempNodeOrder = NodeOrder;
                 NodeOrder = temp.NodeOrder;
                 temp.NodeOrder = tempNodeOrder;
-                Parent.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) + 1);
+                Parent?.Children.Move(Parent.Children.IndexOf(this), Parent.Children.IndexOf(this) + 1);
                 MoveUpCommand.RaiseCanExecuteChanged();
                 MoveDownCommand.RaiseCanExecuteChanged();
             }
@@ -598,17 +603,24 @@ namespace BESM3CAData.Model
 
         private void AddAttributeSelectionHandlers()
         {
-            foreach (DataListing item in AssociatedListing.Children)
+            if (AssociatedListing != null)
             {
-                item.PropertyChanged += ChildPropertyChanged;
+                foreach (DataListing item in AssociatedListing.Children)
+                {
+
+                    item.PropertyChanged += ChildPropertyChanged;
+                }
             }
         }
 
         private void RemoveAttributeSelectionHandlers()
         {
-            foreach (DataListing item in AssociatedListing.Children)
+            if (AssociatedListing != null)
             {
-                item.PropertyChanged -= ChildPropertyChanged;
+                foreach (DataListing item in AssociatedListing.Children)
+                {
+                    item.PropertyChanged -= ChildPropertyChanged;
+                }
             }
         }
 
@@ -630,12 +642,12 @@ namespace BESM3CAData.Model
 
                                 if (AssociatedController.SelectedListingData != null)
                                 {
-                                    AssociatedListing = AssociatedController.SelectedListingData.AttributeList.Find(n => n.Name == Name);
+                                    AssociatedListing = AssociatedController.SelectedListingData.AttributeList?.Find(n => n.Name == Name);
                                     Useable = true;
-                                    ID = AssociatedListing.ID;
+                                    ID = AssociatedListing?.ID ?? 0;
                                 }
-
                                 break;
+
                             //case "ID":
                             //    ID = int.Parse(reader.Value);
                             //    if (AssociatedController.SelectedListingData != null)
@@ -644,6 +656,7 @@ namespace BESM3CAData.Model
                             //        Useable = true;
                             //    }
                             //    break;
+
                             default:
                                 break;
                         }

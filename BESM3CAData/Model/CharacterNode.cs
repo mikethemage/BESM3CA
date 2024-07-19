@@ -114,7 +114,7 @@ namespace BESM3CAData.Model
 
 
         //Properties:
-        public string CharacterName { get; set; }
+        public string? CharacterName { get; set; }
 
         public override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

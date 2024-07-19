@@ -8,7 +8,7 @@ namespace BESM3CAData.Test
         [Fact]
         public void ListingData_ShouldLoadDefault()
         {
-            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
+            MasterListing? DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM 3rd Edition",
@@ -20,24 +20,26 @@ namespace BESM3CAData.Test
         [Fact]
         public void ListingData_ShouldHaveAttributes()
         {
-            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
+            MasterListing? DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM 3rd Edition",
                 ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
+            Assert.NotNull(DefaultListing?.AttributeList);
             Assert.True(DefaultListing.AttributeList.Count > 0);
         }
 
         [Fact]
         public void ListingData_ShouldHaveTypes()
         {
-            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
+            MasterListing? DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM 3rd Edition",
                 ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
+            Assert.NotNull(DefaultListing?.TypeList);
             Assert.True(DefaultListing.TypeList.Count > 0);
         }
 
@@ -47,13 +49,13 @@ namespace BESM3CAData.Test
         [InlineData("Time", 17, "ERROR")]
         public void ListingData_GetProgressionShouldWork(string progressionType, int rank, string expected)
         {
-            MasterListing DefaultListing = MasterListing.JSONLoader(new ListingLocation
+            MasterListing? DefaultListing = MasterListing.JSONLoader(new ListingLocation
             {
                 BuiltIn = true,
                 ListingName = "BESM 3rd Edition",
                 ListingPathArray = new string[] { "Datafiles", "NEW_BESM3E_Get_result.json" }
             });
-
+            Assert.NotNull(DefaultListing);
             string output = DefaultListing.GetProgression(progressionType, rank);
 
             Assert.Equal(expected, output);

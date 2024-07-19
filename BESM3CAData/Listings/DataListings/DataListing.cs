@@ -12,16 +12,16 @@ namespace BESM3CAData.Listings
         //Properties:
         //Everything should have:
         public int ID { get; private set; }
-        public string Name { get; private set; }
-        public string Type { get; private set; }
-        public string Description { get; private set; }  //Character doesn't need description really
+        public string? Name { get; private set; }
+        public string? Type { get; private set; }
+        public string? Description { get; private set; }  //Character doesn't need description really
         public List<DataListing> Children { get; private set; }
 
         public List<FreebieListing> Freebies { get; set; } = new List<FreebieListing>();
 
         //  To check if still needed:        
-        private string Stat { get; set; }
-        private string Page { get; set; }
+        private string? Stat { get; set; }
+        private string? Page { get; set; }
         private bool Human { get; set; }
 
         private void OnPropertyChanged(string propertyName)
@@ -103,11 +103,11 @@ namespace BESM3CAData.Listings
             RPGElementDefinitionDto result = new RPGElementDefinitionDto
             {
                 Id = this.ID,
-                ElementName = this.Name,
+                ElementName = this.Name ?? "",
                 Stat = this.Stat,
                 PageNumbers = this.Page,
                 Human = this.Human,
-                ElementTypeName = this.Type,
+                ElementTypeName = this.Type ?? "",
                 Description = this.Description                
             };
 

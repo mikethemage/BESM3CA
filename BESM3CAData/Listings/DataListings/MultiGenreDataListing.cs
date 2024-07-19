@@ -12,13 +12,16 @@ namespace BESM3CAData.Listings
     public class MultiGenreDataListing : LevelableDataListing
     {
         //Properties:
-        public List<int> GenrePoints { get; private set; }
+        public List<int>? GenrePoints { get; private set; }
 
 
         //Constructors:
         public MultiGenreDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            GenrePoints = data.LevelableData.MultiGenreCostPerLevels.Select(x=>x.CostPerLevel).ToList();
+            if(data.LevelableData?.MultiGenreCostPerLevels!=null)
+            {
+                GenrePoints = data.LevelableData.MultiGenreCostPerLevels.Select(x => x.CostPerLevel).ToList();
+            }            
         }
 
 
@@ -31,17 +34,22 @@ namespace BESM3CAData.Listings
         public override RPGElementDefinitionDto Serialize()
         {
             RPGElementDefinitionDto result = base.Serialize();
-            result.LevelableData.MultiGenreCostPerLevels = new List<GenreCostPerLevelDto>();
-
-            for (int i = 0; i < GenrePoints.Count ; i++)
+            if (result.LevelableData != null)
             {
-                result.LevelableData.MultiGenreCostPerLevels.Add(new GenreCostPerLevelDto
+                result.LevelableData.MultiGenreCostPerLevels = new List<GenreCostPerLevelDto>();
+
+                if (GenrePoints is not null)
                 {
-                    CostPerLevel = GenrePoints[i],
-                    GenreName = "FIX ME" //Todo - fix this!
-                });
+                    for (int i = 0; i < GenrePoints.Count; i++)
+                    {
+                        result.LevelableData.MultiGenreCostPerLevels.Add(new GenreCostPerLevelDto
+                        {
+                            CostPerLevel = GenrePoints[i],
+                            GenreName = "FIX ME" //Todo - fix this!
+                        });
+                    }
+                }
             }
-            
             return result;
         }
     }

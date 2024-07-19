@@ -18,7 +18,7 @@ namespace BESM3CAData.Listings
         //Constructors:
         public SpecialContainerDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            SpecialPointsPerLevel = data.LevelableData.SpecialPointsPerLevel ?? 1;
+            SpecialPointsPerLevel = data.LevelableData?.SpecialPointsPerLevel ?? 1;
         }
 
 
@@ -32,7 +32,10 @@ namespace BESM3CAData.Listings
         {
             RPGElementDefinitionDto result = base.Serialize();
 
-            result.LevelableData.SpecialPointsPerLevel = SpecialPointsPerLevel;
+            if(result.LevelableData!=null)
+            {
+                result.LevelableData.SpecialPointsPerLevel = SpecialPointsPerLevel;
+            }            
             
             return result;
         }

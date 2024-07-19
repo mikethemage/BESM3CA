@@ -6,7 +6,7 @@ namespace BESM3CAData.Listings
 {
     public class ListingDirectory
     {
-        public List<ListingLocation> AvailableListings { get; set; }
+        public List<ListingLocation>? AvailableListings { get; set; }
 
         public ListingDirectory()
         {

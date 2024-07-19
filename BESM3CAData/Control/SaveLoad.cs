@@ -22,7 +22,7 @@ namespace BESM3CAData.Control
 
         private const string XmlGenreTag = "genre";
 
-        public static BaseNode DeserializeXML(string fileName, DataController controller)
+        public static BaseNode? DeserializeXML(string fileName, DataController controller)
         {
             //Needs completely re-writing:
             BaseNode? rootNode = null;
@@ -72,13 +72,13 @@ namespace BESM3CAData.Control
                     {
                         if (reader.Read())
                         {
-                            if (reader.NodeType == XmlNodeType.Text)
+                            if (reader.NodeType == XmlNodeType.Text && controller.ListingDirectory != null && controller.ListingDirectory.AvailableListings != null)
                             {
                                 //Read Listing name      
                                 ListingLocation? selectedListing = controller.ListingDirectory.AvailableListings.Find(x => (x.ListingName == reader.Value));
 
                                 //Only need to reload listings if different:
-                                if (selectedListing is null || controller.SelectedListingData.ListingName != selectedListing.ListingName)
+                                if (selectedListing is not null && (controller.SelectedListingData is null || (controller.SelectedListingData is not null && controller.SelectedListingData.ListingName != selectedListing.ListingName)))
                                 {
                                     //Load listing from file:
                                     controller.SelectedListingData = MasterListing.JSONLoader(selectedListing);
@@ -90,11 +90,14 @@ namespace BESM3CAData.Control
                     {
                         if (reader.Read())
                         {
-                            if (reader.NodeType == XmlNodeType.Text)
+                            if (reader.NodeType == XmlNodeType.Text && controller.CurrentEntity != null)
                             {
                                 //Read genre name
-                                controller.CurrentEntity.GenreList.FirstOrDefault(x=>x.GenreName==reader.Value).IsSelected=true;
-                                
+                                GenreEntry? genreEntry = controller.CurrentEntity.GenreList.FirstOrDefault(x => x.GenreName == reader.Value);
+                                if(genreEntry is not null)
+                                {
+                                    genreEntry.IsSelected = true;
+                                }
                             }
                         }
                     }
@@ -106,7 +109,7 @@ namespace BESM3CAData.Control
                         }
                         else
                         {
-                            if (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode"))
+                            if (controller.CurrentEntity!=null && (reader.Name.EndsWith("CharacterData") || reader.Name.EndsWith("CharacterNode")))
                             {
                                 newNode = new CharacterNode(controller.CurrentEntity);
                                 newNode.LoadXML(reader);
@@ -125,47 +128,48 @@ namespace BESM3CAData.Control
                             }
                             else if (reader.Name.EndsWith("DataNode") || reader.Name.EndsWith("AttributeNode"))
                             {
-
-
-                                switch (reader.Name)
+                                if (controller.CurrentEntity != null)
                                 {
-                                    case "LevelableDataNode":
-                                        newNode = new LevelableDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "LevelableWithVariantDataNode":
-                                        newNode = new LevelableDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "MultiGenreDataNode":
-                                        newNode = new MultiGenreDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "PointsContainerDataNode":
-                                        newNode = new PointsContainerDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "SpecialContainerDataNode":
-                                        newNode = new SpecialContainerDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "SpecialContainerWithVariantDataNode":
-                                        newNode = new SpecialContainerDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "CompanionDataNode":
-                                        newNode = new CompanionDataNode(controller.CurrentEntity);
-                                        break;
-                                    case "LevelableWithFreebieWithVariantDataNode":
-                                        newNode = new LevelableDataNode(controller.CurrentEntity);
-                                        break;
-                                    default:
-                                        throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");
-                                        //break;
-                                }
-                                if (newNode != null)
-                                {
-                                    newNode.LoadXML(reader);
-                                    if (parentNode != null)
+                                    switch (reader.Name)
                                     {
-                                        parentNode.AddChild(newNode);
+                                        case "LevelableDataNode":
+                                            newNode = new LevelableDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "LevelableWithVariantDataNode":
+                                            newNode = new LevelableDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "MultiGenreDataNode":
+                                            newNode = new MultiGenreDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "PointsContainerDataNode":
+                                            newNode = new PointsContainerDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "SpecialContainerDataNode":
+                                            newNode = new SpecialContainerDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "SpecialContainerWithVariantDataNode":
+                                            newNode = new SpecialContainerDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "CompanionDataNode":
+                                            newNode = new CompanionDataNode(controller.CurrentEntity);
+                                            break;
+                                        case "LevelableWithFreebieWithVariantDataNode":
+                                            newNode = new LevelableDataNode(controller.CurrentEntity);
+                                            break;
+                                        default:
+                                            throw new InvalidDataException($"Unable to find correct node type for: {reader.Name}");
+                                            //break;
                                     }
+                                    if (newNode != null)
+                                    {
+                                        newNode.LoadXML(reader);
+                                        if (parentNode != null)
+                                        {
+                                            parentNode.AddChild(newNode);
+                                        }
 
-                                    parentNode = newNode;
+                                        parentNode = newNode;
+                                    }
                                 }
                             }                            
                             else
@@ -182,7 +186,7 @@ namespace BESM3CAData.Control
                         {
                             if (parentNode != null)
                             {
-                                newNode = newNode.Parent;
+                                newNode = newNode?.Parent;
                                 parentNode = newNode;
                             }
                         }
@@ -207,7 +211,7 @@ namespace BESM3CAData.Control
             }
             finally
             {
-                reader.Close();
+                reader?.Close();
             }
 
             return rootNode;
@@ -215,6 +219,11 @@ namespace BESM3CAData.Control
 
         public static void SerializeJSON(BaseNode rootNode, string fileNameAndPath, string fileName, RPGEntity controller)
         {
+            if(controller.SelectedListingData == null || controller.SelectedListingData.ListingName == null)
+            {
+                throw new Exception("Cannot find Listing data!");
+            }
+
             EntityDto entity = new EntityDto
             {
                 EntityName = fileName.Replace(".json", ""),
@@ -376,7 +385,10 @@ namespace BESM3CAData.Control
                     tw.WriteLine($"{nexttabstring}[Notes: {current.Notes.Replace("\n", "\n" + nexttabstring)}]");
                 }
 
-                ExportNode(current.FirstChild, tabdepth + 1, tw);
+                if(current.FirstChild!=null)
+                {
+                    ExportNode(current.FirstChild, tabdepth + 1, tw);
+                }                
 
                 if (isAttrib)
                 {

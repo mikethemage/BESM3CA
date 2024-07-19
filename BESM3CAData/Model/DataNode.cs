@@ -14,7 +14,7 @@ namespace BESM3CAData.Model
         {
             get
             {
-                string result = AssociatedListing.Description;
+                string result = AssociatedListing?.Description ?? "";
                 return result;
             }
         }
@@ -55,9 +55,9 @@ namespace BESM3CAData.Model
             AttributeDescription = completedDescription;
         }
 
-        protected string _attributeDescription;
+        protected string? _attributeDescription;
 
-        public string AttributeDescription
+        public string? AttributeDescription
         {
             get
             {

@@ -15,7 +15,7 @@ namespace BESM3CAData.Listings
         public int MaxLevel { get; private set; }
         public int CostperLevel { get; private set; }
         public bool EnforceMaxLevel { get; private set; }
-        public List<string> CustomProgression { get; private set; }
+        public List<string>? CustomProgression { get; private set; }
 
         //  To check if still needed: 
         private string CostperLevelDesc { get; set; }
@@ -23,7 +23,7 @@ namespace BESM3CAData.Listings
 
         public ProgressionListing? Progression { get; set; }
 
-        public List<VariantListing> Variants { get; set; }
+        public List<VariantListing>? Variants { get; set; }
 
 
         //Constructors:
@@ -66,14 +66,14 @@ namespace BESM3CAData.Listings
 
         public LevelableDataListing(RPGElementDefinitionDto data) : base(data)
         {
-            CostperLevelDesc = data.LevelableData.CostPerLevelDescription ?? "";
-            CostperLevel = data.LevelableData.CostPerLevel ?? 0;            
-            MaxLevel = data.LevelableData.MaxLevel ?? 0;
-            EnforceMaxLevel = data.LevelableData.EnforceMaxLevel ?? false;
-            ProgressionName = data.LevelableData.ProgressionName ?? "";
+            CostperLevelDesc = data.LevelableData?.CostPerLevelDescription ?? "";
+            CostperLevel = data.LevelableData?.CostPerLevel ?? 0;            
+            MaxLevel = data.LevelableData?.MaxLevel ?? 0;
+            EnforceMaxLevel = data.LevelableData?.EnforceMaxLevel ?? false;
+            ProgressionName = data.LevelableData?.ProgressionName ?? "";
 
             //Add variants and link back:
-            if (data.LevelableData.Variants != null)
+            if (data.LevelableData?.Variants != null)
             {
                 Variants = new List<VariantListing>();
                 foreach (VariantDefinitionDto variant in data.LevelableData.Variants)

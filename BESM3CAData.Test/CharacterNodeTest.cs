@@ -12,7 +12,7 @@ namespace BESM3CAData.Test
         public void RootNode_ShouldBeCharacter()
         {
             DataController testController = new DataController();
-            Assert.NotNull(testController.CurrentEntity.RootCharacter);
+            Assert.NotNull(testController.CurrentEntity?.RootCharacter);
             Assert.IsType<CharacterNode>(testController.CurrentEntity.RootCharacter);
         }
 
@@ -20,14 +20,14 @@ namespace BESM3CAData.Test
         public void Character_NameShouldBeCharacter()
         {
             DataController testController = new DataController();
-            Assert.Equal("Character", testController.CurrentEntity.RootCharacter.Name);
+            Assert.Equal("Character", testController.CurrentEntity?.RootCharacter?.Name);
         }
 
         [Fact]
         public void Character_ShouldHavePotentialChildren()
         {
             DataController testController = new DataController();
-            Assert.NotNull(testController.CurrentEntity);
+            Assert.NotNull(testController.CurrentEntity?.RootCharacter?.AssociatedListing);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
             Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             List<DataListing> foundPotentialChildren = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren;
@@ -58,7 +58,7 @@ namespace BESM3CAData.Test
         public void Character_AddChildAttributeShouldExist(int attributePosition)
         {
             DataController testController = new DataController();
-            Assert.NotNull(testController.CurrentEntity);
+            Assert.NotNull(testController.CurrentEntity?.RootCharacter?.AssociatedListing);
             testController.CurrentEntity.RootCharacter.AssociatedListing.RefreshFilteredPotentialChildren("All");
             Assert.NotNull(testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren);
             DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
@@ -80,8 +80,10 @@ namespace BESM3CAData.Test
         {
             DataController testController = new DataController();
             List<string>? output = null;
+            Assert.NotNull(testController?.SelectedListingData?.AttributeList);
             if (testController.SelectedListingData.AttributeList.Find(x => x.Name == "Character") is CharacterDataListing characterDataListing)
             {
+                Assert.NotNull(testController.CurrentEntity);
                 CharacterNode testCharacter = new CharacterNode(characterDataListing, false, "", testController.CurrentEntity, false);
                 output = testCharacter.GetTypesForFilter();
             }
