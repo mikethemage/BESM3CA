@@ -1,6 +1,7 @@
 ﻿using BESM3CAData.Control;
 using BESM3CAData.Model;
 using Microsoft.Win32;
+using System;
 using System.Windows;
 
 namespace BESM3CA
@@ -30,10 +31,13 @@ namespace BESM3CA
             //Initialise Controller:
             CurrentController = new DataController();
             DataContext = CurrentController;
-            CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\NEW_BESM3E.json");
-            ResetAll();
-            GenreComboBox.SelectedIndex = 0;
-            FilterComboBox.SelectedIndex = 0;
+            if (CurrentController.SelectedListingData != null)
+            {
+                CurrentController.SelectedListingData.CreateJSON(@"C:\Users\Mike\Documents\NEW_BESM3E.json");
+                ResetAll();
+                GenreComboBox.SelectedIndex = 0;
+                FilterComboBox.SelectedIndex = 0;
+            }
         }
 
 
@@ -52,6 +56,11 @@ namespace BESM3CA
 
         private void SaveFile(bool SaveExisting)
         {
+            if(CurrentController.CurrentEntity==null)
+            {
+                throw new Exception("Nothing to save!");
+            }
+
             if (SaveExisting == false || CurrentController.CurrentEntity.FileNameAndPath == "")
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -100,7 +109,7 @@ namespace BESM3CA
 
                 CurrentController.ImportOldXml(openFileDialog.FileName);
 
-                if (CurrentController.CurrentEntity.RootCharacter == null)
+                if (CurrentController.CurrentEntity?.RootCharacter == null)
                 {
                     //load failed, reset:
                     ResetAll();
@@ -137,6 +146,11 @@ namespace BESM3CA
 
         private void ExportToTextMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            if (CurrentController.CurrentEntity == null)
+            {
+                throw new Exception("Nothing to Export!");
+            }
+
             SaveFileDialog saveFileDialog1 = new SaveFileDialog
             {
                 RestoreDirectory = false,
@@ -163,7 +177,7 @@ namespace BESM3CA
 
         private void AddNodeIfSelected()
         {
-            if (CurrentController.CurrentEntity.SelectedNode != null && CurrentController.CurrentEntity.SelectedNode.CanAddSelectedChild())
+            if (CurrentController.CurrentEntity?.SelectedNode != null && CurrentController.CurrentEntity.SelectedNode.CanAddSelectedChild())
             {
                 CurrentController.CurrentEntity.SelectedNode.AddSelectedChild();
             }
@@ -181,6 +195,11 @@ namespace BESM3CA
 
         private void ExportToHTMLMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            if(CurrentController.CurrentEntity== null)
+            {
+                throw new Exception("Nothing to export!");
+            }
+
             SaveFileDialog saveFileDialog1 = new SaveFileDialog
             {
                 RestoreDirectory = false,
@@ -220,7 +239,7 @@ namespace BESM3CA
 
                 CurrentController.Load(openFileDialog.FileName);
 
-                if (CurrentController.CurrentEntity.RootCharacter == null)
+                if (CurrentController.CurrentEntity?.RootCharacter == null)
                 {
                     //load failed, reset:
                     ResetAll();
