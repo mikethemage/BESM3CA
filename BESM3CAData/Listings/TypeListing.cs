@@ -11,7 +11,7 @@ namespace BESM3CAData.Listings
 
         public RPGElementTypeDto Serialize()
         {
-            return new RPGElementTypeDto { Id = ID, TypeName = Name ?? "", TypeOrder = TypeOrder };
+            return new RPGElementTypeDto { TypeName = Name!, TypeOrder = TypeOrder };
         }        
     }
 }

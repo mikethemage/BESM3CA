@@ -168,9 +168,7 @@ namespace BESM3CAData.Model
         private void RefreshChildPoints()
         {
             int tempChildPoints = 0;
-
-            BaseNode? temp = FirstChild;
-            while (temp != null)
+            foreach (var temp in Children)
             {
                 if (temp is DataNode tempAttribute)
                 {
@@ -187,8 +185,6 @@ namespace BESM3CAData.Model
                 {
                     tempChildPoints += temp.Points;
                 }
-
-                temp = temp.Next;
             }
             ChildPoints = tempChildPoints;
         }

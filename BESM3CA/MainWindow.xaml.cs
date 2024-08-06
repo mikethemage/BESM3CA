@@ -95,36 +95,36 @@ namespace BESM3CA
             SaveFile(true);
         }
 
-        private void ImportOldMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                RestoreDirectory = false,
-                Filter = _applicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
-                FilterIndex = 1
-            };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                ResetAll();
+        //private void ImportOldMenuItem_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog
+        //    {
+        //        RestoreDirectory = false,
+        //        Filter = _applicationName + " Files(*.xml)|*.xml|All Files (*.*)|*.*",
+        //        FilterIndex = 1
+        //    };
+        //    if (openFileDialog.ShowDialog() == true)
+        //    {
+        //        ResetAll();
 
-                CurrentController.ImportOldXml(openFileDialog.FileName);
+        //        CurrentController.ImportOldXml(openFileDialog.FileName);
 
-                if (CurrentController.CurrentEntity?.RootCharacter == null)
-                {
-                    //load failed, reset:
-                    ResetAll();
-                    MessageBox.Show("Unable to load file: invalid format", "Error loading file", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    Title = _applicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
-                    if (CharacterTreeView.Items.Count > 0)
-                    {
-                        ((BaseNode)CharacterTreeView.Items[0]).IsSelected = true;
-                    }
-                }
-            }
-        }
+        //        if (CurrentController.CurrentEntity?.RootCharacter == null)
+        //        {
+        //            //load failed, reset:
+        //            ResetAll();
+        //            MessageBox.Show("Unable to load file: invalid format", "Error loading file", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        }
+        //        else
+        //        {
+        //            Title = _applicationName + " - " + CurrentController.CurrentEntity.FileNameAndPath;
+        //            if (CharacterTreeView.Items.Count > 0)
+        //            {
+        //                ((BaseNode)CharacterTreeView.Items[0]).IsSelected = true;
+        //            }
+        //        }
+        //    }
+        //}
 
         private void NewMenuItem_Click(object sender, RoutedEventArgs e)
         {

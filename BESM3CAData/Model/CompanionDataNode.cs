@@ -43,9 +43,8 @@ namespace BESM3CAData.Model
         {
             int tempChildPoints = 0;
 
-            BaseNode? temp = FirstChild;
-            while (temp != null)
-            {
+            foreach (var temp in Children)
+            {            
                 if (temp is DataNode tempAttribute)
                 {
                     if (tempAttribute.AttributeType == "Restriction" || tempAttribute.AttributeType == "Variable")
@@ -60,9 +59,7 @@ namespace BESM3CAData.Model
                 else
                 {
                     tempChildPoints += temp.Points;
-                }
-
-                temp = temp.Next;
+                }                
             }
             ChildPoints = tempChildPoints;
         }

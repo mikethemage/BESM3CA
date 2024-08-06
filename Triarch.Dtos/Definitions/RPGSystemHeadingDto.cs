@@ -1,8 +1,10 @@
-﻿namespace Triarch.Dtos.Definitions;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Triarch.Dtos.Definitions;
 
 public class RPGSystemHeadingDto
 {
-    public int Id { get; set; }
+    [Required]
     public string SystemName { get; set; } = null!;
 
     public string? CoreRulesetName { get; set; } = null;

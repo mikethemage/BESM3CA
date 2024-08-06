@@ -5,10 +5,7 @@ namespace Triarch.Dtos.Definitions;
 
 public class LevelableDefinitionDto
 {
-    public int Id { get; set; }
-
     public int? MaxLevel { get; set; }
-
     
     public bool? EnforceMaxLevel { get; set; }
 

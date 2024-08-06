@@ -78,7 +78,7 @@ namespace BESM3CAData.Listings
                 Variants = new List<VariantListing>();
                 foreach (VariantDefinitionDto variant in data.LevelableData.Variants)
                 {
-                    Variants.Add(new VariantListing { ID = variant.Id, Name = variant.VariantName, CostperLevel = variant.CostPerLevel, DefaultVariant = variant.IsDefault, Desc = variant.Description ?? "", Attribute = this });
+                    Variants.Add(new VariantListing { Name = variant.VariantName, CostperLevel = variant.CostPerLevel, DefaultVariant = variant.IsDefault, Desc = variant.Description ?? "", Attribute = this });
                 }
             }
         }

@@ -4,8 +4,6 @@ namespace Triarch.Dtos.Definitions;
 
 public class RPGSystemDto
 {    
-    public int Id { get; set; }
-
     public CoreRulesetDto Ruleset { get; set; } = null!; 
     
     [MaxLength(60)]

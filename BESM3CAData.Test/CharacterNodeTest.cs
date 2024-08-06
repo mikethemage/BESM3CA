@@ -64,10 +64,9 @@ namespace BESM3CAData.Test
             DataListing selectedAttribute = testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
-            Assert.NotNull(testController.CurrentEntity.RootCharacter.FirstChild);
-            DataNode? foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.FirstChild;
-
-            Assert.Equal(selectedAttribute.ID, foundAttribute.ID);
+            Assert.True(testController.CurrentEntity.RootCharacter.Children.Count > 0);
+            DataNode? foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.Children[0];
+            
             Assert.Equal(selectedAttribute.Name, foundAttribute.Name);
         }
 

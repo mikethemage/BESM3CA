@@ -101,11 +101,9 @@ namespace BESM3CAData.Model
         protected override void RefreshPoints()
         {
             int tempPoints = BaseCost;
-            BaseNode? temp = FirstChild;
-            while (temp != null)
+            foreach (var temp in Children)
             {
-                tempPoints += temp.Points;
-                temp = temp.Next;
+                tempPoints += temp.Points;            
             }
             Points = tempPoints;
         }
@@ -190,12 +188,10 @@ namespace BESM3CAData.Model
                     BaseCV,
                     BaseCV);
 
-            BaseNode? child = FirstChild;
-            while (child != null)
+            foreach (var child in Children)
             {
                 CalcStats temp = child.GetStats();
-                stats += temp;
-                child = child.Next;
+                stats += temp;               
             }
 
             return stats;

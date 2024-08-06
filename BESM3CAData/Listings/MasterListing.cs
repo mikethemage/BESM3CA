@@ -88,8 +88,7 @@ namespace BESM3CAData.Listings
                 foreach (RPGElementTypeDto typeListing in temp.ElementTypes)
                 {
                     result.TypeList.Add(new TypeListing
-                    {
-                        ID = typeListing.Id,
+                    {                        
                         Name = typeListing.TypeName,
                         TypeOrder = typeListing.TypeOrder
                     }
@@ -161,7 +160,7 @@ namespace BESM3CAData.Listings
                 {
                     if (attribute.AllowedChildrenNames != null || attribute.Freebies != null)
                     {
-                        DataListing? Parent = result.AttributeList.Find(x => x.ID == attribute.Id);
+                        DataListing? Parent = result.AttributeList.Find(x => x.Name == attribute.ElementName);
                         if (Parent != null)
                         {
                             //Link Children:                    

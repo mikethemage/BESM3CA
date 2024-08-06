@@ -152,10 +152,9 @@ namespace BESM3CAData.Model
         //Properties:
         public RPGEntity AssociatedController { get; private set; }
         public virtual DataListing? AssociatedListing { get; protected set; }
-
-        public int ID { get; private set; }
-
+        
         private string _name = string.Empty;
+
         public string Name
         {
             get
@@ -177,7 +176,7 @@ namespace BESM3CAData.Model
 
 
         //Tree structure properties:
-        public BaseNode? FirstChild { get; private set; }
+        //public BaseNode? FirstChild { get; private set; }
         public BaseNode? Parent { get; private set; }
         public int NodeOrder { get; private set; }
         public BaseNode? Next { get; private set; }
@@ -297,7 +296,7 @@ namespace BESM3CAData.Model
             Useable = false;
             Notes = notes;
             NodeOrder = 1;
-            FirstChild = null;
+            
             Parent = null;
             _lastChildOrder = 0;
             Next = null;
@@ -355,11 +354,11 @@ namespace BESM3CAData.Model
             PropertyChanged += AssociatedController.ChildPropertyChanged;
             AssociatedListing = attribute;
             Name = attribute.Name ?? "";
-            ID = attribute.ID;
+            
             Useable = true;
             Notes = notes;
             NodeOrder = 1;
-            FirstChild = null;
+            
             Parent = null;
             _lastChildOrder = 0;
             Next = null;
@@ -415,7 +414,7 @@ namespace BESM3CAData.Model
             {
                 //LINQ Version:
                 List<DataListing> filteredAttList = selectedAttributeChildren
-                    .Where(a => a.ID > 0 && (filter == "All" || filter == "" || a.Type == filter))
+                    .Where(a => (filter == "All" || filter == "" || a.Type == filter))
                     .OrderBy(a => a.Type)
                     .ThenBy(a => a.Name)
                     .ToList();
@@ -431,13 +430,9 @@ namespace BESM3CAData.Model
 
         public void AddChild(BaseNode child)
         {
-            if (FirstChild == null)
+            if (Children.Count > 0)            
             {
-                FirstChild = child;
-            }
-            else
-            {
-                BaseNode temp = FirstChild;
+                BaseNode temp = Children[0];
                 while (temp.Next != null)
                 {
                     temp = temp.Next;
@@ -457,10 +452,7 @@ namespace BESM3CAData.Model
         {
             if (Parent != null) //Do not delete root node!
             {
-                if (Parent.FirstChild == this) //if we are the first child, advance to next (or copy null value)
-                {
-                    Parent.FirstChild = Next;
-                }
+                
                 if (Prev != null) //we have at least one previous entry, so not the first child 
                 {
                     Prev.Next = Next;
@@ -503,10 +495,7 @@ namespace BESM3CAData.Model
             {
                 BaseNode temp = Prev;
 
-                if (temp.Parent?.FirstChild == temp)
-                {
-                    temp.Parent.FirstChild = this;
-                }
+                
 
                 if (Next != null)
                 {
@@ -537,10 +526,7 @@ namespace BESM3CAData.Model
             {
                 BaseNode temp = Next;
 
-                if (Parent?.FirstChild == this)
-                {
-                    Parent.FirstChild = temp;
-                }
+                
 
                 if (Prev != null)
                 {
@@ -573,12 +559,10 @@ namespace BESM3CAData.Model
 
         public virtual void InvalidateGenrePoints()
         {
-            BaseNode? child = FirstChild;
-            while (child != null)
+            foreach (BaseNode child in Children)
             {
                 child.InvalidateGenrePoints();
-                child = child.Next;
-            }
+            }            
         }
 
         //Getting stats:
@@ -643,8 +627,7 @@ namespace BESM3CAData.Model
                                 if (AssociatedController.SelectedListingData != null)
                                 {
                                     AssociatedListing = AssociatedController.SelectedListingData.AttributeList?.Find(n => n.Name == Name);
-                                    Useable = true;
-                                    ID = AssociatedListing?.ID ?? 0;
+                                    Useable = true;                                    
                                 }
                                 break;
 

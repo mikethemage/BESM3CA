@@ -4,9 +4,8 @@ using System.ComponentModel;
 namespace Triarch.Dtos.Definitions;
 
 public class ProgressionDto
-{   
-    public int Id { get; set; }
-
+{
+    [Required]
     [MaxLength(100)]
     public string ProgressionType { get; set; } = string.Empty;
 
@@ -14,9 +13,7 @@ public class ProgressionDto
     public bool CustomProgression { get; set; } = false;
 
     [DefaultValue(false)]
-    public bool Linear { get; set; } = false;
-
-    
+    public bool Linear { get; set; } = false;    
 
     public List<ProgressionEntryDto> Progressions { get; set; } = [];
 }

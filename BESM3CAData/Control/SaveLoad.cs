@@ -302,7 +302,7 @@ namespace BESM3CAData.Control
             return output;
         }        
 
-        public static void ExportNode(BaseNode nodes, int tabdepth, TextWriter tw)
+        public static void ExportNode(BaseNode current, int tabdepth, TextWriter tw)
         {
             //Code to export to Text format:
             string tabstring = "";
@@ -312,9 +312,7 @@ namespace BESM3CAData.Control
             }
             bool isAttrib = false;
 
-            BaseNode? current = nodes;
-            while (current != null)
-            {
+            
                 string nexttabstring;
 
                 if (current is CharacterNode currentCharacter)
@@ -387,9 +385,13 @@ namespace BESM3CAData.Control
                     tw.WriteLine($"{nexttabstring}[Notes: {current.Notes.Replace("\n", "\n" + nexttabstring)}]");
                 }
 
-                if(current.FirstChild!=null)
+                if(current.Children.Count>0)
                 {
-                    ExportNode(current.FirstChild, tabdepth + 1, tw);
+                    foreach(var node in current.Children)
+                    {
+                        ExportNode(node, tabdepth + 1, tw);
+                    }
+                    
                 }                
 
                 if (isAttrib)
@@ -400,18 +402,15 @@ namespace BESM3CAData.Control
                     }
                     tw.WriteLine();
                 }
-                current = current.Next;
-            }
+                
         }
 
-        public static void ExportHTMLNode(BaseNode nodes, int tabdepth, TextWriter tw)
+        public static void ExportHTMLNode(BaseNode current, int tabdepth, TextWriter tw)
         {
             //Code to export to HTML format:
             bool isAttrib = false;
 
-            BaseNode? current = nodes;
-            while (current != null)
-            {
+            
                 if (current is CharacterNode currentCharacter)
                 {
                     tw.WriteLine("<li class=\"CharacterNode\">");
@@ -443,11 +442,14 @@ namespace BESM3CAData.Control
                         tw.WriteLine("</div>");
                     }
 
-                    if (current.FirstChild != null)
+                    if (current.Children.Count > 0)
                     {
                         tw.WriteLine("<ul class=\"AttributeList\">");
 
-                        ExportHTMLNode(current.FirstChild, tabdepth + 1, tw);
+                        foreach (BaseNode node in current.Children)
+                        {
+                            ExportHTMLNode(node, tabdepth + 1, tw);
+                        }
 
                         tw.WriteLine("</ul>");
                     }
@@ -496,10 +498,13 @@ namespace BESM3CAData.Control
                         tw.WriteLine($"<p>[Notes: {current.Notes.Replace("\n", "<br>")}]</p>");
                     }
 
-                    if (current.FirstChild != null)
+                    if (current.Children.Count > 0)
                     {
                         tw.WriteLine("<ul class=\"AttributeList\">");
-                        ExportHTMLNode(current.FirstChild, tabdepth + 1, tw);
+                        foreach (BaseNode node in current.Children)
+                        {
+                            ExportHTMLNode(node, tabdepth + 1, tw);
+                        }                        
                         tw.WriteLine("</ul>");
                     }
                     if (isAttrib)
@@ -512,8 +517,7 @@ namespace BESM3CAData.Control
                     tw.WriteLine("</li>");
                 }
 
-                current = current.Next;
-            }
+               
         }
     }
 }

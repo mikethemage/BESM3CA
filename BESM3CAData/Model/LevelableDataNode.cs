@@ -105,8 +105,7 @@ namespace BESM3CAData.Model
         protected void RefreshVariablesOrRestrictions()
         {
             int tempVariablesOrRestrictions = 0;
-            BaseNode? temp = FirstChild;
-            while (temp != null)
+            foreach (var temp in Children)
             {
                 if (temp is DataNode tempAttribute)
                 {
@@ -114,8 +113,7 @@ namespace BESM3CAData.Model
                     {
                         tempVariablesOrRestrictions += temp.Points;
                     }
-                }
-                temp = temp.Next;
+                }             
             }
             VariablesOrRestrictions = tempVariablesOrRestrictions;
         }
@@ -240,16 +238,14 @@ namespace BESM3CAData.Model
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
-                BaseNode? child = FirstChild;
-                while (child != null)
+                foreach (var child in Children)
                 {
                     if (child is DataNode childAttribute && childAttribute.AttributeType == "Restriction")
                     {
                         //If any child restrictions are present then don't automatically add the current attribute to the Character's stats as they do not always apply
                         stats = new CalcStats(0, 0, 0, 0);
                         break;
-                    }
-                    child = child.Next;
+                    }                 
                 }
             }
 

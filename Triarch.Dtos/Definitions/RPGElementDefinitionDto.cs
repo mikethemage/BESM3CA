@@ -5,8 +5,6 @@ namespace Triarch.Dtos.Definitions;
 
 public class RPGElementDefinitionDto
 {
-    public int Id { get; set; }
-
     [MaxLength(100)]
     [Required]
     public string ElementName { get; set; } = null!;

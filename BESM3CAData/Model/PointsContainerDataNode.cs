@@ -60,8 +60,7 @@ namespace BESM3CAData.Model
         private void RefreshVariablesOrRestrictions()
         {
             int tempVariablesOrRestrictions = 0;
-            BaseNode? temp = FirstChild;
-            while (temp != null)
+            foreach (var temp in Children)
             {
                 if (temp is DataNode tempAttribute)
                 {
@@ -69,16 +68,13 @@ namespace BESM3CAData.Model
                     {
                         tempVariablesOrRestrictions += temp.Points;
                     }
-                }
-                temp = temp.Next;
+                }             
             }
             VariablesOrRestrictions = tempVariablesOrRestrictions;
         }
 
-
-
-
         private int _childPoints;
+
         public virtual int ChildPoints
         {
             get
@@ -100,8 +96,7 @@ namespace BESM3CAData.Model
         {
             int tempChildPoints = 0;
 
-            BaseNode? temp = FirstChild;
-            while (temp != null)
+            foreach (var temp in Children)
             {
                 if (temp is DataNode tempAttribute)
                 {
@@ -117,9 +112,7 @@ namespace BESM3CAData.Model
                 else
                 {
                     tempChildPoints += temp.Points;
-                }
-
-                temp = temp.Next;
+                }             
             }
             ChildPoints = tempChildPoints;
         }

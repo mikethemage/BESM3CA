@@ -51,7 +51,7 @@ namespace BESM3CAData.Listings
 
         public VariantDefinitionDto Serialize()
         {
-            return new VariantDefinitionDto { Id = this.ID, VariantName = this.Name ?? "", CostPerLevel = this.CostperLevel, Description = this.Desc, IsDefault = this.DefaultVariant };
+            return new VariantDefinitionDto { VariantName = this.Name!, CostPerLevel = this.CostperLevel, Description = this.Desc, IsDefault = this.DefaultVariant };
         }
 
     }

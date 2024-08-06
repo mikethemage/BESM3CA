@@ -11,7 +11,7 @@ namespace BESM3CAData.Listings
     {
         //Properties:
         //Everything should have:
-        public int ID { get; private set; }
+        
         public string? Name { get; private set; }
         public string? Type { get; private set; }
         public string? Description { get; private set; }  //Character doesn't need description really
@@ -101,8 +101,7 @@ namespace BESM3CAData.Listings
         public virtual RPGElementDefinitionDto Serialize()
         {
             RPGElementDefinitionDto result = new RPGElementDefinitionDto
-            {
-                Id = this.ID,
+            {                
                 ElementName = this.Name ?? "",
                 Stat = this.Stat,
                 PageNumbers = this.Page,
@@ -133,8 +132,7 @@ namespace BESM3CAData.Listings
         }
 
         public DataListing(RPGElementDefinitionDto data)
-        {
-            ID = data.Id;
+        {            
             Name = data.ElementName;
             Stat = data.Stat ?? "";
             Page = data.PageNumbers ?? "";

@@ -5,9 +5,7 @@ namespace Triarch.Dtos.Definitions;
 
 public class VariantDefinitionDto
 {
-    [Key]
-    public int Id { get; set; }
-
+    [Required]
     [MaxLength(100)]
     public string VariantName { get; set; } = null!;
 

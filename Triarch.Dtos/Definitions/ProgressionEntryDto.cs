@@ -4,8 +4,6 @@ namespace Triarch.Dtos.Definitions;
 
 public class ProgressionEntryDto
 {
-    public int Id { get; set; }
-
     [MaxLength(400)]
     public string Text { get; set; } = string.Empty;
 

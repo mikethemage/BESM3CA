@@ -23,8 +23,8 @@ namespace BESM3CAData.Test
 
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
-            Assert.NotNull(testController.CurrentEntity.RootCharacter.FirstChild);
-            DataNode foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.FirstChild;            
+            Assert.True(testController.CurrentEntity.RootCharacter.Children.Count>0);
+            DataNode foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.Children[0];            
             Assert.Contains(foundAttribute.Name, foundAttribute.DisplayText);
         }
 
@@ -42,8 +42,8 @@ namespace BESM3CAData.Test
 
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
-            Assert.NotNull(testController.CurrentEntity.RootCharacter.FirstChild);
-            DataNode foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.FirstChild;
+            Assert.True(testController.CurrentEntity.RootCharacter.Children.Count>0);
+            DataNode foundAttribute = (DataNode)testController.CurrentEntity.RootCharacter.Children[0];
             Assert.Contains(foundAttribute.Points.ToString() + " Points", foundAttribute.DisplayText);
         }
 
@@ -61,8 +61,8 @@ namespace BESM3CAData.Test
             LevelableDataListing selectedAttribute = (LevelableDataListing)testController.CurrentEntity.RootCharacter.AssociatedListing.FilteredPotentialChildren[attributePosition];
 
             testController.CurrentEntity.RootCharacter.AddChildAttribute(selectedAttribute);
-            Assert.NotNull(testController.CurrentEntity.RootCharacter.FirstChild);
-            LevelableDataNode foundAttribute = (LevelableDataNode)testController.CurrentEntity.RootCharacter.FirstChild;
+            Assert.True(testController.CurrentEntity.RootCharacter.Children.Count > 0);
+            LevelableDataNode foundAttribute = (LevelableDataNode)testController.CurrentEntity.RootCharacter.Children[0];
             for (int i = 1; i < level; i++)
             {
                 foundAttribute.RaiseLevel();

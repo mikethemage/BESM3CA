@@ -9,8 +9,8 @@ namespace BESM3CAData.Test
         [Fact]
         public void Attribute_AddChildShouldWork()
         {
-            RPGElementDefinitionDto testParentSerialized = new RPGElementDefinitionDto { Id = 1, ElementName = "Test Parent", LevelableData = new LevelableDefinitionDto { CostPerLevel=0,MaxLevel=0,EnforceMaxLevel=false } };
-            RPGElementDefinitionDto testChild1Serialized = new RPGElementDefinitionDto { Id = 2, ElementName = "Test Child1", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
+            RPGElementDefinitionDto testParentSerialized = new RPGElementDefinitionDto { ElementName = "Test Parent", LevelableData = new LevelableDefinitionDto { CostPerLevel=0,MaxLevel=0,EnforceMaxLevel=false } };
+            RPGElementDefinitionDto testChild1Serialized = new RPGElementDefinitionDto { ElementName = "Test Child1", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
 
             DataListing testParent = new LevelableDataListing(testParentSerialized);
             DataListing testChild1 = new LevelableDataListing(testChild1Serialized);
@@ -24,9 +24,9 @@ namespace BESM3CAData.Test
         public void Attribute_GetChildrenListShouldWork()
         {
 
-            RPGElementDefinitionDto testParentSerialized = new RPGElementDefinitionDto { Id = 1, ElementName = "Test Parent", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
-            RPGElementDefinitionDto testChild1Serialized = new RPGElementDefinitionDto { Id = 2, ElementName = "Test Child1", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
-            RPGElementDefinitionDto testChild2Serialized = new RPGElementDefinitionDto { Id = 3, ElementName = "Test Child2", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
+            RPGElementDefinitionDto testParentSerialized = new RPGElementDefinitionDto { ElementName = "Test Parent", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
+            RPGElementDefinitionDto testChild1Serialized = new RPGElementDefinitionDto { ElementName = "Test Child1", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
+            RPGElementDefinitionDto testChild2Serialized = new RPGElementDefinitionDto { ElementName = "Test Child2", LevelableData = new LevelableDefinitionDto { CostPerLevel = 0, MaxLevel = 0, EnforceMaxLevel = false } };
 
             DataListing testParent = new LevelableDataListing(testParentSerialized);
             DataListing testChild1 = new LevelableDataListing(testChild1Serialized);

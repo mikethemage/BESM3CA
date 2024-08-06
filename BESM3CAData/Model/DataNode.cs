@@ -106,15 +106,13 @@ namespace BESM3CAData.Model
 
             if (stats.ACV > 0 || stats.DCV > 0 || stats.Energy > 0 || stats.Health > 0)
             {
-                BaseNode? child = FirstChild;
-                while (child != null)
+                foreach (var child in Children)
                 {
                     if (child is DataNode childAttribute && childAttribute.AttributeType == "Restriction")
                     {
                         stats = new CalcStats(0, 0, 0, 0);
                         break;
-                    }
-                    child = child.Next;
+                    }                 
                 }
             }
 
