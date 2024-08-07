@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESM3CAData.Test", "BESM3CA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triarch.Dtos", "Triarch.Dtos\Triarch.Dtos.csproj", "{5528B3EA-7FAC-4F14-89A0-1EBF791FC614}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triarch.BusinessLogic", "Triarch.BusinessLogic\Triarch.BusinessLogic.csproj", "{63E8580B-196F-4AD0-A532-2E29750E268A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triarch.BusinessLogic", "Triarch.BusinessLogic\Triarch.BusinessLogic.csproj", "{63E8580B-196F-4AD0-A532-2E29750E268A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triarch.Prototype", "Triarch.Prototype\Triarch.Prototype.csproj", "{409B0501-3C6A-4821-9898-04BF9D922052}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{63E8580B-196F-4AD0-A532-2E29750E268A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E8580B-196F-4AD0-A532-2E29750E268A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63E8580B-196F-4AD0-A532-2E29750E268A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{409B0501-3C6A-4821-9898-04BF9D922052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{409B0501-3C6A-4821-9898-04BF9D922052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{409B0501-3C6A-4821-9898-04BF9D922052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{409B0501-3C6A-4821-9898-04BF9D922052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

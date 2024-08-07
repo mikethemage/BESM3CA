@@ -15,4 +15,6 @@ public class RPGElementDto
     public string Notes { get; set; } = string.Empty;
 
     public List<RPGElementDto>? Children { get; set; }
+
+    public bool IsFreebie { get; set; } = false;
 }

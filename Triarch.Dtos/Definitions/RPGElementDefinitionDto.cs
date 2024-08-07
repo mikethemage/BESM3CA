@@ -23,11 +23,8 @@ public class RPGElementDefinitionDto
 
     [DefaultValue(false)]
     public bool Human { get; set; } = false;
-
       
-    public List<string> AllowedChildrenNames { get; set; } = [];
-
-    
+    public List<string> AllowedChildrenNames { get; set; } = [];    
 
     public LevelableDefinitionDto? LevelableData { get; set; } = null;
 

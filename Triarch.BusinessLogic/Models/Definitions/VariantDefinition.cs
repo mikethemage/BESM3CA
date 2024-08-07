@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Triarch.BusinessLogic.Models.Definitions;
-public class Freebie
-{    
-    public RPGElementDefinition FreebieElementDefinition { get; set; } = null!;
+public class VariantDefinition
+{
+    public string VariantName { get; set; } = null!;
+
+    public int CostPerLevel { get; set; }
     
-    public int FreeLevels { get; set; }
+    public string Description { get; set; } = string.Empty;
     
-    public int RequiredLevels { get; set; }
+    public bool IsDefault { get; set; } = false;
 }

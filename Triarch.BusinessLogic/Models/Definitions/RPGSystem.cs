@@ -17,18 +17,5 @@ public class RPGSystem
 
     public List<Genre> Genres { get; set; } = new();
 
-    public List<Progression> Progressions { get; set; } = new();
-
-    public string GetProgression(string progressionType, int rank)
-    {
-        Progression? SelectedProgression = Progressions.Find(n => n.ProgressionType == progressionType);
-        if (SelectedProgression == null)
-        {
-            return "";
-        }
-        else
-        {
-            return SelectedProgression.GetProgressionValue(rank);
-        }
-    }   
+    public List<Progression> Progressions { get; set; } = new();    
 }

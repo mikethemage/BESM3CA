@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Triarch.Dtos\Triarch.Dtos.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MathParser.org-mXparser" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>
