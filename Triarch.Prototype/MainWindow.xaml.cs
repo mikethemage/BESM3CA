@@ -14,6 +14,8 @@ using Triarch.BusinessLogic.Models.Entities;
 using Triarch.BusinessLogic.Services;
 using Triarch.Dtos.Definitions;
 using Triarch.Dtos.Entities;
+using Triarch.Prototype.ViewModels;
+using Triarch.Prototype.Views;
 
 namespace Triarch.Prototype;
 /// <summary>
@@ -64,6 +66,11 @@ public partial class MainWindow : Window
                         string outputText = JsonSerializer.Serialize(outputDto, new JsonSerializerOptions { PropertyNameCaseInsensitive = true, DefaultIgnoreCondition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull });
 
                         File.WriteAllText("D:\\Stuff\\RPGs\\BESM\\BESM 3rd Edition\\BESM Characters\\Converted\\test10.json", outputText);
+
+                        EntityViewModel entityViewModel = new EntityViewModel(entity, "D:\\Stuff\\RPGs\\BESM\\BESM 3rd Edition\\BESM Characters\\Converted\\test10.json");
+
+                        EntityEditor editorWindow = new EntityEditor(entityViewModel);
+                        editorWindow.ShowDialog();
 
                     }
                 }
