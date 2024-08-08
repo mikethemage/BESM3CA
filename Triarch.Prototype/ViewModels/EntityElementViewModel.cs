@@ -1,9 +1,10 @@
-﻿using Triarch.BusinessLogic.Models.Definitions;
+﻿using System.ComponentModel;
+using Triarch.BusinessLogic.Models.Definitions;
 using Triarch.BusinessLogic.Models.Entities;
 
 namespace Triarch.Prototype.ViewModels;
 
-public class EntityElementViewModel
+public class EntityElementViewModel : INotifyPropertyChanged
 {
     public EntityElementViewModel(RPGElement element)
     {
@@ -28,9 +29,13 @@ public class EntityElementViewModel
 
     private readonly RPGElement _element;
 
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public VariantListViewModel? VariantList { get; private set; } = null;
     public AllowedChildrenViewModel AllowedChildrenList { get; set; } = null!;
 
     public CharacterDataViewModel? CharacterData { get; set; } = null;
     public LevelableDataViewModel? LevelableData { get; set; } = null;
+
+    public int Points { get { return _element.Points; } }
 }

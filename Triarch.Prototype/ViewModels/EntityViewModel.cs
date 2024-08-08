@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using Triarch.BusinessLogic.Models.Entities;
 
 namespace Triarch.Prototype.ViewModels;
 
-public class EntityViewModel
+public class EntityViewModel : INotifyPropertyChanged
 {
     public string FileName
     {
@@ -25,17 +26,37 @@ public class EntityViewModel
         }
     }
 
+    private void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     private readonly RPGEntity _entity;
     private string _filePath;
+    private EntityElementViewModel? _selectedElement = null;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public EntityViewModel(RPGEntity entity, string filePath = "")
     {
         _entity = entity;
         _filePath = filePath;
-        EntityElements = new EntityElementsListViewModel(_entity);
+        EntityElements = new EntityElementsListViewModel(_entity, this);
+        OnPropertyChanged(nameof(EntityElements));
     }
 
     public EntityElementsListViewModel EntityElements { get; private set; }
 
-    public EntityElementViewModel? SelectedElement { get; set; } = null;
+    public EntityElementViewModel? SelectedElement
+    {
+        get
+        {
+            return _selectedElement;
+        }
+        set
+        {
+            _selectedElement = value;
+            OnPropertyChanged(nameof(SelectedElement));
+        }
+    }
 }

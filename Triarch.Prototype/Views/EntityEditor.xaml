@@ -10,7 +10,21 @@
         d:DataContext="{d:DesignInstance Type=vm:EntityViewModel}"
         >
     <Grid>
-        <Label x:Name="filenameLabel" Content="{Binding FileName}" HorizontalAlignment="Left" Margin="101,60,0,0" VerticalAlignment="Top"/>
+        <TreeView  x:Name="CharacterTreeView"  Margin="10,10,484,10" ItemsSource="{Binding Path=EntityElements.RootElements}" >
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="x:Type vm:EntityElementListItemViewModel" ItemsSource="{Binding Path=Children}">
+                    <TextBlock Text="{Binding Path=DisplayText}"  />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="True" />
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <local:GenericElementDataView DataContext="{Binding SelectedElement}" HorizontalAlignment="Left" Margin="354,85,0,0" VerticalAlignment="Top" Height="215"/>
+
 
 
     </Grid>
